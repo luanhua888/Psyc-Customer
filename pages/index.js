@@ -15,23 +15,23 @@ export default function Home(props) {
         <>
             <section id='hero-banner' className='bg-slate-700'>
                 <div className='md:container mx-auto py-6'>
-                    <div className='p-12 flex justify-between items-center bg-gradient-to-r from-yellow-400 to-slate-200 rounded-3xl'>
-                        <Image className='' src={astroRoundedImg} alt='' />
-                        <div className='flex flex-col gap-5 text-slate-800'>
+                    <div className='p-12 flex justify-between items-center bg-gradient-to-r from-indigo-400 to-slate-100 rounded-3xl'>
+                        <Image className='animate-spin  ' src={astroRoundedImg} alt='' />
+                        <div className='flex flex-col gap-4 text-slate-800'>
                             <h3 className='font-sans text-[2.625rem] leading-[3.125rem]'>
-                                Got any questions?
+                               Bất kì câu hỏi nào?
                             </h3>
-                            <h1 className='font-sans text-[3.25rem] leading-[3.875rem] font-semibold'>
-                                Chat with Astrologer
+                            <h1 className='font-sans text-[2.65rem] leading-[3.875rem] font-semibold'>
+                                Trò chuyện với tư vấn viên
                             </h1>
                             <p className='font-sans text-[2.625rem] leading-[3.125rem]'>
-                                FOR FREE
+                                MIễn Phí
                             </p>
                         </div>
                         <a
                             href='#'
-                            className='py-3 px-8 bg-yellow-300 rounded-full text-3xl font-semibold hover:ring-8 hover:ring-yellow-500'>
-                            Chat now
+                            className='py-3 px-8 bg-indigo-500 rounded-full text-3xl font-semibold hover:ring-8 hover:ring-offset-sky-700-500'>
+                            Trò chuyện ngay
                         </a>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ export default function Home(props) {
                 </div>
             </section>
 
-            <section id='services' className='bg-yellow-400'>
+            <section id='services' className='bg-indigo-300'>
                 <div className='md:container mx-auto py-5'>
                     <div className='flex flex-col justify-between gap-3'>
                         <div className='flex flex-row flex-wrap justify-between gap-3'>
@@ -117,7 +117,7 @@ export default function Home(props) {
                         COMPLIMENTARY ASTROLOGY SERVICES
                     </h1>
                     <div className='flex justify-around gap-4'>
-                        <div className='flex flex-col gap-1 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-yellow-300'>
+                        <div className='flex flex-col gap-1 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-indigo-300'>
                             <Image
                                 src={astroRoundedImg}
                                 alt=''
@@ -137,7 +137,7 @@ export default function Home(props) {
                                 </p>
                             </div>
                         </div>
-                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-yellow-300'>
+                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-indigo-300'>
                             <Image
                                 src={astroRoundedImg}
                                 alt=''
@@ -157,7 +157,7 @@ export default function Home(props) {
                                 </p>
                             </div>
                         </div>
-                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-yellow-300'>
+                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-indigo-300'>
                             <Image
                                 src={astroRoundedImg}
                                 alt=''
@@ -177,7 +177,7 @@ export default function Home(props) {
                                 </p>
                             </div>
                         </div>
-                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-yellow-300'>
+                        <div className='flex flex-col gap-3 justify-center items-center bg-white py-10 px-5 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-indigo-300'>
                             <Image
                                 src={astroRoundedImg}
                                 alt=''
@@ -202,7 +202,7 @@ export default function Home(props) {
             </section>
 
             <section id='#trust_score'>
-                <div className='md:container mx-auto py-9 bg-gradient-to-b from-yellow-400 to-slate-800'>
+                <div className='md:container mx-auto py-9 bg-gradient-to-b from-indigo-300 to-slate-800'>
                     <div className='flex justify-evenly items-center text-white text-center'>
                         <div>
                             <p className='text-3xl font-bold'>6,902+</p>
@@ -276,45 +276,45 @@ export default function Home(props) {
                 </div>
             </section>
 
-            <footer className='bg-slate-700'>
+            <footer className='bg-slate-600'>
                 <div className='md:container mx-auto py-10 px-12'>
                     <div className='flex justify-between text-slate-200'>
                         <div className='flex flex-col gap-5'>
-                            <h3 className='font-semibold text-2xl border-b-2 border-yellow-300'>
+                            <h3 className='font-semibold text-2xl border-b-2 border-indigo-300'>
                                 TỔNG ĐÀI HỖ TRỢ
                             </h3>
                             <p>Góp ý, khiếu nại 0964155538</p>
                         </div>
                         <div className='flex flex-col gap-5'>
-                            <h3 className='font-semibold text-2xl border-b-2 border-yellow-300'>
+                            <h3 className='font-semibold text-2xl border-b-2 border-indigo-300'>
                                 VỀ PYSC
                             </h3>
                             <ul className='flex flex-col gap-2'>
                                 <li>
                                     <a
                                         href='#'
-                                        className='hover:border-b-2 hover:border-yellow-300'>
+                                        className='hover:border-b-2 hover:border-indigo-300'>
                                         Giới thiệu
                                     </a>
                                 </li>
                                 <li>
                                     <a
                                         href='#'
-                                        className='hover:border-b-2 hover:border-yellow-300'>
+                                        className='hover:border-b-2 hover:border-indigo-300'>
                                         Giới thiệu
                                     </a>
                                 </li>
                                 <li>
                                     <a
                                         href='#'
-                                        className='hover:border-b-2 hover:border-yellow-300'>
+                                        className='hover:border-b-2 hover:border-indigo-300'>
                                         Giới thiệu
                                     </a>
                                 </li>
                                 <li>
                                     <a
                                         href='#'
-                                        className='hover:border-b-2 hover:border-yellow-300'>
+                                        className='hover:border-b-2 hover:border-indigo-300'>
                                         Giới thiệu
                                     </a>
                                 </li>
