@@ -40,7 +40,7 @@ export default function Navbar() {
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-3 justify-center items-center'>
                         <Image src={logo} alt='' />
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col font-bold ' >
                             <span>PSYC</span>
                             <span>Psychological Counselling</span>
                         </div>
@@ -49,35 +49,35 @@ export default function Navbar() {
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-yellow-300'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
                                 Trang chủ
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-yellow-300'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
                                 Trực tiếp
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-yellow-300'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
                                 Dịch vụ
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-yellow-300'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
                                 Tương thích cặp đôi
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-yellow-300'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
                                 Bản đồ sao
                             </a>
                         </li>
@@ -88,11 +88,11 @@ export default function Navbar() {
                             <a onClick={onLogout}>Logout</a>
                         </div>
                     ) : (
-                        <div className='flex justify-center items-center gap-5'>
-                            <a onClick={() => modalLoginRef.current?.open()}>
+                        <div className='flex justify-center items-center gap-5 font-semibold  '>
+                            <a className='bg-indigo-300 rounded px-2 py-1 ' onClick={() => modalLoginRef.current?.open()}>
                                 Đăng nhập
                             </a>
-                            <a onClick={() => modalRegisterRef.current?.open()}>
+                            <a className='bg-indigo-300 rounded px-2 py-1 ' onClick={() => modalRegisterRef.current?.open()}>
                                 Đăng ký
                             </a>
                         </div>

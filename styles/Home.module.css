@@ -73,6 +73,7 @@
   max-width: 800px;
 }
 
+
 .card {
   margin: 1rem;
   padding: 1.5rem;
@@ -115,6 +116,7 @@
   }
 }
 
+
 @media (prefers-color-scheme: dark) {
   .card,
   .footer {
@@ -127,3 +129,4 @@
     filter: invert(1);
   }
 }
+
