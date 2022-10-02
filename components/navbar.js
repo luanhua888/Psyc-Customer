@@ -2,8 +2,8 @@ import { useRef, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
-import ModalRegister from './modal/ModalRegister';
-import ModalLogin from './modal/ModalLogin';
+import ModalRegister from './modal/ModalRegister';
+import ModalLogin from './modal/ModalLogin';
 import logo from '../public/logo.png';
 import { userService } from '../services/UserService';
 
