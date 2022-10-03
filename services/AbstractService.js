@@ -12,6 +12,10 @@ class AbstractService {
     httpPOST = (url, data, options) => {
         return this.http('post', url, data, options);
     };
+
+    httpPUT = (url, data, options) => {
+        return this.http('put', url, data, options);
+    };
 }
 
 export default AbstractService;

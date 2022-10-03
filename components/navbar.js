@@ -40,7 +40,7 @@ export default function Navbar() {
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-3 justify-center items-center'>
                         <Image src={logo} alt='' />
-                        <div className='flex flex-col font-bold ' >
+                        <div className='flex flex-col font-bold '>
                             <span>PSYC</span>
                             <span>Psychological Counselling</span>
                         </div>
@@ -88,11 +88,17 @@ export default function Navbar() {
                             <a onClick={onLogout}>Logout</a>
                         </div>
                     ) : (
-                        <div className='flex justify-center items-center gap-5 font-semibold  '>
-                            <a className='bg-indigo-300 rounded px-2 py-1 ' onClick={() => modalLoginRef.current?.open()}>
+                        <div className='flex justify-center items-center gap-3 font-semibold  '>
+                            <a
+                                className='bg-indigo-300 rounded px-3 py-2 cursor-pointer hover:bg-indigo-500 hover:ring'
+                                onClick={() => modalLoginRef.current?.open()}>
                                 Đăng nhập
                             </a>
-                            <a className='bg-indigo-300 rounded px-2 py-1 ' onClick={() => modalRegisterRef.current?.open()}>
+                            <a
+                                className='bg-indigo-300 rounded px-3 py-2 cursor-pointer hover:bg-indigo-500 hover:ring'
+                                onClick={() =>
+                                    modalRegisterRef.current?.open()
+                                }>
                                 Đăng ký
                             </a>
                         </div>
