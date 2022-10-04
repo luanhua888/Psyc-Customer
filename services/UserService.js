@@ -3,6 +3,7 @@ import AbstractService from './AbstractService';
 const API = {
     LOGIN: 'FirebaseServices/loginapp',
     REGISTER: 'Users/createcustomer',
+    REGISTER_INFOR: 'Customers/update',
     REGISTER_RESEND_CODE: 'register/resend',
     REGISTER_CONFIRM: 'register/confirm',
     PROFILE: 'Users/getbyid',
@@ -24,6 +25,14 @@ class UserService extends AbstractService {
         });
     };
 
+
+    registerInfor = (fullname, email) => {
+        return this.httpPUT(API.REGISTER_INFOR, {
+            fullName: fullname,
+            email: email,
+        });
+    };
+    
     registerResendCode = (email) => {
         return this.httpPOST(
             API.REGISTER_RESEND_CODE,
