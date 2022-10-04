@@ -5,6 +5,7 @@ const API = {
     REGISTER: 'Users/createcustomer',
     REGISTER_INFOR: 'Customers/update',
     REGISTER_RESEND_CODE: 'register/resend',
+    REGISTER_CHECK_BY_EMAIL: 'Users/checkbyemail',
     REGISTER_CONFIRM: 'register/confirm',
     PROFILE: 'Users/getbyid',
 };
@@ -25,14 +26,13 @@ class UserService extends AbstractService {
         });
     };
 
-
     registerInfor = (fullname, email) => {
         return this.httpPUT(API.REGISTER_INFOR, {
             fullName: fullname,
             email: email,
         });
     };
-    
+
     registerResendCode = (email) => {
         return this.httpPOST(
             API.REGISTER_RESEND_CODE,
@@ -50,6 +50,10 @@ class UserService extends AbstractService {
             email,
             code,
         });
+    };
+
+    registerCheckByEmail = (email) => {
+        return this.httpGET(API.REGISTER_CHECK_BY_EMAIL, { email });
     };
 
     profile = (id) => {
