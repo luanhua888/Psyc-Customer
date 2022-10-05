@@ -7,6 +7,7 @@ const API = {
     REGISTER_RESEND_CODE: 'register/resend',
     REGISTER_CHECK_BY_EMAIL: 'Users/checkbyemail',
     REGISTER_CONFIRM: 'register/confirm',
+    CHANGE_PASSWORD: 'register/change-pass',
     PROFILE: 'Users/getbyid',
 };
 
@@ -46,9 +47,17 @@ class UserService extends AbstractService {
     };
 
     registerConfirm = (email, code) => {
-        return this.httpPUT(API.REGISTER_CONFIRM, {
+        return this.httpPUT(API.CHANGE_PASSWORD, {
             email,
             code,
+        });
+    };
+
+    changePassword = (email, code, password) => {
+        return this.httpPUT(API.CHANGE_PASSWORD, {
+            email,
+            code: `${code}`,
+            passWord: password,
         });
     };
 

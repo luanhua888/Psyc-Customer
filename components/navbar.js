@@ -85,7 +85,9 @@ export default function Navbar() {
                     {Object.keys(user).length >= 1 ? (
                         <div className='flex justify-center items-center gap-5'>
                             <p className='text-lg font-bold'>{user.userName}</p>
-                            <a onClick={onLogout}>Logout</a>
+                            <a className='cursor-pointer' onClick={onLogout}>
+                                Logout
+                            </a>
                         </div>
                     ) : (
                         <div className='flex justify-center items-center gap-3 font-semibold  '>
