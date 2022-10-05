@@ -16,10 +16,14 @@ export default function Home(props) {
             <section id='hero-banner' className='bg-slate-700'>
                 <div className='md:container mx-auto py-6'>
                     <div className='p-12 flex justify-between items-center bg-gradient-to-r from-indigo-400 to-slate-100 rounded-3xl'>
-                        <Image className='animate-spin  ' src={astroRoundedImg} alt='' />
+                        <Image
+                            className='animate-spin  '
+                            src={astroRoundedImg}
+                            alt=''
+                        />
                         <div className='flex flex-col gap-4 text-slate-800'>
                             <h3 className='font-sans text-[2.625rem] leading-[3.125rem]'>
-                               Bất kì câu hỏi nào?
+                                Bất kì câu hỏi nào?
                             </h3>
                             <h1 className='font-sans text-[2.65rem] leading-[3.875rem] font-semibold'>
                                 Trò chuyện với tư vấn viên
@@ -46,7 +50,7 @@ export default function Home(props) {
                                 width={65}
                                 height={65}
                             />
-                            <a href='#'>Chat</a>
+                            <a href='#'>Trực tiếp</a>
                         </div>
                         <div className='flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl'>
                             <Image
@@ -55,7 +59,7 @@ export default function Home(props) {
                                 width={65}
                                 height={65}
                             />
-                            <a href='#'>Chat</a>
+                            <a href='#'>Dịch vụ</a>
                         </div>
                         <div className='flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl'>
                             <Image
@@ -64,7 +68,7 @@ export default function Home(props) {
                                 width={65}
                                 height={65}
                             />
-                            <a href='#'>Chat</a>
+                            <a href='#'>Tương thích cặp đôi</a>
                         </div>
                         <div className='flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl'>
                             <Image
@@ -73,7 +77,7 @@ export default function Home(props) {
                                 width={65}
                                 height={65}
                             />
-                            <a href='#'>Chat</a>
+                            <a href='#'>Bản đồ sao</a>
                         </div>
                     </div>
                 </div>

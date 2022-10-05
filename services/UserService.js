@@ -29,7 +29,7 @@ class UserService extends AbstractService {
 
     registerInfor = (fullname, email) => {
         return this.httpPUT(API.REGISTER_INFOR, {
-            fullName: fullname,
+            fullname: fullname,
             email: email,
         });
     };
@@ -47,7 +47,7 @@ class UserService extends AbstractService {
     };
 
     registerConfirm = (email, code) => {
-        return this.httpPUT(API.CHANGE_PASSWORD, {
+        return this.httpPUT(API.REGISTER_CONFIRM, {
             email,
             code,
         });

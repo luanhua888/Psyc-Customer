@@ -35,9 +35,9 @@ export default function Navbar() {
     };
 
     return (
-        <nav>
+        <nav className='shadow-2xl'>
             <div className='md:container mx-auto py-3'>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center '>
                     <div className='flex gap-3 justify-center items-center'>
                         <Image src={logo} alt='' />
                         <div className='flex flex-col font-bold '>
