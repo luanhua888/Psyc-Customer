@@ -4,6 +4,8 @@ import { userService } from '../../services/UserService';
 import Modal from '../modal';
 import ModalLogin from './ModalLogin';
 
+import { Formik } from "formik";
+
 const ModalRegister = forwardRef((props, ref) => {
     const modalLoginRef = useRef();
 
@@ -16,7 +18,10 @@ const ModalRegister = forwardRef((props, ref) => {
         code: '',
     });
 
-    const [message, setMessage] = useState('');
+    const [errorMessages, setErrorMessages] = useState({
+        isError: false,
+        message: "",
+      });
     const [btnSubmitTitle, setBtnSubmitTitle] = useState('Đăng ký');
     const [isVerifyCode, setIsVerifyCode] = useState(false);
 
@@ -115,11 +120,22 @@ const ModalRegister = forwardRef((props, ref) => {
                     },
                 ]}
                 {...props}>
-                {message != '' && (
-                    <div className='flex justify-center items-center mb-3 text-blue-300 font-medium'>
-                        {message}
-                    </div>
-                )}
+
+
+
+
+{errorMessages.message && (
+          <div
+            className={`flex justify-center items-center mb-3 font-medium ${
+              errorMessages.isError ? "text-red-500" : "text-blue-500"
+            }`}
+          >
+            {errorMessages.message}
+          </div>
+        )}
+
+
+
                 {isVerifyCode ? (
                     <div className='flex flex-col'>
                         <div className='outline outline-blue-300 rounded'>
