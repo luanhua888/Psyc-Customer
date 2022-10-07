@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import ModalRegister from './modal/ModalRegister';
@@ -8,6 +8,8 @@ import logo from '../public/logo.png';
 import { userService } from '../services/UserService';
 
 export default function Navbar() {
+    const router = useRouter();
+
     const modalRegisterRef = useRef();
     const modalLoginRef = useRef();
 
@@ -48,36 +50,38 @@ export default function Navbar() {
                     <ul className='flex gap-5'>
                         <li>
                             <a
-                                href='#'
-                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
+                                onClick={() => router.push('/')}
+                                className='pb-2 hover:border-b-2
+                                hover:border-indigo-700 cursor-pointer'>
+                                {' '}
                                 Trang chủ
                             </a>
                         </li>
                         <li>
                             <a
-                                href='#'
-                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo-700 cursor-pointer'
+                                onClick={() => router.push('/chat')}>
                                 Trực tiếp
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo- cursor-pointer'>
                                 Dịch vụ
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo- cursor-pointer'>
                                 Tương thích cặp đôi
                             </a>
                         </li>
                         <li>
                             <a
                                 href='#'
-                                className='pb-2 hover:border-b-2 hover:border-indigo-700'>
+                                className='pb-2 hover:border-b-2 hover:border-indigo- cursor-pointer'>
                                 Bản đồ sao
                             </a>
                         </li>

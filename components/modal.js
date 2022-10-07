@@ -64,7 +64,10 @@ const Modal = ({
                             <div className='w-full flex justify-between items-center mb-6'>
                                 <p className='font-medium text-lg'>{title}</p>
                                 <div
-                                    onClick={() => HandleChange()}
+                                    onClick={() => {
+                                        onDiscard();
+                                        HandleChange();
+                                    }}
                                     className='w-8 h-8 flex justify-center items-center rounded-lg transition-all duration-200 cursor-pointer hover:bg-zinc-500/20'>
                                     <svg
                                         width='24px'
