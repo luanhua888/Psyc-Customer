@@ -16,6 +16,8 @@
     "@headlessui/react": "^1.7.3",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "flowbite": "^1.5.3",
+    "flowbite-react": "^0.1.12",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "12.3.1",

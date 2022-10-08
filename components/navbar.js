@@ -5,7 +5,9 @@ import Image from 'next/image';
 import ModalRegister from './modal/ModalRegister';
 import ModalLogin from './modal/ModalLogin';
 import logo from '../public/logo.png';
+import iconProfile from '../public/icon_profile.png';
 import { userService } from '../services/UserService';
+import { Dropdown } from 'flowbite-react';
 
 export default function Navbar() {
     const router = useRouter();
@@ -88,10 +90,31 @@ export default function Navbar() {
                     </ul>
                     {Object.keys(user).length >= 1 ? (
                         <div className='flex justify-center items-center gap-5'>
-                            <p className='text-lg font-bold'>{user.userName}</p>
-                            <a className='cursor-pointer' onClick={onLogout}>
-                                Logout
-                            </a>
+                            <Dropdown
+                                label={
+                                    <Image
+                                        src={iconProfile}
+                                        alt=''
+                                        width={35}
+                                        height={35}
+                                    />
+                                }
+                                arrowIcon={false}
+                                inline={true}>
+                                <Dropdown.Header>
+                                    <span className='block text-md font-bold'>
+                                        {user.userName}
+                                    </span>
+                                    <span className='block text-md font-medium truncate'>
+                                        {user.email}
+                                    </span>
+                                </Dropdown.Header>
+                                <Dropdown.Item>Thông tin</Dropdown.Item>
+                                <Dropdown.Item>Lịch sử cuộc hẹn</Dropdown.Item>
+                                <Dropdown.Item onClick={onLogout}>
+                                    Đăng xuất
+                                </Dropdown.Item>
+                            </Dropdown>
                         </div>
                     ) : (
                         <div className='flex justify-center items-center gap-3 font-semibold  '>
