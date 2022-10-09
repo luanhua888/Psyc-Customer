@@ -4,8 +4,18 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import heroBanner from '../../public/photos/hero-banner-profile.png';
 import profileAvatar from '../../public/photos/profile-avatar.png';
+import googleMapReact from 'google-map-react';
 
 export default function Profile() {
+
+    const defaultProps = {
+        center: {
+          lat: 10.99835602,
+          lng: 77.01502627
+        },
+        zoom: 11
+      };
+
     const formRef = useRef();
 
     const onSubmit = async () => {};
