@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function LiveStream_r () {
   return (
-    <>
+    <> 
     <main>
       {/* roomLive */}
     <div className=" roomBooking flex">
