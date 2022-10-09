@@ -4,11 +4,8 @@ export default function history (props) {
   return (
     <>
     <main className=" history flex flex-row">
-      <div className="history__left basis-1/4">
-         {/* fitter  */}
-      <h1>Trái</h1>
-      </div>
-      <div className="history__right basis-3/4">
+      
+      <div className="history__body basis-3/4 grow container mx-auto">
 
       <div className="flex flex-row-reverse" style={{marginRight: '24%',
       marginTop: '5%'
@@ -183,7 +180,6 @@ export default function history (props) {
     </table>
     </div>
       </div>
-  
     </main>
    
     </>

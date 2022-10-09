@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function RoomBooking () {
+export default function LiveStream_r () {
   return (
     <>
     <main>
