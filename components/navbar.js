@@ -109,8 +109,8 @@ export default function Navbar() {
                                         {user.email}
                                     </span>
                                 </Dropdown.Header>
-                                <Dropdown.Item>Thông tin</Dropdown.Item>
-                                <Dropdown.Item>Lịch sử cuộc hẹn</Dropdown.Item>
+                                <Dropdown.Item  onClick={() => router.push('/profile')}>Thông tin</Dropdown.Item>
+                                <Dropdown.Item onClick={() => router.push('/historyBooking')} >Lịch sử cuộc hẹn</Dropdown.Item>
                                 <Dropdown.Item onClick={onLogout}>
                                     Đăng xuất
                                 </Dropdown.Item>

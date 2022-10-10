@@ -1,31 +1,49 @@
-import React from "react";
 import { Button, Table } from "flowbite-react";
+import { Formik } from "formik";
+import Image from "next/image";
 
-export default function history(props) {
+import { useRef, useEffect, useState } from "react";
+
+
+
+
+
+export default function history() {
+
+
   return (
     <>
+    {/* <section className="bg-blue-300">
+        <div className="md:container mx-auto px-24 py-12 ">
+          <div className="flex justify-center items-center">
+            <div className="flex-1">
+              <Image
+                className="animate-spin"
+                src={herobanner}
+                alt=""
+                width={250}
+                height={250}
+              />
+            </div>
+            <div className="flex flex-1 justify-center items-center">
+              <p className=" text-slate-700 font-bold text-5xl pb-5 border-b-4 border-b-slate-700">
+                Thông tin cá nhân
+              </p>
+            </div>
+          </div>
+        </div>
+      </section> */}
       <main className=" history flex flex-row">
         <div className="history__body basis-3/4 grow container mx-auto">
-          <div
-            className="flex flex-row-reverse"
-            style={{ marginRight: "24%", marginTop: "5%" }}
-          >
-            <select
-              className=" history__right__select flex flex-row-reverse"
-              style={{
-                width: "100px",
-                height: "30px",
-                borderRadius: "5px",
-                border: "none",
-                backgroundColor: "#f2f2f2",
-                marginRight: "10px",
-              }}
-            >
-              <option value="all">Tất cả</option>
-              <option value="upcoming">Sắp tới</option>
-              <option value="past">Đã qua</option>
-            </select>
-          </div>
+        
+         
+         
+      
+
+
+
+
+
 
           <div className="upcoming ">
           <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
@@ -70,7 +88,7 @@ export default function history(props) {
                   <Table.Cell>Sắp diễn ra</Table.Cell>
                   <Table.Cell>
                     <div className="flex gap-2">
-                      <Button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                      <Button class="bg-blue-500 hover:bg-blue-700 text-white font-bold  rounded focus:outline-none focus:shadow-outline">
                         Chi tiết
                       </Button>
                       <Button class="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
