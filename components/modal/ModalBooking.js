@@ -8,7 +8,7 @@ import '@fullcalendar/common/main.css';
 import '@fullcalendar/daygrid/main.css';
 import Modal from '../modal';
 import dayjs from 'dayjs';
-import { slotBookingService } from '../../services/SlogBookingService';
+import { slotBookingService } from '../../services/SlotBookingService';
 import _ from 'lodash';
 
 const ACTION_TYPE = {
@@ -104,33 +104,8 @@ const ModalBooking = forwardRef((props, ref) => {
                 className='flex'
                 {...props}>
                 {actionType === ACTION_TYPE.BOOKING ? (
-                    <div className='flex flex-col gap-2'>
-                        {!_.isEmpty(selectionInfo) && !_.isEmpty(slotBookings) && (
-                            <div>
-                                <div className='flex flex-col flex-wrap gap-2 justify-center items-center'>
-                                    <div className='border-b-2 pl-2'>
-                                        {dayjs(selectionInfo.start).format(
-                                            'dddd, DD MMMM YYYY'
-                                        )}
-                                    </div>
-                                    <div className=''>
-                                        <div className='flex flex-wrap gap-3'>
-                                            {slotBookings.map((row, index) => (
-                                                <button
-                                                    key={row.id}
-                                                    className='py-2 px-6 border-2 border-blue-500 text-blue-500 rounded-2xl cursor-pointer hover:ring focus:ring'
-                                                    onClick={() =>
-                                                        setSelectedBooking(row)
-                                                    }>
-                                                    {row.timeStart} -{' '}
-                                                    {row.timeEnd}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                    <div className='flex flex-row gap-2'>
+                       
                         <div>
                             <FullCalendar
                                 plugins={[dayGridPlugin, interactionPlugin]}
@@ -154,7 +129,36 @@ const ModalBooking = forwardRef((props, ref) => {
                                 }}
                             />
                         </div>
+                    <div>
+                    {!_.isEmpty(selectionInfo) && !_.isEmpty(slotBookings) && (
+                            <div >
+                                <div className='flex flex-col flex-wrap gap-2 px-4 py-4  justify-center items-center'>
+                                    <div className='border-b-2 pl-2 '>
+                                        {dayjs(selectionInfo.start).format(
+                                            'dddd, DD MMMM YYYY'
+                                        )}
+                                    </div>
+                                    <div className=''>
+                                        <div className='flex  h-80 overflow-y-scroll  m-1 flex-wrap gap-3'>
+                                            {slotBookings.map((row, index) => (
+                                                <button
+                                                    key={row.id}
+                                                    className='py-2 px-2 h-10 w-60 border-2 border-blue-500 text-blue-500 rounded-2xl cursor-pointer hover:ring focus:ring'
+                                                    onClick={() =>
+                                                        setSelectedBooking(row)
+                                                    }>
+                                                    {row.timeStart} - {row.timeEnd}
+                                                    
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
+                    </div>
+                    
                 ) : (
                     <div>
                         Bạn đã đặt lịch hẹn với {consultant.fullName} vào lúc{' '}
