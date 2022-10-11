@@ -6,9 +6,6 @@
     animation: spin 10s linear infinite;
 }
 
-.max-w-\[28rem\] {
-    max-width: 100vh;
-}
 
 /* width */
 ::-webkit-scrollbar {

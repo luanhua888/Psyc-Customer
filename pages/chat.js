@@ -120,8 +120,8 @@ export default function Chat(props) {
           </div>
         </div>
       </section>
-      <ModalLogin ref={modalLoginRef} />
-      <ModalBooking ref={modalBookingRef} />
+      <ModalLogin ref={modalLoginRef}  />
+      <ModalBooking ref={modalBookingRef}  />
     </>
   );
 }
