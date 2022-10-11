@@ -77,8 +77,9 @@ export default function PayMOMO () {
               ">
                 <div class="justify-center items-center w-full"
                 >
-                  Quét mã QR
-                  
+                  <button>
+                    
+                  </button>
                 </div>
             </button>
               

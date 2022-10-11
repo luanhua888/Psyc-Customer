@@ -24,6 +24,7 @@ const BTN_ACTION_TYPE = {
     [ACTION_TYPE.CONFIRM]: 'Xác nhận',
 };
 
+// eslint-disable-next-line react/display-name
 const ModalForgotPassword = forwardRef((props, ref) => {
     const formRef = useRef();
 

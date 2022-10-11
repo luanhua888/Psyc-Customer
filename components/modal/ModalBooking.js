@@ -16,7 +16,10 @@ const ACTION_TYPE = {
     CONFIRM: 'confirm',
 };
 
+// eslint-disable-next-line react/display-name
 const ModalBooking = forwardRef((props, ref) => {
+
+    
     const [isOpen, setIsOpen] = useState(false);
     const [consultant, setConsultant] = useState({});
     const [selectionInfo, setSelectionInfo] = useState({});
