@@ -71,8 +71,9 @@ const ModalLogin = forwardRef((props, ref) => {
     };
 
     return (
-        <>
+        <div className='fixed top-0'>
             <Modal
+                classes='  px-2 py-2 h-50 rounded bg-white'
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 title={'Đăng nhập'}
@@ -186,7 +187,7 @@ const ModalLogin = forwardRef((props, ref) => {
                 </Formik>
             </Modal>
             <ModalForgotPassword ref={modalForgotPasswordRef} />
-        </>
+        </div>
     );
 });
 

@@ -6,7 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 
 import '@fullcalendar/common/main.css';
 import '@fullcalendar/daygrid/main.css';
-import Modal from '../modal';
+import Modal from '../modalBookingTable';
 import dayjs from 'dayjs';
 import { slotBookingService } from '../../services/SlotBookingService';
 import _ from 'lodash';
