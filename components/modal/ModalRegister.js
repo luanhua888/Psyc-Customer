@@ -4,7 +4,7 @@ import { userService } from '../../services/UserService';
 import Modal from '../modal';
 import ModalLogin from './ModalLogin';
 
-// eslint-disable-next-line react/display-name
+// eslint-disable-next-line react/display-name 
 const ModalRegister = forwardRef((props, ref) => {
     const modalLoginRef = useRef();
 
