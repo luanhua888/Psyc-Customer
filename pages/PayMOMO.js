@@ -1,7 +1,20 @@
 import React from 'react'
 import { useRef, useEffect, useState } from 'react';
+import ModalQrCode from '../components/modalQrCode';
+import { Button } from "@mui/material"
 
 export default function PayMOMO () {
+
+
+  const [isOpen, setisOpen] = useState(false);
+
+  const handleOpen = () => {
+    setisOpen(true);
+  };
+
+  const handleClose = () => {
+    setisOpen(false);
+  };
 
   return (
     <>
@@ -73,19 +86,13 @@ export default function PayMOMO () {
                   
               </div>
 
-              <button class="flex flex-row justify-center items-center bg-blue-500 rounded-xl shadow-lg m-2 p-2 text-white
-              ">
-                <div class="justify-center items-center w-full"
-                >
-                  <button>
-                    
-                  </button>
-                </div>
-            </button>
-              
+              <div class="flex flex-row justify-start mb-28 mt-3">
+              <ModalQrCode className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5" isOpen={isOpen} handleClose={handleClose} />
+               <Button className='justify-center items-center w-full bg-blue-500 text-white' onClick={handleOpen}>MÃ QR</Button>
+              </div>
             </div>
             </div>
-      </div>
+        </div>
     </>
   )
 }

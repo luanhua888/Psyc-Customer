@@ -1,125 +1,88 @@
-const {
-    Fragment,
-    useState,
-    useEffect,
-    forwardRef,
-    useImperativeHandle,
-} = require('react');
-const { Transition } = require('@headlessui/react');
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Button,
+  DialogActions
+} from '@mui/material'
 
-const Modal = ({
-    title = '',
-    buttons = [],
-    classes = '',
-    onDiscard = '',
-    onConfirm = '',
-    isOpen,
-    setIsOpen,
-    children,
-}) => {
-    useEffect(() => {
-        setIsOpen(isOpen);
-        if (!isOpen) {
-            document.documentElement.style.overflow = 'auto';
-        } else {
-            document.documentElement.style.overflow = 'hidden';
-        }
-    }, [isOpen]);
+const ModalQrCode = ({ title, subtitle, children, isOpen, handleClose }) => {
+  const handleConfirm = () => {
+    alert('You Agreed!')
+    handleClose()
+  }
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+      className='justify-center items-center w-full m-100'
+    >
+      <div class='modal-body'>
+        <div class='container-fluid'>
+          <div class='flex flex-row ...'>
+            <div class='flex flex-row justify-start'>
+              <div class='justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 '>
+                <a
+                  href='#'
+                  class='w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5'
+                >
+                  {/* logo momo */}
+                  <img
+                    src='https://firebasestorage.googleapis.com/v0/b/psychologicalcounseling-28efa.appspot.com/o/Desposit%2Flogo-momo-png-2.png?alt=media&token=53a3ea95-c76b-4943-a0ae-34403acc617f'
+                    alt='logo momo'
+                    class='w-10 h-10'
+                  />
+                  <span class='ml-2'>Momo</span>
+                </a>
+              </div>
+              <div class='justify-center ml-38 mr-40'>
+                <div class='flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ' />
+              </div>
+              <div class='ml-10 mt-5'>
+                <h3 class=' justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 '>
+                  Đơn hàng hết hạn sau 10 phút
+                </h3>
+                <h3 class=' justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2'>
+                  10:00
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class='flex flex-col mt-10'>
+            <div class='flex flex-col justify-between items-center text-pink-600 text-4xl
+            '>
+              Quét mã để thanh toán
+            </div>
+          </div>
+          <div class='row'>
+            <div class='flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
+             '>
+              200.000
+            </div>
+            {/* <div class='flex flex-col justify-between items-center text-pink-600'>
+              <h3 className='first-line:text-black'>Tài khoản nhận:</h3>
+              <h3 className='second-line:text-black'>0394705508</h3>
+            </div>
+            <div class='flex flex-col justify-between items-center text-pink-600'>
+              <h3 className='first-line:text-black'>Tên người nhận:</h3>
+              <h3 className='second-line:text-black'>Vũ Anh Tuấn</h3>
+            </div> */}
+          </div>
+          <div class='row'>
+            <div class='mt-10 mr-10 ml-10 justify-between items-center text-pink-600 text-2xl'>
+              <img
+                src='https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png'
+                class='rounded mx-auto d-block'
+                alt='...'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </Dialog>
+  )
+}
 
-    const HandleChange = () => {
-        setIsOpen(!isOpen);
-    };
-    return (
-        <>
-            <Transition show={isOpen}>
-                <Transition.Child
-                    as={Fragment}
-                    enter='transition-all duration-200'
-                    enterFrom='opacity-0'
-                    enterTo='opacity-100'
-                    leave='transition-all duration-200'
-                    leaveTo='opacity-0'
-                    leaveFrom='opacity-100'>
-                    <div
-                        style={{ zIndex: '1' }}
-                        onClick={() => HandleChange()}
-                        className='w-full h-full left-0 top-0 bg-black/50 fixed'
-                    />
-                </Transition.Child>
-                <Transition.Child
-                    as={Fragment}
-                    enter='transition-all duration-200'
-                    enterFrom='opacity-0 scale-75'
-                    enterTo='opacity-100 scale-100'
-                    leave='transition-all duration-200'
-                    leaveTo='opacity-0 scale-75'
-                    leaveFrom='opacity-100 scale-100'>
-                    <div
-                        style={{ zIndex: '2' }}
-                        className='flex justify-center items-center h-full w-full fixed'>
-                        <div
-                            className={`max-w-[50rem] w-full ${
-                                classes ? classes : 'p-4 bg-white rounded-lg'
-                            }`}>
-                            <div className='w-full flex justify-between items-center mb-6'>
-                                <p className='font-medium text-lg'>{title}</p>
-                                <div
-                                    onClick={() => {
-                                        onDiscard();
-                                        HandleChange();
-                                    }}
-                                    className='w-8 h-8 flex justify-center items-center rounded-lg transition-all duration-200 cursor-pointer hover:bg-zinc-500/20'>
-                                    <svg
-                                        width='24px'
-                                        height='24px'
-                                        viewBox='0 0 36 36'
-                                        version='1.1'
-                                        preserveAspectRatio='xMidYMid meet'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        xmlnsXlink='http://www.w3.org/1999/xlink'>
-                                        <path
-                                            className='clr-i-outline clr-i-outline-path-1'
-                                            d='M19.41,18l8.29-8.29a1,1,0,0,0-1.41-1.41L18,16.59,9.71,8.29A1,1,0,0,0,8.29,9.71L16.59,18,8.29,26.29a1,1,0,1,0,1.41,1.41L18,19.41l8.29,8.29a1,1,0,0,0,1.41-1.41Z'
-                                        />
-                                        <rect
-                                            x={0}
-                                            y={0}
-                                            width={36}
-                                            height={36}
-                                            fillOpacity={0}
-                                        />
-                                    </svg>
-                                </div>
-                            </div>
-                            <p className='text-md'>{children}</p>
-                            <div className='mt-6 flex justify-end items-center gap-2'>
-                                {buttons.map((button, index) => (
-                                    <button
-                                        onClick={async () => {
-                                            if (button.role === 'discard') {
-                                                onDiscard();
-                                            }
-                                            if (button.role === 'confirm') {
-                                                await onConfirm();
-                                            }
-                                            if (button.role === 'custom') {
-                                                button.onClick();
-                                            }
-                                            if (button.toClose) {
-                                                setIsOpen(false);
-                                            }
-                                        }}
-                                        key={index}
-                                        className={button.classes}>
-                                        {button.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </Transition.Child>
-            </Transition>
-        </>
-    );
-};
-export default Modal;
+export default ModalQrCode
