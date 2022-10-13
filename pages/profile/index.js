@@ -1,4 +1,5 @@
 import { Button, Table } from "flowbite-react";
+import dayjs from "dayjs";
 import { Formik } from "formik";
 import Image from "next/image";
 import heroBanner from "../../public/photos/hero-banner-profile.png";
@@ -7,6 +8,7 @@ import googleMapReact from "google-map-react";
 
 import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
+import { userService } from "../../services/UserService";
 
 export default function Profile() {
   const defaultProps = {
@@ -20,15 +22,44 @@ export default function Profile() {
   const formRef = useRef();
 
   const onSubmit = async () => {};
+
+  const getHistoryBooking = (date, customerId) => {
+    slotBookingService.getAll(date, customerId).then((response) => {
+      if (!_.isEmpty(response.data)) {
+        setHistoryBookings(response.data);
+      } else {
+        setHistoryBookings([]);
+      }
+    });
+  };
+
+  const [supProfile, setSupProfile] = useState([]);
   const [user, setUser] = useState({});
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.profile(localStorage.getItem("iddb"));
+        const data = await profileService.profile(
+          localStorage.getItem("idcustomer")
+        );
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("jwttoken")) {
+        const data = await profileService.getAllSupProfile(
+          localStorage.getItem("idcustomer")
+        );
+
+        if (data.statusCode == 200) {
+          setSupProfile(data.data);
+          console.log(data.data);
         }
       }
     })();
@@ -56,206 +87,232 @@ export default function Profile() {
           </div>
         </div>
       </section>
+
       <section className="bg-slate-400">
         <div className="md:container mx-auto py-5">
           <div className="px-7 py-3 rounded-3xl bg-white">
-            <div className="flex gap-5 mb-12">
-              <div className="flex flex-col gap-2 border-r">
-                <div className="w-[300px] h-[250px] ml-2">
-                  <Image src={profileAvatar} alt="" />
+            {user && (
+              <div className="flex gap-5 mb-12">
+                <div className="flex flex-col gap-2 border-r">
+                  <div className="w-[250px] h-[250px] ml-2">
+                    <Image
+                      loader={() => user.imageUrl}
+                      src={profileAvatar}
+                      alt=""
+                    />
+                  </div>
+                  <input className="block w-full rounded-3xl" type="file" />
                 </div>
-                <input className="block w-full rounded-3xl" type="file" />
+                <div className="flex flex-1 flex-col ">
+                  <Formik
+                    innerRef={formRef}
+                    initialValues={{
+                      username: "",
+                      password: "",
+                    }}
+                    validate={(values) => {
+                      const errors = {};
+                      if (!values.username) {
+                        errors.username = "Thông tin bắt buộc";
+                      }
+
+                      if (!values.password) {
+                        errors.password = "Thông tin bắt buộc";
+                      }
+
+                      return errors;
+                    }}
+                    onSubmit={onSubmit}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                      /* and other goodies */
+                    }) => (
+                      <>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div>
+                            <label
+                              for="first_name"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              Họ và Tên
+                            </label>
+                            <input
+                              type="text"
+                              id="first_name"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Nhập họ và tên"
+                              value={user.fullname}
+                              required
+                            ></input>
+                          </div>
+                        </div>
+
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div>
+                            <label
+                              for="countries"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                            >
+                              {}
+                              Giới tính
+                            </label>
+                            <select
+                              id="countries"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            >
+                             {user.gender == "Male" && (
+                                <option color={"pink"}>Nam</option>
+                              )}
+                              {user.gender == "Female" && (
+                                <option color={"pink"}>Nữ</option>
+                              )}
+                             
+                            </select>
+                          </div>
+                          <div>
+                            <label
+                              for="first_name"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              Ngày tháng năm sinh
+                            </label>
+                            <input
+                              type="datetime-local"
+                              id="first_name"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Ngày tháng năm sinh"
+                              value={user.dob}
+                              required
+
+                            >
+                              {user.birthday}
+                            </input>
+                          </div>
+                        </div>
+
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div>
+                            <label
+                              for="countries"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                            >
+                              Kinh độ
+                            </label>
+                            <input
+                              type="text"
+                              id="first_name"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Nhập dữ liệu"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label
+                              for="first_name"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              Vĩ độ
+                            </label>
+                            <input
+                              type="text"
+                              id="first_name"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Nhập dữ liệu"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div class="grid gap-6 mb-6">
+                          <div>
+                            <label
+                              for="first_name"
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              Nơi sinh
+                            </label>
+                            <textarea
+                              id="first_name"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Nhập dữ liệu"
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            type="submit"
+                            class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Chỉnh sửa
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </Formik>
+                </div>
               </div>
-              <div className="flex flex-1 flex-col ">
-                <Formik
-                  innerRef={formRef}
-                  initialValues={{
-                    username: "",
-                    password: "",
-                  }}
-                  validate={(values) => {
-                    const errors = {};
-                    if (!values.username) {
-                      errors.username = "Thông tin bắt buộc";
-                    }
-
-                    if (!values.password) {
-                      errors.password = "Thông tin bắt buộc";
-                    }
-
-                    return errors;
-                  }}
-                  onSubmit={onSubmit}
-                >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                    /* and other goodies */
-                  }) => (
-                    <>
-                      <div class="grid gap-6 mb-6 md:grid-cols-2">
-                        <div>
-                          <label
-                            for="first_name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                          >
-                            Họ và Tên
-                          </label>
-                          <input
-                            type="text"
-                            id="first_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Nhập dữ liệu"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div class="grid gap-6 mb-6 md:grid-cols-2">
-                        <div>
-                          <label
-                            for="countries"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                          >
-                            Giới tính
-                          </label>
-                          <select
-                            id="countries"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          >
-                            <option selected>Nam</option>
-                            <option value="US">Nữ</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label
-                            for="first_name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                          >
-                            Ngày tháng năm sinh
-                          </label>
-                          <input
-                            type="datetime-local"
-                            id="first_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Nhập dữ liệu"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div class="grid gap-6 mb-6 md:grid-cols-2">
-                        <div>
-                          <label
-                            for="countries"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                          >
-                            Kinh độ
-                          </label>
-                          <input
-                            type="text"
-                            id="first_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Nhập dữ liệu"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label
-                            for="first_name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                          >
-                            Vĩ độ
-                          </label>
-                          <input
-                            type="text"
-                            id="first_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Nhập dữ liệu"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div class="grid gap-6 mb-6">
-                        <div>
-                          <label
-                            for="first_name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                          >
-                            Nơi sinh
-                          </label>
-                          <textarea
-                            id="first_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Nhập dữ liệu"
-                            required
-                          ></textarea>
-                        </div>
-                      </div>
-                        <div>
-                        <button
-                        type="submit"
-                        class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Lưu
-                      </button>
-                        </div>
-
-                     
-                    </>
-                  )}
-                </Formik>
-              </div>
-            </div>
+            )}
 
             <div>
               <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
                 Danh sách các hồ sơ khác của bạn
               </h3>
-
-              <div>
-                <Table hoverable={true}>
-                  <Table.Head>
-                    <Table.HeadCell>STT</Table.HeadCell>
-                    <Table.HeadCell>Họ và Tên</Table.HeadCell>
-                    <Table.HeadCell>Ngày sinh</Table.HeadCell>
-                    <Table.HeadCell>Giờ sinh</Table.HeadCell>
-                    <Table.HeadCell>Nơi sinh</Table.HeadCell>
-                    <Table.HeadCell></Table.HeadCell>
-                    <Table.HeadCell></Table.HeadCell>
-                  </Table.Head>
-                  <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                        #1
-                      </Table.Cell>
-                      <Table.Cell>Vũ Anh Tuấn</Table.Cell>
-                      <Table.Cell>25/01/2000</Table.Cell>
-                      <Table.Cell>08:00</Table.Cell>
-                      <Table.Cell>Nam</Table.Cell>
-                      <Table.Cell>
-                        <Button outline={true} color="warning">
-                          Bản đồ sao
-                        </Button>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button outline={true}>Chỉnh sửa</Button>
-                          <Button outline={true} color="failure">
-                            Xóa
+              
+                <div>
+                  <Table hoverable={true}>
+                    <Table.Head>
+                      <Table.HeadCell>STT</Table.HeadCell>
+                      <Table.HeadCell>Họ và Tên</Table.HeadCell>
+                      <Table.HeadCell>Ngày sinh</Table.HeadCell>
+                      <Table.HeadCell>Kinh độ</Table.HeadCell>
+                      <Table.HeadCell>Vĩ độ</Table.HeadCell>
+                      <Table.HeadCell>Giới Tính</Table.HeadCell>
+                      <Table.HeadCell>Nơi Sinh</Table.HeadCell>
+                      <Table.HeadCell></Table.HeadCell>
+                      <Table.HeadCell></Table.HeadCell>
+                      <Table.HeadCell></Table.HeadCell>
+                    </Table.Head>
+                    {supProfile.map((item, index) => (
+                    <Table.Body key={index} className="divide-y">
+                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          1
+                        </Table.Cell>
+                        <Table.Cell>{item.name}</Table.Cell>
+                        <Table.Cell>{`${dayjs(supProfile.dob).format(
+                          "DD/MM/YYYY"
+                        )} `}</Table.Cell>
+                        <Table.Cell>{item.latitude}</Table.Cell>
+                        <Table.Cell>{item.longitude}</Table.Cell>
+                        <Table.Cell>{item.gender}</Table.Cell>
+                        <Table.Cell>{supProfile.birthPlace}</Table.Cell>
+                        <Table.Cell>
+                          <Button outline={true} color="warning">
+                            Bản đồ sao
                           </Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                </Table>
-              </div>
+                        </Table.Cell>
+                        <Table.Cell>
+                          <div className="flex gap-2">
+                            <Button outline={true}>Chỉnh sửa</Button>
+                            <Button outline={true} color="failure">
+                              Xóa
+                            </Button>
+                          </div>
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                    ))}
+                  </Table>
+                </div>
+            
             </div>
           </div>
         </div>

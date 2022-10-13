@@ -1,15 +1,32 @@
 import { Button, Table } from "flowbite-react";
 import { Formik } from "formik";
 import Image from "next/image";
-
 import { useRef, useEffect, useState } from "react";
+import { historyService } from "../services/HistoryService";
+
 
 
 
 
 
 export default function history() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [historyBooking, setHistoryBooking] = useState({});
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("jwttoken")) {
+        const data = await historyService.getHistoryBooking(
+          localStorage.getItem("idcustomer")
+        );
+
+        if (data.statusCode == 200) {
+          setHistoryBooking(data.data[0]);
+        }
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -49,6 +66,7 @@ export default function history() {
           <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
               Sắp diễn ra
             </h3>
+            {historyBooking && historyBooking.length > 0 ? (
             <Table hoverable={true}>
               <Table.Head class="bg-gray-200">
                 {/* <tr class='border border-gray-400'> */}
@@ -62,8 +80,8 @@ export default function history() {
               </Table.Head>
               <Table.Body class="divide-y">
                 <Table.Row class="border border-gray-400">
-                  <Table.Cell>1</Table.Cell>
-                  <Table.Cell>Nguyễn Văn A</Table.Cell>
+                  <Table.Cell>{historyBooking.id}</Table.Cell>
+                  <Table.Cell>{historyBooking.dateSlot}</Table.Cell>
                   <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
                   <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
                   <Table.Cell>Sắp diễn ra</Table.Cell>
@@ -118,7 +136,14 @@ export default function history() {
                 </Table.Row>
               </Table.Body>
             </Table>
+          ) : ( <div className="text-center">Bạn chưa có lịch hẹn nào</div> )}
           </div>
+
+
+
+
+
+
           <div className="history ">
             <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
               Lịch sử cuộc hẹn
