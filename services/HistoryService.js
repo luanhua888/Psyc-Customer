@@ -2,16 +2,20 @@ import AbstractService from "./AbstractService";
 
 const API = {
   GET_APPOINTMENT: "SlotBookings/GetAppointmentByCustomerid",
-  GET_HISTORY: "SlotBookings/GetHistoryByConsultantid",
+  GET_HISTORY: "SlotBookings/GetHistoryByCustomerid",
 };
 
 class HistoryService extends AbstractService {
-  getAppointmentBooking = (id) => {
-    return this.httpGET(API.GET_APPOINTMENT, { id });
+  getAppointmentBooking = (customerid) => {
+    return this.httpGET(API.GET_APPOINTMENT, { 
+      customerid
+});
   };
 
-  getHistoryBooking = (id) => {
-    return this.httpGET(API.GET_HISTORY, { id });
+  getHistoryBooking = (customerid) => {
+    return this.httpGET(API.GET_HISTORY, {
+      customerid
+   });
   };
 }
 

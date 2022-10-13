@@ -19,12 +19,13 @@ export default function Profile() {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getHistoryBooking(
+        const data = await historyService.getAppointmentBooking(
           localStorage.getItem("idcustomer")
         );
 
         if (data.statusCode == 200) {
-          setHistoryBooking(data.data);
+          setAppointmentBooking(data.data);
+          console.log(data.data);
         }
       }
     })();
@@ -33,12 +34,12 @@ export default function Profile() {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getAppointmentBooking(
+        const data = await historyService.getHistoryBooking(
           localStorage.getItem("idcustomer")
         );
 
         if (data.statusCode == 200) {
-          setAppointmentBooking(data.data);
+          setHistoryBooking(data.data);
         }
       }
     })();
@@ -73,7 +74,7 @@ export default function Profile() {
             <div className="history__body basis-3/4 grow container mx-auto">
               <div className="upcoming ">
                 <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
-                  Sắp diễn ra
+                  CUỘC HẸN SẮP DIỄN RA
                 </h3>
 
                 <Table hoverable={true}>
@@ -83,16 +84,20 @@ export default function Profile() {
                     <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
                     <Table.HeadCell>Chủ đề</Table.HeadCell>
                     <Table.HeadCell>Thời gian</Table.HeadCell>
+                    <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
+                    <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
                     <Table.HeadCell>Trạng thái</Table.HeadCell>
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                     {/* </tr> */}
                   </Table.Head>
-                  {historyBooking.map((row, index) => (
+                  {appointmentBooking.map((row, index) => (
                     <Table.Body key={index} class="divide-y">
                       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell>{row.id}</Table.Cell>
-                        <Table.Cell>Nguyễn Văn A</Table.Cell>
-                        <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
+                        <Table.Cell>{row.consultantName}</Table.Cell>
+                        <Table.Cell>Gia đình</Table.Cell>
+                        <Table.Cell>{row.timeStart}</Table.Cell>
+                        <Table.Cell>{row.timeEnd}</Table.Cell>
                         <Table.Cell>{`${dayjs(row.dateSlot).format(
                           "DD/MM/YYYY"
                         )} `}</Table.Cell>
@@ -110,8 +115,8 @@ export default function Profile() {
               </div>
 
               <div className="history">
-                <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
-                  Lịch sử cuộc hẹn
+                <h3 className="text-center p-5 mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
+                  CUỘC HẸN ĐÃ KẾT THÚC
                 </h3>
                 <Table hoverable={true}>
                   <Table.Head class="bg-gray-200">
@@ -120,6 +125,8 @@ export default function Profile() {
                     <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
                     <Table.HeadCell>Chủ đề</Table.HeadCell>
                     <Table.HeadCell>Thời gian</Table.HeadCell>
+                    <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
+                    <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
                     <Table.HeadCell>Trạng thái</Table.HeadCell>
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                     {/* </tr> */}
@@ -128,12 +135,14 @@ export default function Profile() {
                     <Table.Body key={index} class="divide-y">
                       <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell>{row.id}</Table.Cell>
-                        <Table.Cell>Nguyễn Văn A</Table.Cell>
-                        <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
+                        <Table.Cell>{row.consultantName}</Table.Cell>
+                        <Table.Cell>Sự nghiệp</Table.Cell>
                         <Table.Cell>{`${dayjs(row.dateSlot).format(
                           "DD/MM/YYYY"
                         )} `}</Table.Cell>
-                        <Table.Cell>Sắp diễn ra</Table.Cell>
+                        <Table.Cell>{row.timeStart}</Table.Cell>
+                        <Table.Cell>{row.timeEnd}</Table.Cell>
+                        <Table.Cell>Đã kết thúc</Table.Cell>
                         <Table.Cell>
                           <div className="flex gap-2">
                             <Button>Chi tiết</Button>
