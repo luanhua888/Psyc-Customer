@@ -7,7 +7,6 @@ import { consultantService } from "../services/ConsultantService";
 import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
-import { historyService } from "../services/HistoryService";
 
 export default function Chat(props) {
   const { consultants } = props;
@@ -20,7 +19,7 @@ export default function Chat(props) {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getHistoryBooking(localStorage.getItem("iddb"));
+        const data = await userService.profile(localStorage.getItem("iddb"));
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
@@ -34,6 +33,7 @@ export default function Chat(props) {
       modalLoginRef.current.open();
       return;
     }
+    console.log(user);
 
     modalBookingRef.current.open(consultant);
   };
