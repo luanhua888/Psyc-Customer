@@ -1,7 +1,7 @@
 import AbstractService from './AbstractService';
 
 const API = {
-    GET_ALL: 'SlotBookings/GetSlotBookingByDateAndConsultantid',
+    GET_ALL: 'SlotBookings/GetSlotBookingByDateAndConsultanid',
 };
 
 class SlotBookingService extends AbstractService {
