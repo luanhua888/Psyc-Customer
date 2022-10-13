@@ -16,6 +16,7 @@
     "@fullcalendar/react": "^5.11.2",
     "@headlessui/react": "^1.7.3",
     "@iconify/icons-bi": "^1.2.10",
+    "@mui/material": "^5.10.9",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
     "flowbite": "^1.5.3",
