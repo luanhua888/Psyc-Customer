@@ -1,28 +1,44 @@
 import { Button, Table } from "flowbite-react";
 import { Formik } from "formik";
+import dayjs from "dayjs";
 import Image from "next/image";
 import heroBanner from "../../public/photos/hero-banner-profile.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
 import googleMapReact from "google-map-react";
 
 import { useRef, useEffect, useState } from "react";
-import { profileService } from "../../services/ProfileService";
+import { historyService } from "../../services/HistoryService";
 
 export default function Profile() {
-
-
   const formRef = useRef();
 
   const onSubmit = async () => {};
-  const [user, setUser] = useState({});
+  const [historyBooking, setHistoryBooking] = useState([]);
+  const [appointmentBooking, setAppointmentBooking] = useState([]);
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.profile(localStorage.getItem("iddb"));
+        const data = await historyService.getHistoryBooking(
+          localStorage.getItem("idcustomer")
+        );
 
         if (data.statusCode == 200) {
-          setUser(data.data[0]);
+          setHistoryBooking(data.data);
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("jwttoken")) {
+        const data = await historyService.getAppointmentBooking(
+          localStorage.getItem("idcustomer")
+        );
+
+        if (data.statusCode == 200) {
+          setAppointmentBooking(data.data);
         }
       }
     })();
@@ -59,6 +75,7 @@ export default function Profile() {
                 <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
                   Sắp diễn ra
                 </h3>
+
                 <Table hoverable={true}>
                   <Table.Head class="bg-gray-200">
                     {/* <tr class='border border-gray-400'> */}
@@ -70,55 +87,28 @@ export default function Profile() {
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                     {/* </tr> */}
                   </Table.Head>
-                  <Table.Body class="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>1</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Tham gia</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                  <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>2</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Chờ</Button>
-                          <Button>Hủy</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                  <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>3</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Chờ</Button>
-                          <Button>Hủy</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
+                  {historyBooking.map((row, index) => (
+                    <Table.Body key={index} class="divide-y">
+                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell>{row.id}</Table.Cell>
+                        <Table.Cell>Nguyễn Văn A</Table.Cell>
+                        <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
+                        <Table.Cell>{`${dayjs(row.dateSlot).format(
+                          "DD/MM/YYYY"
+                        )} `}</Table.Cell>
+                        <Table.Cell>Sắp diễn ra</Table.Cell>
+                        <Table.Cell>
+                          <div className="flex gap-2">
+                            <Button>Chi tiết</Button>
+                            <Button>Tham gia</Button>
+                          </div>
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  ))}
                 </Table>
               </div>
+
               <div className="history">
                 <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
                   Lịch sử cuộc hẹn
@@ -134,53 +124,25 @@ export default function Profile() {
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                     {/* </tr> */}
                   </Table.Head>
-                  <Table.Body class="divide-y">
-                    <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>1</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Tham gia</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                  <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>2</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Chờ</Button>
-                          <Button>Hủy</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
-                  <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>3</Table.Cell>
-                      <Table.Cell>Nguyễn Văn A</Table.Cell>
-                      <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
-                      <Table.Cell>12/12/2022 09:00 - 10:00</Table.Cell>
-                      <Table.Cell>Sắp diễn ra</Table.Cell>
-                      <Table.Cell>
-                        <div className="flex gap-2">
-                          <Button>Chi tiết</Button>
-                          <Button>Chờ</Button>
-                          <Button>Hủy</Button>
-                        </div>
-                      </Table.Cell>
-                    </Table.Row>
-                  </Table.Body>
+                  {historyBooking.map((row, index) => (
+                    <Table.Body key={index} class="divide-y">
+                      <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell>{row.id}</Table.Cell>
+                        <Table.Cell>Nguyễn Văn A</Table.Cell>
+                        <Table.Cell>Mối quan hệ - gia đình</Table.Cell>
+                        <Table.Cell>{`${dayjs(row.dateSlot).format(
+                          "DD/MM/YYYY"
+                        )} `}</Table.Cell>
+                        <Table.Cell>Sắp diễn ra</Table.Cell>
+                        <Table.Cell>
+                          <div className="flex gap-2">
+                            <Button>Chi tiết</Button>
+                            <Button>Tham gia</Button>
+                          </div>
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  ))}
                 </Table>
               </div>
             </div>
