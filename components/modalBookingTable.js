@@ -58,7 +58,7 @@ const Modal = ({
                         style={{ zIndex: '2' }}
                         className='flex justify-center items-center h-full w-full fixed'>
                         <div
-                            className={`max-w-[50rem] w-full ${
+                            className={`max-w-[60rem] w-full ${
                                 classes ? classes : 'p-4 bg-white rounded-lg'
                             }`}>
                             <div className='w-full flex justify-between items-center mb-6'>

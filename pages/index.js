@@ -93,13 +93,13 @@ export default function Home(props) {
             </section>
 
             <section id='services' className='bg-indigo-300'>
-                <div className='md:container mx-auto py-5'>
-                    <div className='flex flex-col justify-between gap-3'>
-                        <div className='flex flex-row flex-wrap justify-between gap-3'>
+                <div className='md:container mx-auto py-6'>
+                    <div className='flex flex-col justify-between gap-4'>
+                        <div className='flex flex-row flex-wrap justify-between gap-6 auto-cols-max'>
                             {zodiacs.map((row, key) => (
                                 <div
                                     key={key}
-                                    className='flex flex-col gap-1 justify-center items-center bg-white py-5 px-12 rounded-xl w-[200px]'>
+                                    className='flex flex-col gap-1 justify-center items-center bg-white py-5 px-12 rounded-xl w-[200px] '>
                                     <Image
                                         loader={() => row.imageUrl}
                                         src={astroRoundedImg}
@@ -134,13 +134,13 @@ export default function Home(props) {
                             {articles.map((row, key) => (
                                 <div
                                     key={key}
-                                    className='flex flex-col gap-2 justify-center items-center bg-white py-1 px-1 rounded-xl min-w-[294px] max-w-[356px] shadow-md shadow-indigo-300'>
+                                    className='flex flex-col gap-2 justify-center items-center bg-white py-2 px-1 rounded-xl  shadow-md shadow-indigo-300'>
                                     <Image
                                         loader={() => row.urlBanner}
                                         className='rounded-xl align-middle'
                                         src={astroRoundedImg}
                                         alt=''
-                                        width={400}
+                                        width={350}
                                         height={350}
                                     />
                                     <div className='flex flex-col justify-center items-center gap-2 px-3'>

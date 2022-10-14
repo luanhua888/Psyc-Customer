@@ -8,6 +8,8 @@ import logo from '../public/logo.png';
 import iconProfile from '../public/icon_profile.png';
 import { userService } from '../services/UserService';
 import { Dropdown } from 'flowbite-react';
+import { walletService } from '../services/WalletService';
+import { collectFromHash } from '@fullcalendar/react';
 
 export default function Navbar() {
     const router = useRouter();
@@ -16,6 +18,7 @@ export default function Navbar() {
     const modalLoginRef = useRef();
 
     const [user, setUser] = useState({});
+    const [crab, setCrab] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -23,9 +26,26 @@ export default function Navbar() {
                 const data = await userService.profile(
                     localStorage.getItem('iddb')
                 );
+                
 
                 if (data.statusCode == 200) {
                     setUser(data.data[0]);
+                }
+            }
+        })();
+    }, []);
+    
+    useEffect(() => {
+        (async () => {
+            if (localStorage.getItem('jwttoken')) {
+                const dataWallet = await walletService.getWallet(
+                    localStorage.getItem('idcustomer')
+                );
+                
+
+                if (dataWallet.statusCode == 200) {
+                    setCrab(dataWallet.data);
+                    console.log(dataWallet.data);
                 }
             }
         })();
@@ -88,8 +108,21 @@ export default function Navbar() {
                             </a>
                         </li>
                     </ul>
-                    {Object.keys(user).length >= 1 ? (
+                    {  Object.keys(user).length >= 1 ?   (
+                        
                         <div className='flex justify-center items-center gap-5'>
+                          {
+                            crab.map((item) => {
+                              return (
+                                <div key={item} className='flex justify-center items-center gap-2'>
+                                  <span>Số dư tài khoản: {item.crab} Cua</span>
+                                </div>
+                              );
+                            })
+
+                          }  
+                       
+
                             <Dropdown
                                 label={
                                     <Image

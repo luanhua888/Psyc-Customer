@@ -280,7 +280,7 @@ export default function Profile() {
                       <Table.HeadCell></Table.HeadCell>
                       <Table.HeadCell></Table.HeadCell>
                     </Table.Head>
-                    {supProfile.map((item, index) => (
+                    {supProfile.map((item, index)   => (
                     <Table.Body key={index} className="divide-y">
                       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
