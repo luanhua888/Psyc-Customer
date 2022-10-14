@@ -6,7 +6,6 @@
     animation: spin 10s linear infinite;
 }
 
-
 /* width */
 ::-webkit-scrollbar {
     width: 10px;

@@ -23,6 +23,7 @@ export default function Chat(props) {
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
+          
         }
       }
     })();
