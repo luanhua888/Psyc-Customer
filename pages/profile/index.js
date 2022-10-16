@@ -1,4 +1,4 @@
-import { Button, Table } from "flowbite-react";
+import { Button, Pagination, Table } from "flowbite-react";
 import dayjs from "dayjs";
 import { Formik } from "formik";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import googleMapReact from "google-map-react";
 import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
 import { userService } from "../../services/UserService";
+import onPageChange from "../../services/UserService";
 
 export default function Profile() {
   const defaultProps = {
@@ -21,7 +22,9 @@ export default function Profile() {
 
   const formRef = useRef();
 
-  const onSubmit = async () => {};
+  const onSubmit = async (data) => {
+   console.login(data);
+  };
 
   const getHistoryBooking = (date, customerId) => {
     slotBookingService.getAll(date, customerId).then((response) => {
@@ -34,7 +37,10 @@ export default function Profile() {
   };
 
   const [supProfile, setSupProfile] = useState([]);
+  const [btnSubmit, setBtnSubmit] = useState("Chỉnh sửa");
+  const [isEdit, setIsEdit] = useState(true);
   const [user, setUser] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -149,6 +155,7 @@ export default function Profile() {
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Nhập họ và tên"
                               value={user.fullname}
+                              disabled={isEdit}
                               required
                             ></input>
                           </div>
@@ -165,15 +172,15 @@ export default function Profile() {
                             </label>
                             <select
                               id="countries"
+                              disabled={isEdit}
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
-                             {user.gender == "Male" && (
+                              {user.gender == "Male" && (
                                 <option color={"pink"}>Nam</option>
                               )}
                               {user.gender == "Female" && (
                                 <option color={"pink"}>Nữ</option>
                               )}
-                             
                             </select>
                           </div>
                           <div>
@@ -189,8 +196,8 @@ export default function Profile() {
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Ngày tháng năm sinh"
                               value={user.dob}
+                              disabled={isEdit}
                               required
-
                             >
                               {user.birthday}
                             </input>
@@ -208,6 +215,7 @@ export default function Profile() {
                             <input
                               type="text"
                               id="first_name"
+                              disabled={isEdit}
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Nhập dữ liệu"
                               required
@@ -222,6 +230,7 @@ export default function Profile() {
                             </label>
                             <input
                               type="text"
+                              disabled={isEdit}
                               id="first_name"
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Nhập dữ liệu"
@@ -242,16 +251,30 @@ export default function Profile() {
                               id="first_name"
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Nhập dữ liệu"
+                              disabled={isEdit}
                               required
                             ></textarea>
                           </div>
                         </div>
                         <div>
                           <button
-                            type="submit"
+                            type="button"
                             class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                           
+                            onClick={() => {
+                              if (isEdit) {
+                                setBtnSubmit("Chỉnh Sửa") 
+                                formRef.current.submitForm();
+                                setIsEdit(false);
+                              } else {
+                                setBtnSubmit("Lưu")
+                                setIsEdit(true);
+                              }
+                            }}
+
+
                           >
-                            Chỉnh sửa
+                            {btnSubmit}
                           </button>
                         </div>
                       </>
@@ -265,22 +288,22 @@ export default function Profile() {
               <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
                 Danh sách các hồ sơ khác của bạn
               </h3>
-              
-                <div>
-                  <Table hoverable={true}>
-                    <Table.Head>
-                      <Table.HeadCell>STT</Table.HeadCell>
-                      <Table.HeadCell>Họ và Tên</Table.HeadCell>
-                      <Table.HeadCell>Ngày sinh</Table.HeadCell>
-                      <Table.HeadCell>Kinh độ</Table.HeadCell>
-                      <Table.HeadCell>Vĩ độ</Table.HeadCell>
-                      <Table.HeadCell>Giới Tính</Table.HeadCell>
-                      <Table.HeadCell>Nơi Sinh</Table.HeadCell>
-                      <Table.HeadCell></Table.HeadCell>
-                      <Table.HeadCell></Table.HeadCell>
-                      <Table.HeadCell></Table.HeadCell>
-                    </Table.Head>
-                    {supProfile.map((item, index)   => (
+
+              <div>
+                <Table hoverable={true}>
+                  <Table.Head>
+                    <Table.HeadCell>STT</Table.HeadCell>
+                    <Table.HeadCell>Họ và Tên</Table.HeadCell>
+                    <Table.HeadCell>Ngày sinh</Table.HeadCell>
+                    <Table.HeadCell>Kinh độ</Table.HeadCell>
+                    <Table.HeadCell>Vĩ độ</Table.HeadCell>
+                    <Table.HeadCell>Giới Tính</Table.HeadCell>
+                    <Table.HeadCell>Nơi Sinh</Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
+                  </Table.Head>
+                  {supProfile.map((item, index) => (
                     <Table.Body key={index} className="divide-y">
                       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
@@ -309,10 +332,32 @@ export default function Profile() {
                         </Table.Cell>
                       </Table.Row>
                     </Table.Body>
-                    ))}
-                  </Table>
+                  ))}
+                </Table>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-center text-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    layout="pagination"
+                    onPageChange={async (page) => {
+                      setCurrentPage(page);
+                      if (localStorage.getItem("jwttoken")) {
+                        const data = await profileService.getAllSupProfile(
+                          localStorage.getItem("idcustomer"),
+                          page
+                        );
+                        if (data.statusCode == 200) {
+                          setUser(data.data[0]);
+                        }
+                      }
+                    }}
+                    showIcons={true}
+                    totalPages={1000}
+                  />
                 </div>
-            
+              </div>
             </div>
           </div>
         </div>
