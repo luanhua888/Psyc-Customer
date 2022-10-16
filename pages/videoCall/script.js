@@ -94,20 +94,20 @@
 //     startVideo()
 //   }
 // })
-// // Toggle Microphone
-// btnMic.click(function () {
-//   if ($(this).hasClass('fa-microphone')) {
-//     $(this).addClass('fa-microphone-slash')
-//     $(this).removeClass('fa-microphone')
-//     $(this).css('color', 'red')
-//     stopAudio()
-//   } else {
-//     $(this).addClass('fa-microphone')
-//     $(this).removeClass('fa-microphone-slash')
-//     $(this).css('color', 'black')
-//     startAudio()
-//   }
-// })
+// Toggle Microphone
+btnMic.click(function () {
+  if ($(this).hasClass('fa-microphone')) {
+    $(this).addClass('fa-microphone-slash')
+    $(this).removeClass('fa-microphone')
+    $(this).css('color', 'red')
+    stopAudio()
+  } else {
+    $(this).addClass('fa-microphone')
+    $(this).removeClass('fa-microphone-slash')
+    $(this).css('color', 'black')
+    startAudio()
+  }
+})
 
 // // Toggle Join and Leave
 
