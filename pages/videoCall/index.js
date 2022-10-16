@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function videocall() {
   
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";
