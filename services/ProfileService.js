@@ -10,9 +10,9 @@ class ProfileService extends AbstractService {
     profile = (id) => {
         return this.httpGET(API.PROFILE, { id });
     };
-
-    getAllSupProfile = (id, page=1) => {
-        return this.httpGET(API.GET_SUPPROFILE, { id, page });
+    // Profiles/getbyidcustomer?id=8&pagesize=5&pagenumber=1
+    getSupProfile = (id, pagesize, pagenumber) => {
+        return this.httpGET(API.GET_SUPPROFILE, { id, pagesize, pagenumber });
     };
 }
 

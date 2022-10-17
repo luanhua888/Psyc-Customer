@@ -1,4 +1,4 @@
-import { Button, Table } from "flowbite-react";
+import { Button, Table,Pagination } from "flowbite-react";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -10,7 +10,11 @@ import { useRef, useEffect, useState } from "react";
 import { historyService } from "../../services/HistoryService";
 
 export default function Profile() {
+
+  
+  const pageCount = 5;
   const formRef = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onSubmit = async () => {};
   const [historyBooking, setHistoryBooking] = useState([]);
@@ -35,7 +39,9 @@ export default function Profile() {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
         const data = await historyService.getHistoryBooking(
-          localStorage.getItem("idcustomer")
+          localStorage.getItem("idcustomer"),
+          currentPage,
+          5
         );
 
         if (data.statusCode == 200) {
@@ -131,7 +137,7 @@ export default function Profile() {
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                     {/* </tr> */}
                   </Table.Head>
-                  {historyBooking.map((row, index) => (
+                    {historyBooking.map((row, index) => (
                     <Table.Body key={index} class="divide-y">
                       <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell>{row.id}</Table.Cell>
@@ -157,6 +163,27 @@ export default function Profile() {
             </div>
           </main>
         </div>
+        <div className="flex items-center justify-center text-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    layout="pagination"
+                    onPageChange={async (page) => {
+                      setCurrentPage(page);
+                      if (localStorage.getItem("jwttoken")) {
+                        const { data } = await historyService.getHistoryBooking(
+                          localStorage.getItem("customerId"),
+                          5,
+                          page
+                        );
+                        if (data) {
+                          setHistoryBooking(data);
+                        }
+                      }
+                    }}
+                    showIcons={true}
+                    totalPages={pageCount}
+                  />
+                </div>              
       </section>
     </>
   );
