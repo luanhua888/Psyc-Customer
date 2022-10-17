@@ -12,11 +12,14 @@ class HistoryService extends AbstractService {
 });
   };
 
-  getHistoryBooking = (customerid) => {
-    return this.httpGET(API.GET_HISTORY, {
-      customerid
-   });
-  };
+  // api/SlotBookings/GetHistoryByCustomerid?pagesize=5&pagenumber=2
+  getHistoryBooking = (customerid, pagesize, pagenumber) => {
+    return this.httpGET(API.GET_HISTORY, { 
+      customerid,
+      pagesize,
+      pagenumber
+});
+  }
 }
 
 export const historyService = new HistoryService();

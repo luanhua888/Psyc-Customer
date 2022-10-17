@@ -12,6 +12,7 @@ import { userService } from "../../services/UserService";
 import onPageChange from "../../services/UserService";
 
 export default function Profile() {
+  const pageCount = 5;
   const defaultProps = {
     center: {
       lat: 10.99835602,
@@ -24,16 +25,6 @@ export default function Profile() {
 
   const onSubmit = async (data) => {
    console.login(data);
-  };
-
-  const getHistoryBooking = (date, customerId) => {
-    slotBookingService.getAll(date, customerId).then((response) => {
-      if (!_.isEmpty(response.data)) {
-        setHistoryBookings(response.data);
-      } else {
-        setHistoryBookings([]);
-      }
-    });
   };
 
   const [supProfile, setSupProfile] = useState([]);
@@ -59,13 +50,14 @@ export default function Profile() {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.getAllSupProfile(
-          localStorage.getItem("idcustomer")
+        const data = await profileService.getSupProfile(
+          localStorage.getItem("idcustomer"),     
+          currentPage,
+          5
         );
 
         if (data.statusCode == 200) {
           setSupProfile(data.data);
-          console.log(data.data);
         }
       }
     })();
@@ -344,17 +336,19 @@ export default function Profile() {
                     onPageChange={async (page) => {
                       setCurrentPage(page);
                       if (localStorage.getItem("jwttoken")) {
-                        const data = await profileService.getAllSupProfile(
+                        const data = await profileService.getSupProfile(
                           localStorage.getItem("idcustomer"),
-                          page
+                          5,
+                          page,
+                         
                         );
                         if (data.statusCode == 200) {
-                          setUser(data.data[0]);
+                          setSupProfile(data.data);
                         }
                       }
                     }}
                     showIcons={true}
-                    totalPages={1000}
+                    totalPages={pageCount}
                   />
                 </div>
               </div>
