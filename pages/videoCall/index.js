@@ -6,18 +6,42 @@ import camera from "../../public/photos/icon/video-camera.png";
 import noMic from "../../public/photos/icon/microphone.png";
 import noCam from "../../public/photos/icon/no-video.png";
 import connect from "../../public/photos/icon/link.png";
+import { useRouter } from "next/router";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
+import { videoCallService } from "../../services/VideoCallService";
 
+export default function VideoCall() {
+  const router = useRouter();
 
-export default function videocall() {
-  
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  let { roomCall } = router.query;
+
+  let props = {
+    roomCall,
+  };
+
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";
   }, []);
 
+  const [room, setRoom] = useState([]);
+  const [token, setToken] = useState([]);
+  const [channel, setChannel] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await videoCallService.getRoomAgrora(props.roomCall);
+
+      if (data.statusCode == 200) {
+        setRoom(data.data[0]);
+        setToken(data.data[0].token);
+        setChannel(data.data[0].chanelName);
+        console.log("channelName", data.data[0].chanelName);
+        console.log("token", data.data[0].token);
+      }
+    })();
+  }, []);
 
   const config = {
     mode: "rtc",
@@ -26,11 +50,7 @@ export default function videocall() {
 
   const options = {
     appId: "249ed20e39a7470f9e7ed035b2fa4022",
-    channel: "SLOT_67",
-    token:
-      "006249ed20e39a7470f9e7ed035b2fa4022IAB+SoIah5RwWhOPjPrW8XBj9qI1GRsGvvp12d3Q9rMubNnsRj8h39v0KAAL9DwEKVxMYwUAAQAAAAAAAgAAAAAAAwAAAAAABAAAAAAA6AMAAAAA",
-    
-    };
+  };
 
   const remote = "#remote";
 
@@ -38,17 +58,11 @@ export default function videocall() {
     client: null,
     localVideoTrack: null,
     localAudioTrack: null,
-    
   };
 
   const join = async () => {
     rtc.client = AgoraRTC.createClient(config);
-    await rtc.client.join(
-      options.appId,
-      options.channel,
-      options.token || null
-    );
-
+    await rtc.client.join(options.appId, channel, token || null);
   };
 
   async function startOneToOneVideoCall() {
@@ -84,7 +98,6 @@ export default function videocall() {
     // rtc.client.publish(rtc.localVideoTrack);
     // rtc.client.publish([rtc.localVideoTrack]);
     rtc.localVideoTrack.play("local");
-
   };
 
   const startAudio = async () => {
@@ -101,7 +114,7 @@ export default function videocall() {
 
   const stopAudio = () => {
     rtc.localAudioTrack.stop();
-    rtc.client.unpublish(rtc.localAudioTrack);
+    // rtc.client.unpublish(rtc.localAudioTrack);
   };
 
   return (
@@ -119,17 +132,18 @@ export default function videocall() {
             ></div>
           </div>
           <div className=" d-flex flex items-center  ">
-            <section className="items-center m-auto
-            ">
-           
+            <section
+              className="items-center m-auto
+            "
+            >
               <Image
                 src={camera}
                 id="camera"
                 onClick={() => {
                   startVideo();
-                
-                document.getElementById("camera").style.display = "none";
-                document.getElementById("noCam").style.display = onload;
+
+                  document.getElementById("camera").style.display = "none";
+                  document.getElementById("noCam").style.display = onload;
                 }}
                 alt="Picture of the author"
                 width={45}
@@ -142,18 +156,21 @@ export default function videocall() {
                 onClick={() => {
                   stopVideo();
                   document.getElementById("noCam").style.display = "none";
-                document.getElementById("camera").style.display = onload;
+                  document.getElementById("camera").style.display = onload;
                 }}
                 alt="Picture of the author"
                 width={45}
                 height={45}
                 className="items-center  cursor-pointer"
-                
               />
               <Image
                 src={mic}
                 id="mic"
-                onClick={startAudio}
+                onClick={() => {
+                  startAudio();
+                  document.getElementById("mic").style.display = "none";
+                  document.getElementById("noMic").style.display = onload;
+                }}
                 alt="Picture of the author"
                 width={45}
                 height={45}
@@ -162,13 +179,17 @@ export default function videocall() {
               <Image
                 src={noMic}
                 id="noMic"
-                onClick={stopAudio}
+                onClick={() => {
+                  stopAudio();
+                  document.getElementById("noMic").style.display = "none";
+                  document.getElementById("mic").style.display = onload;
+                }}
                 alt="Picture of the author"
                 width={45}
                 height={45}
                 className="items-center  cursor-pointer"
               />
-             
+
               <Image
                 src={connect}
                 id="connect"

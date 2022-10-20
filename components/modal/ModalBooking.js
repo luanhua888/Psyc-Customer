@@ -177,6 +177,7 @@ const ModalBooking = forwardRef((props, ref) => {
                             onClick={() => setSelectedBooking(row)
                              && 
                              setSlotId(selectedBooking.id)
+                             
                               }
                              
                            

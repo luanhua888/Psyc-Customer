@@ -5,16 +5,43 @@ import Image from "next/image";
 import heroBanner from "../../public/photos/hero-banner-profile.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
 import googleMapReact from "google-map-react";
+import { useRouter } from "next/router";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Component } from "react";
 import { historyService } from "../../services/HistoryService";
+import { videoCallService } from "../../services/VideoCallService";
+
+import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
 
 export default function Profile() {
-  const formRef = useRef();
+  const [isOpen, setisOpen] = useState(false);
+
+  const handleOpen = () => {
+    setisOpen(true);
+  };
+
+  const handleClose = () => {
+    setisOpen(false);
+  };
+  //
+  const router = useRouter();
 
   const onSubmit = async () => {};
+
+  const onCancel = async () => {
+    router.push("/");
+  };
+
   const [historyBooking, setHistoryBooking] = useState([]);
   const [appointmentBooking, setAppointmentBooking] = useState([]);
+  const [selectedBooking, setSelectedBooking] = useState({});
+  const [roomCall, setRoomCall] = useState([]);
+  const [roomCall1, setRoomCall1] = useState([]);
+
+  const [chanelNameRoom, setchanelName] = useState([]);
+  const [tokenRoom, settoken] = useState([]);
+
+  const [SlotId, setSlotId] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -25,11 +52,18 @@ export default function Profile() {
 
         if (data.statusCode == 200) {
           setAppointmentBooking(data.data);
-          console.log(data.data);
         }
       }
     })();
   }, []);
+
+  // const onEnjoy = async () => {
+
+  //   router.push({
+  //     pathname: "/videoCall",
+  //     query: { roomCall },
+  //   });
+  // };
 
   useEffect(() => {
     (async () => {
@@ -44,6 +78,20 @@ export default function Profile() {
       }
     })();
   }, []);
+
+  // console.log(selectedBooking);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (localStorage.getItem("jwttoken")) {
+  //       const data = await videoCallService.getRoomAgrora(selectedBooking);
+
+  //       if (data.statusCode == 200) {
+  //         setRoomCall(data.data);
+  //       }
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -96,16 +144,39 @@ export default function Profile() {
                         <Table.Cell>{row.id}</Table.Cell>
                         <Table.Cell>{row.consultantName}</Table.Cell>
                         <Table.Cell>Gia đình</Table.Cell>
-                        <Table.Cell>{row.timeStart}</Table.Cell>
-                        <Table.Cell>{row.timeEnd}</Table.Cell>
                         <Table.Cell>{`${dayjs(row.dateSlot).format(
                           "DD/MM/YYYY"
                         )} `}</Table.Cell>
+                        <Table.Cell>{row.timeStart}</Table.Cell>
+                        <Table.Cell>{row.timeEnd}</Table.Cell>
+                       
                         <Table.Cell>Sắp diễn ra</Table.Cell>
                         <Table.Cell>
                           <div className="flex gap-2">
-                            <Button>Chi tiết</Button>
-                            <Button>Tham gia</Button>
+                            <Button
+                              onClick={
+                                handleOpen 
+                              }
+                            >
+                              Hủy
+                            </Button>
+                            <ModalCancelBooking
+                              className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                              isOpen={isOpen}
+                              handleClose={handleClose}
+                            />
+
+                            <Button
+                              onClick={() =>
+                                // onEnjoy(row.id) &&
+                                router.push({
+                                  pathname: "/videoCall",
+                                  query: { roomCall: row.id },
+                                })
+                              }
+                            >
+                              Tham gia
+                            </Button>
                           </div>
                         </Table.Cell>
                       </Table.Row>
@@ -134,7 +205,14 @@ export default function Profile() {
                   {historyBooking.map((row, index) => (
                     <Table.Body key={index} class="divide-y">
                       <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell>{row.id}</Table.Cell>
+                        <Table.Cell
+                          onClick={() =>
+                            setSelectedBooking(row) &&
+                            setSlotId(selectedBooking.id)
+                          }
+                        >
+                          {row.id}
+                        </Table.Cell>
                         <Table.Cell>{row.consultantName}</Table.Cell>
                         <Table.Cell>Sự nghiệp</Table.Cell>
                         <Table.Cell>{`${dayjs(row.dateSlot).format(
