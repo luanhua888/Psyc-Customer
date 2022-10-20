@@ -8,6 +8,7 @@ import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
 
+
 export default function Chat(props) {
   const { consultants } = props;
 
@@ -106,7 +107,6 @@ export default function Chat(props) {
                       <div className="text-[#807f7f] text-sm">
                         Kinh nghiệm: {row.experience} năm
                       </div>
-                      <div className="text-red-600 font-medium">Giá: FREE</div>
                     </div>
                   </div>
                   <div className=" mb-4 ml-4 self-end">
@@ -114,7 +114,7 @@ export default function Chat(props) {
                       className="h-10 w-20 text-xs text-center rounded-3xl text-blue-500 border-2 border-blue-500 hover:ring hover:ring-blue-300"
                       onClick={() => onChat(row)}
                     >
-                      Trò chuyện
+                      Đặt lịch
                     </button>
                   </div>
                 </div>
