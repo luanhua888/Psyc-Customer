@@ -10,8 +10,21 @@ import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
 import { userService } from "../../services/UserService";
 import onPageChange from "../../services/UserService";
+import ModalMap from "../../components/modal/ModalMap";
 
-export default function Profile() {
+
+
+export default function Profile(props) {
+
+  const { handleOpenModalPicker } = props;
+  const modalMapRef = useRef();
+
+
+
+  const handleOpenModalPickerChild = () => {
+    modalMapRef.current?.open()
+  };
+
   const pageCount = 5;
   const defaultProps = {
     center: {
@@ -24,7 +37,7 @@ export default function Profile() {
   const formRef = useRef();
 
   const onSubmit = async (data) => {
-   console.login(data);
+    console.login(data);
   };
 
   const [supProfile, setSupProfile] = useState([]);
@@ -51,7 +64,7 @@ export default function Profile() {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
         const data = await profileService.getSupProfile(
-          localStorage.getItem("idcustomer"),     
+          localStorage.getItem("idcustomer"),
           currentPage,
           5
         );
@@ -196,7 +209,7 @@ export default function Profile() {
                           </div>
                         </div>
 
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                        <div class="grid gap-6 mb-6 md:grid-cols-3">
                           <div>
                             <label
                               for="countries"
@@ -229,6 +242,21 @@ export default function Profile() {
                               required
                             />
                           </div>
+                          
+                            <div>
+                            <Button
+                              class="block pt-1 mt-7 text-sm rounded-full bg-blue-700  hover:bg-blue-800 font-medium text-white dark:text-gray-300 text-center"
+                              type="primary"
+                              width="default"
+                              onClick={handleOpenModalPickerChild}
+                            >
+                              Chọn vị trí
+                            </Button>
+                            </div>
+                           
+    
+
+
                         </div>
 
                         <div class="grid gap-6 mb-6">
@@ -252,19 +280,16 @@ export default function Profile() {
                           <button
                             type="button"
                             class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                           
                             onClick={() => {
                               if (isEdit) {
-                                setBtnSubmit("Chỉnh Sửa") 
+                                setBtnSubmit("Chỉnh Sửa");
                                 formRef.current.submitForm();
                                 setIsEdit(false);
                               } else {
-                                setBtnSubmit("Lưu")
+                                setBtnSubmit("Lưu");
                                 setIsEdit(true);
                               }
                             }}
-
-
                           >
                             {btnSubmit}
                           </button>
@@ -292,6 +317,7 @@ export default function Profile() {
                     <Table.HeadCell>Giới Tính</Table.HeadCell>
                     <Table.HeadCell>Nơi Sinh</Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
+
                     <Table.HeadCell></Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
                   </Table.Head>
@@ -339,8 +365,7 @@ export default function Profile() {
                         const data = await profileService.getSupProfile(
                           localStorage.getItem("idcustomer"),
                           5,
-                          page,
-                         
+                          page
                         );
                         if (data.statusCode == 200) {
                           setSupProfile(data.data);
@@ -356,6 +381,8 @@ export default function Profile() {
           </div>
         </div>
       </section>
+      <ModalMap ref={modalMapRef}/>
+      
     </>
   );
 }
