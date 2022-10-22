@@ -12,7 +12,7 @@ import Modal from "../modal";
 import { userService } from "../../services/UserService";
 import GoogleMapReact from "google-map-react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import MapPicker from 'react-google-map-picker';     
+
 
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 
