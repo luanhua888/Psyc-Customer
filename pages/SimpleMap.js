@@ -1,31 +1,32 @@
-import React from 'react'
-import GoogleMapReact from 'google-map-react'
+import { useState, useEffect } from 'react';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 
-const AnyReactComponent = ({ text }) =>
-  <div>
-    {text}
-  </div>
 
-export default function SimpleMap () {
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627
-    },
-    zoom: 11
-  }
+export function ChangeView({ coords }) {
+  const map = useMap();
+  map.setView(coords, 12);
+  return null;
+}
+
+export default function Chat(props) {
+  const [geoData, setGeoData] = useState({ lat: 64.536634, lng: 16.779852 });
+
+  const center = [geoData.lat, geoData.lng];
 
   return (
-    // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%' }}>
-      <div>ttt</div>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text='My Marker' />
-      </GoogleMapReact>
-    </div>
-  )
+    <>
+      <MapContainer center={center} zoom={12} style={{ height: '100vh' }}>
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {geoData.lat && geoData.lng && (
+        <Marker position={[geoData.lat, geoData.lng]} />
+      )}
+      <ChangeView coords={center} />
+    </MapContainer>
+    </>
+  );
 }
+

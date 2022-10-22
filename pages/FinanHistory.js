@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Table, Pagination,Avatar } from "flowbite-react";
-import { input } from 'postcss';
+import { inputBox } from 'postcss';
 
 export default function FinanHistory() {
   return (
@@ -10,10 +10,10 @@ export default function FinanHistory() {
   <div className="flex justify-center bg-gray-100 mb-2 mr-10 ml-40">
   <label className="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 mr-2">Thời gian từ:</label>
   <div>
-  <input
+  <inputBox
                                                         type='date'
                                                         id='first_name'
-                                                        value={input}
+                                                        value={inputBox}
                                                         className='flex-grow border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 mr-2'
                                                         placeholder='Nhập dữ liệu'
                                                         required
@@ -24,10 +24,10 @@ export default function FinanHistory() {
     đến ngày: 
   </div>
   <div>
-  <input
+  <inputBox
                                                         type='date'
                                                         id='first_name'
-                                                        value={input}
+                                                        value={inputBox}
                                                         className='flex-grow border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 mr-2'
                                                         placeholder='Nhập dữ liệu'
                                                         required
