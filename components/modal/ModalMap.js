@@ -93,15 +93,7 @@ const ModalLogin = forwardRef((props, ref) => {
           </GoogleMapReact>
         </div>
         <div style={{ height: "74vh", width: "100%" }}>
-          <MapPicker
-            defaultLocation={defaultLocation}
-            zoom={zoom}
-            mapTypeId="roadmap"
-            style={{ height: "700px" }}
-            onChangeLocation={handleChangeLocation}
-            onChangeZoom={handleChangeZoom}
-            apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-          />
+        
         </div>
       </Modal>
     </div>
