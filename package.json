@@ -30,7 +30,6 @@
     "flowbite-react": "^0.1.12",
     "formik": "^2.2.9",
     "google-map-react": "^2.2.0",
-    "leaflet": "^1.9.2",
     "lodash": "^4.17.21",
     "next": "12.3.1",
     "next-transpile-modules": "^9.0.0",
@@ -38,7 +37,6 @@
     "react-dom": "18.2.0",
     "react-google-picker": "^0.1.0",
     "react-icons": "^4.4.0",
-    "react-leaflet": "^4.1.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
