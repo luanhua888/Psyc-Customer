@@ -52,15 +52,15 @@ const ModalMap = forwardRef((props, ref) => {
                         label: 'Cập nhật',
                     },
                 ]}>
-                <div style={{ height: '50vh', width: '100%' }}>
+                <div style={{ height: '100%', width: '100%' }}>
                     <MapPicker
                         defaultLocation={defaultLocation}
                         zoom={zoom}
                         mapTypeId='roadmap'
-                        style={{ height: '700px' }}
+                        style={{ height: '600px' }}
                         onChangeLocation={onChangeLocation}
                         onChangeZoom={handleChangeZoom}
-                        apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
+                        apiKey='AIzaSyD_e9yV4n0Edq3ZUUuFWPa7iRLiDRfLOlo'
                     />
                 </div>
             </Modal>

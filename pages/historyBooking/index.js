@@ -1,4 +1,4 @@
-import { Button, Table, Pagination } from "flowbite-react";
+import { Button, Table, Pagination, Tabs } from "flowbite-react";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -51,8 +51,10 @@ export default function Profile() {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getAppointmentBooking(
-          localStorage.getItem("idcustomer")
+        const data = await historyService.getAppointmentBookingDefault(
+          localStorage.getItem("idcustomer"),
+          currentPage,
+          5
         );
 
         if (data.statusCode == 200) {
@@ -65,7 +67,7 @@ export default function Profile() {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getHistoryBooking(
+        const data = await historyService.getHistoryBookingDefault(
           localStorage.getItem("idcustomer"),
           currentPage,
           5
@@ -101,139 +103,172 @@ export default function Profile() {
         </div>
       </section>
       {/* Table */}
-      <section className="bg-slate-400">
+      <section className="bg-slate-400  items-center">
         <div className="md:container mx-auto py-5">
-          <main className=" history flex flex-row px-7 py-3 rounded-3xl bg-white">
-            <div className="history__body basis-3/4 grow container mx-auto">
-              <div className="upcoming ">
-                <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
-                  CUỘC HẸN SẮP DIỄN RA
-                </h3>
+          <main className="px-7 py-3 rounded-3xl bg-white">
+            <div >
+              <Tabs.Group
+                class="flex flex-col sm:flex-row items-center justify-center underline-offset-1"
+                aria-label="Tabs with icons"
+               style="underline"
+              >
+                {/* Appointment */}
+                <Tabs.Item
+                  title="CUỘC HẸN SẮP DIỄN RA"
+                  // icon={}
+                >
+                  <div className="upcoming">
+                    <Table hoverable={true}>
+                      <Table.Head class="bg-gray-200">
+                        {/* <tr class='border border-gray-400'> */}
+                        <Table.HeadCell>STT</Table.HeadCell>
+                        <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
+                        <Table.HeadCell>Chủ đề</Table.HeadCell>
+                        <Table.HeadCell>Thời gian</Table.HeadCell>
+                        <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
+                        <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
+                        <Table.HeadCell>Trạng thái</Table.HeadCell>
+                        <Table.HeadCell></Table.HeadCell>
+                        {/* </tr> */}
+                      </Table.Head>
+                      {appointmentBooking.map((row, index) => (
+                        <Table.Body key={(index = 0)} class="divide-y">
+                          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <Table.Cell>{index + 1}</Table.Cell>
+                            <Table.Cell>{row.consultantName}</Table.Cell>
+                            <Table.Cell>Gia đình</Table.Cell>
+                            <Table.Cell>{`${dayjs(row.dateSlot).format(
+                              "DD/MM/YYYY"
+                            )} `}</Table.Cell>
+                            <Table.Cell>{row.timeStart}</Table.Cell>
+                            <Table.Cell>{row.timeEnd}</Table.Cell>
 
-                <Table hoverable={true}>
-                  <Table.Head class="bg-gray-200">
-                    {/* <tr class='border border-gray-400'> */}
-                    <Table.HeadCell>Stt</Table.HeadCell>
-                    <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
-                    <Table.HeadCell>Chủ đề</Table.HeadCell>
-                    <Table.HeadCell>Thời gian</Table.HeadCell>
-                    <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
-                    <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
-                    <Table.HeadCell>Trạng thái</Table.HeadCell>
-                    <Table.HeadCell>Thao tác</Table.HeadCell>
-                    {/* </tr> */}
-                  </Table.Head>
-                  {appointmentBooking.map((row, index) => (
-                    <Table.Body key={index} class="divide-y">
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell>{row.id}</Table.Cell>
-                        <Table.Cell>{row.consultantName}</Table.Cell>
-                        <Table.Cell>Gia đình</Table.Cell>
-                        <Table.Cell>{`${dayjs(row.dateSlot).format(
-                          "DD/MM/YYYY"
-                        )} `}</Table.Cell>
-                        <Table.Cell>{row.timeStart}</Table.Cell>
-                        <Table.Cell>{row.timeEnd}</Table.Cell>
+                            <Table.Cell>Sắp diễn ra</Table.Cell>
+                            <Table.Cell>
+                              <div className="flex gap-2">
+                                <Button onClick={handleOpen}>Hủy</Button>
+                                <ModalCancelBooking
+                                  className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                                  isOpen={isOpen}
+                                  handleClose={handleClose}
+                                />
 
-                        <Table.Cell>Sắp diễn ra</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex gap-2">
-                            <Button onClick={handleOpen}>Hủy</Button>
-                            <ModalCancelBooking
-                              className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
-                              isOpen={isOpen}
-                              handleClose={handleClose}
-                            />
-
-                            <Button
+                                <Button
+                                  onClick={() =>
+                                    // onEnjoy(row.id) &&
+                                    router.push({
+                                      pathname: "/videoCall",
+                                      query: { roomCall: row.id },
+                                    })
+                                  }
+                                >
+                                  Tham gia
+                                </Button>
+                              </div>
+                            </Table.Cell>
+                          </Table.Row>
+                        </Table.Body>
+                      ))}
+                    </Table>
+                  </div>
+                  <div className=" items-center justify-center text-center">
+                    <Pagination
+                      currentPage={currentPage}
+                      layout="pagination"
+                      onPageChange={async (page) => {
+                        setCurrentPage(page);
+                        if (localStorage.getItem("jwttoken")) {
+                          const { data } =
+                            await historyService.getAppointmentBooking(
+                              localStorage.getItem("idcustomer"),
+                              5,
+                              page
+                            );
+                          if (data) {
+                            setAppointmentBooking(data);
+                          }
+                        }
+                      }}
+                      showIcons={true}
+                      totalPages={pageCount}
+                    />
+                  </div>
+                </Tabs.Item>
+                {/* History Booking */}
+                <Tabs.Item
+                  title="CUỘC HẸN ĐÃ KẾT THÚC"
+                  // icon={}
+                >
+                  <div className="history">
+                    <Table hoverable={true}>
+                      <Table.Head class="bg-gray-200">
+                        {/* <tr class='border border-gray-400'> */}
+                        <Table.HeadCell>STT</Table.HeadCell>
+                        <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
+                        <Table.HeadCell>Chủ đề</Table.HeadCell>
+                        <Table.HeadCell>Thời gian</Table.HeadCell>
+                        <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
+                        <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
+                        <Table.HeadCell>Trạng thái</Table.HeadCell>
+                        <Table.HeadCell></Table.HeadCell>
+                        {/* </tr> */}
+                      </Table.Head>
+                      {historyBooking.map((row, index) => (
+                        <Table.Body key={index} class="divide-y">
+                          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <Table.Cell
                               onClick={() =>
-                                // onEnjoy(row.id) &&
-                                router.push({
-                                  pathname: "/videoCall",
-                                  query: { roomCall: row.id },
-                                })
+                                setSelectedBooking(row) &&
+                                setSlotId(selectedBooking.id)
                               }
                             >
-                              Tham gia
-                            </Button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                    </Table.Body>
-                  ))}
-                </Table>
-              </div>
-
-              <div className="history">
-                <h3 className="text-center p-5 mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
-                  CUỘC HẸN ĐÃ KẾT THÚC
-                </h3>
-                <Table hoverable={true}>
-                  <Table.Head class="bg-gray-200">
-                    {/* <tr class='border border-gray-400'> */}
-                    <Table.HeadCell>Stt</Table.HeadCell>
-                    <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
-                    <Table.HeadCell>Chủ đề</Table.HeadCell>
-                    <Table.HeadCell>Thời gian</Table.HeadCell>
-                    <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
-                    <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
-                    <Table.HeadCell>Trạng thái</Table.HeadCell>
-                    <Table.HeadCell>Thao tác</Table.HeadCell>
-                    {/* </tr> */}
-                  </Table.Head>
-                  {historyBooking.map((row, index) => (
-                    <Table.Body key={index} class="divide-y">
-                      <Table.Row cclassName="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell
-                          onClick={() =>
-                            setSelectedBooking(row) &&
-                            setSlotId(selectedBooking.id)
+                              {index + 1}
+                            </Table.Cell>
+                            <Table.Cell>{row.consultantName}</Table.Cell>
+                            <Table.Cell>Sự nghiệp</Table.Cell>
+                            <Table.Cell>{`${dayjs(row.dateSlot).format(
+                              "DD/MM/YYYY"
+                            )} `}</Table.Cell>
+                            <Table.Cell>{row.timeStart}</Table.Cell>
+                            <Table.Cell>{row.timeEnd}</Table.Cell>
+                            <Table.Cell>Đã kết thúc</Table.Cell>
+                            <Table.Cell>
+                              <div className="flex gap-2">
+                                <Button>Chi tiết</Button>
+                                <Button>Tham gia</Button>
+                              </div>
+                            </Table.Cell>
+                          </Table.Row>
+                        </Table.Body>
+                      ))}
+                    </Table>
+                    <div className="flex items-center justify-center text-center">
+                      <Pagination
+                        currentPage={currentPage}
+                        layout="pagination"
+                        onPageChange={async (page) => {
+                          setCurrentPage(page);
+                          if (localStorage.getItem("jwttoken")) {
+                            const { data } =
+                              await historyService.getHistoryBooking(
+                                localStorage.getItem("idcustomer"),
+                                5,
+                                page
+                              );
+                            if (data) {
+                              setHistoryBooking(data);
+                            }
                           }
-                        >
-                          {row.id}
-                        </Table.Cell>
-                        <Table.Cell>{row.consultantName}</Table.Cell>
-                        <Table.Cell>Sự nghiệp</Table.Cell>
-                        <Table.Cell>{`${dayjs(row.dateSlot).format(
-                          "DD/MM/YYYY"
-                        )} `}</Table.Cell>
-                        <Table.Cell>{row.timeStart}</Table.Cell>
-                        <Table.Cell>{row.timeEnd}</Table.Cell>
-                        <Table.Cell>Đã kết thúc</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex gap-2">
-                            <Button>Chi tiết</Button>
-                            <Button>Tham gia</Button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                    </Table.Body>
-                  ))}
-                </Table>
-              </div>
+                        }}
+                        showIcons={true}
+                        totalPages={pageCount}
+                      />
+                    </div>
+                  </div>
+                </Tabs.Item>
+              </Tabs.Group>
             </div>
           </main>
-        </div>
-        <div className="flex items-center justify-center text-center">
-          <Pagination
-            currentPage={currentPage}
-            layout="pagination"
-            onPageChange={async (page) => {
-              setCurrentPage(page);
-              if (localStorage.getItem("jwttoken")) {
-                const { data } = await historyService.getHistoryBooking(
-                  localStorage.getItem("customerId"),
-                  5,
-                  page
-                );
-                if (data) {
-                  setHistoryBooking(data);
-                }
-              }
-            }}
-            showIcons={true}
-            totalPages={pageCount}
-          />
         </div>
       </section>
     </>

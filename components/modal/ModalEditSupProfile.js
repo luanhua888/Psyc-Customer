@@ -10,6 +10,7 @@ import {
   import { Button, Pagination, Table } from "flowbite-react";
   import ModalMap from "../../components/modal/ModalMap";
   import { Formik } from "formik";
+import { style } from "@mui/system";
   
   // eslint-disable-next-line react/display-name
   const ModalEditSupProfile = forwardRef((props, ref) => {
@@ -35,10 +36,10 @@ import {
     return (
       <div className="absolute top-0">
         <Modal
-          classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
+          classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
+          title={"Chỉnh sửa thông tin"}
           onDiscard={() => console.log("Button discard")}
           // buttons={[
           //   {
@@ -142,7 +143,7 @@ import {
                     </div>
                   </div>
   
-                  <div class="grid gap-6 mb-6 md:grid-cols-3">
+                  <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                       <label
                         for="Longitude"
@@ -184,43 +185,29 @@ import {
                       />
                     </div>
   
-                    <div>
-                      <Button
-                        class="block pt-1 mt-7 text-sm rounded-full bg-blue-700  hover:bg-blue-800 font-medium text-white dark:text-gray-300 text-center"
-                        type="primary"
-                        width="default"
-                        onClick={handleOpenModalPickerChild}
-                      >
-                        Chọn vị trí
-                      </Button>
-                    </div>
+                   
+                   
                   </div>
+                  <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          <Button
+                            class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1  text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="primary"
+                            width="default"
+                            onClick={handleOpenModalPickerChild}
+                          >
+                            Chọn vị trí
+                          </Button>
+                          <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            Lưu
+                          </Button>
+                        </div>
   
-                  {/* <div class="grid gap-6 mb-6">
-                <div>
-                  <label
-                    for="address"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Nơi sinh
-                  </label>
-                  <textarea
-                    id="address"
-                    name="address"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nhập dữ liệu"
-                    required
-                  ></textarea>
-                </div>
-              </div> */}
-                  <div>
-                    <button
-                      type="submit"
-                      class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Lưu
-                    </button>
-                  </div>
+                  
+                  
                 </form>
               )}
             </Formik>
