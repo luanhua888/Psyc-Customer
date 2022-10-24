@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Table, Pagination,Avatar } from "flowbite-react";
-import { inputBox } from 'postcss';
+// import { inputBox } from 'postcss';
 
 export default function FinanHistory() {
   return (
@@ -10,28 +10,28 @@ export default function FinanHistory() {
   <div className="flex justify-center bg-gray-100 mb-2 mr-10 ml-40">
   <label className="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 mr-2">Thời gian từ:</label>
   <div>
-  <inputBox
+  {/* <inputBox
                                                         type='date'
                                                         id='first_name'
                                                         value={inputBox}
                                                         className='flex-grow border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 mr-2'
                                                         placeholder='Nhập dữ liệu'
                                                         required
-                                                    />
+                                                    /> */}
   
   </div>
   <div  className="mt-2 ml-2 mr-2">
     đến ngày: 
   </div>
   <div>
-  <inputBox
+  {/* <inputBox
                                                         type='date'
                                                         id='first_name'
                                                         value={inputBox}
                                                         className='flex-grow border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 mr-2'
                                                         placeholder='Nhập dữ liệu'
                                                         required
-                                                    />
+                                                    /> */}
   </div>
   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
     Tìm kiếm

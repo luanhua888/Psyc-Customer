@@ -52,7 +52,7 @@ export default function Profile(props) {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.getSupProfile(
+        const data = await profileService.getSupProfileDefault(
           localStorage.getItem("idcustomer"),
           currentPage,
           5
@@ -123,7 +123,7 @@ export default function Profile(props) {
                       isSubmitting,
                       /* and other goodies */
                     }) => (
-                      <form onSubmit={handleSubmit}>
+                      <form className="pt-2" onSubmit={handleSubmit}>
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                           <div>
                             <label
@@ -205,7 +205,7 @@ export default function Profile(props) {
                           </div>
                         </div>
 
-                        <div class="grid gap-6 mb-6 md:grid-cols-3">
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
                           <div>
                             <label
                               for="Longitude"
@@ -247,26 +247,25 @@ export default function Profile(props) {
                             />
                           </div>
 
-                          <div>
-                            <Button
-                              class="block pt-1 mt-7 text-sm rounded-full bg-blue-700  hover:bg-blue-800 font-medium text-white dark:text-gray-300 text-center"
-                              type="primary"
-                              width="default"
-                              onClick={handleOpenModalPickerChild}
-                            >
-                              Chọn vị trí
-                            </Button>
-                          </div>
+                          <div className="pt-7"></div>
                         </div>
 
-                        <div>
-                          <button
+                        <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          <Button
+                            class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1  text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="primary"
+                            width="default"
+                            onClick={handleOpenModalPickerChild}
+                          >
+                            Chọn vị trí
+                          </Button>
+                          <Button
                             type="submit"
                             disabled={isSubmitting}
-                            class="text-white float-right bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2.5 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           >
                             Lưu
-                          </button>
+                          </Button>
                         </div>
                       </form>
                     )}
@@ -276,9 +275,9 @@ export default function Profile(props) {
             )}
 
             <div>
-              <h3 className="text-center mb-6 text-slate-700 font-bold text-xl pb-5 border-b-4 border-b-slate-700">
+              <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700">
                 Danh sách các hồ sơ khác của bạn
-              </h3>
+              </h1>
 
               <div>
                 <Table hoverable={true}>
@@ -286,12 +285,11 @@ export default function Profile(props) {
                     <Table.HeadCell>STT</Table.HeadCell>
                     <Table.HeadCell>Họ và Tên</Table.HeadCell>
                     <Table.HeadCell>Ngày sinh</Table.HeadCell>
+                    <Table.HeadCell>Giới Tính</Table.HeadCell>
                     <Table.HeadCell>Kinh độ</Table.HeadCell>
                     <Table.HeadCell>Vĩ độ</Table.HeadCell>
-                    <Table.HeadCell>Giới Tính</Table.HeadCell>
                     <Table.HeadCell>Nơi Sinh</Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
-
                     <Table.HeadCell></Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
                   </Table.Head>
@@ -299,31 +297,38 @@ export default function Profile(props) {
                     <Table.Body key={index} className="divide-y">
                       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                          1
+                          {index + 1}
                         </Table.Cell>
                         <Table.Cell>{item.name}</Table.Cell>
-                        <Table.Cell>{`${dayjs(supProfile.dob).format(
+                        <Table.Cell>{`${dayjs(item.dob).format(
                           "DD/MM/YYYY"
                         )} `}</Table.Cell>
+                        <Table.Cell>{item.gender}</Table.Cell>
                         <Table.Cell>{item.latitude}</Table.Cell>
                         <Table.Cell>{item.longitude}</Table.Cell>
-                        <Table.Cell>{item.gender}</Table.Cell>
-                        <Table.Cell>{supProfile.birthPlace}</Table.Cell>
+                        <Table.Cell>{item.birthPlace}</Table.Cell>
+                        <Table.Cell></Table.Cell>
                         <Table.Cell>
-                          <Button outline={true} color="warning">
-                            Bản đồ sao
-                          </Button>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <div className="flex gap-2">
+                          <div className="flex gap-3">
+                            <Button
+                              outline={true}
+                              class="outline rounded outline-gray-800"
+                            >
+                              Xóa
+                            </Button>
+
                             <Button
                               outline={true}
                               onClick={handleOpenModalEditSupProfile}
+                              class="outline rounded outline-cyan-900"
                             >
                               Chỉnh sửa
                             </Button>
-                            <Button outline={true} color="failure">
-                              Xóa
+                            <Button
+                              outline={true}
+                              class="outline rounded outline-cyan-600 hover:bg-slate-800"
+                            >
+                              Bản đồ sao
                             </Button>
                           </div>
                         </Table.Cell>

@@ -7,9 +7,18 @@ const API = {
 };
 
 class HistoryService extends AbstractService {
-  getAppointmentBooking = (customerid) => {
+  getAppointmentBooking = (customerid, pagesize, pagenumber) => {
     return this.httpGET(API.GET_APPOINTMENT, {
       customerid,
+      pagesize,
+      pagenumber,
+    });
+  };
+  getAppointmentBookingDefault = (customerid, pagesize, pagenumber) => {
+    return this.httpGET(API.GET_APPOINTMENT, {
+      customerid,
+      pagesize: 5,
+      pagenumber: 1,
     });
   };
 
@@ -19,6 +28,14 @@ class HistoryService extends AbstractService {
       customerid,
       pagesize,
       pagenumber,
+    });
+  };
+
+  getHistoryBookingDefault = (customerid, pagesize, pagenumber) => {
+    return this.httpGET(API.GET_HISTORY, {
+      customerid,
+      pagesize: 5,
+      pagenumber: 1,
     });
   };
 

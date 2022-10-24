@@ -55,6 +55,7 @@ export default function Navbar() {
         localStorage.removeItem('jwttoken');
         localStorage.removeItem('iddb');
         localStorage.removeItem('idcustomer');
+        router.push('/')
         setUser({});
     };
 
