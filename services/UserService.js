@@ -68,6 +68,10 @@ class UserService extends AbstractService {
     profile = (id) => {
         return this.httpGET(API.PROFILE, { id });
     };
+
+    customerUpdate = (data, email) => {
+        return this.httpPUT(API.REGISTER_INFOR, { ...data, email });
+    };
 }
 
 export const userService = new UserService();

@@ -21,6 +21,7 @@ export default function Profile() {
   };
 
   const handleClose = () => {
+    getAppointmentBooking();
     setisOpen(false);
   };
   //
@@ -48,19 +49,23 @@ export default function Profile() {
   const [historyBooking, setHistoryBooking] = useState([]);
   const [appointmentBooking, setAppointmentBooking] = useState([]);
 
+  const getAppointmentBooking = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await historyService.getAppointmentBookingDefault(
+        localStorage.getItem("idcustomer"),
+        currentPage,
+        5
+      );
+
+      if (data.statusCode == 200) {
+        setAppointmentBooking(data.data);
+      }
+    }
+  }
+
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const data = await historyService.getAppointmentBookingDefault(
-          localStorage.getItem("idcustomer"),
-          currentPage,
-          5
-        );
-
-        if (data.statusCode == 200) {
-          setAppointmentBooking(data.data);
-        }
-      }
+      getAppointmentBooking();
     })();
   }, []);
 
@@ -148,6 +153,7 @@ export default function Profile() {
                               <div className="flex gap-2">
                                 <Button onClick={handleOpen}>Hủy</Button>
                                 <ModalCancelBooking
+                                id={row.id}
                                   className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                                   isOpen={isOpen}
                                   handleClose={handleClose}
