@@ -165,6 +165,7 @@ export default function Profile() {
                                     router.push({
                                       pathname: "/videoCall",
                                       query: { roomCall: row.id },
+                                      
                                     })
                                   }
                                 >

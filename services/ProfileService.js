@@ -1,7 +1,7 @@
 import AbstractService from "./AbstractService";
 
 const API = {
-  PROFILE: "Customers/Getallcustomer",
+  PROFILE: "Customers/getbyid",
   GET_SUPPROFILE: "Profiles/getbyidcustomer",
 };
 

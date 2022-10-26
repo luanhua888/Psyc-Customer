@@ -8,6 +8,7 @@ import logoFooterImg from '../public/logo_footer.png';
 
 import { zodiacService } from '../services/ZodiacService';
 import { articleService } from '../services/ArticleService';
+import SliderComponent from '../components/Article';
 
 export default function Home(props) {
     const { zodiacs, articles } = props;
@@ -157,6 +158,8 @@ export default function Home(props) {
                     </div>
                 </section>
             )}
+
+            {/* <SliderComponent/> */}
 
             <section
                 id='#trust_score'
