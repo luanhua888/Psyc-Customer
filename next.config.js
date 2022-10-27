@@ -12,3 +12,5 @@ module.exports = nextConfig({
   reactStrictMode: false,
   swcMinify: true
 })
+
+

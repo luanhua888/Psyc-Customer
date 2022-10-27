@@ -26,21 +26,30 @@ export default function VideoCall() {
     document.getElementById("noMic").style.display = "none";
   }, []);
 
+  console.log("props", props);
+
   const [room, setRoom] = useState([]);
   const [token, setToken] = useState([]);
   const [channel, setChannel] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const data = await videoCallService.getRoomAgrora(props.roomCall);
+     
+        const data = await videoCallService.getRoomAgrora(props.roomCall);
 
-      if (data.statusCode == 200) {
-        setRoom(data.data[0]);
-        setToken(data.data[0].token);
-        setChannel(data.data[0].chanelName);
-        console.log("channelName", data.data[0].chanelName);
-        console.log("token", data.data[0].token);
-      }
+        if (data.statusCode == 200) {
+
+          if(data.data[0] != undefined){
+          setRoom(data.data[0]);
+          setToken(data.data[0].token);
+          setChannel(data.data[0].chanelName);
+          console.log("channelName", data.data[0].chanelName);
+          console.log("token", data.data[0].token);
+          }else{
+            router.push("/chat");
+          }
+        }
+     
     })();
   }, []);
 
@@ -68,7 +77,6 @@ export default function VideoCall() {
 
   async function startOneToOneVideoCall() {
     join().then(() => {
-    
       rtc.client.on("user-published", async (user, mediaType) => {
         if (rtc.client._users.length > 2) {
           rtc.client.leave();

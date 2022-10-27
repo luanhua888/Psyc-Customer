@@ -10,8 +10,7 @@ import ModalBooking from "../../components/modal/ModalBooking";
 import { liveStreamService } from "../../services/LiveStreamService";
 import { useRouter } from "next/router";
 
-
-export default function Chat(props) {
+export default function RoomLive(props) {
   const { consultants } = props;
   const router = useRouter();
   const modalLoginRef = useRef();
@@ -26,25 +25,22 @@ export default function Chat(props) {
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
-          
         }
       }
     })();
   }, []);
 
-  const onChat = (consultant) => {
+  const onJoin = (consultant) => {
     if (_.isEmpty(user)) {
       modalLoginRef.current.open();
       return;
     }
     console.log(user);
-
-    router.push("/LiveStream_r");
   };
 
   return (
     <>
-      <section>
+      {/* <section>
         <div className="md:container mx-auto pt-12">
           <div className="flex flex-wrap justify-between grid gap-x-8 gap-y-4 grid-cols-3">
             {!_.isUndefined(consultants) &&
@@ -98,16 +94,14 @@ export default function Chat(props) {
                     </div>
                     <div className="flex flex-col gap-2">
                       <div className="text-lg font-medium cursor-pointer hover:text-blue-500">
-                        {row.fullName}
+                        {row.consultantName}
                       </div>
                       <div className="text-[#807f7f] text-sm">
-                        Giới tính: {row.gender}
                       </div>
                       <div className="text-[#807f7f] text-sm">
                          {row.description}
                       </div>
                       <div className="text-[#807f7f] text-sm">
-                        Kinh nghiệm: {row.experience} năm
                       </div>
                     </div>
                   </div>
@@ -116,16 +110,78 @@ export default function Chat(props) {
                       className="h-10 w-20 text-xs text-center rounded-3xl text-blue-500 border-2 border-blue-500 hover:ring hover:ring-blue-300"
                       onClick={() => onChat(row)}
                     >
-                      Đặt lịch
+                     Tham gia
                     </button>
                   </div>
                 </div>
               ))}
           </div>
         </div>
-      </section>
-      <ModalLogin ref={modalLoginRef}  />
-      <ModalBooking ref={modalBookingRef}  />
+      </section> */}
+      <div className="consultant__live__orther grid grid-cols-4 gap-4 mt-4 ml-[10%] mr-[10%]  ">
+        {!_.isUndefined(consultants) &&
+          !_.isEmpty(consultants) &&
+          consultants.map((row, index) => (
+            <div
+              key={index}
+              class="  cover items-center  max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  "
+            >
+              <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
+                <Image
+                  loader={() => row.imageUrl}
+                  className="rounded-full"
+                  src={avatarImg}
+                  alt=""
+                  width={200}
+                  height={200}
+                />
+              </div>
+              <div class="p-5 ">
+                <a
+                  href="#"
+                  className="w-full flex flex-col sm:flex-row items-center justify-center "
+                >
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {row.consultantName}
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 w-full flex flex-col sm:flex-row items-center justify-center ">
+                  {row.description}
+                </p>
+                <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
+                  <a
+                    href="#"
+                    class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={() =>
+                      router.push({
+                        pathname: "/LiveStream",
+                        query: { roomLive: row.id },
+                      })
+                    }
+                  >
+                    Tham gia
+                    <svg
+                      aria-hidden="true"
+                      class="ml-2 -mr-1 w-4 h-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+
+      <ModalLogin ref={modalLoginRef} />
+      <ModalBooking ref={modalBookingRef} />
     </>
   );
 }
