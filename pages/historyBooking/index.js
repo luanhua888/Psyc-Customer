@@ -147,13 +147,14 @@ export default function Profile() {
                             )} `}</Table.Cell>
                             <Table.Cell>{row.timeStart}</Table.Cell>
                             <Table.Cell>{row.timeEnd}</Table.Cell>
+                            <Table.Cell>{row.id}</Table.Cell>
 
                             <Table.Cell>Sắp diễn ra</Table.Cell>
                             <Table.Cell>
                               <div className="flex gap-2">
                                 <Button onClick={handleOpen}>Hủy</Button>
                                 <ModalCancelBooking
-                                id={row.id}
+                                  id={row.id}
                                   className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                                   isOpen={isOpen}
                                   handleClose={handleClose}
