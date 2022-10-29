@@ -30,10 +30,8 @@ export default function LiveStream_r() {
           setRoom(data.data[0]);
           setToken(data.data[0].token);
           setChannel(data.data[0].chanelName);
-          console.log("channelName", data.data[0].chanelName);
-          console.log("token", data.data[0].token);
         } else {
-          router.push("/RoomLive");
+          router.push("");
         }
       }
     })();
