@@ -15,7 +15,7 @@ export default function LiveStream_r() {
     roomLive,
   };
 
-  console.log("props", roomLive);
+  // console.log("props", roomLive);
 
   useEffect(() => {
     document.getElementById("leave-btn").style.display = "none";

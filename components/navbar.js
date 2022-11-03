@@ -41,7 +41,7 @@ export default function Navbar() {
 
         if (dataWallet.statusCode == 200) {
           setCrab(dataWallet.data);
-          console.log(dataWallet.data);
+          // console.log(dataWallet.data);
         }
       }
     })();

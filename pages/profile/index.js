@@ -46,7 +46,7 @@ export default function Profile(props) {
 
       await userService.customerUpdate(dataPost, user.email);
     } catch (err) {
-      console.log("err", err);
+      // console.log("err", err);
     }
   };
 
@@ -62,15 +62,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.profile(
-          localStorage.getItem("idcustomer")
-        );
-
-        if (data.statusCode == 200) {
-          setUser(data.data[0]);
-        }
-      }
+      
     })();
   }, []);
 
@@ -88,6 +80,7 @@ export default function Profile(props) {
       }
     }
   }
+
 
 
   useEffect(() => {
