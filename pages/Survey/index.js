@@ -7,6 +7,8 @@ function SurveyPage() {
   const [showStartPage, setStartPage] = useState(true);
   const [showQuestionPage, setShowQuestionPage] = useState(false);
   const [showFinalImgPage, setShowFinalImgPage] = useState(false);
+  const [resultSurvey, setResultSurvey] = useState({});
+
 
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
@@ -30,6 +32,8 @@ function SurveyPage() {
                 setShowFinalImgPage={setShowFinalImgPage}
                 setScore={setScore}
                 score={score}
+                setResultSurvey={setResultSurvey}
+                resultSurvey={resultSurvey}
             />
         )}
         {showFinalImgPage && (
@@ -42,6 +46,8 @@ function SurveyPage() {
                 setStartPage={setStartPage}
                 username={username}
                 setUserName={setUserName}
+                setResultSurvey={setResultSurvey}
+                resultSurvey={resultSurvey}
             />
         )}
     </>

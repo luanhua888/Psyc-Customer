@@ -40,7 +40,7 @@ export default function Payment() {
     }
   };
 
-  console.log("qrCodeTong", qrCode);
+  // console.log("qrCodeTong", qrCode);
 
   return (
     <>
