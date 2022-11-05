@@ -146,6 +146,12 @@ export default function Navbar() {
                 <Dropdown.Item onClick={() => router.push("/historyBooking")}>
                   Lịch sử cuộc hẹn
                 </Dropdown.Item>
+                <Dropdown.Item onClick={() => router.push("/historyDeposit")}>
+                Lịch sử rút nạp
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => router.push("/Payment")}>
+                Nạp tiền
+                </Dropdown.Item>
                 <Dropdown.Item onClick={onLogout}>Đăng xuất</Dropdown.Item>
               </Dropdown>
             </div>

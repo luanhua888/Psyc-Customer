@@ -15,34 +15,33 @@ import { Tabs } from "flowbite-react";
 import { set } from "lodash";
 
 // eslint-disable-next-line react/display-name
-const ModalPayment = forwardRef((qrCode, ref) => {
+const ModalPayment = forwardRef((amount, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [qrCodeDisplay, setQrDisplay] = useState({});
-
+  const [mountrecieve, setAmount] = useState([]);
 
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
-  setQrDisplay(qrCode.qrCode);
-
+      setAmount(amount.amount.amount);
+      getQrCode();
     },
     close: () => {
       setIsOpen(false);
     },
   }));
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (localStorage.getItem("jwttoken")) {
-  //       const data = await payMentService.getQrCode(localStorage.getItem("idcustomer"), amount);
-  //       if (data.statusCode == 200) {
-  //          setQrCode(data)
-  //       }
-  //     }
-  //   })();
-  // }, []);
 
-  console.log("qrCodeDisplay", qrCode.qrCode);
+
+  const getQrCode = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await payMentService.getQrCode(localStorage.getItem("idcustomer"), amount.amount.amount);
+      if (data.statusCode == 200) {
+        setQrDisplay(data)
+      }
+    }
+  };
+
 
   return (
     <div className=" absolute top-0">
@@ -52,15 +51,7 @@ const ModalPayment = forwardRef((qrCode, ref) => {
         setIsOpen={setIsOpen}
         title={""}
         onDiscard={() => console.log("Button discard")}
-        // buttons={[
-        //   {
-        //     role: "discard",
-        //     toClose: true,
-        //     classes:
-        //       "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-        //     label: "Cập nhật",
-        //   },
-        // ]}
+       
       >
         {qrCodeDisplay && (
           <div class="modal-body">
@@ -123,22 +114,22 @@ const ModalPayment = forwardRef((qrCode, ref) => {
             </div> */}
               </div>
               <div className="flex flex-row justify-center items-center">
-                Tài khoản nhận:{"  "} 
-                <span className="text-pink-600 text-2xl">
-                   {qrCodeDisplay.phonenumber}
+                Tài khoản nhận:{"  "}
+                <span className="text-pink-600 text-2xl ml-2">
+                  {qrCodeDisplay.phonenumber}
                 </span>
                 <br />
               </div>
               <div className="flex flex-row justify-center items-center">
                 Tên người nhận:{" "}
-                <span className=" text-pink-600 text-2xl">
+                <span className=" text-pink-600 text-2xl ml-2">
                   {qrCodeDisplay.name}
                 </span>
                 <br />
               </div>
               <div className="flex flex-row justify-center items-center">
                 Nội dung:{" "}
-                <span className=" text-pink-600 text-2xl">
+                <span className=" text-pink-600 text-2xl ml-2">
                   {qrCodeDisplay.code}
                 </span>
                 <br />
@@ -160,7 +151,7 @@ const ModalPayment = forwardRef((qrCode, ref) => {
                 GHI CHÚ
               </div>
               <div>
-                <ol class="list-decimal">
+                <l class="list-decimal">
                   <p>
                     1. Để tiền được cập nhật nhanh chóng, quý khách vui lòng
                     điền chính xác mã hiển thị có 6 ký tự ở phía trên.
@@ -170,7 +161,7 @@ const ModalPayment = forwardRef((qrCode, ref) => {
                     ký tự có sẵn.
                   </p>
                   <p>3.Không được sửa đổi số tiền.</p>
-                </ol>
+                </l>
               </div>
             </div>
           </div>

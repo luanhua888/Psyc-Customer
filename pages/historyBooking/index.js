@@ -13,7 +13,7 @@ import { videoCallService } from "../../services/VideoCallService";
 
 import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
 
-export default function Profile() {
+export default function HistoryBooking() {
   const [isOpen, setisOpen] = useState(false);
 
   const handleOpen = () => {
@@ -48,6 +48,9 @@ export default function Profile() {
 
   const [historyBooking, setHistoryBooking] = useState([]);
   const [appointmentBooking, setAppointmentBooking] = useState([]);
+  const [pageTotal, setPageTotal] = useState([]);
+  const [pageTotalHistoryBooking, setPageTotalHistoryBooking] = useState([]);
+
 
   const getAppointmentBooking = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -59,9 +62,10 @@ export default function Profile() {
 
       if (data.statusCode == 200) {
         setAppointmentBooking(data.data);
+        setPageTotal(data.totalpage);
       }
     }
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -80,7 +84,8 @@ export default function Profile() {
 
         if (data.statusCode == 200) {
           setHistoryBooking(data.data);
-        }
+          setPageTotalHistoryBooking(data.totalpage);
+          }
       }
     })();
   }, []);
@@ -111,11 +116,11 @@ export default function Profile() {
       <section className="bg-slate-400  items-center">
         <div className="md:container mx-auto py-5">
           <main className="px-7 py-3 rounded-3xl bg-white">
-            <div >
+            <div>
               <Tabs.Group
-                class="flex flex-col sm:flex-row items-center justify-center underline-offset-1"
-                aria-label="Tabs with icons"
-               style="underline"
+                id="groupTab"
+                aria-label="Default tabs"
+                style="underline"
               >
                 {/* Appointment */}
                 <Tabs.Item
@@ -147,7 +152,6 @@ export default function Profile() {
                             )} `}</Table.Cell>
                             <Table.Cell>{row.timeStart}</Table.Cell>
                             <Table.Cell>{row.timeEnd}</Table.Cell>
-                            <Table.Cell>{row.id}</Table.Cell>
 
                             <Table.Cell>Sắp diễn ra</Table.Cell>
                             <Table.Cell>
@@ -166,7 +170,6 @@ export default function Profile() {
                                     router.push({
                                       pathname: "/videoCall",
                                       query: { roomCall: row.id },
-                                      
                                     })
                                   }
                                 >
@@ -198,7 +201,7 @@ export default function Profile() {
                         }
                       }}
                       showIcons={true}
-                      totalPages={pageCount}
+                      totalPages={pageTotal}
                     />
                   </div>
                 </Tabs.Item>
@@ -242,8 +245,7 @@ export default function Profile() {
                             <Table.Cell>Đã kết thúc</Table.Cell>
                             <Table.Cell>
                               <div className="flex gap-2">
-                                <Button>Chi tiết</Button>
-                                <Button>Tham gia</Button>
+                                <Button>Đánh Giá</Button>
                               </div>
                             </Table.Cell>
                           </Table.Row>
@@ -269,7 +271,7 @@ export default function Profile() {
                           }
                         }}
                         showIcons={true}
-                        totalPages={pageCount}
+                        totalPages={pageTotalHistoryBooking}
                       />
                     </div>
                   </div>

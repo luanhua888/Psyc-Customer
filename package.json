@@ -25,6 +25,7 @@
     "agora-react-uikit": "^1.1.0",
     "agora-rtc-sdk-ng": "^4.14.0",
     "axios": "^0.27.2",
+    "daisyui": "^2.38.0",
     "dayjs": "^1.11.5",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.1.12",
