@@ -72,9 +72,9 @@ const ModalLogin = forwardRef((props, ref) => {
     };
 
     return (
-        <div className='absolute   top-0'>
+        <div className='absolute top-0'>
             <Modal
-                classes='   px-2 py-2 h-50 rounded bg-white'
+                classes='  px-2 py-2 h-50 rounded bg-white'
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 title={'Đăng nhập'}

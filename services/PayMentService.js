@@ -17,7 +17,7 @@ class PayMentService extends AbstractService {
     return this.httpPOST(API.GET_QRCODE, {
     
     },{
-        params: { customerid, amount}
+        params: {customerid, amount }
       }
     );
   };

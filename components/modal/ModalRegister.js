@@ -1,283 +1,219 @@
-import {
-    useRef,
-    useState,
-    forwardRef,
-    useImperativeHandle,
-    useEffect,
-  } from "react";
-  import dayjs from "dayjs";
-  import Modal from "../modal";
-  import { Button, Pagination, Table } from "flowbite-react";
-  import ModalMap from "../../components/modal/ModalMap";
-  import { Formik } from "formik";
-  import { style } from "@mui/system";
-  import { userService } from "../../services/UserService";
-  
-  // eslint-disable-next-line react/display-name
-  const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
-    const [user, setUser] = useState({});
-  
-    const modalMapRef = useRef();
-    const formRef = useRef();
-  
+import { useRef, useState, forwardRef, useImperativeHandle } from 'react';
+import { userService } from '../../services/UserService';
+
+import Modal from '../modal';
+import ModalLogin from './ModalLogin';
+
+// eslint-disable-next-line react/display-name 
+const ModalRegister = forwardRef((props, ref) => {
+    const modalLoginRef = useRef();
+
     const [isOpen, setIsOpen] = useState(false);
-    const [dataForm, setDataForm] = useState({});
-  
+    const [dataForm, setDataForm] = useState({
+        fullname: '',
+        email: '',
+        username: '',
+        password: '',
+        code: '',
+    });
+
+    const [message, setMessage] = useState('');
+    const [btnSubmitTitle, setBtnSubmitTitle] = useState('Đăng ký');
+    const [isVerifyCode, setIsVerifyCode] = useState(false);
+
     useImperativeHandle(ref, () => ({
-      open: (data) => {
-        setDataForm(data);
-        setIsOpen(true);
-      },
-      close: () => {
-        setIsOpen(false);
-      },
+        open: () => {
+            setIsOpen(true);
+        },
+        close: () => {
+            setIsOpen(false);
+        },
     }));
-  
-  
-  
-    //   console.log(id.id);
-    useEffect(() => {
-      (async () => {
-        if (localStorage.getItem("jwttoken")) {
-          const data = await userService.supProfileId(id.id);
-  
-          if (data.statusCode == 200) {
-            setUser(data.data[0]);
-          }
+
+    const onSubmit = async () => {
+        if (isVerifyCode) {
+            try {
+                const data = await userService.registerConfirm(
+                    dataForm.email,
+                    dataForm.code
+                );
+
+                setMessage(data.message);
+
+                setTimeout(() => {
+                    setDataForm({});
+                    setMessage('');
+                    setBtnSubmitTitle('Đăng ký');
+                    setIsVerifyCode(false);
+                    setIsOpen(false);
+                    modalLoginRef.current.open();
+                }, 1500);
+            } catch (err) {
+                setMessage(err.response.data.message);
+                return;
+            }
+        } else {
+            try {
+                const responseCheckByEmail =
+                    await userService.registerCheckByEmail(dataForm.email);
+
+                if (responseCheckByEmail.status == 'null') {
+                    const data = await userService.register(
+                        dataForm.username,
+                        dataForm.email,
+                        dataForm.password
+                    );
+
+                    const responseInfor = await userService.registerInfor(
+                        dataForm.fullname,
+                        dataForm.email
+                    );
+                }
+
+                const responseResendCode = await userService.registerResendCode(
+                    dataForm.email
+                );
+
+                setMessage(responseResendCode.message);
+
+                setTimeout(() => {
+                    setBtnSubmitTitle('Xác nhận');
+                    setIsVerifyCode(true);
+                }, 1500);
+            } catch (err) {
+                setMessage(err.response.data.message);
+
+                setTimeout(() => {
+                    setBtnSubmitTitle('Xác nhận');
+                    setIsVerifyCode(true);
+                }, 1500);
+            }
         }
-      })();
-    }, [id.id]);
-  
-    const handleOpenModalPickerChild = () => {
-      modalMapRef.current?.open();
     };
-  
-    const onSubmit = async (data) => {
-      try {
-        let dataPost = {
-          ...data,
-          latitude: data.latitude.toString(),
-          longitude: data.longitude.toString(),
-        };
-  
-        await userService.profileUpdate(dataPost, id.id);
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
-  
+
     return (
-      <div className="absolute top-0">
-        <Modal
-          classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          title={"Chỉnh sửa thông tin"}
-          onClose={handleClose}
-          onDiscard={() => console.log("Button discard")}
-          // buttons={[
-          //   {
-          //     role: "discard",
-          //     toClose: true,
-          //     classes:
-          //       "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-          //     label: "Cập nhật",
-          //   },
-          // ]}
-        >
-          <div>
-            {user && (
-              <Formik
-                innerRef={formRef}
-                initialValues={{
-                  email: user.email,
-                  name: user.name,
-                  birthPlace: user.birthPlace,
-                  gender: user.gender,
-                  dob: user.dob,
-                  longitude: user.longitude,
-                  latitude: user.latitude,
-                }}
-                validate={(values) => {
-                  const errors = {};
-  
-                  return errors;
-                }}
-                onSubmit={onSubmit}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                  /* and other goodies */
-                }) => (
-                  <form onSubmit={handleSubmit}>
-                    <div class="grid gap-6 mb-6 md:grid-cols-2">
-                      <div>
-                        <label
-                          for="name"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          Họ và Tên
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Nhập họ và tên"
-                          required
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.name}
-                          defaultValue={values.name}
-                        />
-                      </div>
-  
-                      <div>
-                                <label
-                                  for="birthPlace"
-                                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                  Nơi sinh
-                                </label>
-                                <input
-                                  id="birthPlace"
-                                  name="birthPlace"
-                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  placeholder="Nhập dữ liệu"
-                                  required
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  value={values.birthPlace}
-                                />
-                              </div>
+        <>
+            <Modal
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                title={'Đăng ký tài khoản'}
+                onConfirm={onSubmit}
+                onDiscard={() => console.log('Button discard')}
+                buttons={[
+                    {
+                        role: 'discard',
+                        toClose: true,
+                        classes:
+                            'bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200',
+                        label: 'Hủy',
+                    },
+                    {
+                        role: 'confirm',
+                        toClose: false,
+                        classes:
+                            'bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200',
+                        label: btnSubmitTitle,
+                    },
+                ]}
+                {...props}>
+                {message != '' && (
+                    <div className='flex justify-center items-center mb-3 text-blue-300 font-medium'>
+                        {message}
                     </div>
-  
-                    <div class="grid gap-6 mb-6 md:grid-cols-2">
-                      <div>
-                        <label
-                          for="gender"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                        >
-                          {}
-                          Giới tính
-                        </label>
-                        <select
-                          id="gender"
-                          name="gender"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.gender}
-                        >
-                          <option value="male">Nam</option>
-                          <option value="female">Nữ</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label
-                          for="dob"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          Ngày tháng năm sinh
-                        </label>
-                        <input
-                          type="datetime-local"
-                          id="dob"
-                          name="dob"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Ngày tháng năm sinh"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          defaultValue={dayjs(new Date(values.dob)).format(
-                            "YYYY-MM-DDTHH:mm"
-                          )}
-                          required
-                        />
-                      </div>
-                    </div>
-  
-                    <div class="grid gap-6 mb-6 md:grid-cols-2">
-                      <div>
-                        <label
-                          for="longitude"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                        >
-                          Kinh độ
-                        </label>
-                        <input
-                          type="text"
-                          id="longitude"
-                          name="longitude"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Nhập dữ liệu"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.longitude}
-                          readOnly
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label
-                          for="longitude"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          Vĩ độ
-                        </label>
-                        <input
-                          type="text"
-                          id="longitude"
-                          name="longitude"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Nhập dữ liệu"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.longitude}
-                          readOnly
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      <Button
-                        class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1  text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="primary"
-                        width="default"
-                        onClick={handleOpenModalPickerChild}
-                      >
-                        Chọn vị trí
-                      </Button>
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        class="text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        onClick={handleClose}
-                      >
-                        Lưu
-                      </Button>
-                    </div>
-                  </form>
                 )}
-              </Formik>
-            )}
-          </div>
-        </Modal>
-        <ModalMap
-          ref={modalMapRef}
-          onChangeLocation={(latitude, longitude) =>
-            formRef.current.setValues({ latitude, longitude })
-          }
-        />
-      </div>
-      
+                {isVerifyCode ? (
+                    <div className='flex flex-col'>
+                        <div className='outline outline-blue-300 rounded'>
+                            <input
+                                id='code'
+                                name='code'
+                                className='p-3 rounded w-full'
+                                type='text'
+                                placeholder='Code'
+                                value={dataForm.code}
+                                onChange={(e) =>
+                                    setDataForm({
+                                        ...dataForm,
+                                        code: e.currentTarget.value,
+                                    })
+                                }
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <div className='flex flex-col gap-3'>
+                        <div className='outline outline-blue-300 rounded'>
+                            <input
+                                id='fullname'
+                                name='fullname'
+                                className='p-3 rounded w-full'
+                                type='text'
+                                placeholder='Họ và Tên'
+                                onChange={(e) =>
+                                    setDataForm({
+                                        ...dataForm,
+                                        fullname: e.currentTarget.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className='outline outline-blue-300 rounded'>
+                            <input
+                                id='username'
+                                name='username'
+                                className='p-3 rounded w-full'
+                                type='text'
+                                placeholder='Tài khoản'
+                                required
+                                onChange={(e) =>
+                                    setDataForm({
+                                        ...dataForm,
+                                        username: e.currentTarget.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className='outline outline-blue-300 rounded '>
+                            <input
+                                id='email'
+                                name='email'
+                                className='p-3 rounded w-full'
+                                type='email'
+                                placeholder='Địa chỉ email'
+                                required
+                                onChange={(e) =>
+                                    setDataForm({
+                                        ...dataForm,
+                                        email: e.currentTarget.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className='outline outline-blue-300 rounded'>
+                            <input
+                                id='password'
+                                name='password'
+                                className='p-3 rounded w-full'
+                                pattern='[a-z0-9]{1,15}'
+                                type='password'
+                                title='Password should be digits (0 to 9) or alphabets (a to z).'
+                                placeholder='Mật khẩu'
+                                required
+                                onChange={(e) =>
+                                    setDataForm({
+                                        ...dataForm,
+                                        password: e.currentTarget.value,
+                                    })
+                                }
+                            />
+                        </div>
+                    </div>
+                )}
+            </Modal>
+
+            <ModalLogin ref={modalLoginRef} />
+        </>
     );
-  });
-  
-  export default ModalEditSupProfile;
-  
+});
+
+export default ModalRegister;
