@@ -8,11 +8,12 @@ function SurveyPage() {
   const [showQuestionPage, setShowQuestionPage] = useState(false);
   const [showFinalImgPage, setShowFinalImgPage] = useState(false);
   const [resultSurvey, setResultSurvey] = useState({});
+  const [questionStart, setQuestionStart] = useState([]);
 
 
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
-
+  const [numberQuestion, setNumberQuestion] = useState(0);
   const [username, setUserName] = useState("");
 
   return (
@@ -24,6 +25,11 @@ function SurveyPage() {
                 topScore={topScore}
                 username={username}
                 setUserName={setUserName}
+                numberQuestion={numberQuestion}
+                setNumberQuestion={setNumberQuestion}
+                setQuestionStart={setQuestionStart}
+                questionStart={questionStart}
+
             />
         )}
         {showQuestionPage && (
@@ -34,6 +40,11 @@ function SurveyPage() {
                 score={score}
                 setResultSurvey={setResultSurvey}
                 resultSurvey={resultSurvey}
+                numberQuestion={numberQuestion}
+                setNumberQuestion={setNumberQuestion}
+                setQuestionStart={setQuestionStart}
+                questionStart={questionStart}
+
             />
         )}
         {showFinalImgPage && (
