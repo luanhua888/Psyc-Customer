@@ -35,7 +35,8 @@ const ModalRegister = forwardRef((props, ref) => {
             try {
                 const data = await userService.registerConfirm(
                     dataForm.email,
-                    dataForm.code
+                    dataForm.code,
+                    
                 );
 
                 setMessage(data.message);
