@@ -104,12 +104,15 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <a
-                href="#"
-                className="pb-2 hover:border-b-2 hover:border-indigo- cursor-pointer"
+            <Dropdown
+                label={"Dịch vụ"
+                }
+                inline={true}
               >
-                Bản đồ sao
-              </a>
+              <Dropdown.Item onClick={() => router.push("/Survey")}>
+                Bài khảo sát
+                </Dropdown.Item>
+              </Dropdown>
             </li>
           </ul>
           {Object.keys(user).length >= 1 ? (
@@ -147,7 +150,7 @@ export default function Navbar() {
                   Lịch sử cuộc hẹn
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => router.push("/historyDeposit")}>
-                Lịch sử rút nạp
+                Lịch sử nạp tiền
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => router.push("/Payment")}>
                 Nạp tiền

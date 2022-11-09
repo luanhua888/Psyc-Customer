@@ -1,4 +1,10 @@
-import { forwardRef, useState, useImperativeHandle, useEffect } from "react";
+import {
+  useRef,
+  forwardRef,
+  useState,
+  useImperativeHandle,
+  useEffect,
+} from "react";
 
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import interactionPlugin from "@fullcalendar/interaction";
@@ -10,8 +16,8 @@ import Modal from "../modalBookingTable";
 import dayjs from "dayjs";
 import { slotBookingService } from "../../services/SlotBookingService";
 import _ from "lodash";
-
-
+import ModalSuccess from "./ModalSuccess";
+import ModalBookingFail from "./ModalBookingFail";
 
 const ACTION_TYPE = {
   BOOKING: "booking",
@@ -20,6 +26,9 @@ const ACTION_TYPE = {
 
 // eslint-disable-next-line react/display-name
 const ModalBooking = forwardRef((props, ref) => {
+  const modalSuccessRef = useRef();
+  const modalBookingFailRef = useRef();
+
   const [isOpen, setIsOpen] = useState(false);
   const [consultant, setConsultant] = useState({});
   const [selectionInfo, setSelectionInfo] = useState({});
@@ -45,14 +54,19 @@ const ModalBooking = forwardRef((props, ref) => {
     });
   };
 
-
-   
   const onBooking = async () => {
     setActionType(ACTION_TYPE.CONFIRM);
   };
 
   const onPayment = async () => {
-   
+    setIsOpen(false);
+    modalSuccessRef.current.open();
+    // modalBookingFailRef.current.open();
+  };
+
+  const onBookingFail = async () => {
+    setIsOpen(false);
+    modalBookingFailRef.current.open();
   };
 
   const resetDefault = () => {
@@ -90,23 +104,18 @@ const ModalBooking = forwardRef((props, ref) => {
         onConfirm={() => {
           if (actionType === ACTION_TYPE.BOOKING) {
             onBooking();
-          } else {
-            onPayment();
           }
 
           if (actionType === ACTION_TYPE.CONFIRM) {
-            
-           
-        if (localStorage.getItem("jwttoken")) {
-           slotBookingService.postBooking(selectedBooking.id, localStorage.getItem("idcustomer"), consultantId );
-            // alert("Đặt lịch thành công");
-            setIsOpen(false);
-        }
-        
-      
-
-      
-          }
+            onPayment();
+          } 
+          // else {
+          //  onBookingFail();
+          // }
+        }}
+        onCancel={() => {
+          onBookingFail();
+          setIsOpen(false);
         }}
         onDiscard={() => {
           resetDefault();
@@ -174,23 +183,19 @@ const ModalBooking = forwardRef((props, ref) => {
                           <button
                             key={row.id}
                             className="py-2 px-2 h-10 w-60 border-2 border-blue-500 text-blue-500 rounded-2xl cursor-pointer hover:ring focus:ring"
-                            onClick={() => setSelectedBooking(row)
-                             && 
-                             setSlotId(selectedBooking.id)
-                              }
-                             
-                           
+                            onClick={() =>
+                              setSelectedBooking(row) &&
+                              setSlotId(selectedBooking.id)
+                            }
                           >
                             {row.timeStart} - {row.timeEnd}
-                            {console.log(selectedBooking.id)}
                           </button>
                         ))}
                       </div>
                     </div>
                   </div>
-                {/* {console.log(slotId)} */}
-                {/* {console.log(consultant.id)} */}
-
+                  {/* {console.log(slotId)} */}
+                  {/* {console.log(consultant.id)} */}
                 </div>
               )}
             </div>
@@ -200,10 +205,15 @@ const ModalBooking = forwardRef((props, ref) => {
             Bạn đã đặt lịch hẹn với {consultant.fullName} vào lúc{" "}
             {selectedBooking.timeStart} - {selectedBooking.timeEnd}{" "}
             {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
-            {selectedBooking.id}
           </div>
         )}
       </Modal>
+      <ModalSuccess
+        id={selectedBooking.id}
+        // consultantId={consultantId}
+        ref={modalSuccessRef}
+      />
+      <ModalBookingFail id={selectedBooking.id}  ref={modalBookingFailRef}  />
     </div>
   );
 });

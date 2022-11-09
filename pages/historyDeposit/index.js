@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useRef, useEffect, useState, Component } from "react";
 
 import { depositService } from "../../services/DepositService";
+// import Datepicker from 'flowbite-datepicker/Datepicker';
 
 export default function HistoryDeposit() {
   const [isOpen, setisOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function HistoryDeposit() {
   const [historyBooking, setHistoryBooking] = useState([]);
   const [appointmentBooking, setAppointmentBooking] = useState([]);
   const [pageTotal, setPageTotal] = useState([]);
+  const [date, setDate] = useState();
 
   const getHistoryDeposit = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -68,6 +70,7 @@ export default function HistoryDeposit() {
   };
 
   console.log("pageTotal", pageTotal);
+  console.log("date", date);
 
   //Withdraw
 
@@ -123,46 +126,75 @@ export default function HistoryDeposit() {
             <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700">
               LỊCH SỬ NẠP TIỀN
             </h1>
-            <div>
-              {/* <Tabs.Group
-                    // id="groupTab"
-                    // aria-label="Default tabs"
-                    // style="default"
-              > */}
-                {/* Appointment */}
-                {/* <Tabs.Item
-                //   title="LỊCH SỬ NẠP TIỀN"
-                  // icon={}
-                > */}
-                  <div className="upcoming">
-                    <Table hoverable={true}>
-                      <Table.Head class="bg-gray-200">
-                        {/* <tr class='border border-gray-400'> */}
-                        <Table.HeadCell>STT</Table.HeadCell>
-                        <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
-                        <Table.HeadCell>Số Gem</Table.HeadCell>
-                        <Table.HeadCell>Thời gian</Table.HeadCell>
-                        <Table.HeadCell>Trạng thái</Table.HeadCell>
-                        <Table.HeadCell></Table.HeadCell>
-                        {/* </tr> */}
-                      </Table.Head>
-                      {appointmentBooking.map((row, index) => (
-                        <Table.Body key={(index = 0)} class="divide-y">
-                          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <Table.Cell>{index + 1}</Table.Cell>
-                            <Table.Cell>{row.customerName}</Table.Cell>
-                            <Table.Cell>{row.amount}</Table.Cell>
-                            <Table.Cell>{`${dayjs(row.dateCreate).format(
-                              "DD/MM/YYYY"
-                            )} `}</Table.Cell>
-                            <Table.Cell>
-                              {row.status == "success"
-                                ? "Thành công"
-                                : "Không thành công"}
-                            </Table.Cell>
-                            <Table.Cell>{row.hashcode}</Table.Cell>
 
-                            {/* <Table.Cell>
+            <div className="">
+              <div className="flex flex-col">
+                <div className=" w-full">
+                  <div class=" w-1/4 mb-2 flex flex-row gap-2 float-right  ">
+                    <div class="flex absolute inset-y-0 right-0 items-center  pointer-events-none"></div>
+                    <input
+                      datepicker
+                      datepicker-autohide
+                      type="date"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Select date"
+                      onChange={(e) => {
+                        setDate(e.target.value);
+                        // && getAppointmentBooking();
+                      }}
+                    />
+                    <input
+                      datepicker
+                      datepicker-autohide
+                      type="text"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Select date"
+                      onChange={(e) => {
+                        setDate(e.target.value);
+                      }}
+                    />
+
+                    <button
+                      type="button"
+                      class="inline-flex items-center px-5  border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      onClick={() => {
+                        getAppointmentBooking();
+                      }}
+                    >
+                      Tìm Kiếm
+                    </button>
+                  </div>
+                </div>
+
+                <div className="historyDeposit">
+                  <Table hoverable={true}>
+                    <Table.Head class="bg-gray-200">
+                      {/* <tr class='border border-gray-400'> */}
+                      <Table.HeadCell>STT</Table.HeadCell>
+                      <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
+                      <Table.HeadCell>Số Gem</Table.HeadCell>
+                      <Table.HeadCell>Thời gian</Table.HeadCell>
+                      <Table.HeadCell>Trạng thái</Table.HeadCell>
+                      <Table.HeadCell></Table.HeadCell>
+                      {/* </tr> */}
+                    </Table.Head>
+                    {appointmentBooking.map((row, index) => (
+                      <Table.Body key={(index = 0)} class="divide-y">
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                          <Table.Cell>{index + 1}</Table.Cell>
+                          <Table.Cell>{row.customerName}</Table.Cell>
+                          <Table.Cell>{row.amount}</Table.Cell>
+                          <Table.Cell>{`${dayjs(row.dateCreate).format(
+                            "DD/MM/YYYY"
+                          )} `}</Table.Cell>
+                          <Table.Cell>
+                            {row.status == "success"
+                              ? "Thành công"
+                              : "Không thành công"}
+                          </Table.Cell>
+                          <Table.Cell>{row.hashcode}</Table.Cell>
+
+                          {/* <Table.Cell>
                               <div className="flex gap-2">
                                 <Button onClick={handleOpen}>Hủy</Button>
                                 <ModalCancelBooking
@@ -185,35 +217,33 @@ export default function HistoryDeposit() {
                                 </Button>
                               </div>
                             </Table.Cell> */}
-                          </Table.Row>
-                        </Table.Body>
-                      ))}
-                    </Table>
-                  </div>
-                  <div className=" items-center justify-center text-center">
-                    <Pagination
-                      currentPage={currentPage}
-                      layout="pagination"
-                      onPageChange={async (page) => {
-                        setCurrentPage(page);
-                        if (localStorage.getItem("jwttoken")) {
-                          const { data } = await depositService.getAllDeposit(
-                            localStorage.getItem("idcustomer"),
-                            5,
-                            page
-                          );
-                          if (data) {
-                            setAppointmentBooking(data);
-                          }
+                        </Table.Row>
+                      </Table.Body>
+                    ))}
+                  </Table>
+                </div>
+                <div className=" items-center justify-center text-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    layout="pagination"
+                    onPageChange={async (page) => {
+                      setCurrentPage(page);
+                      if (localStorage.getItem("jwttoken")) {
+                        const { data } = await depositService.getAllDeposit(
+                          localStorage.getItem("idcustomer"),
+                          5,
+                          page
+                        );
+                        if (data) {
+                          setAppointmentBooking(data);
                         }
-                      }}
-                      showIcons={true}
-                      totalPages={pageTotal}
-                    />
-                  </div>
-                {/* </Tabs.Item> */}
-                {/* History Booking */}
-              {/* </Tabs.Group> */}
+                      }
+                    }}
+                    showIcons={true}
+                    totalPages={pageTotal}
+                  />
+                </div>
+              </div>
             </div>
           </main>
         </div>

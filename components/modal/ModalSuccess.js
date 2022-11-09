@@ -51,7 +51,7 @@ const ModalSuccess = forwardRef((id, ref) => {
           <div className="flex flex-col items-center justify-center">
             <Image src={successIcon} alt="" width={50} height={50} />
             <p className="text-2xl font-bold text-center mt-4">
-              Đặt lịch không thành công
+              Đặt lịch thành công
             </p>
             <p className="text-base text-center mt-2">
               Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất
