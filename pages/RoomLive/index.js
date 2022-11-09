@@ -121,7 +121,7 @@ export default function RoomLive(props) {
       <div className="consultant__live__orther grid grid-cols-4 gap-4 mt-4 ml-[10%] mr-[10%]  ">
         {!_.isUndefined(consultants) &&
           !_.isEmpty(consultants) &&
-          consultants.map((row, index) => (
+          consultants.map((row, index) =>(
             <div
               key={index}
               class="  cover items-center  max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  "

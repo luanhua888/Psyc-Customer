@@ -17,7 +17,7 @@ function StartPage({
   const startSurveyShort = () => {
       setStartPage(false);
       setShowQuestionPage(true);
-      setNumberQuestion(10)
+      setNumberQuestion(15)
       getQuestionIndex();
   };
   const startSurveyMedium = () => {
@@ -54,7 +54,7 @@ function StartPage({
                 Mức độ: <br/>
                   Ngắn
               </h5>
-              <h4>(20 câu hỏi)</h4>
+              <h4>(15 câu hỏi)</h4>
 
               <button
                 className="start_bnt text-2xl bg-orange-500 p-2 rounded-md  text-white"
