@@ -12,7 +12,6 @@ import { historyService } from "../../services/HistoryService";
 import { videoCallService } from "../../services/VideoCallService";
 
 import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
-import ModalVoteRate from "../../components/modal/ModalVoteRate.js";
 
 export default function HistoryBooking() {
   const [isOpen, setisOpen] = useState(false);
@@ -124,12 +123,7 @@ export default function HistoryBooking() {
         <div className="md:container mx-auto py-5">
           <main className="px-7 py-3 rounded-3xl bg-white">
             <div>
-            <ReactStars
-          count={5}
-          onChange={ratingChanged}
-          size={24}
-          activeColor="#ffd700"
-        />
+           
               <Tabs.Group
                 id="groupTab"
                 aria-label="Default tabs"
@@ -378,7 +372,6 @@ export default function HistoryBooking() {
           </main>
         </div>
         
-         <ModalVoteRate  ref={modalVoteRateRef} />
       </section>
     </>
   );
