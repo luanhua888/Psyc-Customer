@@ -66,15 +66,15 @@ const ModalMap = forwardRef((props, ref) => {
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       if (!place.geometry) {
+        window.alert(
+          "No details available for input: '" + place.name + lng + lat + "'"
+        );
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
         onChangeLocation({ lat, lng });
         console.log("lat", lat);
         setLongitude(lng);
         setLatitude(lat);
-        window.alert(
-          "No details available for input: '" + place.name + lng + lat + "'"
-        );
         return;
       }
 
