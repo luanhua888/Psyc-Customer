@@ -135,7 +135,10 @@ const MapPicker = ({
         <div
             id={MAP_VIEW_ID}
             style={componentStyle}
-            className={className}></div>
+            className={className}>
+            </div>
+      
+
     );
 };
 export default MapPicker;
