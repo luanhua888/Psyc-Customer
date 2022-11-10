@@ -74,10 +74,12 @@ const ModalMap = forwardRef((props, ref) => {
         window.alert("No details available for input: '" + place.name + "'");
         return;
       }
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
-      console.log('lat', lat);
-      console.log('lng', lng);
+
+      
+      // const lat = place.geometry.location.lat();
+      // const lng = place.geometry.location.lng();
+      // console.log('lat', lat);
+      // console.log('lng', lng);
     });
   }  
 
