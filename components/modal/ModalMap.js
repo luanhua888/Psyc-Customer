@@ -72,9 +72,9 @@ const ModalMap = forwardRef((props, ref) => {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
         onChangeLocation({ lat, lng });
-        console.log("lat", lat);
         setLongitude(lng);
         setLatitude(lat);
+        console.log("lat", lat);
         return;
       }
 
