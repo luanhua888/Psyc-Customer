@@ -110,7 +110,7 @@ const ModalMap = forwardRef((props, ref) => {
             style={{ height: "600px" }}
             onChangeLocation={onChangeLocation}
             onChangeZoom={handleChangeZoom}
-            apiKey="AIzaSyCMB-8_fVK4LPdu5HQqtgTJ2nm8zvhm-A4"
+            apiKey="AIzaSyC6Gm1W4GwP7FNvZGuqaQsylhUX26IiaPo"
           />
           <input
             type="text"
