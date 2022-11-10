@@ -61,20 +61,23 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
-  function autocomplete (input) {
+  function autocomplete(input) {
     const autocomplete = new window.google.maps.places.Autocomplete(input);
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       if (!place.geometry) {
-        window.alert("No details available for input: '" + place.name + "'");
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        onChangeLocation({ lat, lng });
+        console.log("lat", lat);
+        setLongitude(lng);
+        setLatitude(lat);
+        window.alert(
+          "No details available for input: '" + place.name + lng + lat + "'"
+        );
         return;
       }
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
-      onChangeLocation({ lat, lng });
-      console.log('lat', lat);
-      setLongitude(lng);
-      setLatitude(lat);
+
       setIsOpen(false);
     });
   }
@@ -98,6 +101,13 @@ const ModalMap = forwardRef((props, ref) => {
         ]}
       >
         <div style={{ height: "100%", width: "100%" }}>
+          <input
+            type="text"
+            placeholder="Search Places"
+            onChange={(e) => autocomplete(e.target)}
+            id="searchInPut"
+            className="controls "
+          />
           <MapPicker
             defaultLocation={{ lat: latitude, lng: longitude }}
             zoom={zoom}
@@ -107,16 +117,8 @@ const ModalMap = forwardRef((props, ref) => {
             onChangeZoom={handleChangeZoom}
             // apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
             // apiKey='3yNUgjbBqKLrfnCP7jfW4w8Iq2uGeTPKqdoL1kwg'
-            apiKey='AIzaSyDnHXwlz1sdmUWs3ZpUoufVweHQUi4T8SA'
+            apiKey="AIzaSyDnHXwlz1sdmUWs3ZpUoufVweHQUi4T8SA"
           />
-          <input
-            type="text"
-            placeholder="Search Places"
-            onChange={(e) => autocomplete(e.target)}
-            id="searchInPut"
-            className="controls "
-          />
-          
         </div>
       </Modal>
     </div>
