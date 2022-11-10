@@ -101,13 +101,7 @@ const ModalMap = forwardRef((props, ref) => {
         ]}
       >
         <div style={{ height: "100%", width: "100%" }}>
-          <input
-            type="text"
-            placeholder="Search Places"
-            onChange={(e) => autocomplete(e.target)}
-            id="searchInPut"
-            className="controls "
-          />
+          
           <MapPicker
             defaultLocation={{ lat: latitude, lng: longitude }}
             zoom={zoom}
@@ -118,6 +112,13 @@ const ModalMap = forwardRef((props, ref) => {
             // apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
             // apiKey='3yNUgjbBqKLrfnCP7jfW4w8Iq2uGeTPKqdoL1kwg'
             apiKey="AIzaSyDnHXwlz1sdmUWs3ZpUoufVweHQUi4T8SA"
+          />
+          <input
+            type="text"
+            placeholder="Search Places"
+            onChange={(e) => autocomplete(e.target)}
+            id="searchInPut"
+            className="controls "
           />
         </div>
       </Modal>
