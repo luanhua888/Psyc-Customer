@@ -72,6 +72,12 @@ const ModalMap = forwardRef((props, ref) => {
       const place = autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("No details available for input: '" + place.name + "'");
+
+
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        console.log('lat', lat);
+         
         return;
       }
     });
