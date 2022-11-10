@@ -61,26 +61,27 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
-  function autocomplete(input) {
-    const autocomplete = new window.google.maps.places.Autocomplete(input);
-    autocomplete.addListener("place_changed", () => {
+
+  function autocomplete (input) {
+    const options = {
+      types: ['(cities)'],
+      componentRestrictions: {country: "vn"}
+    };
+    const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       if (!place.geometry) {
-        window.alert(
-          "No details available for input: '" + place.name + lng + lat + "'"
-        );
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-        onChangeLocation({ lat, lng });
-        setLongitude(lng);
-        setLatitude(lat);
-        console.log("lat", lat);
+        window.alert("No details available for input: '" + place.name + "'");
         return;
       }
-
-      setIsOpen(false);
     });
-  }
+  }  
+
+
+
+
+
+ 
 
   return (
     <div className="absolute top-0">
@@ -109,9 +110,7 @@ const ModalMap = forwardRef((props, ref) => {
             style={{ height: "600px" }}
             onChangeLocation={onChangeLocation}
             onChangeZoom={handleChangeZoom}
-            // apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-            // apiKey='3yNUgjbBqKLrfnCP7jfW4w8Iq2uGeTPKqdoL1kwg'
-            apiKey="AIzaSyDnHXwlz1sdmUWs3ZpUoufVweHQUi4T8SA"
+            apiKey="AIzaSyCMB-8_fVK4LPdu5HQqtgTJ2nm8zvhm-A4"
           />
           <input
             type="text"
