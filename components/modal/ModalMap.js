@@ -62,26 +62,20 @@ const ModalMap = forwardRef((props, ref) => {
   }));
 
 
-  function autocomplete (input) {
-    const options = {
-      types: ['(cities)'],
-      componentRestrictions: {country: "vn"}
-    };
-    const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        window.alert("No details available for input: '" + place.name + "'");
-        return;
-      }
-
-      
-      // const lat = place.geometry.location.lat();
-      // const lng = place.geometry.location.lng();
-      // console.log('lat', lat);
-      // console.log('lng', lng);
-    });
-  }  
+  // function autocomplete (input) {
+  //   const options = {
+  //     types: ['(cities)'],
+  //     componentRestrictions: {country: "vn"}
+  //   };
+  //   const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+  //   autocomplete.addListener('place_changed', () => {
+  //     const place = autocomplete.getPlace();
+  //     if (!place.geometry) {
+  //       window.alert("No details available for input: '" + place.name + " '");
+  //       return;
+  //     }
+  //   });
+  // }  
 
 
 
@@ -121,9 +115,8 @@ const ModalMap = forwardRef((props, ref) => {
           <input
             type="text"
             placeholder="Search Places"
-            onChange={(e) => autocomplete(e.target)}
             id="searchInPut"
-            className="controls "
+            className="controls"
           />
         </div>
       </Modal>
