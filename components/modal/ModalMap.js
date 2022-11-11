@@ -134,9 +134,7 @@ const ModalMap = forwardRef((props, ref) => {
             id="place_changed"
             className="controls"
             style={{ width: "100%", height: "40px", marginTop: "10px" }}
-            onChange={(e) => {
-              autocomplete();
-            }}
+            onChange={autocomplete()}
           />
         </div>
       </Modal>
