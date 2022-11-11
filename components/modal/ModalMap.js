@@ -61,15 +61,17 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
-
   useEffect((input) => {
     (async () => {
       const options = {
-        types: ['(cities)'],
-        componentRestrictions: {country: "vn"}
+        types: ["(cities)"],
+        componentRestrictions: { country: "vn" },
       };
-      const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-      autocomplete.addListener('place_changed', () => {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        input,
+        options
+      );
+      autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         if (!place.geometry) {
           window.alert("No details available for input: '" + place.name + " '");
@@ -79,25 +81,24 @@ const ModalMap = forwardRef((props, ref) => {
     })();
   }, []);
 
+  const autocomplete = async () => {
+    const options = {
+      types: ["(cities)"],
+      componentRestrictions: { country: "vn" },
+    };
 
-  // const autocomplete = async () => {
-  //   const options = {
-  //     types: ['(cities)'],
-  //     componentRestrictions: {country: "vn"}
-  //   };
-
-  //   const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-  //   autocomplete.addListener('place_changed', () => {
-  //     const place = autocomplete.getPlace();
-  //     if (!place.geometry) {
-  //       window.alert("No details available for input: '" + place.name + " '");
-  //       return;
-  //     }
-
-
-
-
- 
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      input,
+      options
+    );
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) {
+        window.alert("No details available for input: '" + place.name + " '");
+        return;
+      }
+    });
+  };
 
   return (
     <div className="absolute top-0">
@@ -118,7 +119,6 @@ const ModalMap = forwardRef((props, ref) => {
         ]}
       >
         <div style={{ height: "100%", width: "100%" }}>
-          
           <MapPicker
             defaultLocation={{ lat: latitude, lng: longitude }}
             zoom={zoom}
@@ -133,6 +133,10 @@ const ModalMap = forwardRef((props, ref) => {
             placeholder="Search Places"
             id="place_changed"
             className="controls"
+            style={{ width: "100%", height: "40px", marginTop: "10px" }}
+            onChange={(e) => {
+              autocomplete();
+            }}
           />
         </div>
       </Modal>
