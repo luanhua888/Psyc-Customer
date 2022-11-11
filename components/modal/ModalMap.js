@@ -80,6 +80,19 @@ const ModalMap = forwardRef((props, ref) => {
   }, []);
 
 
+  // const autocomplete = async () => {
+  //   const options = {
+  //     types: ['(cities)'],
+  //     componentRestrictions: {country: "vn"}
+  //   };
+
+  //   const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+  //   autocomplete.addListener('place_changed', () => {
+  //     const place = autocomplete.getPlace();
+  //     if (!place.geometry) {
+  //       window.alert("No details available for input: '" + place.name + " '");
+  //       return;
+  //     }
 
 
 
@@ -118,7 +131,7 @@ const ModalMap = forwardRef((props, ref) => {
           <input
             type="text"
             placeholder="Search Places"
-            id="searchInPut"
+            id="place_changed"
             className="controls"
           />
         </div>
