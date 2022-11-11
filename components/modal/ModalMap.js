@@ -61,6 +61,22 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
+  useEffect(() => {
+    (async () => {
+      const options = {
+            types: ['(address)'],
+            componentRestrictions: {country: "vn"} 
+          };
+          const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+          autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+              window.alert("No details available for input: '" + place.name + " '");
+              return;
+            }
+    })();
+  }, []);
+
 
   // function autocomplete (input) {
   //   const options = {
