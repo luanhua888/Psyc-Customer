@@ -12,6 +12,8 @@ import ModalMap from "../../components/modal/ModalMap";
 import { Formik } from "formik";
 import { style } from "@mui/system";
 import { userService } from "../../services/UserService";
+import { Router } from "next/router";
+import Profile from "../../pages/profile";
 
 // eslint-disable-next-line react/display-name
 const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
@@ -33,20 +35,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
     },
   }));
 
-
-
-  //   console.log(id.id);
-  useEffect(() => {
-    (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const data = await userService.supProfileId(id.id);
-
-        if (data.statusCode == 200) {
-          setUser(data.data[0]);
-        }
-      }
-    })();
-  }, [id.id]);
+  console.log(id.id);
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
@@ -60,11 +49,18 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
         longitude: data.longitude.toString(),
       };
 
-      await userService.profileUpdate(dataPost, id.id);
+      await userService.profileUpdate(dataPost, id.id.id);
     } catch (err) {
       console.log("err", err);
     }
   };
+
+
+
+// nếu ModalEditSupProfile discard thì sẽ gọi hàm getSupProfile ở
+
+ 
+ 
 
   return (
     <div className="absolute top-0">
@@ -74,7 +70,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
         setIsOpen={setIsOpen}
         title={"Chỉnh sửa thông tin"}
         onClose={handleClose}
-        onDiscard={() => console.log("Button discard")}
+        onDiscard={() => console.log("Button discard") && handleCloseModal()}
         // buttons={[
         //   {
         //     role: "discard",
@@ -90,13 +86,13 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
             <Formik
               innerRef={formRef}
               initialValues={{
-                email: user.email,
-                name: user.name,
-                birthPlace: user.birthPlace,
-                gender: user.gender,
-                dob: user.dob,
-                longitude: user.longitude,
-                latitude: user.latitude,
+                email: id.id.email,
+                name: id.id.name,
+                birthPlace: id.id.birthPlace,
+                gender: id.id.gender,
+                dob: id.id.dob,
+                longitude: id.id.longitude,
+                latitude: id.id.latitude,
               }}
               validate={(values) => {
                 const errors = {};
@@ -139,23 +135,23 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     </div>
 
                     <div>
-                              <label
-                                for="birthPlace"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                              >
-                                Nơi sinh
-                              </label>
-                              <input
-                                id="birthPlace"
-                                name="birthPlace"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Nhập dữ liệu"
-                                required
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.birthPlace}
-                              />
-                            </div>
+                      <label
+                        for="birthPlace"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Nơi sinh
+                      </label>
+                      <input
+                        id="birthPlace"
+                        name="birthPlace"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Nhập dữ liệu"
+                        required
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.birthPlace}
+                      />
+                    </div>
                   </div>
 
                   <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -275,7 +271,6 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
         }
       />
     </div>
-    
   );
 });
 

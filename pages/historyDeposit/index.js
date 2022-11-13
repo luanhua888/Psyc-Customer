@@ -55,6 +55,8 @@ export default function HistoryDeposit() {
     }
   };
 
+
+  
   const getHistory = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await depositService.getAllDepositWithdrawal(
@@ -96,6 +98,8 @@ export default function HistoryDeposit() {
       }
     })();
   }, []);
+
+
 
   return (
     <>
@@ -171,7 +175,7 @@ export default function HistoryDeposit() {
                     <Table.Head class="bg-gray-200">
                       {/* <tr class='border border-gray-400'> */}
                       <Table.HeadCell>STT</Table.HeadCell>
-                      <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
+                      <Table.HeadCell>Code </Table.HeadCell>
                       <Table.HeadCell>Số Gem</Table.HeadCell>
                       <Table.HeadCell>Thời gian</Table.HeadCell>
                       <Table.HeadCell>Trạng thái</Table.HeadCell>
@@ -182,8 +186,12 @@ export default function HistoryDeposit() {
                       <Table.Body key={(index = 0)} class="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                           <Table.Cell>{index + 1}</Table.Cell>
-                          <Table.Cell>{row.customerName}</Table.Cell>
+                          <Table.Cell>{row.code}</Table.Cell>
                           <Table.Cell>{row.amount}</Table.Cell>
+                          
+                           {/*  */}
+                           {/* nếu amount nhỏ hơn 999 và lớn hơn 0 thì hiện thị amount và thêm dấu phẩn ở hàng nghìn */}
+                           
                           <Table.Cell>{`${dayjs(row.dateCreate).format(
                             "DD/MM/YYYY"
                           )} `}</Table.Cell>
@@ -192,7 +200,6 @@ export default function HistoryDeposit() {
                               ? "Thành công"
                               : "Không thành công"}
                           </Table.Cell>
-                          <Table.Cell>{row.hashcode}</Table.Cell>
 
                           {/* <Table.Cell>
                               <div className="flex gap-2">

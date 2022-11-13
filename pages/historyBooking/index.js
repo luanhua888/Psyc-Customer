@@ -343,6 +343,8 @@ export default function HistoryBooking() {
                       </Table>
                       <div className="flex items-center justify-center text-center">
                         <Pagination
+                         previousLabel="Trước"
+                    nextLabel="Sau"
                           currentPage={currentPage}
                           layout="pagination"
                           onPageChange={async (page) => {

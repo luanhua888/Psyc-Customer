@@ -20,14 +20,15 @@ const ModalSuccess = forwardRef((id, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [supProfile, setSupProfile] = useState(false);
 
+  console.log("id", id.id.id);
+
   const postBookingSlot = async () => {
     slotBookingService.postBooking(
-      id.id,
+      id.id.id,
       localStorage.getItem("idcustomer"),
-      id.consultantId
+      id.id.consultantId
     );
   };
-  console.log("id", id);
 
   useImperativeHandle(ref, () => ({
     open: () => {

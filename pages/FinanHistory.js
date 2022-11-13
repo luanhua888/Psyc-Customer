@@ -47,7 +47,7 @@ export default function FinanHistory() {
               anhnok01
           </div>
           <div className="flex justify-center items-center text-xl">
-            CUA
+           Gem
           </div>
           <div className="flex justify-center items-center text-fuchsia-600 text-2xl">
             300
