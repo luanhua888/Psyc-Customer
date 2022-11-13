@@ -16,13 +16,7 @@ import Modal from "../modal";
 // import '@goongmaps/goong-geocoder/dist/goong-geocoder.css';
 // import MapGL, { Marker } from '@goongmaps/goong-map-react';
 // import ReactMapGL from '@goongmaps/goong-map-react';
-import PlacesAutocomplete from "react-places-autocomplete";
-import {
-  geocodeByAddress,
-  geocodeByPlaceId,
-  getLatLng,
-} from "react-places-autocomplete";
-import Script from "next/script";
+
 
 // eslint-disable-next-line react/display-name
 const ModalMap = forwardRef((props, ref) => {
@@ -31,15 +25,10 @@ const ModalMap = forwardRef((props, ref) => {
   const [longitude, setLongitude] = useState({});
   const [latitude, setLatitude] = useState({});
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    });
-  });
+ 
 
   // const DefaultLocation = { lat:10.844714400335658 , lng:106.77110633438444 };
-  const DefaultZoom = 10;
+  const DefaultZoom = 12;
 
   // console.log('DefaultLocation', DefaultLocation);
 
@@ -61,27 +50,27 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
+  function autocomplete() {
+    const input = document.getElementById("searchInPut");
 
-  function autocomplete (input) {
     const options = {
-      types: ['(cities)'],
-      componentRestrictions: {country: "vn"}
+      types: ["(cities)"],
+      componentRestrictions: { country: "vn" },
     };
-    const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-    autocomplete.addListener('place_changed', () => {
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      input,
+      options
+    );
+
+    autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        window.alert("No details available for input: '" + place.name + " '");
-        return;
-      }
+      console.log(place);
+      const { lat, lng } = place.geometry.location;
+      setLongitude(lng);
+      setLatitude(lat);
+      onChangeLocation(lat(), lng());
     });
-  }  
-
-
-
-
-
- 
+  }
 
   return (
     <div className="absolute top-0">
@@ -102,7 +91,14 @@ const ModalMap = forwardRef((props, ref) => {
         ]}
       >
         <div style={{ height: "100%", width: "100%" }}>
-          
+          <input
+            type="text"
+            placeholder="Nhập địa chỉ"
+            // onChange={(e) => autocomplete(e.target)}
+            onBlur={(e) => autocomplete(e.target)}
+            id="searchInPut"
+            className="controls rounded-sm shadow-sm mb-1 float-right w-1/3"
+          />
           <MapPicker
             defaultLocation={{ lat: latitude, lng: longitude }}
             zoom={zoom}
@@ -110,14 +106,7 @@ const ModalMap = forwardRef((props, ref) => {
             style={{ height: "600px" }}
             onChangeLocation={onChangeLocation}
             onChangeZoom={handleChangeZoom}
-            apiKey="AIzaSyARECr44FP34vRp85m6BgVFa7FwoYD1FB4"
-          />
-          <input
-            type="text"
-            placeholder="Search Places"
-            onChange={autocomplete}
-            id="searchInPut"
-            className="controls"
+            apiKey="AIzaSyA3dTnc5DGN1c4mVUx9J7AgQqGQvg5Asis"
           />
         </div>
       </Modal>

@@ -115,6 +115,7 @@ export default function VideoCall() {
 
   const stopVideo = () => {
     rtc.localVideoTrack.stop();
+    
     // rtc.client.unpublish(rtc.localVideoTrack);
   };
 

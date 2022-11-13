@@ -20,10 +20,12 @@ const ModalPayment = forwardRef((amount, ref) => {
   const [qrCodeDisplay, setQrDisplay] = useState({});
   const [mountrecieve, setAmount] = useState([]);
 
+  // console.log("amount", amount.amount);
+
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
-      setAmount(amount.amount.amount);
+      setAmount(amount.amount);
       getQrCode();
     },
     close: () => {
@@ -31,17 +33,17 @@ const ModalPayment = forwardRef((amount, ref) => {
     },
   }));
 
-
-
   const getQrCode = async () => {
     if (localStorage.getItem("jwttoken")) {
-      const data = await payMentService.getQrCode(localStorage.getItem("idcustomer"), amount.amount.amount);
+      const data = await payMentService.getQrCode(
+        localStorage.getItem("idcustomer"),
+        amount.amount
+      );
       if (data.statusCode == 200) {
-        setQrDisplay(data)
+        setQrDisplay(data);
       }
     }
   };
-
 
   return (
     <div className=" absolute top-0">
@@ -51,7 +53,6 @@ const ModalPayment = forwardRef((amount, ref) => {
         setIsOpen={setIsOpen}
         title={""}
         onDiscard={() => console.log("Button discard")}
-       
       >
         {qrCodeDisplay && (
           <div class="modal-body">

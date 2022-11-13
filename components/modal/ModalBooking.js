@@ -44,6 +44,7 @@ const ModalBooking = forwardRef((props, ref) => {
     [ACTION_TYPE.CONFIRM]: "Xác nhận",
   });
 
+
   const getSlotBookings = (date, consultantId) => {
     slotBookingService.getAll(date, consultantId).then((response) => {
       if (!_.isEmpty(response.data)) {
@@ -154,10 +155,10 @@ const ModalBooking = forwardRef((props, ref) => {
 
                   setSelectionInfo(info);
                   getSlotBookings(info.startStr, consultant.id);
-                  // if (daySelected >= currentDay) {
-                  //     getSlotBookings(info.startStr);
-                  //     setSelectionInfo(info);
-                  // }
+                  if (daySelected >= currentDay) {
+                      getSlotBookings(info.startStr);
+                      setSelectionInfo(info);
+                  }
                 }}
               />
             </div>
@@ -170,7 +171,7 @@ const ModalBooking = forwardRef((props, ref) => {
                     </div>
                     <div className="justify-center">
                       <span className="text-sky-400 font-mono">
-                        Giá: {selectedBooking.price} Cua
+                        Giá: {selectedBooking.price} Gem
                       </span>
                     </div>
                     <div>
@@ -185,7 +186,7 @@ const ModalBooking = forwardRef((props, ref) => {
                             className="py-2 px-2 h-10 w-60 border-2 border-blue-500 text-blue-500 rounded-2xl cursor-pointer hover:ring focus:ring"
                             onClick={() =>
                               setSelectedBooking(row) &&
-                              setSlotId(selectedBooking.id)
+                              setSlotId(selectedBooking.id) 
                             }
                           >
                             {row.timeStart} - {row.timeEnd}
@@ -207,9 +208,11 @@ const ModalBooking = forwardRef((props, ref) => {
             {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
           </div>
         )}
+
+
       </Modal>
       <ModalSuccess
-        id={selectedBooking.id}
+        id={selectedBooking}
         // consultantId={consultantId}
         ref={modalSuccessRef}
       />

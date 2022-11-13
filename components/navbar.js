@@ -123,7 +123,7 @@ export default function Navbar() {
                     key={item}
                     className="flex justify-center items-center gap-2"
                   >
-                    <span>Số dư tài khoản: {item.crab} Cua</span>
+                    <span>Số dư tài khoản: {item.crab} Gem</span>
                   </div>
                 );
               })}

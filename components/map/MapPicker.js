@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+
 function isGoogleMapScriptLoaded(id) {
     const scripts = document.head.getElementsByTagName('script');
     for (let i = 0; i < scripts.length; i++) {
@@ -67,11 +68,23 @@ const MapPicker = ({
         onChangeZoom && onChangeZoom(map.current.getZoom());
     }
 
+    const [longitude, setLongitude] = React.useState({});
+    const [latitude, setLatitude] =React.useState({});
+
+  
     function loadMap() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+          });
+        
+      
         const Google = window.google;
         const validLocation = isValidLocation(defaultLocation)
+        
             ? defaultLocation
-            : { lat: 0, lng: 0 };
+
+            : { lat: 10.844714400335658, lng: 106.77110633438444 };
 
         map.current = new Google.maps.Map(
             document.getElementById(MAP_VIEW_ID),
@@ -113,6 +126,8 @@ const MapPicker = ({
         );
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+    
     React.useEffect(() => {
         if (marker.current) {
             map.current.setCenter(defaultLocation);

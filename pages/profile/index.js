@@ -26,13 +26,12 @@ export default function Profile(props) {
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
   };
-  const handleOpenModalEditSupProfile = () => {
-    modalEditSupProfileRef.current?.open();
-    // console.log("supProfileId",supProfileId);
-  };
-  const handleCloseModalEditSupProfile  = () => {
+
+  const handleCloseModalEditSupProfile = () => {
     modalEditSupProfileRef.current?.close();
-  }
+
+    getSupProfile();
+  };
 
   const pageCount = 5;
 
@@ -53,6 +52,15 @@ export default function Profile(props) {
   const [supProfile, setSupProfile] = useState([]);
   const [starMap, setStarMap] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
+  const [supProfileResult, setSupProfileResult] = useState({});
+
+  const handleOpenModalEditSupProfile = () => {
+    modalEditSupProfileRef.current?.open();
+    // console.log("supProfileId",supProfileId);
+    // getSupProfileDetail();
+    // console.log("supProfileResult", supProfileResult);
+  };
+  const [btnSubmit, setBtnSubmit] = useState(true);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
     // console.log("starMap"   , starMap);
@@ -74,27 +82,44 @@ export default function Profile(props) {
     })();
   }, []);
 
-
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.getSupProfileDefault(
-            localStorage.getItem("idcustomer"),
-            currentPage,
-            5
+      const data = await profileService.getSupProfileDefault(
+        localStorage.getItem("idcustomer"),
+        currentPage,
+        5
       );
 
       if (data.statusCode == 200) {
         setSupProfile(data.data);
       }
     }
-  }
+  };
 
+  const getSupProfileDetail = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await profileService.getSupProfileDetail(
+        localStorage.getItem("idcustomer"),
+        supProfileId
+      );
+
+      if (data.statusCode == 200) {
+        setSupProfileResult(data.data);
+      }
+    }
+  };
 
   useEffect(() => {
     (async () => {
-        getSupProfile();
+      getSupProfile();
     })();
   }, []);
+
+ 
+
+ 
+
+  
 
   return (
     <>
@@ -181,6 +206,7 @@ export default function Profile(props) {
                                 Họ và Tên
                               </label>
                               <input
+                                disabled={btnSubmit} // false
                                 type="text"
                                 id="fullname"
                                 name="fullname"
@@ -201,6 +227,7 @@ export default function Profile(props) {
                                 Nơi sinh
                               </label>
                               <input
+                                disabled={btnSubmit} // false
                                 id="address"
                                 name="address"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -223,6 +250,7 @@ export default function Profile(props) {
                                 Giới tính
                               </label>
                               <select
+                                disabled={btnSubmit} // false
                                 id="gender"
                                 name="gender"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -242,6 +270,7 @@ export default function Profile(props) {
                                 Ngày tháng năm sinh
                               </label>
                               <input
+                                disabled={btnSubmit} // false
                                 type="datetime-local"
                                 id="dob"
                                 name="dob"
@@ -266,6 +295,7 @@ export default function Profile(props) {
                                 Kinh độ
                               </label>
                               <input
+                                disabled={btnSubmit} // false
                                 type="text"
                                 id="longitude"
                                 name="longitude"
@@ -286,6 +316,7 @@ export default function Profile(props) {
                                 Vĩ độ
                               </label>
                               <input
+                                disabled={btnSubmit} // false
                                 type="text"
                                 id="latitude"
                                 name="latitude"
@@ -302,22 +333,30 @@ export default function Profile(props) {
                             <div className="pt-7"></div>
                           </div>
 
-                          <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <Button
-                              class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1  text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-9   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <button
+                              className=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2  text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                               type="button"
                               width="default"
                               onClick={handleOpenModalPickerChild}
+                              disabled={btnSubmit}
                             >
                               Chọn vị trí
-                            </Button>
-                            <Button
+                            </button>
+                            <button
                               type="submit"
-                              disabled={isSubmitting}
+                              // disabled={isSubmitting}
                               class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              onClick={() => {
+                                if (btnSubmit == false) {
+                                  setBtnSubmit(true);
+                                } else {
+                                  setBtnSubmit(false);
+                                }
+                              }}
                             >
-                              Lưu
-                            </Button>
+                              {btnSubmit == false ? "Lưu" : "Cập nhật"}
+                            </button>
                           </div>
                         </form>
                       )}
@@ -376,7 +415,7 @@ export default function Profile(props) {
                               outline={true}
                               onClick={() =>
                                 handleOpenModalEditSupProfile(
-                                  setSupProfileId(item.id)
+                                  setSupProfileResult(item)
                                 )
                               }
                               class="flex justify-center items-center outline w-24 rounded outline-cyan-900"
@@ -405,6 +444,8 @@ export default function Profile(props) {
               <div>
                 <div className="flex items-center justify-center text-center">
                   <Pagination
+                    previousLabel="Trước"
+                    nextLabel="Sau"
                     currentPage={currentPage}
                     layout="pagination"
                     onPageChange={async (page) => {
@@ -435,12 +476,12 @@ export default function Profile(props) {
           formRef.current.setValues({ latitude, longitude })
         }
       />
-      <ModalEditSupProfile id={supProfileId} ref={modalEditSupProfileRef} 
+      <ModalEditSupProfile
+        id={supProfileResult}
+        ref={modalEditSupProfileRef}
         handleClose={handleCloseModalEditSupProfile}
-       />
-      <ModalStarMap id={starMap} ref={modalStarMapRef} 
-        
       />
+      <ModalStarMap id={starMap} ref={modalStarMapRef} />
     </>
   );
 }

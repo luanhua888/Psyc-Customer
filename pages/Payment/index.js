@@ -6,7 +6,8 @@ import { payMentService } from "../../services/PayMentService";
 import Image from "next/image.js";
 import bankIcon from "../../public/photos/icon/bank.png";
 import { Formik } from "formik";
-import { isEmpty } from "lodash";
+import { isEmpty, set } from "lodash";
+import { number } from "yup";
 
 export default function Payment() {
   const modalPaymentRef = useRef();
@@ -18,47 +19,59 @@ export default function Payment() {
     message: "",
   });
 
-  const getQrCode = async () => {
-    if (localStorage.getItem("jwttoken")) {
-      const data = await payMentService.getQrCode(
-        localStorage.getItem("idcustomer"),
-        dataForm.amount
-      );
-      if (data.statusCode == 200) {
 
-        setQrCode(data);
-      }
+
+  const [amount, setAmount] = useState(null);
+  // console.log("amount", amount);
+
+  const changeAmount = (e) => {
+    if (Number(amount) >= 0) {
+      setAmount(Number(amount) + Number(e.target.value));
+
+      console.log("amountafter", amount);
+    }
+    // } else {
+    //   setValueAmount(Number(e.target.value));
+    //   dataForm.amount = Number(e.target.value);
+    //   console.log("amount", dataForm.amount);
+    // }
+
+    if (amount > 900) {
+      setErrorMessages({
+        isError: true,
+        message: "số tiền không được vượt quá 1000",
+      });
     }
   };
 
   const handleOpen = () => {
-    if (dataForm.amount == isEmpty) {
+    if (amount == undefined  ) {
       setErrorMessages({
         isError: true,
         message: "Vui lòng nhập số tiền",
       });
     }
-    if (dataForm.amount < 0) {
+    if (amount < 50) {
+      setErrorMessages({
+        isError: true,
+        message: "Số tiền nạp tối thiểu là từ 50 - 2000 ",
+      });
+    }
+    if (amount < 0) {
       setErrorMessages({
         isError: true,
         message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 2000",
       });
     }
-    if (dataForm.amount > 20000) {
+    if (amount > 20000) {
       setErrorMessages({
         isError: true,
         message: "Số tiền bạn muốn nạp không được vượt quá 20000",
       });
     }
-    if (dataForm.amount >= 50 && dataForm.amount <= 2000) {
+
+    if (amount >= 50 && amount <= 20000) {
       modalPaymentRef.current.open();
-      getQrCode();
-    }
-    if (dataForm.amount < 49) {
-      setErrorMessages({
-        isError: true,
-        message: "Số tiền nạp tối thiểu là từ 50 - 2000 ",
-      });
     }
   };
 
@@ -83,7 +96,6 @@ export default function Payment() {
     }
     if (dataForm.amount >= 50 && dataForm.amount <= 2000) {
       modalBankPaymentRef.current.open();
-      getQrCode();
     }
     if (dataForm.amount < 49) {
       setErrorMessages({
@@ -101,7 +113,6 @@ export default function Payment() {
     amount: isEmpty,
   });
 
-  console.log("dataForm", dataForm.amount);
   const [qrCode, setQrCode] = useState({});
 
   useEffect(() => {
@@ -216,12 +227,15 @@ export default function Payment() {
                             name="amount"
                             placeholder="50-20000"
                             onBlur={handleBlur}
+                            value={amount}
                             onChange={(e) =>
-                              setDataForm({
-                                handleChange,
-                                ...dataForm,
-                                amount: e.currentTarget.value,
-                              })
+                              setDataForm(
+                                {
+                                  handleChange,
+                                  ...dataForm,
+                                  amount: e.currentTarget.value,
+                                } && setAmount(e.currentTarget.value)
+                              )
                             }
                           />
                         </div>
@@ -231,9 +245,14 @@ export default function Payment() {
                     </div>
 
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={50}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         50
                       </button>
+
                       <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                         100
                       </button>
@@ -337,7 +356,7 @@ export default function Payment() {
                           </div>
                         </div>
                         <div class="flex flex-row justify-start">
-                        <input
+                          <input
                             type="number"
                             class="form-control block w-full px-3 py-1.5 text-base
                       font-normal text-gray-700 bg-white bg-clip-padding
@@ -409,8 +428,12 @@ export default function Payment() {
           </div>
         )}
       </Formik>
-      <ModalPayment qrCode={qrCode} amount={dataForm} ref={modalPaymentRef} />
-      <ModalBankPayment qrCode={qrCode} amount={dataForm} ref={modalBankPaymentRef} />
+      <ModalPayment qrCode={qrCode} amount={amount} ref={modalPaymentRef} />
+      <ModalBankPayment
+        qrCode={qrCode}
+        amount={dataForm}
+        ref={modalBankPaymentRef}
+      />
     </>
   );
 }
