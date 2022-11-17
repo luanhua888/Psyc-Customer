@@ -16,13 +16,13 @@ import { useRadioGroup } from "@mui/material";
 import { userAgent } from "next/server";
 
 export default function Profile(props) {
-  const modalMapRef = useRef();
+
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
   const formRef = useRef();
 
   const [dataForm, setDataForm] = useState({});
-
+  const modalMapRef = useRef();
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
   };
@@ -50,6 +50,8 @@ export default function Profile(props) {
   };
 
   const [supProfile, setSupProfile] = useState([]);
+  const [imageFirebaseUrl, setImageFirebaseUrl] = useState([]);
+  const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState([]);
   const [starMap, setStarMap] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
   const [supProfileResult, setSupProfileResult] = useState({});
@@ -89,9 +91,17 @@ export default function Profile(props) {
         currentPage,
         5
       );
-
       if (data.statusCode == 200) {
         setSupProfile(data.data);
+      }
+    }
+  };
+
+  const postImageFirebase = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await userService.uploadImage();
+      if (data.statusCode == 200) {
+        setImageFirebaseUrl(data.data);
       }
     }
   };
@@ -114,12 +124,6 @@ export default function Profile(props) {
       getSupProfile();
     })();
   }, []);
-
- 
-
- 
-
-  
 
   return (
     <>
@@ -157,7 +161,16 @@ export default function Profile(props) {
                       alt=""
                     />
                   </div>
-                  <input className="block w-full rounded-3xl" type="file" />
+                  <input
+                    className="block w-full rounded-3xl"
+                    type="file"
+                    //chọn file ảnh lên firebase
+                    onChange={(e) => {
+                      setFileImageFirebaseUrl(e.target.files[0]);
+                      console.log("fileimageFirebaseUrl", fileimageFirebaseUrl);
+                      postImageFirebase();
+                    }}
+                  />
                 </div>
                 <div className="flex flex-1 flex-col ">
                   {!_.isEmpty(user) && (
@@ -473,7 +486,7 @@ export default function Profile(props) {
       <ModalMap
         ref={modalMapRef}
         onChangeLocation={(latitude, longitude) =>
-          formRef.current.setValues({ latitude, longitude })
+          formRef.current.setValues({ latitude, longitude, location })
         }
       />
       <ModalEditSupProfile

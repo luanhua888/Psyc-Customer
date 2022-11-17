@@ -113,11 +113,11 @@ const ModalLogin = forwardRef((props, ref) => {
                     validate={(values) => {
                         const errors = {};
                         if (!values.username) {
-                            errors.username = 'Thông tin bắt buộc';
+                            errors.username = 'Vui lòng nhập tên đăng nhập';
                         }
 
                         if (!values.password) {
-                            errors.password = 'Thông tin bắt buộc';
+                            errors.password = 'Vui lòng nhập mật khẩu';
                         }
 
                         return errors;
