@@ -30,14 +30,15 @@ class UserService extends AbstractService {
     });
   };
 
-  registerInfor = (fullname, email, dob, latitude, longitude) => {
+  registerInfor = (fullname, email, address, dob, latitude, longitude ,imageUrl) => {
     return this.httpPUT(API.REGISTER_INFOR, {
       fullname: fullname,
       email: email,
-      // birthPlace: birthPlace,
+      address: address,
+      dob: dob,
       latitude: latitude,
       longitude: longitude,
-      dob: dob,
+      imageUrl: imageUrl,
     });
   };
 
@@ -93,9 +94,6 @@ class UserService extends AbstractService {
     formData.append("file", file);
     return this.httpPOST(API.UPLOAD_IMAGE, formData);
   };
-
-
-
 }
 
 export const userService = new UserService();

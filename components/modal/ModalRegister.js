@@ -16,7 +16,6 @@ const ModalRegister = forwardRef((props, ref) => {
   const handleOpenModalLogin = () => {
     setIsOpen(false);
     modalLoginRef.current.open();
-   
   };
   const modalLoginRef = useRef();
   const formRef = useRef();
@@ -27,15 +26,14 @@ const ModalRegister = forwardRef((props, ref) => {
     username: "",
     password: "",
     code: "",
-    confirmPassword: "",
     dob: "",
     birthPlace: "",
     longitude: "",
     latitude: "",
+    imageUrl: "",
   });
 
   const [message, setMessage] = useState("");
-  console.log("message", message);
   const [btnSubmitTitle, setBtnSubmitTitle] = useState("Đăng ký");
   const [isVerifyCode, setIsVerifyCode] = useState(false);
 
@@ -89,9 +87,6 @@ const ModalRegister = forwardRef((props, ref) => {
     isError: false,
     message: "",
   });
-
-  console.log("Dataforrm", dataForm);
-
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
@@ -101,15 +96,9 @@ const ModalRegister = forwardRef((props, ref) => {
     },
   }));
 
-  //
-
-  const [verifymess, setverifymess] = useState([]);
-  console.log("verifymess", message);
   const handleOnConfirm = async () => {
-    console.log(data);
-    if(data == undefined )
-    {
-      setMessage("Mã xác nhận chưa chính xác")
+    if (data == undefined) {
+      setMessage("Mã xác nhận chưa chính xác");
     }
     const data = await userService.registerConfirm(
       dataForm.email,
@@ -121,8 +110,6 @@ const ModalRegister = forwardRef((props, ref) => {
       setIsOpen(false);
       setBtnSubmitTitle("Đăng ký");
     }
-
-   
   };
 
   const handleRegister = async () => {
@@ -158,10 +145,12 @@ const ModalRegister = forwardRef((props, ref) => {
           const responseInfor = await userService.registerInfor(
             dataForm.fullname,
             dataForm.email,
+            dataForm.birthPlace,
             dataForm.dob,
-            // dataForm.birthPlace,
             dataForm.longitude.toString(),
-            dataForm.latitude.toString()
+            dataForm.latitude.toString(),
+            (dataForm.imageUrl =
+              "https://i.pinimg.com/564x/99/5f/b5/995fb5b70cd86c194bc9eb48c394eb6c.jpg")
           );
         }
 
@@ -331,7 +320,9 @@ const ModalRegister = forwardRef((props, ref) => {
         ]}
         {...props}
       >
-        <div  className="flex flex-row items-center justify-center text-4xl pb-5">Đăng Kí Tài Khoản</div>
+        <div className="flex flex-row items-center justify-center text-4xl pb-5">
+          Đăng Kí Tài Khoản
+        </div>
         <Formik
           innerRef={formRef}
           initialValues={{
@@ -410,7 +401,6 @@ const ModalRegister = forwardRef((props, ref) => {
                   {message && (
                     <div className="text-sky-500 text-sm mb-2 justify-center flex flex-row text-xl">
                       {message}
-                    
                     </div>
                   )}
 
@@ -787,8 +777,10 @@ const ModalRegister = forwardRef((props, ref) => {
                       placeholder="Nhập nơi sinh"
                       value={dataForm.birthPlace}
                     />
-                    <label className="text-2xl">Bạn đã có tài khoản? <Link onClick={handleOpenModalLogin}>Đăng nhập</Link></label>
-                  
+                    <label className="text-2xl">
+                      Bạn đã có tài khoản?{" "}
+                      <Link onClick={handleOpenModalLogin}>Đăng nhập</Link>
+                    </label>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
@@ -917,12 +909,12 @@ const ModalRegister = forwardRef((props, ref) => {
       </Modal>
       <ModalMap
         ref={modalMapRef}
-        onChangeLocation={(latitude, longitude, location) =>
+        onChangeLocation={(latitude, longitude, address) =>
           setDataForm({
             ...dataForm,
             latitude: latitude,
             longitude: longitude,
-            birthPlace: location,
+            birthPlace: address,
           })
         }
       />

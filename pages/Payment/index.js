@@ -36,10 +36,10 @@ export default function Payment() {
     //   console.log("amount", dataForm.amount);
     // }
 
-    if (amount > 900) {
+    if (amount > 19950) {
       setErrorMessages({
         isError: true,
-        message: "số tiền không được vượt quá 1000",
+        message: "số tiền không được vượt quá 20000",
       });
     }
   };
@@ -54,13 +54,13 @@ export default function Payment() {
     if (amount < 50) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền nạp tối thiểu là từ 50 - 2000 ",
+        message: "Số tiền nạp tối thiểu là từ 50 - 20000 ",
       });
     }
     if (amount < 0) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 2000",
+        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 20000",
       });
     }
     if (amount > 20000) {
@@ -252,31 +252,69 @@ export default function Payment() {
                       >
                         50
                       </button>
-
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={100}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         100
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={200}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         200
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={500}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         500
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={600}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         600
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={700}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         700
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={1000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         1000
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={2000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         2000
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={5000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         5000
                       </button>
+
+                    
+                   
+                     
+                  
+                     
+                 
                     </div>
 
                     <button

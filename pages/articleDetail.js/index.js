@@ -55,9 +55,8 @@ export default function ArticleDetail() {
             <div
                 className="w-full leading-8"
                 dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(article.contentNews),
+                    __html: (article.contentNews),
                     }}
-                //căn đêu nội dung
 
                 style={{
                     textAlign: "justify ",
