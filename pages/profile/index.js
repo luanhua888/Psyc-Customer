@@ -485,8 +485,8 @@ export default function Profile(props) {
       </section>
       <ModalMap
         ref={modalMapRef}
-        onChangeLocation={(latitude, longitude) =>
-          formRef.current.setValues({ latitude, longitude, location })
+        onChangeLocation={(latitude, longitude, address) =>
+          formRef.current.setValues({ latitude, longitude, address })
         }
       />
       <ModalEditSupProfile

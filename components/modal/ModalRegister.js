@@ -32,6 +32,8 @@ const ModalRegister = forwardRef((props, ref) => {
     birthPlace: "",
     longitude: "",
     latitude: "",
+    imageUrl: "",
+
   });
 
   const [message, setMessage] = useState("");
@@ -158,10 +160,13 @@ const ModalRegister = forwardRef((props, ref) => {
           const responseInfor = await userService.registerInfor(
             dataForm.fullname,
             dataForm.email,
+            dataForm.birthPlace,
             dataForm.dob,
-            // dataForm.birthPlace,
             dataForm.longitude.toString(),
-            dataForm.latitude.toString()
+            dataForm.latitude.toString(),
+            dataForm.imageUrl = "https://i.pinimg.com/564x/99/5f/b5/995fb5b70cd86c194bc9eb48c394eb6c.jpg"
+
+
           );
         }
 
@@ -917,12 +922,12 @@ const ModalRegister = forwardRef((props, ref) => {
       </Modal>
       <ModalMap
         ref={modalMapRef}
-        onChangeLocation={(latitude, longitude, location) =>
+        onChangeLocation={(latitude, longitude, address) =>
           setDataForm({
             ...dataForm,
             latitude: latitude,
             longitude: longitude,
-            birthPlace: location,
+            birthPlace: address,
           })
         }
       />
