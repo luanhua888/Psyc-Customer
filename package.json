@@ -23,10 +23,12 @@
     "@react-google-maps/api": "^2.13.1",
     "agora-react-uikit": "^1.1.0",
     "agora-rtc-sdk-ng": "^4.14.0",
+    "antd": "^4.24.2",
     "autogapslider": "^1.0.8",
     "axios": "^0.27.2",
     "daisyui": "^2.38.0",
     "dayjs": "^1.11.5",
+    "dompurify": "^2.4.1",
     "flowbite": "^1.5.3",
     "flowbite-datepicker": "^1.2.2",
     "flowbite-react": "^0.1.12",
@@ -44,6 +46,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.8",
     "autoprefixer": "^10.4.12",
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",

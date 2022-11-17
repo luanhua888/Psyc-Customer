@@ -59,8 +59,24 @@ const MapPicker = ({
 
     function handleChangeLocation() {
         if (onChangeLocation) {
-            const currentLocation = marker.current.getPosition();
-            onChangeLocation(currentLocation.lat(), currentLocation.lng());
+            //lấy vị trí và trả về longitude và latitude và địa chỉ
+            const geocoder = new window.google.maps.Geocoder();
+            const location = marker.current.getPosition();
+            geocoder.geocode(
+                { location: location },
+                (results, status) => {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            console.log(results[0].formatted_address);
+                            onChangeLocation(location.lat(), location.lng(), results[0].formatted_address);
+                        }
+                    }
+                }
+            );
+          
+
+           
+           
         }
     }
 
@@ -73,19 +89,16 @@ const MapPicker = ({
 
   
     function loadMap() {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-          });
+        // navigator.geolocation.getCurrentPosition(function (position) {
+        //     setLatitude(position.coords.latitude);
+        //     setLongitude(position.coords.longitude);
+        //   });
         
       
         const Google = window.google;
         const validLocation = isValidLocation(defaultLocation)
-        
             ? defaultLocation
-
             : { lat: 10.844714400335658, lng: 106.77110633438444 };
-
         map.current = new Google.maps.Map(
             document.getElementById(MAP_VIEW_ID),
             {

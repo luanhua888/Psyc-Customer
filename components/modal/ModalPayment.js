@@ -12,7 +12,10 @@ import Modal from "../modal";
 import Image from "next/image";
 import { payMentService } from "../../services/PayMentService";
 import { Tabs } from "flowbite-react";
-import { set } from "lodash";
+import { set, times } from "lodash";
+
+import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
+import { Dialog } from "@headlessui/react";
 
 // eslint-disable-next-line react/display-name
 const ModalPayment = forwardRef((amount, ref) => {
@@ -20,6 +23,7 @@ const ModalPayment = forwardRef((amount, ref) => {
   const [qrCodeDisplay, setQrDisplay] = useState({});
   const [mountrecieve, setAmount] = useState([]);
 
+  const modalVoteRateRef = useRef();
   // console.log("amount", amount.amount);
 
   useImperativeHandle(ref, () => ({
@@ -27,6 +31,7 @@ const ModalPayment = forwardRef((amount, ref) => {
       setIsOpen(true);
       setAmount(amount.amount);
       getQrCode();
+      getCountDown();
     },
     close: () => {
       setIsOpen(false);
@@ -43,6 +48,30 @@ const ModalPayment = forwardRef((amount, ref) => {
         setQrDisplay(data);
       }
     }
+  };
+
+  const [time, setTime] = useState(30);
+
+  const getCountDown = async () => {
+    //điếm ngược thời gian 5 phút
+
+    const interval = setInterval(() => {
+      if (time > 0) {
+        setTimeout(() => {
+          setTime((time) => time - 1);
+        }, 1000);
+      }
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (time === 0) {
+      setIsOpen(false);
+    }
+  }, [time]);
+
+  const modalOpen = async () => {
+    modalVoteRateRef.current.open();
   };
 
   return (
@@ -81,10 +110,10 @@ const ModalPayment = forwardRef((amount, ref) => {
                       Đơn hàng hết hạn sau 10 phút
                     </h3>
                     <h3
-                      id="ten-countdown"
                       class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2"
+                      //nếu hết thời gian 0 thì sẽ open modal cancel booking
                     >
-                      10:00
+                      {Math.floor(time / 60)}:{time % 60}
                     </h3>
                   </div>
                 </div>

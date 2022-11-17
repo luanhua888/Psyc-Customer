@@ -12,9 +12,11 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation,EffectCoverflow  } from "swiper";
+import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
+import { useRouter } from "next/router";
 
 export default function Home(props) {
+  const router = useRouter();
   const { zodiacs, articles } = props;
   const [zodiac, setZodiac] = useState([]);
   const [article, setArticle] = useState([]);
@@ -123,6 +125,12 @@ export default function Home(props) {
                     alt=""
                     width={65}
                     height={65}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: row.id },
+                      });
+                    }}
                   />
                   <a href="#" className="text-lg font-semibold">
                     {row.name}
@@ -137,26 +145,23 @@ export default function Home(props) {
         </div>
       </section>
 
-    
-
       {/* <SliderComponent/> */}
 
       <section className="bg-slate-100">
         <div className="md:container mx-auto py-8 items-center ">
-        <h1 className="text-center text-2xl font-semibold mb-3">
-              NHỮNG BÀI VIẾT MỚI NHẤT
-            </h1>
+          <h1 className="text-center text-2xl font-semibold mb-3">
+            NHỮNG BÀI VIẾT MỚI NHẤT
+          </h1>
           <div className="">
             <Swiper
               effect={"coverflow"}
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={"auto"}
-                autoplay={{
-                    delay: 2000,
-                    disableOnInteraction: false,
-
-                }}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
               coverflowEffect={{
                 rotate: 50,
                 stretch: 0,
@@ -164,13 +169,21 @@ export default function Home(props) {
                 modifier: 1,
                 slideShadows: true,
               }}
-              
               pagination={false}
-              modules={[EffectCoverflow, Pagination, Autoplay ]}
+              modules={[EffectCoverflow, Pagination, Autoplay]}
               className="mySwiper "
             >
               {article.map((row, key) => (
-                <SwiperSlide className="flex flex-row justify-center" key={key}>
+                <SwiperSlide
+                  className="flex flex-row justify-center"
+                  key={key}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/articleDetail",
+                      query: { articleId: row.id },
+                    });
+                  }}
+                >
                   <Image
                     loader={() => row.urlBanner}
                     className="rounded-tl-xl rounded-bl-xl align-middle"
@@ -180,8 +193,12 @@ export default function Home(props) {
                     height={350}
                   />
                   <div className="flex flex-col justify-center items-center gap-5 bg-slate-400 rounded-tr-xl rounded-br-xl">
-                    <h1 className="px-2 text-2xl  text-white font-semibold " >{row.title}</h1>
-                    <h1 className="px-2 text-2xl text-white first-of-type:font-semibold">{row.description}</h1>
+                    <h1 className="px-2 text-2xl  text-white font-semibold ">
+                      {row.title}
+                    </h1>
+                    <h1 className="px-2 text-2xl text-white first-of-type:font-semibold">
+                      {row.description}
+                    </h1>
                   </div>
                 </SwiperSlide>
               ))}

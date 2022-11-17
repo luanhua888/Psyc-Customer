@@ -10,30 +10,17 @@ import Router from "next/router";
 import MapPicker from "../map/MapPicker";
 import Modal from "../modal";
 
-//
-// import Geocoder from '@goongmaps/goong-geocoder-react';
-// import '@goongmaps/goong-js/dist/goong-js.css';
-// import '@goongmaps/goong-geocoder/dist/goong-geocoder.css';
-// import MapGL, { Marker } from '@goongmaps/goong-map-react';
-// import ReactMapGL from '@goongmaps/goong-map-react';
-
-
 // eslint-disable-next-line react/display-name
 const ModalMap = forwardRef((props, ref) => {
-  const mapRef = useRef();
   const { onChangeLocation } = props;
-  const [longitude, setLongitude] = useState({});
-  const [latitude, setLatitude] = useState({});
 
- 
+  const DefaultLocation = { lat: 10.8, lng: 106.8 };
+  const DefaultZoom = 10;
 
-  // const DefaultLocation = { lat:10.844714400335658 , lng:106.77110633438444 };
-  const DefaultZoom = 12;
-
-  // console.log('DefaultLocation', DefaultLocation);
-
-  // const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
+  const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
   const [zoom, setZoom] = useState(DefaultZoom);
+  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState();
 
   function handleChangeZoom(newZoom) {
     setZoom(newZoom);
@@ -50,6 +37,8 @@ const ModalMap = forwardRef((props, ref) => {
     },
   }));
 
+
+
   function autocomplete() {
     const input = document.getElementById("searchInPut");
 
@@ -57,6 +46,7 @@ const ModalMap = forwardRef((props, ref) => {
       types: ["(cities)"],
       componentRestrictions: { country: "vn" },
     };
+
     const autocomplete = new window.google.maps.places.Autocomplete(
       input,
       options
@@ -68,7 +58,9 @@ const ModalMap = forwardRef((props, ref) => {
       const { lat, lng } = place.geometry.location;
       setLongitude(lng);
       setLatitude(lat);
-      onChangeLocation(lat(), lng());
+      onChangeLocation(lat(), lng(), place.formatted_address);
+      setDefaultLocation({ lat: lat(), lng: lng() });
+
     });
   }
 
@@ -100,13 +92,14 @@ const ModalMap = forwardRef((props, ref) => {
             className="controls rounded-sm shadow-sm mb-1 float-right w-1/3"
           />
           <MapPicker
-            defaultLocation={{ lat: latitude, lng: longitude }}
+            defaultLocation={defaultLocation}
             zoom={zoom}
             mapTypeId="roadmap"
             style={{ height: "600px" }}
             onChangeLocation={onChangeLocation}
             onChangeZoom={handleChangeZoom}
-            apiKey="AIzaSyA3dTnc5DGN1c4mVUx9J7AgQqGQvg5Asis"
+            // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
+            apiKey="AIzaSyDyM80rXWAK5_Ipvhx1xvw0GjMfLbOSEXY"
           />
         </div>
       </Modal>
