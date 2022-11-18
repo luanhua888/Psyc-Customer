@@ -37,6 +37,7 @@
     "lodash": "^4.17.21",
     "next": "12.3.1",
     "next-transpile-modules": "^9.0.0",
+    "rating": "^0.1.0",
     "react": "18.2.0",
     "react-card-slider-component": "^1.0.9",
     "react-dom": "18.2.0",

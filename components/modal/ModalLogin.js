@@ -53,6 +53,7 @@ const ModalLogin = forwardRef((props, ref) => {
                 message: data.messsage,
             });
 
+            console.log("dataâ",data);
             localStorage.setItem('jwttoken', data.jwttoken);
             localStorage.setItem('iddb', data.iddb);
             localStorage.setItem('idcustomer', data.idcustomer);

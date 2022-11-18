@@ -35,7 +35,6 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
     },
   }));
 
-  console.log(id.id);
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();

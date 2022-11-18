@@ -12,6 +12,7 @@ const API = {
   SUPPROFILE_ID: "Profiles/getbyid",
   UPDATE_PROFILE: "Profiles/update",
   UPLOAD_IMAGE: "FirebaseServices/upload",
+  UPDATE_IMAGE_PROFILE: "Customers/update",
 };
 
 class UserService extends AbstractService {
@@ -30,7 +31,15 @@ class UserService extends AbstractService {
     });
   };
 
-  registerInfor = (fullname, email, address, dob, latitude, longitude ,imageUrl) => {
+  registerInfor = (
+    fullname,
+    email,
+    address,
+    dob,
+    latitude,
+    longitude,
+    imageUrl
+  ) => {
     return this.httpPUT(API.REGISTER_INFOR, {
       fullname: fullname,
       email: email,
@@ -88,6 +97,15 @@ class UserService extends AbstractService {
   supProfileId = (id) => {
     return this.httpGET(API.SUPPROFILE_ID, { id });
   };
+
+  updateImageProfile = (email, imageUrl) => {
+    return this.httpPUT(API.REGISTER_INFOR, {
+      email: email,
+      imageUrl: imageUrl,
+    });
+  };
+
+  //upload file image to firebase
 
   uploadImage = (file) => {
     const formData = new FormData();

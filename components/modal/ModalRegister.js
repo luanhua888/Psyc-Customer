@@ -763,6 +763,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           birthPlace: e.currentTarget.value,
                         })
                       }
+                      onClick={handleOpenModalPickerChild}
                       // onBlur={() =>
                       //   dataForm.birthPlace === ""
                       //     ? setErrorMessagesBirthPlace({
@@ -783,7 +784,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     </label>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 hidden">
                     <div className="flex flex-col mb-3">
                       <div className="flex flex-row gap-5">
                         <label className="mb-1 font-medium text-gray-600 w-1/3">
@@ -867,7 +868,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         type="number"
                         readOnly
                         name="latitude"
-                        className="border rounded-lg px-3 py-2 "
+                        className="border rounded-lg px-3 py-2 hidden"
                         onChange={(e) =>
                           setDataForm({
                             ...dataForm,
@@ -891,16 +892,6 @@ const ModalRegister = forwardRef((props, ref) => {
                     </div>
                   </div>
 
-                  <div></div>
-                  <div>
-                    <button
-                      className=" flex flex-row float-right  bg-sky-400 py-1 text-white px-8 rounded-lg text-xl"
-                      onClick={handleOpenModalPickerChild}
-                      type="button"
-                    >
-                      Lấy vị trí
-                    </button>
-                  </div>
                 </div>
               )}
             </form>
