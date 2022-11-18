@@ -131,7 +131,7 @@ const ModalPayment = forwardRef((amount, ref) => {
                   class="flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
              "
                 >
-                  {qrCodeDisplay.amount} Gem
+                  {(qrCodeDisplay.amount)*1000} VND
                 </div>
                 {/* <div class='flex flex-col justify-between items-center text-pink-600'>
               <h3 className='first-line:text-black'>Tài khoản nhận:</h3>

@@ -1,7 +1,7 @@
 import { Button, Pagination, Table } from "flowbite-react";
 import dayjs from "dayjs";
 import { Formik } from "formik";
-import _ from "lodash";
+import _, { isNull } from "lodash";
 import Image from "next/image";
 import heroBanner from "../../public/photos/hero-banner-profile.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
@@ -14,9 +14,11 @@ import ModalEditSupProfile from "../../components/modal/ModalEditSupProfile";
 import ModalStarMap from "../../components/modal/ModalStarMap";
 import { useRadioGroup } from "@mui/material";
 import { userAgent } from "next/server";
+import { number } from "yup";
+import { Router } from "next/router";
+import { binarySearch } from "@fullcalendar/react";
 
 export default function Profile(props) {
-
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
   const formRef = useRef();
@@ -50,38 +52,26 @@ export default function Profile(props) {
   };
 
   const [supProfile, setSupProfile] = useState([]);
-  const [imageFirebaseUrl, setImageFirebaseUrl] = useState([]);
-  const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState([]);
+  const [imageFirebaseUrl, setImageFirebaseUrl] = useState({});
+  console.log("imageFirebaseUrl", imageFirebaseUrl.data);
+  //upload image  firebase
+  const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState();
   const [starMap, setStarMap] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
   const [supProfileResult, setSupProfileResult] = useState({});
 
   const handleOpenModalEditSupProfile = () => {
     modalEditSupProfileRef.current?.open();
-    // console.log("supProfileId",supProfileId);
-    // getSupProfileDetail();
-    // console.log("supProfileResult", supProfileResult);
   };
   const [btnSubmit, setBtnSubmit] = useState(true);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
-    // console.log("starMap"   , starMap);
   };
   const [user, setUser] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const data = await profileService.profile(
-          localStorage.getItem("idcustomer")
-        );
-
-        if (data.statusCode == 200) {
-          setUser(data.data[0]);
-        }
-      }
-    })();
+    getProfile();
   }, []);
 
   const getSupProfile = async () => {
@@ -97,12 +87,47 @@ export default function Profile(props) {
     }
   };
 
-  const postImageFirebase = async () => {
+  const getProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
-      const data = await userService.uploadImage();
+      const data = await profileService.profile(
+        localStorage.getItem("idcustomer")
+      );
+
+      if (data.statusCode == 200) {
+        setUser(data.data[0]);
+      }
+    }
+  };
+
+  const postImageFirebase =  (e) => {
+    if (localStorage.getItem("jwttoken")) {
+      // kiểu của file không được để null
+      const file = e.target.files[0];
+      const data =  userService.uploadImage(file);
+     //trả về url của data
+      data.then((res) => {
+        setImageFirebaseUrl(res);
+      });
+     
+
+
       if (data.statusCode == 200) {
         setImageFirebaseUrl(data.data);
+        console.log("data1", data.data);
       }
+
+      //reload lại Image Profile sau khi update
+    }
+  };
+
+  // console.log("email", localStorage.getItem("email"));
+  const updateImageProfile = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await userService.updateImageProfile(
+        //email,
+        user.email,
+        imageFirebaseUrl.data
+      );
     }
   };
 
@@ -117,6 +142,12 @@ export default function Profile(props) {
         setSupProfileResult(data.data);
       }
     }
+  };
+
+  //upload ảnh lên firebase và update ảnh profile của user
+  const handleUploadImage = (e) => {
+    setFileImageFirebaseUrl(e.target.files[0]);
+    postImageFirebase();
   };
 
   useEffect(() => {
@@ -154,23 +185,27 @@ export default function Profile(props) {
             {user && (
               <div className="flex gap-5 mb-12">
                 <div className="flex flex-col gap-2 border-r">
-                  <div className="w-[250px] h-[250px] ml-2">
+                  <div className="w-[260px] h-[250px] flex flex-row justify-center items-center">
                     <Image
                       loader={() => user.imageUrl}
                       src={profileAvatar}
                       alt=""
+                      className="rounded-xl"
                     />
                   </div>
                   <input
-                    className="block w-full rounded-3xl"
+                    // sử dụng ngôn ngữ tiếng việt 
+                    locale = "vi"
+                    // sử dụng ngôn ngữ tiếng việt
+                    className="  rounded-3xl cursor-pointer"
                     type="file"
-                    //chọn file ảnh lên firebase
-                    onChange={(e) => {
-                      setFileImageFirebaseUrl(e.target.files[0]);
-                      console.log("fileimageFirebaseUrl", fileimageFirebaseUrl);
-                      postImageFirebase();
-                    }}
+                    onChange={postImageFirebase}
+                  
+                  
                   />
+                  <button className=" bg-sky-300 py-1 text-xl text-white rounded-xl" onClick={updateImageProfile}>
+                    Tải lên
+                  </button>
                 </div>
                 <div className="flex flex-1 flex-col ">
                   {!_.isEmpty(user) && (
@@ -299,7 +334,7 @@ export default function Profile(props) {
                             </div>
                           </div>
 
-                          <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div class="hidden">
                             <div>
                               <label
                                 for="longitude"
@@ -310,6 +345,7 @@ export default function Profile(props) {
                               <input
                                 disabled={btnSubmit} // false
                                 type="text"
+                              
                                 id="longitude"
                                 name="longitude"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

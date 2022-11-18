@@ -73,10 +73,16 @@ export default function VideoCall() {
   const join = async () => {
     rtc.client = AgoraRTC.createClient(config);
     await rtc.client.join(options.appId, channel, token || null);
+      rtc.client.publish(rtc.localVideoTrack);
+      rtc.client.publish(rtc.localAudioTrack);
+   
   };
+
+ 
 
   async function startOneToOneVideoCall() {
     join().then(() => {
+
       rtc.client.on("user-published", async (user, mediaType) => {
         if (rtc.client._users.length > 2) {
           rtc.client.leave();
@@ -85,6 +91,10 @@ export default function VideoCall() {
           );
           return;
         }
+
+        
+
+        
 
         await rtc.client.subscribe(user, mediaType);
         if (mediaType === "video") {
@@ -99,17 +109,22 @@ export default function VideoCall() {
     });
   }
 
+
+
+
+
+
+
   const startVideo = async () => {
     rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
     // rtc.client.publish(rtc.localVideoTrack);
-    // rtc.client.publish([rtc.localVideoTrack]);
+    
     rtc.localVideoTrack.play("local");
   };
 
   const startAudio = async () => {
     rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
     // rtc.client.publish(rtc.localAudioTrack);
-    // rtc.client.publish([rtc.localAudioTrack]);
     rtc.localAudioTrack.play();
   };
 
@@ -122,6 +137,8 @@ export default function VideoCall() {
   const stopAudio = () => {
     rtc.localAudioTrack.stop();
     // rtc.client.unpublish(rtc.localAudioTrack);
+   
+
   };
 
   return (
@@ -200,7 +217,6 @@ export default function VideoCall() {
                 src={connect}
                 id="connect"
                 onClick={startOneToOneVideoCall}
-                F
                 alt="Picture of the author"
                 width={45}
                 height={45}
