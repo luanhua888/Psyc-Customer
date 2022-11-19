@@ -20,6 +20,7 @@ export default function Home(props) {
   const { zodiacs, articles } = props;
   const [zodiac, setZodiac] = useState([]);
   const [article, setArticle] = useState([]);
+  console.log("article", article.id);
 
   console.log("article", article.urlBanner);
   useEffect(() => {

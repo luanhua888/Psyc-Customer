@@ -41,7 +41,7 @@ class UserService extends AbstractService {
     imageUrl
   ) => {
     return this.httpPUT(API.REGISTER_INFOR, {
-      fullname: fullname,
+       fullname: fullname,
       email: email,
       address: address,
       dob: dob,
