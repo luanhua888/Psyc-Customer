@@ -5,6 +5,7 @@ import _, { isNull } from "lodash";
 import Image from "next/image";
 import heroBanner from "../../public/photos/hero-banner-profile.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
+import addIcon from "../../public/photos/icon/add.png";
 
 import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
@@ -12,21 +13,23 @@ import { userService } from "../../services/UserService";
 import ModalMap from "../../components/modal/ModalMap";
 import ModalEditSupProfile from "../../components/modal/ModalEditSupProfile";
 import ModalStarMap from "../../components/modal/ModalStarMap";
-import { useRadioGroup } from "@mui/material";
-import { userAgent } from "next/server";
-import { number } from "yup";
-import { Router } from "next/router";
-import { binarySearch } from "@fullcalendar/react";
+import ModalAddSupProfile from "../../components/modal/ModalAddSupProfile";
 
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
+  const modalAddSupProfileRef = useRef();
   const formRef = useRef();
 
   const [dataForm, setDataForm] = useState({});
   const modalMapRef = useRef();
+
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
+  };
+
+  const handleOpenModalAddSupProfile = () => {
+    modalAddSupProfileRef.current?.open();
   };
 
   const handleCloseModalEditSupProfile = () => {
@@ -99,17 +102,15 @@ export default function Profile(props) {
     }
   };
 
-  const postImageFirebase =  (e) => {
+  const postImageFirebase = (e) => {
     if (localStorage.getItem("jwttoken")) {
       // kiểu của file không được để null
       const file = e.target.files[0];
-      const data =  userService.uploadImage(file);
-     //trả về url của data
+      const data = userService.uploadImage(file);
+      //trả về url của data
       data.then((res) => {
         setImageFirebaseUrl(res);
       });
-     
-
 
       if (data.statusCode == 200) {
         setImageFirebaseUrl(data.data);
@@ -128,6 +129,8 @@ export default function Profile(props) {
         user.email,
         imageFirebaseUrl.data
       );
+
+      getProfile();
     }
   };
 
@@ -194,16 +197,17 @@ export default function Profile(props) {
                     />
                   </div>
                   <input
-                    // sử dụng ngôn ngữ tiếng việt 
-                    locale = "vi"
-                    // sử dụng ngôn ngữ tiếng việt
+                    locale="vi"
                     className="  rounded-3xl cursor-pointer"
                     type="file"
                     onChange={postImageFirebase}
-                  
-                  
                   />
-                  <button className=" bg-sky-300 py-1 text-xl text-white rounded-xl" onClick={updateImageProfile}>
+                  <button
+                    className=" bg-indigo-700 
+                  
+                  py-1 text-xl text-white rounded-xl"
+                    onClick={updateImageProfile}
+                  >
                     Tải lên
                   </button>
                 </div>
@@ -284,6 +288,7 @@ export default function Profile(props) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.address}
+                                onClick={handleOpenModalPickerChild}
                               />
                             </div>
                           </div>
@@ -345,7 +350,6 @@ export default function Profile(props) {
                               <input
                                 disabled={btnSubmit} // false
                                 type="text"
-                              
                                 id="longitude"
                                 name="longitude"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -382,20 +386,11 @@ export default function Profile(props) {
                             <div className="pt-7"></div>
                           </div>
 
-                          <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-9   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <button
-                              className=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-10 py-2  text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              type="button"
-                              width="default"
-                              onClick={handleOpenModalPickerChild}
-                              disabled={btnSubmit}
-                            >
-                              Chọn vị trí
-                            </button>
+                          <div className="d-flex flex float-right   text-white    focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm  text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <button
                               type="submit"
                               // disabled={isSubmitting}
-                              class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                               onClick={() => {
                                 if (btnSubmit == false) {
                                   setBtnSubmit(true);
@@ -414,10 +409,21 @@ export default function Profile(props) {
                 </div>
               </div>
             )}
-            {/* // */}
             <div>
-              <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700">
-                Danh sách các hồ sơ khác của bạn
+              <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
+                <p className="w-[100%] ">
+                  <span className="pr-[28%] pl-[31%]">Danh sách các hồ sơ khác của bạn</span>
+                  <Image
+                    src={addIcon}
+                    alt=""
+                    className="rounded-xl ml-[50%] cursor-pointer"
+                    width={30}
+                    height={30}
+                    onClick={() => {
+                      handleOpenModalAddSupProfile();
+                    }}
+                  />
+                </p>
               </h1>
 
               <div>
@@ -531,6 +537,7 @@ export default function Profile(props) {
         handleClose={handleCloseModalEditSupProfile}
       />
       <ModalStarMap id={starMap} ref={modalStarMapRef} />
+      <ModalAddSupProfile ref={modalAddSupProfileRef} />
     </>
   );
 }

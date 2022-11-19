@@ -161,7 +161,7 @@ const ModalRegister = forwardRef((props, ref) => {
         setMessage(responseResendCode.message);
 
         setTimeout(() => {
-          setBtnSubmitTitle("Xác nhận1");
+          setBtnSubmitTitle("Xác nhận");
           setIsVerifyCode(true);
         }, 1500);
       } catch (err) {
@@ -261,7 +261,42 @@ const ModalRegister = forwardRef((props, ref) => {
         });
       }
 
+      //nếu tuôi nhỏ hơn 18 tuổi thì không được đăng ký
+      if (dataForm.dob !== "") {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let age = year - dataForm.dob.split("-")[0];
+        if (month < dataForm.dob.split("-")[1]) {
+          age--;
+        } else if (month == dataForm.dob.split("-")[1]) {
+          if (day < dataForm.dob.split("-")[2]) {
+            age--;
+          }
+        }
+        if (age < 18) {
+          setErrorMessagesBirthday({
+            isError: true,
+            message: "Bạn phải trên 18 tuổi để đăng ký",
+          });
+        }
+      }
       //nếu thỏa mãn điều kiện  mới thực hiện isVerifyCode = true
+
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let age = year - dataForm.dob.split("-")[0];
+      if (month < dataForm.dob.split("-")[1]) {
+        age--;
+      } else if (month == dataForm.dob.split("-")[1]) {
+        if (day < dataForm.dob.split("-")[2]) {
+          age--;
+        }
+      }
+
       if (
         dataForm.fullname &&
         dataForm.username &&
@@ -277,7 +312,9 @@ const ModalRegister = forwardRef((props, ref) => {
         dataForm.dob &&
         dataForm.birthPlace &&
         dataForm.longitude &&
-        dataForm.latitude
+        dataForm.latitude &&
+        //nếu tuôi nhỏ hơn 18 tuổi thì không được đăng ký
+        age >= 18
       ) {
         setIsVerifyCode(true);
         handleRegister();
@@ -627,7 +664,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-gray-600 w-[40%]">
                         Xác nhận mật khẩu
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -764,25 +801,26 @@ const ModalRegister = forwardRef((props, ref) => {
                         })
                       }
                       onClick={handleOpenModalPickerChild}
-                      // onBlur={() =>
-                      //   dataForm.birthPlace === ""
-                      //     ? setErrorMessagesBirthPlace({
-                      //         isError: true,
-                      //         message: "Vui lòng nhập nơi sinh",
-                      //       })
-                      //     : setErrorMessagesBirthPlace({
-                      //         isError: false,
-                      //         message: "",
-                      //       })
-                      // }
+                      onBlur={() =>
+                        dataForm.birthPlace === ""
+                          ? setErrorMessagesBirthPlace({
+                              isError: true,
+                              message: "Vui lòng nhập nơi sinh",
+                            })
+                          : setErrorMessagesBirthPlace({
+                              isError: false,
+                              message: "",
+                            })
+                      }
                       placeholder="Nhập nơi sinh"
                       value={dataForm.birthPlace}
                     />
-                    <label className="text-2xl">
-                      Bạn đã có tài khoản?{" "}
-                      <Link onClick={handleOpenModalLogin}>Đăng nhập</Link>
-                    </label>
                   </div>
+
+                  <label className="text-2xl mt-5">
+                    Bạn đã có tài khoản?{" "}
+                    <Link onClick={handleOpenModalLogin}>Đăng nhập</Link>
+                  </label>
 
                   <div className="grid grid-cols-2 gap-2 hidden">
                     <div className="flex flex-col mb-3">
@@ -891,7 +929,6 @@ const ModalRegister = forwardRef((props, ref) => {
                       />
                     </div>
                   </div>
-
                 </div>
               )}
             </form>

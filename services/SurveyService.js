@@ -2,6 +2,8 @@ import AbstractService from "./AbstractService";
 
 const API = {
   GET_SURVEY: "OptionQuestions/getoptionbyquestionid",
+  GET_ALL_TYPE_SURVEY: "SurveyTypes/getallsurveytype",
+  GET_SURVEY_ID: "Surveys/getsurveybysurveytypeid",
   POST_RESULT_SURVEY: "ResultSurveys/submitsurveybylist",
 };
 
@@ -26,6 +28,23 @@ class SurveyService extends AbstractService {
       }
     );
   };
+
+  getAllTypeSurvey = (search) => {
+    return this.httpGET(
+      API.GET_ALL_TYPE_SURVEY,
+      {search}
+    );  
+  };
+
+  getSurveyByIdType = (surveytypeid) => {
+    return this.httpGET(
+      API.GET_SURVEY_ID,
+      {surveytypeid}
+    );  
+  };
+
+
+
 }
 
 export const surveyService = new SurveyService();

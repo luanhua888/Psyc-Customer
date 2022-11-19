@@ -27,6 +27,8 @@ function Question({
   }, [questionStart]);
 
   console.log("numberQuestion", numberQuestion);
+  console.log("questionStart", questionStart);
+  console.log("result", result);
 
   const getQuestionIndex = async () => {
     const data = await surveyService.getSurvey(questionIndex);
@@ -76,10 +78,10 @@ function Question({
             {survey.map((option, index) => (
               <div
                 key={index}
-                className="answers flex flex-col justify-center items-center pt-5"
+                className="answers flex flex-col pt-5"
                 onClick={() => handleClick(result.push(option.id))}
               >
-                <p className="answer p-4 text-white font-bold cursor-pointer text-center m-1  text-2xl bg-orange-400 rounded-lg shadow-lg hover:bg-slate-300 ">
+                <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-orange-400 rounded-lg shadow-lg hover:bg-slate-300 ">
                   {option.optionText}
                 </p>
               </div>
