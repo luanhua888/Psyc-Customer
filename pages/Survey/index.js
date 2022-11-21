@@ -9,79 +9,89 @@ function SurveyPage() {
   const [showtypeSurvey, setShowTypeSurvey] = useState(true);
   const [showQuestionPage, setShowQuestionPage] = useState(false);
   const [showFinalImgPage, setShowFinalImgPage] = useState(false);
+
+
   const [resultSurvey, setResultSurvey] = useState({});
   const [questionStart, setQuestionStart] = useState([]);
-
-
-
+  const [listQuestionStart, setListQuestionStart] = useState([]);
   const [score, setScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
   const [numberQuestion, setNumberQuestion] = useState(0);
   const [username, setUserName] = useState("");
-    const [listSurvey, setListSurvey] = useState([]);
+  const [listSurvey, setListSurvey] = useState([]);
+  const [idSurvey, setIdSurvey] = useState(0);
 
   return (
     <>
-        {showtypeSurvey && (
-            <TypeSurveyPage
-                setStartPage={setStartPage}
-                setShowQuestionPage={setShowQuestionPage}
-                topScore={topScore}
-                username={username}
-                setUserName={setUserName}
-                numberQuestion={numberQuestion}
-                setNumberQuestion={setNumberQuestion}
-                setQuestionStart={setQuestionStart}
-                setShowTypeSurvey={setShowTypeSurvey}
-                setListSurvey={setListSurvey}
-            />
-        )}
+      {showtypeSurvey && (
+        <TypeSurveyPage
+          setStartPage={setStartPage}
+          setShowQuestionPage={setShowQuestionPage}
+          topScore={topScore}
+          username={username}
+          setUserName={setUserName}
+          numberQuestion={numberQuestion}
+          setNumberQuestion={setNumberQuestion}
+          setQuestionStart={setQuestionStart}
+          setShowTypeSurvey={setShowTypeSurvey}
+          setListSurvey={setListSurvey}
+          setIdSurvey={setIdSurvey}
+        />
+      )}
 
-        {showStartPage && (
-            <StartPage
-                setStartPage={setStartPage}
-                setShowQuestionPage={setShowQuestionPage}
-                topScore={topScore}
-                username={username}
-                setUserName={setUserName}
-                numberQuestion={numberQuestion}
-                setNumberQuestion={setNumberQuestion}
-                setQuestionStart={setQuestionStart}
-                questionStart={questionStart}
-                setShowTypeSurvey={setShowTypeSurvey}
-                listSurvey={listSurvey}
-
-            />
-        )}
-        {showQuestionPage && (
-            <Question
-                setShowQuestionPage={setShowQuestionPage}
-                setShowFinalImgPage={setShowFinalImgPage}
-                setScore={setScore}
-                score={score}
-                setResultSurvey={setResultSurvey}
-                resultSurvey={resultSurvey}
-                numberQuestion={numberQuestion}
-                setNumberQuestion={setNumberQuestion}
-                setQuestionStart={setQuestionStart}
-                questionStart={questionStart}
-
-            />
-        )}
-        {showFinalImgPage && (
-            <FinalPage
-                score={score}
-                setScore={setScore}
-                topScore={topScore}
-                setTopScore={setTopScore}
-                setShowFinalImgPage={setShowFinalImgPage}   
-                setStartPage={setStartPage}
-                username={username}
-                setUserName={setUserName}
-                setResultSurvey={setResultSurvey}
-                resultSurvey={resultSurvey}
-            />
-        )}
+      {showStartPage && (
+        <StartPage
+          setStartPage={setStartPage}
+          setShowQuestionPage={setShowQuestionPage}
+          topScore={topScore}
+          username={username}
+          setUserName={setUserName}
+          numberQuestion={numberQuestion}
+          setNumberQuestion={setNumberQuestion}
+          setQuestionStart={setQuestionStart}
+          questionStart={questionStart}
+          setShowTypeSurvey={setShowTypeSurvey}
+          listSurvey={listSurvey}
+          idSurvey={idSurvey}
+          setIdSurvey={setIdSurvey}
+          setListQuestionStart={setListQuestionStart}
+          listQuestionStart={listQuestionStart}
+          
+        />
+      )}
+      {showQuestionPage && (
+        <Question
+          setShowQuestionPage={setShowQuestionPage}
+          setShowFinalImgPage={setShowFinalImgPage}
+          setScore={setScore}
+          score={score}
+          setResultSurvey={setResultSurvey}
+          resultSurvey={resultSurvey}
+          numberQuestion={numberQuestion}
+          setNumberQuestion={setNumberQuestion}
+          setQuestionStart={setQuestionStart}
+          questionStart={questionStart}
+          idSurvey={idSurvey}
+          setIdSurvey={setIdSurvey}
+          setListQuestionStart={setListQuestionStart}
+          listQuestionStart={listQuestionStart}
+          
+        />
+      )}
+      {showFinalImgPage && (
+        <FinalPage
+          score={score}
+          setScore={setScore}
+          topScore={topScore}
+          setTopScore={setTopScore}
+          setShowFinalImgPage={setShowFinalImgPage}
+          setStartPage={setStartPage}
+          username={username}
+          setUserName={setUserName}
+          setResultSurvey={setResultSurvey}
+          resultSurvey={resultSurvey}
+        />
+      )}
     </>
   );
 }

@@ -36,7 +36,7 @@ export default function HistoryDeposit() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [historyBooking, setHistoryBooking] = useState([]);
-  const [appointmentBooking, setAppointmentBooking] = useState([]);
+  const [historyDeposit, setHistoryDeposit] = useState([]);
   const [pageTotal, setPageTotal] = useState([]);
   const [date, setDate] = useState();
 
@@ -49,14 +49,12 @@ export default function HistoryDeposit() {
       );
 
       if (data.statusCode == 200) {
-        setAppointmentBooking(data.data);
+        setHistoryDeposit(data.data);
         setPageTotal(data.totalpage);
       }
     }
   };
 
-
-  
   const getHistory = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await depositService.getAllDepositWithdrawal(
@@ -98,8 +96,6 @@ export default function HistoryDeposit() {
       }
     })();
   }, []);
-
-
 
   return (
     <>
@@ -176,29 +172,45 @@ export default function HistoryDeposit() {
                       {/* <tr class='border border-gray-400'> */}
                       <Table.HeadCell>STT</Table.HeadCell>
                       <Table.HeadCell>Code </Table.HeadCell>
+                      <Table.HeadCell>Số Tiền</Table.HeadCell>
                       <Table.HeadCell>Số Gem</Table.HeadCell>
                       <Table.HeadCell>Thời gian</Table.HeadCell>
                       <Table.HeadCell>Trạng thái</Table.HeadCell>
                       <Table.HeadCell></Table.HeadCell>
                       {/* </tr> */}
                     </Table.Head>
-                    {appointmentBooking.map((row, index) => (
+                    {historyDeposit.map((row, index) => (
                       <Table.Body key={(index = 0)} class="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                           <Table.Cell>{index + 1}</Table.Cell>
                           <Table.Cell>{row.code}</Table.Cell>
+                          <Table.Cell>
+                            {new Intl.NumberFormat("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            }).format(row.amount * 1000)}
+                          </Table.Cell>
                           <Table.Cell>{row.amount}</Table.Cell>
-                          
-                           {/*  */}
-                           {/* nếu amount nhỏ hơn 999 và lớn hơn 0 thì hiện thị amount và thêm dấu phẩn ở hàng nghìn */}
-                           
                           <Table.Cell>{`${dayjs(row.dateCreate).format(
                             "DD/MM/YYYY"
                           )} `}</Table.Cell>
                           <Table.Cell>
-                            {row.status == "success"
-                              ? "Thành công"
-                              : "Không thành công"}
+                          {/* nếu status = success thì là thành công 
+                          nếu status = waiting thì là đang chờ
+                          nếu status = fail thì là thất bại */}
+                            {
+                              row.status == "success" ? (
+                                <span className="text-green-500">
+                                  Thành Công
+                                </span>
+                              ) : row.status == "waiting" ? (
+                                <span className="text-yellow-500">
+                                  Đang Chờ
+                                </span>
+                              ) : (
+                                <span className="text-red-500">Thất Bại</span>
+                              )
+                              }
                           </Table.Cell>
 
                           {/* <Table.Cell>
@@ -242,7 +254,7 @@ export default function HistoryDeposit() {
                           page
                         );
                         if (data) {
-                          setAppointmentBooking(data);
+                          setHistoryDeposit(data);
                         }
                       }
                     }}

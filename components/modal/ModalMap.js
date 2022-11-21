@@ -13,6 +13,7 @@ import Modal from "../modal";
 // eslint-disable-next-line react/display-name
 const ModalMap = forwardRef((props, ref) => {
   const { onChangeLocation } = props;
+  const { onChangeLocationAddress } = props;
 
   const DefaultLocation = { lat: 10.8, lng: 106.8 };
   const DefaultZoom = 10;
@@ -59,6 +60,7 @@ const ModalMap = forwardRef((props, ref) => {
       setLongitude(lng);
       setLatitude(lat);
       onChangeLocation(lat(), lng(), place.formatted_address);
+      onChangeLocationAddress(lat(), lng(), place.formatted_address);
       setDefaultLocation({ lat: lat(), lng: lng() });
 
     });
@@ -97,9 +99,10 @@ const ModalMap = forwardRef((props, ref) => {
             mapTypeId="roadmap"
             style={{ height: "600px" }}
             onChangeLocation={onChangeLocation}
+            onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
             // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
-            apiKey="AIzaSyDyM80rXWAK5_Ipvhx1xvw0GjMfLbOSEXY"
+            apiKey="AIzaSyDt5ZtnD4Up1Opu7tPZQ3-sdGvDr5m_eIw"
           />
         </div>
       </Modal>

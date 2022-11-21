@@ -47,6 +47,7 @@ const MapPicker = ({
     defaultLocation,
     zoom = 7,
     onChangeLocation,
+    onChangeLocationAddress,
     onChangeZoom,
     style,
     className,
@@ -73,10 +74,25 @@ const MapPicker = ({
                     }
                 }
             );
-          
+        }
+    }
 
-           
-           
+    function handleChangeLocationAddress() {
+        if (onChangeLocationAddress) {
+            //lấy vị trí và trả về longitude và latitude và địa chỉ
+            const geocoder = new window.google.maps.Geocoder();
+            const location = marker.current.getPosition();
+            geocoder.geocode(
+                { location: location },
+                (results, status) => {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            console.log(results[0].formatted_address);
+                            onChangeLocationAddress(location.lat(), location.lng(), results[0].formatted_address);
+                        }
+                    }
+                }
+            );
         }
     }
 
@@ -117,7 +133,8 @@ const MapPicker = ({
             Google.maps.event.addListener(
                 marker.current,
                 'dragend',
-                handleChangeLocation
+                handleChangeLocation,
+                handleChangeLocationAddress
             );
         } else {
             marker.current.setPosition(validLocation);
@@ -128,6 +145,7 @@ const MapPicker = ({
 
             marker.current.setPosition(clickedLocation);
             handleChangeLocation();
+            handleChangeLocationAddress();
         });
 
         map.current.addListener('zoom_changed', handleChangeZoom);

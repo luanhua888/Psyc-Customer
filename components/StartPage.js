@@ -14,6 +14,8 @@ function StartPage({
   setQuestionStart,
   setShowTypeSurvey,
   listSurvey,
+  setIdSurvey,
+  setListQuestionStart
 }) {
  
   console.log("listSurvey", listSurvey);
@@ -23,12 +25,17 @@ function StartPage({
       setQuestionStart(data.data);
     }
   };
+
   const getQuestionByIdSurvey = async (id) => {
-    const data = await surveyService.getSurvey(id);
+    const data = await surveyService.getQuestionBySurveyId(id);
     if (data.statusCode == 200) {
-      setQuestionStart(data.data);
+      setQuestionStart(data.data[0].description);
+      setListQuestionStart(data.data[0].option);
+
     }
   };
+
+
 
   return (
     <section id="services" className="bg-indigo-300">
@@ -45,6 +52,7 @@ function StartPage({
                 onClick={() => {
                   setStartPage(false);
                   setShowQuestionPage(true);
+                  setIdSurvey(row.id);
                   getQuestionByIdSurvey(row.id);
                 }}
               >

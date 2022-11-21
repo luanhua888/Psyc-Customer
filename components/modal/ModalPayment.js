@@ -7,14 +7,16 @@ import {
 } from "react";
 import Router from "next/router";
 import avatarImg from "../../public/photos/avatar.jpeg";
+import momoIcon from "../../public/photos/icon/MoMo_Logo.png";
 
 import Modal from "../modal";
 import Image from "next/image";
 import { payMentService } from "../../services/PayMentService";
-import { Tabs } from "flowbite-react";
+import { Tabs, Toast } from "flowbite-react";
 import { set, times } from "lodash";
 
 import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
+import ModalFailure from "../../components/modal/ModalFailure.js";
 import { Dialog } from "@headlessui/react";
 
 // eslint-disable-next-line react/display-name
@@ -24,6 +26,7 @@ const ModalPayment = forwardRef((amount, ref) => {
   const [mountrecieve, setAmount] = useState([]);
 
   const modalVoteRateRef = useRef();
+  const modalFailureRef = useRef();
   // console.log("amount", amount.amount);
 
   useImperativeHandle(ref, () => ({
@@ -60,6 +63,11 @@ const ModalPayment = forwardRef((amount, ref) => {
         setTimeout(() => {
           setTime((time) => time - 1);
         }, 1000);
+
+      }
+      if (time == 0) {
+        clearInterval(interval);
+
       }
     }, 1000);
   };
@@ -67,6 +75,10 @@ const ModalPayment = forwardRef((amount, ref) => {
   useEffect(() => {
     if (time === 0) {
       setIsOpen(false);
+      //reset lại thời gian về 5 phút
+      setTime(30);
+      //ngừng đếm ngược
+      modalFailureRef.current.open();
     }
   }, [time]);
 
@@ -94,10 +106,13 @@ const ModalPayment = forwardRef((amount, ref) => {
                       class="w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                     >
                       {/* logo momo */}
-                      <img
-                        src="https://firebasestorage.googleapis.com/v0/b/psychologicalcounseling-28efa.appspot.com/o/Desposit%2Flogo-momo-png-2.png?alt=media&token=53a3ea95-c76b-4943-a0ae-34403acc617f"
-                        alt="logo momo"
-                        class="w-10 h-10"
+
+                      <Image
+                        // loader={() => user.imageUrl}
+                        src={momoIcon}
+                        alt=""
+                        width={50}
+                        height={50}
                       />
                       <span class="ml-2">Momo</span>
                     </a>
@@ -131,7 +146,14 @@ const ModalPayment = forwardRef((amount, ref) => {
                   class="flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
              "
                 >
-                  {(qrCodeDisplay.amount)*1000} VND
+                  {
+                    new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                     }).format(qrCodeDisplay.amount * 1000)
+                  }
+
+
                 </div>
                 {/* <div class='flex flex-col justify-between items-center text-pink-600'>
               <h3 className='first-line:text-black'>Tài khoản nhận:</h3>
@@ -167,14 +189,17 @@ const ModalPayment = forwardRef((amount, ref) => {
 
               <div>
                 <div class="flex flex-col justify-between items-center text-pink-600 text-2xl">
-                  <Image
-                    loader={() => qrCodeDisplay.qrcodemomo}
-                    className=""
-                    src={avatarImg}
-                    alt=""
-                    width={200}
-                    height={200}
-                  />
+                  <div className="border-solid border-2 border-indigo-500 p-2 ">
+                    <Image
+                      loader={() => qrCodeDisplay.qrcodemomo}
+                      className=""
+                      src={avatarImg}
+                      alt=""
+                      width={200}
+                      height={200}
+                    />
+                  </div>
+                  <h4>Quét mã Qr để thanh toán </h4>
                 </div>
               </div>
               <div className="flex underline flex-col justify-between items-center text-pink-600 text-2xl">
@@ -197,6 +222,7 @@ const ModalPayment = forwardRef((amount, ref) => {
           </div>
         )}
       </Modal>
+      <ModalFailure  ref={modalFailureRef} />
     </div>
   );
 });
