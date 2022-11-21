@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef, useEffect, useState, Component } from "react";
 import astroRoundedImg from "../public/photos/astro-rounded.png";
 import logoFooterImg from "../public/logo_footer.png";
+import logoSpin from "../public/photos/hero-banner-profile.png";
 
 import { zodiacService } from "../services/ZodiacService";
 import { articleService } from "../services/ArticleService";
@@ -19,8 +20,21 @@ export default function Home(props) {
   const router = useRouter();
   const { zodiacs, articles } = props;
   const [zodiac, setZodiac] = useState([]);
+  const [zodiac1, setZodiac1] = useState([]);
+  const [zodiac2, setZodiac2] = useState([]);
+  const [zodiac3, setZodiac3] = useState([]);
+  const [zodiac4, setZodiac4] = useState([]);
+  const [zodiac5, setZodiac5] = useState([]);
+  const [zodiac6, setZodiac6] = useState([]);
+  const [zodiac7, setZodiac7] = useState([]);
+  const [zodiac8, setZodiac8] = useState([]);
+  const [zodiac9, setZodiac9] = useState([]);
+  const [zodiac10, setZodiac10] = useState([]);
+  const [zodiac11, setZodiac11] = useState([]);
+  const [zodiac12, setZodiac12] = useState([]);
   const [article, setArticle] = useState([]);
   console.log("article", article.id);
+  console.log("zodiac", zodiac);
 
   console.log("article", article.urlBanner);
   useEffect(() => {
@@ -29,6 +43,19 @@ export default function Home(props) {
       if (data.statusCode == 200) {
         setZodiac(data.data);
         console.log("zodiac", data.data);
+        setZodiac1(data.data[0]);
+        setZodiac2(data.data[1]);
+        setZodiac3(data.data[2]);
+        setZodiac4(data.data[3]);
+        setZodiac5(data.data[4]);
+        setZodiac6(data.data[5]);
+        setZodiac7(data.data[6]);
+        setZodiac8(data.data[7]);
+        setZodiac9(data.data[8]);
+        setZodiac10(data.data[9]);
+        setZodiac11(data.data[10]);
+        setZodiac12(data.data[11]);
+
       }
     })();
   }, []);
@@ -56,30 +83,225 @@ export default function Home(props) {
 
   return (
     <>
-      <section id="hero-banner" className="bg-slate-700">
+      <section id="hero-banner" className="bg-[#031d2e]">
         <div className="md:container mx-auto px-[10%] py-6">
-          <div className="p-12 flex justify-between items-center bg-gradient-to-r from-indigo-400 to-slate-100 rounded-3xl">
+          <div className="p-12 flex justify-between items-center text-white font-bold rounded-3xl">
             <Image className="animate-spin  " src={astroRoundedImg} alt="" />
             <div className="flex flex-col gap-4 text-slate-800">
-              <h3 className="font-sans text-[2.625rem] leading-[3.125rem]">
+              <h3 className="font-sans text-[2.625rem] leading-[3.125rem] text-white  ">
                 Bất kì câu hỏi nào?
               </h3>
-              <h1 className="font-sans text-[2.65rem] leading-[3.875rem] font-semibold">
+              <h1 className="font-sans text-[2.65rem] leading-[3.875rem] text-white  ">
                 Trò chuyện với tư vấn viên
               </h1>
-              <p className="font-sans text-[2.625rem] leading-[3.125rem]">
-                MIễn Phí
+              <p className="font-sans text-[2.625rem] leading-[3.125rem] text-white  ">
+                Miễn Phí
               </p>
             </div>
             <a
               href="#"
-              className="py-3 px-8 bg-indigo-500 rounded-full text-3xl font-semibold hover:ring-8 hover:ring-offset-sky-700-500"
+              className="py-3 px-4 bg-[#fd7e14] rounded-full text-3xl font-semibold hover:bg-[#17384e] hover:text-white"
             >
               Trò chuyện ngay
             </a>
           </div>
         </div>
       </section>
+
+      <div className="row bg-[#17384e] md:container mx-auto px-[10%] py-6">
+        <div className="col-lg-12 text-center">
+          <h1 className="as_heading as_heading_center">our services</h1>
+          <p className="as_font14 as_padderBottom5">
+            Consectetur adipiscing elit, sed do eiusmod tempor
+            incididuesdeentiut labore <br />
+            etesde dolore magna aliquapspendisse and the gravida.
+          </p>
+        </div>
+
+        <div
+          className="grid 
+        grid-cols-1
+        gap-4
+        
+        "
+        >
+          <div className=" w-[250px] ">
+            <div className="as_service_box text-center">
+              <span className="as_icon">
+                <img src="assets/images/svg/service1.svg" alt />
+              </span>
+              <h4 className="as_subheading">Vastu Shastra</h4>
+              <p>
+                Consectetur adipiscing elit sed do <br />
+                eiusmod tempor incididunt.
+              </p>
+              <a href="service_detail.html" className="as_link">
+                read more
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div className="as_zodiac_inner text-left">
+        <div className="flex flex-row justify-between as_verticle_center md:container mx-auto px-[10%] py-6">
+        
+          <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+            <ul className="as_sign_ul">
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                  <img src={zodiac1.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac1.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac2.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac2.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac3.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac3.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac4.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac4.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac5.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac5.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac6.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac6.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div className="as_sign_img text-center">
+              {/* <img
+                src="../public/photos/hero-banner-profile.png"
+                alt
+                className="img-responsive"
+              /> */}
+               <Image className="animate-spin" src={logoSpin} alt="" />
+            </div>
+          </div>
+          <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+            <ul className="as_sign_ul as_sign_ul_right">
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac7.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac7.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac8.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac8.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac9.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac9.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac10.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac10.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac11.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac11.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+              <li className="as_sign_box">
+                <a href="zodiac_single.html">
+                  <span className="as_sign">
+                    <img src={zodiac12.imageUrl} alt />
+                  </span>
+                  <div>
+                    <h5>{zodiac12.name}</h5>
+                    <p>Mar 21 - Apr 19</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
       <section id="services" className="bg-slate-900">
         <div className="md:container mx-auto px-[10%] py-5">
           <div className="flex justify-around">
