@@ -57,7 +57,7 @@ export default function Navbar() {
 
   return (
     <nav className="shadow-2xl">
-      <div className="md:container mx-auto py-3">
+      <div className="md:container mx-auto px-[10%] py-3">
         <div className="flex justify-between items-center ">
           <div className="flex gap-3 justify-center items-center">
             <Image src={logo} alt="" />

@@ -57,7 +57,7 @@ export default function Home(props) {
   return (
     <>
       <section id="hero-banner" className="bg-slate-700">
-        <div className="md:container mx-auto py-6">
+        <div className="md:container mx-auto px-[10%] py-6">
           <div className="p-12 flex justify-between items-center bg-gradient-to-r from-indigo-400 to-slate-100 rounded-3xl">
             <Image className="animate-spin  " src={astroRoundedImg} alt="" />
             <div className="flex flex-col gap-4 text-slate-800">
@@ -81,7 +81,7 @@ export default function Home(props) {
         </div>
       </section>
       <section id="services" className="bg-slate-900">
-        <div className="md:container mx-auto py-5">
+        <div className="md:container mx-auto px-[10%] py-5">
           <div className="flex justify-around">
             <div className="flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl min-w-[200px] max-w-[250px]">
               <Image src={astroRoundedImg} alt="" width={65} height={65} />
@@ -112,9 +112,9 @@ export default function Home(props) {
       </section>
 
       <section id="services" className="bg-indigo-300">
-        <div className="md:container mx-auto py-6">
+        <div className="md:container mx-auto px-[10%] py-6">
           <div className="flex flex-col justify-between gap-4">
-            <div className="flex flex-row flex-wrap justify-between gap-6 auto-cols-max">
+            <div className="grid grid-cols-6 gap-1 justify-between  auto-cols-max">
               {zodiac.map((row, key) => (
                 <div
                   key={key}

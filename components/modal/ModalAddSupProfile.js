@@ -16,7 +16,7 @@ import { Router } from "next/router";
 import Profile from "../../pages/profile";
 
 // eslint-disable-next-line react/display-name
-const ModalAddSupProfile = forwardRef((id, ref, handleClose) => {
+const ModalAddSupProfile = forwardRef((props, ref) => {
   const [user, setUser] = useState({});
 
   const modalMapRef = useRef();
@@ -81,7 +81,6 @@ const ModalAddSupProfile = forwardRef((id, ref, handleClose) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         // title={"Thêm hồ sơ phụ" }
-        onClose={handleClose}
         onDiscard={() => console.log("Button discard")}
         // buttons={[
         //   {
@@ -288,7 +287,7 @@ const ModalAddSupProfile = forwardRef((id, ref, handleClose) => {
                       type="submit"
                       disabled={isSubmitting}
                       class="text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      onClick={handleClose}
+                      // onClick={handleClose}
                     >
                       Thêm mới
                     </Button>

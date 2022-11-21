@@ -436,7 +436,7 @@ const ModalRegister = forwardRef((props, ref) => {
               {isVerifyCode ? (
                 <div className="flex flex-col ">
                   {message && (
-                    <div className="text-sky-500 text-sm mb-2 justify-center flex flex-row text-xl">
+                    <div className="text-sky-500  mb-2 justify-center flex flex-row text-xl">
                       {message}
                     </div>
                   )}
@@ -822,7 +822,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <Link onClick={handleOpenModalLogin}>Đăng nhập</Link>
                   </label>
 
-                  <div className="grid grid-cols-2 gap-2 hidden">
+                  <div className=" grid-cols-2 gap-2 hidden">
                     <div className="flex flex-col mb-3">
                       <div className="flex flex-row gap-5">
                         <label className="mb-1 font-medium text-gray-600 w-1/3">

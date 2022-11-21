@@ -58,7 +58,7 @@ export default function Profile(props) {
   const [imageFirebaseUrl, setImageFirebaseUrl] = useState({});
   console.log("imageFirebaseUrl", imageFirebaseUrl.data);
   //upload image  firebase
-  const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState();
+  // const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState();
   const [starMap, setStarMap] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
   const [supProfileResult, setSupProfileResult] = useState({});
@@ -148,15 +148,16 @@ export default function Profile(props) {
   };
 
   //upload ảnh lên firebase và update ảnh profile của user
-  const handleUploadImage = (e) => {
-    setFileImageFirebaseUrl(e.target.files[0]);
-    postImageFirebase();
-  };
+  // const handleUploadImage = (e) => {
+  //   setFileImageFirebaseUrl(e.target.files[0]);
+  //   postImageFirebase();
+  // };
 
   useEffect(() => {
     (async () => {
       getSupProfile();
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -183,7 +184,7 @@ export default function Profile(props) {
       </section>
 
       <section className="bg-slate-400">
-        <div className="md:container mx-auto py-5">
+        <div className="md:container mx-auto px-[10%] py-5">
           <div className="px-7 py-3 rounded-3xl bg-white">
             {user && (
               <div className="flex gap-5 mb-12">
@@ -412,7 +413,9 @@ export default function Profile(props) {
             <div>
               <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
                 <p className="w-[100%] ">
-                  <span className="pr-[28%] pl-[31%]">Danh sách các hồ sơ khác của bạn</span>
+                  <span className="pr-[20%] pl-[24%]">
+                    Danh sách các hồ sơ khác của bạn
+                  </span>
                   <Image
                     src={addIcon}
                     alt=""
@@ -455,7 +458,6 @@ export default function Profile(props) {
                         <Table.Cell>{item.latitude}</Table.Cell>
                         <Table.Cell>{item.longitude}</Table.Cell>
                         <Table.Cell>{item.birthPlace}</Table.Cell>
-                        <Table.Cell>{item.id}</Table.Cell>
 
                         <Table.Cell>
                           <div className="flex flex-wrap gap-3">
