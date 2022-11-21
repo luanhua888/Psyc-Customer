@@ -4,6 +4,7 @@ const API = {
   GET_SURVEY: "OptionQuestions/getoptionbyquestionid",
   GET_ALL_TYPE_SURVEY: "SurveyTypes/getallsurveytype",
   GET_SURVEY_ID: "Surveys/getsurveybysurveytypeid",
+  GET_QUESTION: "Questions/getquestionbysurveyid",
   POST_RESULT_SURVEY: "ResultSurveys/submitsurveybylist",
 };
 
@@ -43,6 +44,19 @@ class SurveyService extends AbstractService {
     );  
   };
 
+  getQuestionBySurveyId = (surveyid) => {
+    return this.httpGET(
+      API.GET_QUESTION,
+      {surveyid}
+    );  
+  };
+
+  getQuestionDefault = (surveyid) => {
+    return this.httpGET(
+      API.GET_QUESTION,
+      {surveyid}
+    );  
+  };
 
 
 }

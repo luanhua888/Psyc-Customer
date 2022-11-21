@@ -5,6 +5,7 @@ import ModalBankPayment from "../../components/modal/ModalBankPayment.js";
 import { payMentService } from "../../services/PayMentService";
 import Image from "next/image.js";
 import bankIcon from "../../public/photos/icon/bank.png";
+import momoIcon from "../../public/photos/icon/MoMo_Logo.png";
 import { Formik } from "formik";
 import { isEmpty, set } from "lodash";
 import { number } from "yup";
@@ -18,8 +19,6 @@ export default function Payment() {
     isError: false,
     message: "",
   });
-
-
 
   const [amount, setAmount] = useState(null);
   // console.log("amount", amount);
@@ -45,7 +44,7 @@ export default function Payment() {
   };
 
   const handleOpen = () => {
-    if (amount == undefined  ) {
+    if (amount == undefined) {
       setErrorMessages({
         isError: true,
         message: "Vui lòng nhập số tiền",
@@ -76,32 +75,33 @@ export default function Payment() {
   };
 
   const handleOpenModalBankPayment = () => {
-    if (dataForm.amount == isEmpty) {
+    if (amount == undefined) {
       setErrorMessages({
         isError: true,
         message: "Vui lòng nhập số tiền",
       });
     }
-    if (dataForm.amount < 0) {
+    if (amount < 50) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 2000",
+        message: "Số tiền nạp tối thiểu là từ 50 - 20000 ",
       });
     }
-    if (dataForm.amount > 20000) {
+    if (amount < 0) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền bạn muốn nạp không được vượt quá 2000",
+        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 20000",
       });
     }
-    if (dataForm.amount >= 50 && dataForm.amount <= 2000) {
+    if (amount > 20000) {
+      setErrorMessages({
+        isError: true,
+        message: "Số tiền bạn muốn nạp không được vượt quá 20000",
+      });
+    }
+
+    if (amount >= 50 && amount <= 20000) {
       modalBankPaymentRef.current.open();
-    }
-    if (dataForm.amount < 49) {
-      setErrorMessages({
-        isError: true,
-        message: "Số tiền nạp tối thiểu là từ 50 - 2000 ",
-      });
     }
   };
 
@@ -171,23 +171,25 @@ export default function Payment() {
                           class="w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                         >
                           {/* logo momo */}
-                          <img
-                            src="https://firebasestorage.googleapis.com/v0/b/psychologicalcounseling-28efa.appspot.com/o/Desposit%2Flogo-momo-png-2.png?alt=media&token=53a3ea95-c76b-4943-a0ae-34403acc617f"
-                            alt="logo momo"
-                            class="w-10 h-10"
+                          <Image
+                            // loader={() => user.imageUrl}
+                            src={momoIcon}
+                            alt=""
+                            width={50}
+                            height={50}
                           />
                           <div class="text-left p-6">
                             <div class="mb-1 text-xs"></div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">
+                            <div class="-mt-1 font-sans text-xl font-semibold">
                               Hạn mức nạp 50 - 20000
                             </div>
                           </div>
                         </a>
                       </div>
-                      <div class="justify-center ml-38 mr-40">
+                      <div class="justify-center ">
                         <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 "></div>
                       </div>
-                      <div class="ml-10 mt-5">
+                      <div class="p-4 flex flex-col justify-center items-center">
                         <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           Phí xử lý
                         </h3>
@@ -196,7 +198,7 @@ export default function Payment() {
                         </h3>
                       </div>
                     </div>
-                    <div class="flex flex-nowrap">
+                    <div class="flex flex-row justify-between">
                       <div class=" mb-3 xl:w-96">
                         <div className="flex flex-row">
                           <div className="text-red-500 mr-4"> * </div>
@@ -240,8 +242,10 @@ export default function Payment() {
                           />
                         </div>
                       </div>
-                      <div class="m-10"></div>
-                      <div>VND(k)</div>
+                      {/* <div class="m-10"></div> */}
+                      <div className="justify-center items-center flex flex-rowVND(k)
+                      
+                      ">VND(k)</div>
                     </div>
 
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
@@ -308,13 +312,6 @@ export default function Payment() {
                       >
                         5000
                       </button>
-
-                    
-                   
-                     
-                  
-                     
-                 
                     </div>
 
                     <button
@@ -357,16 +354,16 @@ export default function Payment() {
 
                           <div class="text-left p-6">
                             <div class="mb-1 text-xs"></div>
-                            <div class="-mt-1 font-sans text-sm font-semibold">
+                            <div class="-mt-1 font-sans text-xl font-semibold">
                               Hạn mức nạp 50 - 20000
                             </div>
                           </div>
                         </a>
                       </div>
-                      <div class="justify-center ml-38 mr-40">
+                      <div class="justify-center  ">
                         <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 "></div>
                       </div>
-                      <div class="ml-10 mt-5">
+                      <div class="flex flex-col justify-center items-center">
                         <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           Phí xử lý
                         </h3>
@@ -375,7 +372,7 @@ export default function Payment() {
                         </h3>
                       </div>
                     </div>
-                    <div class="flex flex-nowrap">
+                    <div class="flex flex-row justify-between">
                       <div class="mb-3 xl:w-96">
                         <div className="flex flex-row">
                           <div className="text-red-500"> * </div>
@@ -405,46 +402,85 @@ export default function Payment() {
                             name="amount"
                             placeholder="50-20000"
                             onBlur={handleBlur}
+                            value={amount}
                             onChange={(e) =>
-                              setDataForm({
-                                handleChange,
-                                ...dataForm,
-                                amount: e.currentTarget.value,
-                              })
+                              setDataForm(
+                                {
+                                  handleChange,
+                                  ...dataForm,
+                                  amount: e.currentTarget.value,
+                                } && setAmount(e.currentTarget.value)
+                              )
                             }
                           />
                         </div>
                       </div>
-                      <div class="m-10"></div>
-                      <div>VND(k)</div>
+                      {/* <div class="m-10"></div> */}
+                      <div className="flex flex-row justify-center items-center ">VND(k)</div>
                     </div>
 
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={50}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         50
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={100}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         100
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={200}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         200
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={500}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         500
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={600}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         600
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={700}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         700
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={1000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         1000
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={2000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         2000
                       </button>
-                      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                      <button
+                        onClick={changeAmount}
+                        value={5000}
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
                         5000
                       </button>
                     </div>
@@ -469,7 +505,7 @@ export default function Payment() {
       <ModalPayment qrCode={qrCode} amount={amount} ref={modalPaymentRef} />
       <ModalBankPayment
         qrCode={qrCode}
-        amount={dataForm}
+        amount={amount}
         ref={modalBankPaymentRef}
       />
     </>

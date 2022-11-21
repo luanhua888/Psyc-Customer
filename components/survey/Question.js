@@ -15,26 +15,64 @@ function Question({
   setNumberQuestion,
   questionStart,
   setQuestionStart,
+  idSurvey,
+  listQuestionStart,
 }) {
   const [survey, setSurvey] = useState([]);
   const [result, setResult] = useState([]);
-  const [question, setQuestion] = useState({});
-  const [questionIndex, setQuestionIndex] = useState(2);
+  const [question, setQuestion] = useState([]);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [lengQuestion, setLengQuestion] = useState(0);
+  useEffect(() => {
+    // setSurvey(questionStart);
+    // // setQuestion(questionStart[0]);
+    // setQuestion(questionStart);
+    // setSurvey(listQuestionStart);
+  }, []);
+
+  console.log("questionStart", questionStart);
+  console.log("listQuestionStart", listQuestionStart);
+  console.log("survey", survey);
+  console.log("result", result);
+  console.log("lengQuestion", lengQuestion);
+  console.log("questionIndex", questionIndex);
 
   useEffect(() => {
-    setSurvey(questionStart);
-    setQuestion(questionStart[0]);
-  }, [questionStart]);
+    (async () => {
+      if (questionIndex == 0) {
+        const data = await surveyService.getQuestionBySurveyId(idSurvey);
+        if (data.statusCode == 200) {
+          setSurvey(data.data[0].option);
+          setQuestion(data.data[0].description);
+          setLengQuestion(data.data.length);
+        }
+      } else {
+        getQuestionByIdSurvey();
+      }
+    })();
+  }, []);
 
-  console.log("numberQuestion", numberQuestion);
-  console.log("questionStart", questionStart);
-  console.log("result", result);
-
-  const getQuestionIndex = async () => {
-    const data = await surveyService.getSurvey(questionIndex);
+  const getQuestionNext = async (id) => {
+    const data = await surveyService.getQuestionBySurveyId(idSurvey);
     if (data.statusCode == 200) {
-      setSurvey(data.data);
-      setQuestion(data.data[0]);
+      setSurvey(data.data[questionIndex + 1].option);
+      setQuestion(data.data[questionIndex + 1].description);
+      setLengQuestion(data.data.length);
+    }
+  };
+
+  const getQuestionByIdSurvey = async (id) => {
+    const data = await surveyService.getQuestionBySurveyId(idSurvey);
+    if (data.statusCode == 200) {
+      if (questionIndex < lengQuestion -1) {
+        setSurvey(data.data[questionIndex + 1].option);
+        setQuestion(data.data[questionIndex + 1].description);
+        setLengQuestion(data.data.length);
+      }else{
+        getResultSurvey();
+        setShowQuestionPage(false);
+        setShowFinalImgPage(true);
+      }
     }
   };
 
@@ -43,29 +81,29 @@ function Question({
       localStorage.getItem("idcustomer"),
       result
     );
-
     if (data.statusCode == 201) {
       setResultSurvey(data);
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      getResultSurvey();
-    })();
-  }, []);
-
   const handleClick = () => {
-    if (questionIndex == 2) {
-      getQuestionIndex();
-    }
-    if (questionIndex < numberQuestion) {
-      getQuestionIndex();
-      setQuestionIndex(questionIndex + 1);
-    } else {
-      getResultSurvey();
-      setShowQuestionPage(false);
-      setShowFinalImgPage(true);
+    // if (questionIndex == 0) {
+    //   const data =  surveyService.getQuestionBySurveyId(idSurvey);
+    //   if (data.statusCode == 200) {
+    //   setQuestionIndex(questionIndex + 1);
+
+    //     setSurvey(data.data[1].option);
+    //     setQuestion(data.data[1].description);
+    //   }
+    // }
+    if (questionIndex < lengQuestion) {
+      if (questionIndex == 0) {
+        setQuestionIndex(questionIndex + 1);
+        getQuestionNext();
+      } else {
+        setQuestionIndex(questionIndex + 1);
+        getQuestionByIdSurvey();
+      }
     }
   };
 
@@ -73,7 +111,7 @@ function Question({
     <div>
       {question && (
         <div className="flex flex-col justify-center items-center bg-sky-100 mr-70 ml-70 mt-5 mb-20 m-60 pb-5 pt-10 rounded-lg border-black border-2">
-          <h1 className="question font-bold text-2xl"> {question.question}</h1>
+          <h1 className="question font-bold text-2xl"> {question}</h1>
           <div>
             {survey.map((option, index) => (
               <div
@@ -87,7 +125,6 @@ function Question({
               </div>
             ))}
           </div>
-          {questionIndex-1}/ {numberQuestion}
         </div>
       )}
       {}

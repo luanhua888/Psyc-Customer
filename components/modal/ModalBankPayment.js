@@ -12,6 +12,8 @@ import Modal from "../modal";
 import Image from "next/image";
 import { payMentService } from "../../services/PayMentService";
 import bankIcon from "../../public/photos/icon/bank.png";
+import ModalFailure from "../../components/modal/ModalFailure.js";
+
 
 // eslint-disable-next-line react/display-name
 const ModalBankPayment = forwardRef((amount, ref) => {
@@ -19,11 +21,15 @@ const ModalBankPayment = forwardRef((amount, ref) => {
   const [qrCodeDisplay, setQrDisplay] = useState({});
   const [mountrecieve, setAmount] = useState([]);
 
+  const modalFailureRef = useRef();
+
+
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
-      setAmount(amount.amount.amount);
+      setAmount(amount.amount);
       getQrCode();
+      getCountDown();
     },
     close: () => {
       setIsOpen(false);
@@ -34,7 +40,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
     if (localStorage.getItem("jwttoken")) {
       const data = await payMentService.getQrCode(
         localStorage.getItem("idcustomer"),
-        amount.amount.amount
+        amount.amount
       );
       if (data.statusCode == 200) {
         setQrDisplay(data);
@@ -42,6 +48,35 @@ const ModalBankPayment = forwardRef((amount, ref) => {
       }
     }
   };
+
+  const [time, setTime] = useState(30);
+
+  const getCountDown = async () => {
+    //điếm ngược thời gian 5 phút
+
+    const interval = setInterval(() => {
+      if (time > 0) {
+        setTimeout(() => {
+          setTime((time) => time - 1);
+        }, 1000);
+
+      }
+      if (time == 0) {
+        clearInterval(interval);
+
+      }
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (time === 0) {
+      setIsOpen(false);
+      //reset lại thời gian về 5 phút
+      setTime(30);
+      //ngừng đếm ngược
+      modalFailureRef.current.open();
+    }
+  }, [time]);
 
   return (
     <div className=" absolute top-0">
@@ -62,7 +97,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                       href="#"
                       class="w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
                     >
-                      {/* logo momo */}
+                     
                       <Image
                             // loader={() => user.imageUrl}
                             src={bankIcon}
@@ -84,7 +119,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                       id="ten-countdown"
                       class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2"
                     >
-                      10:00
+                       {Math.floor(time / 60)}:{time % 60}
                     </h3>
                   </div>
                 </div>
@@ -102,7 +137,12 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                   class="flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
              "
                 >
-                  {qrCodeDisplay.amount} Gem
+                {
+                    new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                     }).format(qrCodeDisplay.amount * 1000)
+                  }
                 </div>
                 {/* <div class='flex flex-col justify-between items-center text-pink-600'>
               <h3 className='first-line:text-black'>Tài khoản nhận:</h3>
@@ -137,8 +177,9 @@ const ModalBankPayment = forwardRef((amount, ref) => {
               </div>
 
               <div>
-                <div class="flex flex-col justify-between items-center text-pink-600 text-2xl">
-                  <Image
+                <div class="flex flex-col justify-between items-center text-pink-600 text-2xl ">
+                  <div className="border-solid border-2 border-indigo-500 p-2  ">
+                     <Image
                     loader={() => qrCodeDisplay.qrcodebank}
                     className=""
                     src={avatarImg}
@@ -146,6 +187,10 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                     width={200}
                     height={200}
                   />
+                  </div>
+                  <h4>Quét mã Qr để thanh toán </h4>
+
+                 
                 </div>
               </div>
               <div className="flex underline flex-col justify-between items-center text-pink-600 text-2xl">
@@ -168,6 +213,8 @@ const ModalBankPayment = forwardRef((amount, ref) => {
           </div>
         )}
       </Modal>
+      <ModalFailure  ref={modalFailureRef} />
+
     </div>
   );
 });
