@@ -52,84 +52,34 @@ const ModalVoteRate = forwardRef((id, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
+          title="Đánh giá cuộc hẹn"
         classes="overflow-hidden max-w-full max-h-full w-auto h-auto p-4 bg-white rounded-lg  items-center justify-center"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
       >
         {/* vote rate modal icon star*/}
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-row items-center justify-center">
-            <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
-                name="rating"
-                value="1"
-                onClick={handleRating}
-              />
-              <label>1</label>
-            </div>
-
-            <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
-                name="rating"
-                value="2"
-                onClick={handleRating}
-              />
-              <label>2</label>
-            </div>
-
-            <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
-                name="rating"
-                value="3"
-                onClick={handleRating}
-              />
-              <label>3</label>
-            </div>
-
-            <div className="flex flex-row items-center justify-center">
-             {/* hiển thị icon ngôi sao */}
-             
-             
-              <input
-                type="radio"
-                name="rating"
-                value="4"
-                onClick={handleRating}
-                
-
-              />
-              <label>4</label>
-            </div>
-
-            <div className="flex flex-row items-center justify-center">
-              <input
-                type="radio"
-                name="rating"
-                value="5"
-                onClick={handleRating}
-              />
-              <label>5</label>
-            </div>
+        <div className="flex flex-col gap-6 items-center justify-center">
+          <div className="rating">
+            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
           </div>
-          <div className="flex flex-row items-center justify-center">
-            <textarea
-              className="w-80 h-20 border-2 border-gray-300 rounded-lg"
-              placeholder="Nhập bình luận của bạn"
-              onChange={handleComment}
-            />
+          <div>
+            <textarea className="w-80 h-20 border-2 border-gray-300 rounded-lg"
+                      placeholder="Nhập bình luận của bạn" />
           </div>
           <div className="flex flex-row items-center justify-center">
             <button
-              className="w-80 h-10 bg-blue-500 rounded-lg text-white"
-              onClick={handleSubmit}
+                className="w-80 h-10 bg-blue-500 rounded-lg text-white"
+                onClick={handleSubmit}
             >
               Gửi đánh giá
             </button>
           </div>
+
         </div>
       </Modal>
     </div>

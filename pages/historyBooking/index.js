@@ -12,6 +12,7 @@ import { historyService } from "../../services/HistoryService";
 import { videoCallService } from "../../services/VideoCallService";
 
 import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
+import ModalVoteRate from "../../components/modal/ModalVoteRate";
 
 export default function HistoryBooking() {
   const [isOpen, setisOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function HistoryBooking() {
   };
 
   const handleVoteRate = () => {
-    modalVoteRateRef.current.open();
+    modalVoteRateRef.current?.open();
   };
 
   const handleClose = () => {
@@ -375,6 +376,7 @@ export default function HistoryBooking() {
         </div>
         
       </section>
+      <ModalVoteRate ref={modalVoteRateRef} />
     </>
   );
 }
