@@ -2,7 +2,7 @@ const {
     Fragment,
     useState,
     useEffect,
-    forwardRef,
+    // forwardRef,
     useImperativeHandle,
 } = require('react');
 const { Transition } = require('@headlessui/react');
@@ -24,7 +24,7 @@ const Modal = ({
         } else {
             document.documentElement.style.overflow = 'hidden';
         }
-    }, [isOpen]);
+    }, [isOpen, setIsOpen]);
 
     const HandleChange = () => {
         setIsOpen(!isOpen);
