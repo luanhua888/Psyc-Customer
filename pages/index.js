@@ -4,8 +4,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useEffect, useState, Component } from "react";
 import astroRoundedImg from "../public/photos/astro-rounded.png";
-import logoFooterImg from "../public/logo_footer.png";
-import logoSpin from "../public/photos/hero-banner-profile.png";
+import logoFooterImg from "../public/logo1.png";
+import logoSpin from "../public/service_img2.png";
+import service1 from "../public/photos/service1.svg";
+import service2 from "../public/photos/icon/iconCamera.png";
+import service3 from "../public/photos/icon/iconTest.png";
 
 import { zodiacService } from "../services/ZodiacService";
 import { articleService } from "../services/ArticleService";
@@ -55,7 +58,6 @@ export default function Home(props) {
         setZodiac10(data.data[9]);
         setZodiac11(data.data[10]);
         setZodiac12(data.data[11]);
-
       }
     })();
   }, []);
@@ -108,9 +110,11 @@ export default function Home(props) {
         </div>
       </section>
 
-      <div className="row bg-[#17384e] md:container mx-auto px-[10%] py-6">
-        <div className="col-lg-12 text-center">
-          <h1 className="as_heading as_heading_center">our services</h1>
+      <div className=" bg-[#17384e]  mx-auto px-[10%]  py-6">
+        <div className="col-lg-12 jus text-center">
+          <h1 className="as_heading as_heading_center">
+            CÁC DỊCH VỤ CỦA CHÚNG TÔI
+          </h1>
           <p className="as_font14 as_padderBottom5">
             Consectetur adipiscing elit, sed do eiusmod tempor
             incididuesdeentiut labore <br />
@@ -118,263 +122,357 @@ export default function Home(props) {
           </p>
         </div>
 
-        <div
-          className="grid 
-        grid-cols-1
-        gap-4
-        
-        "
-        >
-          <div className=" w-[250px] ">
+        <div className="flex flex-row justify-center gap-4 mx-auto ">
+          <div className=" w-[250px]">
             <div className="as_service_box text-center">
               <span className="as_icon">
-                <img src="assets/images/svg/service1.svg" alt />
+                <Image src={service3} width={45} height={45} alt="" />
               </span>
               <h4 className="as_subheading">Vastu Shastra</h4>
               <p>
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
               </p>
-              <a href="service_detail.html" className="as_link">
+              {/* <a href="service_detail.html" className="as_link">
                 read more
-              </a>
+              </a> */}
+            </div>
+          </div>
+          <div className=" w-[250px] ">
+            <div className="as_service_box text-center cursor-pointer" 
+             onClick={() => router.push("/chat")}
+            >
+              <span className="as_icon">
+                <Image src={service1} alt="" />
+              </span>
+              <h4 className="as_subheading">Đặt lịch</h4>
+              <p>
+                Consectetur adipiscing elit sed do <br />
+                eiusmod tempor incididunt.
+              </p>
+              {/* <a href="service_detail.html" className="as_link">
+                read more
+              </a> */}
+            </div>
+          </div>
+          <div className=" w-[250px] ">
+            <div className="as_service_box text-center cursor-pointer" 
+              onClick={() => router.push("/RoomLive")}
+            >
+              <span className="as_icon">
+                <Image src={service2} alt="" height={45} width={45} />
+              </span>
+              <h4 className="as_subheading ">Trực tiếp</h4>
+              <p>
+                Consectetur adipiscing elit sed do <br />
+                eiusmod tempor incididunt.
+              </p>
+              {/* <a href="service_detail.html" className="as_link">
+                read more
+              </a> */}
+            </div>
+          </div>
+          <div className=" w-[250px] ">
+            <div className="as_service_box text-center cursor-pointer"
+                onClick={() => router.push("/Survey")}
+            >
+              <span className="as_icon">
+                <Image src={service3} alt="" height={45} width={45} />
+              </span>
+              <h4 className="as_subheading"
+              
+              >Bài khảo sát</h4>
+              <p>
+                Consectetur adipiscing elit sed do <br />
+                eiusmod tempor incididunt.
+              </p>
+              {/* <a href="service_detail.html" className="as_link">
+                read more
+              </a> */}
             </div>
           </div>
         </div>
       </div>
 
-
-
-      <div className="as_zodiac_inner text-left">
-        <div className="flex flex-row justify-between as_verticle_center md:container mx-auto px-[10%] py-6">
-        
-          <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-            <ul className="as_sign_ul">
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                  <img src={zodiac1.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac1.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac2.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac2.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac3.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac3.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac4.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac4.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac5.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac5.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac6.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac6.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-            </ul>
+      <div className="md:container mx-auto py-6">
+        <div className="as_zodiac_inner text-left">
+          <div className="flex flex-row justify-center">
+            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
+              CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
+            </h1>
           </div>
-          <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-            <div className="as_sign_img text-center">
-              {/* <img
+          <div className="flex flex-row justify-between as_verticle_center md:container mx-auto px-[10%] py-6">
+            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <ul className="as_sign_ul">
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac1.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac1.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac1.name}</h5>
+                      <p>{`${dayjs(zodiac1.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac1.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac2.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac2.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac2.name}</h5>
+                      <p>{`${dayjs(zodiac2.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac2.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac3.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac3.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac3.name}</h5>
+                      <p>{`${dayjs(zodiac3.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac3.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac4.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac4.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac4.name}</h5>
+                      <p>{`${dayjs(zodiac4.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac4.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac5.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac5.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac5.name}</h5>
+                      <p>{`${dayjs(zodiac5.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac5.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac6.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac6.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac6.name}</h5>
+                      <p>{`${dayjs(zodiac6.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac6.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div className="as_sign_img text-center">
+                {/* <img
                 src="../public/photos/hero-banner-profile.png"
                 alt
                 className="img-responsive"
               /> */}
-               <Image className="animate-spin" src={logoSpin} alt="" />
+                <Image className="animate-spin" src={logoSpin} alt="" />
+              </div>
             </div>
-          </div>
-          <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-            <ul className="as_sign_ul as_sign_ul_right">
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac7.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac7.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac8.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac8.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac9.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac9.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac10.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac10.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac11.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac11.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-              <li className="as_sign_box">
-                <a href="zodiac_single.html">
-                  <span className="as_sign">
-                    <img src={zodiac12.imageUrl} alt />
-                  </span>
-                  <div>
-                    <h5>{zodiac12.name}</h5>
-                    <p>Mar 21 - Apr 19</p>
-                  </div>
-                </a>
-              </li>
-            </ul>
+            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <ul className="as_sign_ul as_sign_ul_right">
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac7.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac7.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac7.name}</h5>
+                      <p>{`${dayjs(zodiac7.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac7.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac8.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac8.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac8.name}</h5>
+                      <p>{`${dayjs(zodiac8.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac8.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac9.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac9.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac9.name}</h5>
+                      <p>{`${dayjs(zodiac9.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac9.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac10.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac10.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac10.name}</h5>
+                      <p>{`${dayjs(zodiac10.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac10.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac11.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac11.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac11.name}</h5>
+                      <p>{`${dayjs(zodiac11.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac11.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+                <li className="as_sign_box">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/zodiacDetail",
+                        query: { zodiacId: zodiac12.id },
+                      });
+                    }}
+                  >
+                    <span className="as_sign">
+                      <img src={zodiac12.imageUrl} alt />
+                    </span>
+                    <div>
+                      <h5>{zodiac12.name}</h5>
+                      <p>{`${dayjs(zodiac12.dateStart).format(
+                        "DD/MM"
+                      )} - ${dayjs(zodiac12.dateEnd).format("DD/MM")}`}</p>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
-
-      <section id="services" className="bg-slate-900">
-        <div className="md:container mx-auto px-[10%] py-5">
-          <div className="flex justify-around">
-            <div className="flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl min-w-[200px] max-w-[250px]">
-              <Image src={astroRoundedImg} alt="" width={65} height={65} />
-              <a className=" w-max h-max" href="#">
-                Trực tiếp
-              </a>
-            </div>
-            <div className="flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl min-w-[200px] max-w-[250px]">
-              <Image src={astroRoundedImg} alt="" width={65} height={65} />
-              <a className=" w-max h-max" href="#">
-                Dịch vụ
-              </a>
-            </div>
-            <div className="flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl min-w-[200px] max-w-[250px]">
-              <Image src={astroRoundedImg} alt="" width={65} height={65} />
-              <a className=" w-max h-max" href="#">
-                Tương thích cặp đôi
-              </a>
-            </div>
-            <div className="flex flex-col gap-3 justify-center items-center bg-white py-5 px-24 rounded-xl min-w-[200px] max-w-[250px]">
-              <Image src={astroRoundedImg} alt="" width={65} height={65} />
-              <a className=" w-max h-max" href="#">
-                Bản đồ sao
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="bg-indigo-300">
-        <div className="md:container mx-auto px-[10%] py-6">
-          <div className="flex flex-col justify-between gap-4">
-            <div className="grid grid-cols-6 gap-1 justify-between  auto-cols-max">
-              {zodiac.map((row, key) => (
-                <div
-                  key={key}
-                  className="flex flex-col gap-1 justify-center items-center bg-white py-5 px-12 rounded-xl w-[200px] "
-                >
-                  <Image
-                    loader={() => row.imageUrl}
-                    src={astroRoundedImg}
-                    alt=""
-                    width={65}
-                    height={65}
-                    onClick={() => {
-                      router.push({
-                        pathname: "/zodiacDetail",
-                        query: { zodiacId: row.id },
-                      });
-                    }}
-                  />
-                  <a href="#" className="text-lg font-semibold">
-                    {row.name}
-                  </a>
-                  <p>{`${dayjs(row.dateStart).format("DD/MM")} - ${dayjs(
-                    row.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* <SliderComponent/> */}
 
-      <section className="bg-slate-100">
+      <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-8 items-center ">
-          <h1 className="text-center text-2xl font-semibold mb-3">
-            NHỮNG BÀI VIẾT MỚI NHẤT
-          </h1>
+          <div className="flex flex-row justify-center mb-3">
+            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+              NHỮNG BÀI VIẾT MỚI NHẤT​
+            </h1>
+          </div>
           <div className="">
             <Swiper
               effect={"coverflow"}
@@ -415,7 +513,7 @@ export default function Home(props) {
                     width={350}
                     height={350}
                   />
-                  <div className="flex flex-col justify-center items-center gap-5 bg-slate-400 rounded-tr-xl rounded-br-xl">
+                  <div className="flex flex-col justify-center items-center gap-5 w-[500px] h-[400px] bg-[#031d2e] rounded-tr-xl rounded-br-xl">
                     <h1 className="px-2 text-2xl  text-white font-semibold ">
                       {row.title}
                     </h1>
@@ -430,35 +528,12 @@ export default function Home(props) {
         </div>
       </section>
 
-      <section
-        id="#trust_score"
-        className="bg-gradient-to-b from-indigo-300 to-slate-800"
-      >
-        <div className="md:container mx-auto py-9 ">
-          <div className="flex justify-evenly items-center text-white text-center">
-            <div>
-              <p className="text-3xl font-bold">6,902+</p>
-              <p className="text-base">Total Astrologers</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">6,902+</p>
-              <p className="text-base">Total Astrologers</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold">6,902+</p>
-              <p className="text-base">Total Astrologers</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about_us" className="bg-slate-100">
+      <section id="about_us" className=" mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-5">
-          <div className="text-center pb-4">
-            <h3 className="font-semibold text-2xl">WHY ASTROLOGY ?</h3>
-            <p className="text-xl font-medium">
-              Astrology reveals the will of the God
-            </p>
+          <div className="flex flex-row justify-center mb-3">
+            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+              TẠI SAO CHỌN PSYC​
+            </h1>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -499,24 +574,24 @@ export default function Home(props) {
         </div>
       </section>
 
-      <footer className="bg-slate-600">
+      <footer className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-10 px-12">
-          <div className="flex justify-between text-slate-200">
+          <div className="flex flex-row justify-between items-center text-slate-200">
             <div className="flex flex-col gap-5">
-              <h3 className="font-semibold text-2xl border-b-2 border-indigo-300">
+              <h3 className="font-semibold text-2xl border-b-2 border-[#ff7010]">
                 TỔNG ĐÀI HỖ TRỢ
               </h3>
               <p>Góp ý, khiếu nại 0964155538</p>
             </div>
             <div className="flex flex-col gap-5">
-              <h3 className="font-semibold text-2xl border-b-2 border-indigo-300">
+              <h3 className="font-semibold text-2xl border-b-2 border-[#ff7010]">
                 VỀ PYSC
               </h3>
               <ul className="flex flex-col gap-2">
                 <li>
                   <a
                     href="#"
-                    className="hover:border-b-2 hover:border-indigo-300"
+                    className="hover:border-b-2 hover:border-[#ff7010]"
                   >
                     Giới thiệu
                   </a>
@@ -524,7 +599,7 @@ export default function Home(props) {
                 <li>
                   <a
                     href="#"
-                    className="hover:border-b-2 hover:border-indigo-300"
+                    className="hover:border-b-2 hover:border-[#ff7010]"
                   >
                     Giới thiệu
                   </a>
@@ -532,7 +607,7 @@ export default function Home(props) {
                 <li>
                   <a
                     href="#"
-                    className="hover:border-b-2 hover:border-indigo-300"
+                    className="hover:border-b-2 hover:border-[#ff7010]"
                   >
                     Giới thiệu
                   </a>
@@ -540,15 +615,18 @@ export default function Home(props) {
                 <li>
                   <a
                     href="#"
-                    className="hover:border-b-2 hover:border-indigo-300"
+                    className="hover:border-b-2 hover:border-[#ff7010]"
                   >
                     Giới thiệu
                   </a>
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col w-[18.75rem]">
-              <Image src={logoFooterImg} alt="" />
+            <div className="flex flex-col float-right w-1/5 ">
+              <div className="flex flex-row justify-center">
+                <Image src={logoFooterImg} alt="" width={100} height={100} />
+              </div>
+
               <p>
                 Hướng đến mục tiêu mang lại nơi để mọi người có thể trò chuyện
                 với nhau giải quyết các vấn đề tâm lý. Hãy cùng PYSC hướng đến

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import ModalRegister from "./modal/ModalRegister";
+import ModalChangePassword from "../components/modal/ModalChangePassword.js";
 import ModalLogin from "./modal/ModalLogin";
 import logo from "../public/logo1.png";
 import iconProfile from "../public/icon_profile.png";
@@ -17,10 +18,17 @@ export default function Navbar() {
   const router = useRouter();
 
   const modalRegisterRef = useRef();
+  const modalChangePasswordRef = useRef();
   const modalLoginRef = useRef();
 
   const [user, setUser] = useState({});
   const [crab, setCrab] = useState([]);
+
+
+  const handleOpenModalChangePassword = () => {
+    modalChangePasswordRef.current.open();
+
+  }
 
   useEffect(() => {
     (async () => {
@@ -149,6 +157,9 @@ export default function Navbar() {
                       <Dropdown.Item onClick={() => router.push("/Payment")}>
                         Nạp tiền
                       </Dropdown.Item>
+                      <Dropdown.Item
+                      onClick={handleOpenModalChangePassword}
+                      >Đổi mật khẩu</Dropdown.Item>
                       <Dropdown.Item onClick={onLogout}>
                         Đăng xuất
                       </Dropdown.Item>
@@ -162,7 +173,7 @@ export default function Navbar() {
                                 hover:text-amber-600"
                       onClick={() => modalLoginRef.current?.open()}
                     >
-                      Đăng nhập 
+                      Đăng nhập
                     </a>
                     /
                     <a
@@ -243,6 +254,7 @@ export default function Navbar() {
 
         <ModalRegister ref={modalRegisterRef} />
         <ModalLogin ref={modalLoginRef} />
+        <ModalChangePassword ref={modalChangePasswordRef} />
       </nav>
     </div>
   );

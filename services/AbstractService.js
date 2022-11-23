@@ -16,6 +16,13 @@ class AbstractService {
     httpPUT = (url, data, options) => {
         return this.http('put', url, data, options);
     };
+    
+    httpDELETE = (url, data, options) => {
+        // return this.http('delete', url, data, options);
+        return this.http('delete', url, data, options);
+    };
 }
+   
+
 
 export default AbstractService;

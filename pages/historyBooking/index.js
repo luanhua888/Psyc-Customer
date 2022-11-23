@@ -51,7 +51,9 @@ export default function HistoryBooking() {
   const [pageTotal, setPageTotal] = useState([]);
   const [pageTotalHistoryBooking, setPageTotalHistoryBooking] = useState([]);
   const [date, setDate] = useState();
+  const [bookingId, setBookingId] = useState([]);
 
+  console.log("historyBooking", historyBooking);
   const getAppointmentBooking = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await historyService.getAppointmentBookingDefault(
@@ -64,7 +66,7 @@ export default function HistoryBooking() {
       if (data.statusCode == 200) {
         setAppointmentBooking(data.data);
         setPageTotal(data.totalpage);
-        console.log("asd", data.totalpage);
+        // console.log("asd", data.totalpage);
       }
     }
   };
@@ -124,7 +126,6 @@ export default function HistoryBooking() {
         <div className="md:container mx-auto py-5">
           <main className="px-7 py-3 rounded-3xl bg-white">
             <div>
-           
               <Tabs.Group
                 id="groupTab"
                 aria-label="Default tabs"
@@ -295,7 +296,6 @@ export default function HistoryBooking() {
                         >
                           Tìm Kiếm
                         </button>
-                        
                       </div>
                     </div>
                     <div className="historyBooking">
@@ -331,9 +331,16 @@ export default function HistoryBooking() {
                               <Table.Cell>{row.timeStart}</Table.Cell>
                               <Table.Cell>{row.timeEnd}</Table.Cell>
                               <Table.Cell>Đã kết thúc</Table.Cell>
+                              {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
                               <Table.Cell>
-                                <div className="flex gap-2">
-                                  <Button onClick={handleVoteRate}>
+                                <div
+                                  className="flex gap-2"
+                                  
+                                >
+                                  <Button onClick={()=> 
+                                  handleVoteRate(setBookingId(row.bookingId)) 
+                                  
+                                  }>
                                     Đánh Giá
                                   </Button>
                                 </div>
@@ -344,8 +351,8 @@ export default function HistoryBooking() {
                       </Table>
                       <div className="flex items-center justify-center text-center">
                         <Pagination
-                         previousLabel="Trước"
-                    nextLabel="Sau"
+                          previousLabel="Trước"
+                          nextLabel="Sau"
                           currentPage={currentPage}
                           layout="pagination"
                           onPageChange={async (page) => {
@@ -374,9 +381,8 @@ export default function HistoryBooking() {
             </div>
           </main>
         </div>
-        
       </section>
-      <ModalVoteRate ref={modalVoteRateRef} />
+      <ModalVoteRate id={bookingId} ref={modalVoteRateRef} />
     </>
   );
 }

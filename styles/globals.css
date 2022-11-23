@@ -8,6 +8,10 @@
     animation: spin 10s linear infinite;
 }
 
+input{
+  outline: #ff7010;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -22,13 +26,13 @@
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(to right, #10a4e9 0%, #6167f1 100%);
+    background-image: linear-gradient(to right,  #17384e 0%, #ff7010  100%);
     border-radius: 10px;
   }
   
-  /* Handle on hover */
+  /* Handle on hover */ 
   ::-webkit-scrollbar-thumb:hover {
-    background: #169feb; 
+    background: #ff7010 ; 
   }
   /* room */
 
@@ -100,7 +104,7 @@
     height: 8px;
     width: 8px;
     border-radius: 50%;
-    background-color: #2aca3e;
+    background-color: #ff7010;
   }
   
   .member_name{
@@ -764,8 +768,6 @@ span.select2-dropdown.select2-dropdown--above, .select2-container--open .select2
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   z-index: 0;
-} {
-  z-index: 0 !important;
 }
 
 .select2-container {
@@ -1632,7 +1634,7 @@ section.as_whychoose_wrapper.as_padderTop80 {
   transition: all 0.2s linear;
 }
 .as_blog_box.as_blog_single .as_subheading {
-  color: var(--primary-color);
+  color: #ff7010;
 }
 /* blog css end */
 /* product css start */

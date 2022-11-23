@@ -154,6 +154,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
     return (
         <>
             <Modal
+                classes='modal-forgot-password  px-2 py-2 h-50 rounded bg-white bg-[#17384e]'
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 title={'Lấy lại mật khẩu'}
@@ -171,7 +172,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                         role: 'confirm',
                         toClose: false,
                         classes:
-                            'bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200',
+                            'bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200 ',
                         label: btnActionType,
                     },
                 ]}
@@ -180,8 +181,8 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                     <div
                         className={`flex justify-center items-center mb-3 font-medium ${
                             errorMessages.isError
-                                ? 'text-red-500'
-                                : 'text-blue-500'
+                                ? 'text-[#ff7010]'
+                                : 'text-[#ff7010]'
                         }`}>
                         {errorMessages.message}
                     </div>
@@ -234,17 +235,19 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                         isSubmitting,
                         /* and other goodies */
                     }) => (
-                        <div className='flex flex-col gap-5'>
+                        <div className='flex flex-col gap-5 '>
                             <div className='flex flex-col gap-1'>
-                                <div className='text-red-500'>
+                                <div className='text-[#ff7010] flex flex-row ' >
                                     *{' '}
-                                    {errors.email &&
+                                   <div className='flex flex-row justify-center items-center mx-auto '>
+                                   {errors.email &&
                                         touched.email &&
                                         errors.email}
+                                   </div>
                                 </div>
-                                <div className='outline outline-blue-300 rounded'>
+                                <div className='rounded '>
                                     <input
-                                        className='p-3 rounded w-full'
+                                        className='p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]'
                                         id='email'
                                         name='email'
                                         type='text'
@@ -259,15 +262,15 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                             {actionType[ACTION_TYPE.RESEND_CODE] && (
                                 <>
                                     <div className='flex flex-col gap-1'>
-                                        <div className='text-red-500'>
+                                        <div className='text-[#ff7010]'>
                                             *{' '}
                                             {errors.code &&
                                                 touched.code &&
                                                 errors.code}
                                         </div>
-                                        <div className='outline outline-blue-300 rounded'>
+                                        <div className=' rounded'>
                                             <input
-                                                className='p-3 rounded w-full'
+                                                className='p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]'
                                                 name='code'
                                                 type='number'
                                                 placeholder='Code'
@@ -279,15 +282,15 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                                         </div>
                                     </div>
                                     <div className='flex flex-col gap-1'>
-                                        <div className='text-red-500'>
+                                        <div className='text-[#ff7010]'>
                                             *{' '}
                                             {errors.password &&
                                                 touched.password &&
                                                 errors.password}
                                         </div>
-                                        <div className='outline outline-blue-300 rounded'>
+                                        <div className='rounded'>
                                             <input
-                                                className='p-3 rounded w-full'
+                                                className='p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]'
                                                 name='password'
                                                 type='password'
                                                 placeholder='Mật khẩu mới'
