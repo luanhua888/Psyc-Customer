@@ -27,12 +27,12 @@ export default function ArticleDetail() {
 
   return (
     //bài viết cung hoàng đạo
-    <div className="row flex flex-row items-center justify-center w-3/5  mx-auto">
+    <div className="row flex flex-row items-center justify-center w-3/5 mt-2 mx-auto">
       <div className="card ">
         <div className="card-body flex flex-col">
           <h1
             className="card-title
-            text-4xl font-bold text-center text-gray-800 mt-4
+            text-4xl font-bold text-center justify-center text-amber-500 mt-4
             "
           >
             {zodiac.name}

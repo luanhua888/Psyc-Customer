@@ -3,6 +3,7 @@ import AbstractService from './AbstractService';
 const API = {
     GET_ALL: 'SlotBookings/GetSlotBookingByDateAndConsultanid',
     POST_BOOKING: 'Bookings/create',
+    POST_RATE: 'Bookings/feedbackbycustomer',
 };
 
 class SlotBookingService extends AbstractService {
@@ -18,6 +19,16 @@ class SlotBookingService extends AbstractService {
             }
             );
     };
+
+    postVoteStar = (id, feedback, rate ) => {
+        return this.httpPUT(API.POST_RATE, { },
+            {
+                params: {id, feedback, rate},
+            }
+            );
+    };
+
+    
 
 
 }

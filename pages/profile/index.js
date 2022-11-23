@@ -1,11 +1,15 @@
-import { Button, Pagination, Table } from "flowbite-react";
+import { Button, Pagination, Table, Toast } from "flowbite-react";
 import dayjs from "dayjs";
 import { Formik } from "formik";
 import _, { isNull } from "lodash";
 import Image from "next/image";
-import heroBanner from "../../public/photos/hero-banner-profile.png";
+import heroBanner from "../../public/photos/zodiac.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
 import addIcon from "../../public/photos/icon/add.png";
+import deleteIcon from "../../public/photos/icon/trash.png";
+import editIcon from "../../public/photos/icon/edit.png";
+import starIcon from "../../public/photos/icon/star.png";
+import successIcon from "../../public/photos/icon/checked.png";
 
 import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
@@ -38,6 +42,8 @@ export default function Profile(props) {
     getSupProfile();
   };
 
+
+
   const pageCount = 5;
 
   const onSubmit = async (data) => {
@@ -56,17 +62,18 @@ export default function Profile(props) {
 
   const [supProfile, setSupProfile] = useState([]);
   const [imageFirebaseUrl, setImageFirebaseUrl] = useState({});
-  console.log("imageFirebaseUrl", imageFirebaseUrl.data);
   //upload image  firebase
   // const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState();
   const [starMap, setStarMap] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
   const [supProfileResult, setSupProfileResult] = useState({});
+  console.log("supProfileId", supProfileId);
 
   const handleOpenModalEditSupProfile = () => {
     modalEditSupProfileRef.current?.open();
   };
   const [btnSubmit, setBtnSubmit] = useState(true);
+  const [btnDisplayToast, setBtnDisplayToast] = useState(false);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
   };
@@ -76,6 +83,17 @@ export default function Profile(props) {
   useEffect(() => {
     getProfile();
   }, []);
+
+  const handleDeleteSupProfile = async (id) => {
+    const data = await profileService.deleteSupProfile(id);
+
+    if (data.statusCode == 200) {
+      //hiển thị toast success
+      setBtnDisplayToast(true);
+      getSupProfile();
+    }
+    getSupProfile();
+  };
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -162,7 +180,27 @@ export default function Profile(props) {
 
   return (
     <>
-      <section className="bg-blue-300">
+      <section className="bg-[#031d2e]">
+
+        <div className="absolute right-10 flex flex-row"
+        // không hiển thị
+        style={{ display: btnDisplayToast ? "block" : "none" }}
+        >
+          <Toast
+            title="Success"
+          >
+            <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
+              <Image src={successIcon} width={30} height={30}  alt=""
+                className="justify-center items-center"
+              />
+
+            </div>
+            <div className="ml-3 text-sm font-normal">Thành công</div>
+            <Toast.Toggle />
+          </Toast>
+        </div>
+
+
         <div className="md:container mx-auto px-24 py-6 ">
           <div className="flex justify-center items-center">
             <div className="flex-1">
@@ -175,7 +213,7 @@ export default function Profile(props) {
               />
             </div>
             <div className="flex flex-1 justify-center items-center">
-              <p className=" text-slate-700 font-bold text-5xl pb-5 border-b-4 border-b-slate-700">
+              <p className=" text-[#ff7010] font-bold text-5xl pb-5 border-b-4 border-b-[#ff7010]">
                 Thông tin cá nhân
               </p>
             </div>
@@ -183,13 +221,13 @@ export default function Profile(props) {
         </div>
       </section>
 
-      <section className="bg-slate-400">
+      <section className="bg-[#031d2e]">
         <div className="md:container mx-auto px-[10%] py-5">
-          <div className="px-7 py-3 rounded-3xl bg-white">
+          <div className="px-7 py-3 rounded-3xl bg-[#17384e]">
             {user && (
               <div className="flex gap-5 mb-12">
                 <div className="flex flex-col gap-2 border-r">
-                  <div className="w-[260px] h-[250px] flex flex-row justify-center items-center">
+                  <div className="w-[260px] h-[250px] flex flex-row  justify-center items-center">
                     <Image
                       loader={() => user.imageUrl}
                       src={profileAvatar}
@@ -199,12 +237,12 @@ export default function Profile(props) {
                   </div>
                   <input
                     locale="vi"
-                    className="  rounded-3xl cursor-pointer"
+                    className=" mt-2 rounded-3xl cursor-pointer text-[#ff7010]"
                     type="file"
                     onChange={postImageFirebase}
                   />
                   <button
-                    className=" bg-indigo-700 
+                    className=" bg-[#ff7010] mr-2
                   
                   py-1 text-xl text-white rounded-xl"
                     onClick={updateImageProfile}
@@ -254,7 +292,7 @@ export default function Profile(props) {
                             <div>
                               <label
                                 for="fullname"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                               >
                                 Họ và Tên
                               </label>
@@ -263,7 +301,7 @@ export default function Profile(props) {
                                 type="text"
                                 id="fullname"
                                 name="fullname"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                                 placeholder="Nhập họ và tên"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -275,7 +313,7 @@ export default function Profile(props) {
                             <div>
                               <label
                                 for="address"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                               >
                                 Nơi sinh
                               </label>
@@ -283,7 +321,7 @@ export default function Profile(props) {
                                 disabled={btnSubmit} // false
                                 id="address"
                                 name="address"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                                 placeholder="Nhập dữ liệu"
                                 required
                                 onChange={handleChange}
@@ -298,7 +336,7 @@ export default function Profile(props) {
                             <div>
                               <label
                                 for="gender"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                                class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-400"
                               >
                                 {}
                                 Giới tính
@@ -307,7 +345,7 @@ export default function Profile(props) {
                                 disabled={btnSubmit} // false
                                 id="gender"
                                 name="gender"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.gender}
@@ -319,7 +357,7 @@ export default function Profile(props) {
                             <div>
                               <label
                                 for="dob"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                               >
                                 Ngày tháng năm sinh
                               </label>
@@ -328,7 +366,7 @@ export default function Profile(props) {
                                 type="datetime-local"
                                 id="dob"
                                 name="dob"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                                 placeholder="Ngày tháng năm sinh"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -353,7 +391,7 @@ export default function Profile(props) {
                                 type="text"
                                 id="longitude"
                                 name="longitude"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                                 placeholder="Nhập dữ liệu"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -365,7 +403,7 @@ export default function Profile(props) {
                             <div>
                               <label
                                 for="latitude"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                               >
                                 Vĩ độ
                               </label>
@@ -391,7 +429,9 @@ export default function Profile(props) {
                             <button
                               type="submit"
                               // disabled={isSubmitting}
-                              class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              class=" text-white  bg-[#ff7010]  hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-8 py-4 text-center   dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
+                              transition duration-500 ease-in-out
+                              "
                               onClick={() => {
                                 if (btnSubmit == false) {
                                   setBtnSubmit(true);
@@ -413,7 +453,7 @@ export default function Profile(props) {
             <div>
               <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
                 <p className="w-[100%] ">
-                  <span className="pr-[20%] pl-[24%]">
+                  <span className="pr-[20%] pl-[24%] text-[#ff7010]">
                     Danh sách các hồ sơ khác của bạn
                   </span>
                   <Image
@@ -431,20 +471,20 @@ export default function Profile(props) {
 
               <div>
                 <Table hoverable={true}>
-                  <Table.Head>
+                  <Table.Head className="bg-[#143246] text-[#ff7010]">
                     <Table.HeadCell>STT</Table.HeadCell>
                     <Table.HeadCell>Họ và Tên</Table.HeadCell>
                     <Table.HeadCell>Ngày sinh</Table.HeadCell>
-                    <Table.HeadCell>Giới Tính</Table.HeadCell>
-                    <Table.HeadCell>Kinh độ</Table.HeadCell>
+                    {/* <Table.HeadCell>Giới Tính</Table.HeadCell>
+                    <Table.HeadCell>Kinh độ</Table.HeadCell> */}
                     <Table.HeadCell>Vĩ độ</Table.HeadCell>
                     <Table.HeadCell>Nơi Sinh</Table.HeadCell>
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                   </Table.Head>
                   {supProfile.map((item, index) => (
-                    <Table.Body key={index} className="divide-y">
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    <Table.Body key={index} className=" ">
+                      <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 text-[#ff7010]">
                           {index + 1}
                         </Table.Cell>
                         <Table.Cell>{item.name} </Table.Cell>
@@ -455,41 +495,52 @@ export default function Profile(props) {
                         <Table.Cell>
                           {item.gender == "male" ? "Nam" : "Nữ"}
                         </Table.Cell>
-                        <Table.Cell>{item.latitude}</Table.Cell>
-                        <Table.Cell>{item.longitude}</Table.Cell>
+                        {/* <Table.Cell>{item.latitude}</Table.Cell>
+                        <Table.Cell>{item.longitude}</Table.Cell> */}
                         <Table.Cell>{item.birthPlace}</Table.Cell>
 
                         <Table.Cell>
                           <div className="flex flex-wrap gap-3">
-                            <Button
-                              outline={true}
-                              class="flex justify-center items-center outline w-24 rounded outline-gray-800"
-                            >
-                              Xóa
-                            </Button>
+                            <div>
+                              <Image
+                              className="cursor-pointer"
+                                src={deleteIcon}
+                                width={20}
+                                height={20}
+                                alt=""
+                                onClick={() => handleDeleteSupProfile(item.id)}
+                              />
+                            </div>
+                            <div>
+                              <Image
+                              className="cursor-pointer"
 
-                            <Button
-                              outline={true}
-                              onClick={() =>
-                                handleOpenModalEditSupProfile(
-                                  setSupProfileResult(item)
-                                )
-                              }
-                              class="flex justify-center items-center outline w-24 rounded outline-cyan-900"
-                            >
-                              Chỉnh sửa
-                            </Button>
-                            <Button
-                              outline={true}
-                              class="flex justify-center items-center outline w-24 rounded outline-cyan-600 hover:bg-slate-800"
-                              onClick={() =>
-                                handleOpenModalStarMap(
-                                  setStarMap(item.birthChart)
-                                )
-                              }
-                            >
-                              Bản đồ sao
-                            </Button>
+                                src={editIcon}
+                                width={20}
+                                height={20}
+                                alt=""
+                                onClick={() =>
+                                  handleOpenModalEditSupProfile(
+                                    setSupProfileResult(item)
+                                  )
+                                }
+                              />
+                            </div>
+                            <div>
+                              <Image
+                              className="cursor-pointer"
+
+                                src={starIcon}
+                                width={20}
+                                height={20}
+                                alt=""
+                                onClick={() =>
+                                  handleOpenModalStarMap(
+                                    setStarMap(item.birthChart)
+                                  )
+                                }
+                              />
+                            </div>
                           </div>
                         </Table.Cell>
                       </Table.Row>
@@ -527,6 +578,7 @@ export default function Profile(props) {
           </div>
         </div>
       </section>
+
       <ModalMap
         ref={modalMapRef}
         onChangeLocation={(latitude, longitude, address) =>

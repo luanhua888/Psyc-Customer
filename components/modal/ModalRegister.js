@@ -325,7 +325,7 @@ const ModalRegister = forwardRef((props, ref) => {
   return (
     <>
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 pb-5 mb-[15%] h-auto p-4 bg-white rounded-lg"
+        classes="overflow-hidden max-w-full max-h-full w-2/3 pb-5 mb-[15%] h-auto p-4 bg-white rounded-lg bg-[#17384e] "
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         // title={"Đăng ký tài khoản"}
@@ -351,7 +351,7 @@ const ModalRegister = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200",
+              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200",
             label: btnSubmitTitle,
           },
         ]}
@@ -436,16 +436,16 @@ const ModalRegister = forwardRef((props, ref) => {
               {isVerifyCode ? (
                 <div className="flex flex-col ">
                   {message && (
-                    <div className="text-sky-500  mb-2 justify-center flex flex-row text-xl">
+                    <div className="text-[#ff7010]  mb-2 justify-center flex flex-row text-xl">
                       {message}
                     </div>
                   )}
 
-                  <div className="outline outline-blue-300 rounded">
+                  <div className=" rounded">
                     <input
                       id="code"
                       name="code"
-                      className="p-3 rounded w-full"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       type="number"
                       placeholder="Code"
                       value={dataForm.code}
@@ -462,7 +462,7 @@ const ModalRegister = forwardRef((props, ref) => {
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Họ và tên
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -470,7 +470,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center  font-medium ${
                               errorMessagesFullName.isError
-                                ? "text-red-500"
+                                ? "text-[#ff7010]"
                                 : "text-blue-500"
                             }`}
                           >
@@ -478,7 +478,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           </div>
                         )}
                         {errors.fullname && touched.fullname && (
-                          <div className="text-red-500 font-medium ">
+                          <div className="text-[#ff7010] font-medium ">
                             {errors.fullname &&
                               touched.fullname &&
                               errors.fullname}
@@ -489,7 +489,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="text"
                       name="fullname"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -513,7 +513,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className=" flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Tên đăng nhập
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -521,7 +521,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center  font-medium ${
                               errorMessagesUsername.isError
-                                ? "text-red-500"
+                                ? "text-[#ff7010]"
                                 : "text-blue-500"
                             }`}
                           >
@@ -529,7 +529,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           </div>
                         )}
                         {errors.username && touched.username && (
-                          <div className="text-red-500 font-medium float-right">
+                          <div className="text-[#ff7010] font-medium float-right">
                             {errors.username &&
                               touched.username &&
                               errors.username}
@@ -540,7 +540,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="text"
                       name="username"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -564,7 +564,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Email
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -572,7 +572,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center font-medium ${
                               errorMessagesEmail.isError
-                                ? "text-red-500"
+                                ? "text-[#ff7010]"
                                 : "text-blue-500"
                             }`}
                           >
@@ -580,7 +580,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           </div>
                         )}
                         {errors.email && touched.email && (
-                          <div className="text-red-500 font-medium mb-3">
+                          <div className="text-[#ff7010] font-medium mb-3">
                             {errors.email && touched.email && errors.email}
                           </div>
                         )}
@@ -589,7 +589,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="email"
                       name="email"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -613,7 +613,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Mật khẩu
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -621,7 +621,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center  font-medium ${
                               errorMessagesPassword.isError
-                                ? "text-red-500"
+                                ? "text-[#ff7010]"
                                 : "text-blue-500"
                             }`}
                           >
@@ -629,7 +629,7 @@ const ModalRegister = forwardRef((props, ref) => {
                           </div>
                         )}
                         {errors.password && touched.password && (
-                          <div className="text-red-500 font-medium ">
+                          <div className="text-[#ff7010] font-medium ">
                             {errors.password &&
                               touched.password &&
                               errors.password}
@@ -640,7 +640,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="password"
                       name=""
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -664,7 +664,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-[40%]">
+                      <label className="mb-1 font-medium text-[#ff7010] w-[50%]">
                         Xác nhận mật khẩu
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -672,15 +672,15 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center  font-medium ${
                               errorMessagesConfirmPassword.isError
-                                ? "text-red-500"
-                                : "text-blue-500"
+                                ? "text-[#ff7010]"
+                                : "text-[#ff7010]"
                             }`}
                           >
                             {errorMessagesConfirmPassword.message}
                           </div>
                         )}
                         {errors.confirmPassword && touched.confirmPassword && (
-                          <div className="text-red-500 font-medium ">
+                          <div className="text-[#ff7010] font-medium ">
                             {errors.confirmPassword &&
                               touched.confirmPassword &&
                               errors.confirmPassword}
@@ -691,7 +691,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="password"
                       name="confirmPassword"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -715,7 +715,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Ngày sinh
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -723,8 +723,8 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center  font-medium ${
                               errorMessagesBirthday.isError
-                                ? "text-red-500"
-                                : "text-blue-500"
+                                ? "text-[#ff7010]"
+                                : "text-[#ff7010]"
                             }`}
                           >
                             {errorMessagesBirthday.message}
@@ -732,7 +732,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         )}
 
                         {errors.dob && touched.dob && (
-                          <div className="text-red-500 font-medium">
+                          <div className="text-[#ff7010] font-medium">
                             {errors.dob && touched.dob && errors.dob}
                           </div>
                         )}
@@ -741,7 +741,7 @@ const ModalRegister = forwardRef((props, ref) => {
                     <input
                       type="date"
                       name="confirmPassword"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -764,7 +764,7 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-gray-600 w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Nơi sinh
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -772,15 +772,15 @@ const ModalRegister = forwardRef((props, ref) => {
                           <div
                             className={`flex justify-center items-center font-medium ${
                               errorMessagesBirthPlace.isError
-                                ? "text-red-500"
-                                : "text-blue-500"
+                                ? "text-[#ff7010]"
+                                : "text-[#286289]"
                             }`}
                           >
                             {errorMessagesBirthPlace.message}
                           </div>
                         )}
                         {errors.birthPlace && touched.birthPlace && (
-                          <div className="text-red-500 font-medium ">
+                          <div className="text-[#ff7010] font-medium ">
                             {errors.birthPlace &&
                               touched.birthPlace &&
                               errors.birthPlace}
@@ -793,7 +793,7 @@ const ModalRegister = forwardRef((props, ref) => {
                       type="text"
                       readOnly
                       name="birthPlace"
-                      className="border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       onChange={(e) =>
                         setDataForm({
                           ...dataForm,
@@ -817,15 +817,15 @@ const ModalRegister = forwardRef((props, ref) => {
                     />
                   </div>
 
-                  <label className="text-2xl mt-5">
+                  <label className="text-2xl mt-5 text-white">
                     Bạn đã có tài khoản?{" "}
-                    <Link onClick={handleOpenModalLogin}>Đăng nhập</Link>
+                    <span className="text-[#ff7010] border-b-2 border-[#ff7010] hover:text-[#455f71] hover:border-[#455f71] " onClick={handleOpenModalLogin}>Đăng nhập</span>
                   </label>
 
                   <div className=" grid-cols-2 gap-2 hidden">
                     <div className="flex flex-col mb-3">
                       <div className="flex flex-row gap-5">
-                        <label className="mb-1 font-medium text-gray-600 w-1/3">
+                        <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                           Kinh độ
                         </label>
                         {/* <div className="w-full flex flex-row items-center justify-center">
@@ -853,7 +853,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         type="number"
                         name="longitude"
                         readOnly
-                        className="border rounded-lg px-3 py-2 "
+                        className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         onChange={(e) =>
                           setDataForm({
                             ...dataForm,
@@ -906,7 +906,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         type="number"
                         readOnly
                         name="latitude"
-                        className="border rounded-lg px-3 py-2 hidden"
+                        className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010] hidden"
                         onChange={(e) =>
                           setDataForm({
                             ...dataForm,

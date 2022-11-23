@@ -3,6 +3,7 @@ import AbstractService from "./AbstractService";
 const API = {
   PROFILE: "Customers/getbyid",
   GET_SUPPROFILE: "Profiles/getbyidcustomer",
+  DELETE_SUPPROFILE: `Profiles/`,
 };
 
 class ProfileService extends AbstractService {
@@ -17,6 +18,18 @@ class ProfileService extends AbstractService {
   getSupProfileDefault = (id, pagesize, pagenumber) => {
     return this.httpGET(API.GET_SUPPROFILE, { id, pagesize: 5, pagenumber: 1 });
   };
+
+  //Profiles/{id}
+  // params query string
+  deleteSupProfile = (id) => {
+    return this.httpDELETE(API.DELETE_SUPPROFILE + id);
+  }
+  
+ 
+ 
+
+
+
 }
 
 export const profileService = new ProfileService();

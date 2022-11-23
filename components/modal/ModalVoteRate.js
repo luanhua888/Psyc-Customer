@@ -16,7 +16,7 @@ import successIcon from "../../public/photos/icon/Success.png";
 import { slotBookingService } from "../../services/SlotBookingService";
 
 // eslint-disable-next-line react/display-name
-const ModalVoteRate = forwardRef((id, ref) => {
+const ModalVoteRate = forwardRef((bookingId, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -28,26 +28,47 @@ const ModalVoteRate = forwardRef((id, ref) => {
     },
   }));
 
+  console.log("id",bookingId.id);
+
+
   // chọn sao đánh giá cho cuộc hẹn đã hoàn thành
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleRating = (e) => {
-    setRating(e.target.value);
-  };
+
 
   const handleComment = (e) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsSubmit(true);
     console.log("rating", rating);
     console.log("comment", comment);
+    if (localStorage.getItem("jwttoken")) {
+      const data = await slotBookingService.postVoteStar(
+        bookingId.id,
+        comment.toString(),
+        rating
+      );
+      if (data.statusCode == 200) {
+       //tost success
+       setIsOpen(false);
+
+      }
+    }
   };
+
+  // khi chọn sao đánh giá ở input radio thì set giá trị cho rating
+  const handleRatingClick = (e) => {
+    setRating(e.target.value);
+  };
+
+
+
 
   return (
     <div className="absolute top-0">
@@ -61,15 +82,17 @@ const ModalVoteRate = forwardRef((id, ref) => {
         {/* vote rate modal icon star*/}
         <div className="flex flex-col gap-6 items-center justify-center">
           <div className="rating">
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-2" value={1}  className="mask mask-star-2 bg-orange-400" onClick={handleRatingClick}/>
+            <input type="radio" name="rating-2" value={2}  className="mask mask-star-2 bg-orange-400" onClick={handleRatingClick}/>
+            <input type="radio" name="rating-2" value={3}  className="mask mask-star-2 bg-orange-400" onClick={handleRatingClick}/>
+            <input type="radio" name="rating-2" value={4}  className="mask mask-star-2 bg-orange-400" onClick={handleRatingClick}/>
+            <input type="radio" name="rating-2" value={5}  className="mask mask-star-2 bg-orange-400" onClick={handleRatingClick}/>
           </div>
           <div>
             <textarea className="w-80 h-20 border-2 border-gray-300 rounded-lg"
-                      placeholder="Nhập bình luận của bạn" />
+                      placeholder="Nhập bình luận của bạn"
+                      onChange={handleComment}
+                       />
           </div>
           <div className="flex flex-row items-center justify-center">
             <button
