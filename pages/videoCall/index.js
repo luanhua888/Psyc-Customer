@@ -21,7 +21,7 @@ export default function VideoCall() {
     roomCall,
   };
 
-  
+  console.log("roomCall", roomCall);
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";

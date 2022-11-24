@@ -503,11 +503,13 @@ export default function Home(props) {
                   className="flex flex-row justify-center"
                   key={key}
                   onClick={() => {
+                    // gửi id mà load ra chi tiết bài viết
                     router.push({
-                      pathname: "/articleDetail" + "/" + row.id,
-
-                      // query: { articleId: row.id },
+                      pathname: "/articleDetail",
+                      query: { articleId: row.id },
                     });
+                    
+                 
                    
                   }}
                 >
