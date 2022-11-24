@@ -88,7 +88,7 @@ const ModalChangePassword = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-[#ff7010] px-6 py-2 rounded-lg hover:bg-[#ff7010] transition-all duration-200 mr-[35%] mb-5",
+              "bg-[#ff7010] px-6 py-2 rounded-lg hover:bg-[#ff7010] transition-all duration-200 mr-[35%] mb-5 text-white",
             label: "Đổi mật khẩu",
           },
         ]}

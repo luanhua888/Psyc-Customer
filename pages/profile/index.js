@@ -8,7 +8,7 @@ import profileAvatar from "../../public/photos/profile-avatar.png";
 import addIcon from "../../public/photos/icon/add.png";
 import deleteIcon from "../../public/photos/icon/trash.png";
 import editIcon from "../../public/photos/icon/edit.png";
-import starIcon from "../../public/photos/icon/star.png";
+import starIcon from "../../public/photos/icon/solar-system.png";
 import successIcon from "../../public/photos/icon/checked.png";
 
 import { useRef, useEffect, useState } from "react";
@@ -188,6 +188,8 @@ export default function Profile(props) {
         >
           <Toast
             title="Success"
+            autohide
+            delay={5000}
           >
             <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
               <Image src={successIcon} width={30} height={30}  alt=""
@@ -459,7 +461,7 @@ export default function Profile(props) {
                   <Image
                     src={addIcon}
                     alt=""
-                    className="rounded-xl ml-[50%] cursor-pointer"
+                    className="rounded-xl ml-[50%] cursor-pointer --fa-animation-duration: 2s"
                     width={30}
                     height={30}
                     onClick={() => {

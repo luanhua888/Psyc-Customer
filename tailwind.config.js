@@ -6,7 +6,15 @@ module.exports = {
         './components/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                //màu cam
+                orange: { DEFAULT: '#ff7010' },
+               
+
+            }
+
+        },
     },
     plugins: [require('flowbite/plugin'), require("daisyui")],
 };

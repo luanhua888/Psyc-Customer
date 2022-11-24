@@ -14,6 +14,7 @@ export default function ArticleDetail() {
     articleId,
   };
 
+  console.log("articleId", articleId);
   const [article, setArticleId] = useState({});
 
   useEffect(() => {
@@ -36,6 +37,8 @@ export default function ArticleDetail() {
           <h1
             className="card-title
             text-4xl font-bold text-center text-gray-800 mt-4
+            flex flex-row items-center justify-center
+            text-[#ff7010]
             "
           >
             {article.title}

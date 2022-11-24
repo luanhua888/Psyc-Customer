@@ -39,13 +39,13 @@ function TypeSurvey({
   };
 
   return (
-    <section id="services" className="bg-indigo-300">
-      <div className="md:container mx-auto py-6">
+    <section id="services" className="bg-[#031d2e]">
+      <div className="md:container mx-auto px-[6%] py-6">
           <div className=" grid grid-cols-3 gap-4">
             {typeSurvey.map((row, key) => (
               <div
                 key={key}
-                className="flex flex-col gap-1 justify-center items-center bg-white py-5 px-4 rounded-xl w-[450px] "
+                className="flex flex-col gap-1 justify-center items-center bg-white py-5 px-4 rounded-xl w-[400px] "
               >
                 <Card
                   horizontal={true}

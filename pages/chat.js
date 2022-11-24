@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import _ from "lodash";
+import _, { values } from "lodash";
 
 import avatarImg from "../public/photos/avatar.jpeg";
 import { consultantService } from "../services/ConsultantService";
@@ -8,9 +8,9 @@ import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
 
-
 export default function Chat(props) {
   const { consultants } = props;
+  console.log("consultants", consultants);
 
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();
@@ -24,7 +24,6 @@ export default function Chat(props) {
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
-          
         }
       }
     })();
@@ -43,18 +42,21 @@ export default function Chat(props) {
   return (
     <>
       <section>
-        <div className="md:container mx-auto pt-12">
-          <div className="flex flex-wrap justify-between grid gap-x-8 gap-y-4 grid-cols-3">
-            {!_.isUndefined(consultants) &&
-              !_.isEmpty(consultants) &&
-              consultants.map((row, index) => (
+        <div className="md:container mx-auto px-[10%] pt-12">
+          {consultants != null ? (
+
+
+
+
+            <div className=" flex-wrap justify-between grid gap-x-2 gap-y-4 grid-cols-3">
+              {consultants.map((row, index) => (
                 <div
                   key={index}
-                  className="flex px-7 bg-white p-4 rounded-xl shadow-lg"
+                  className="bookingBox flex flex-col  bg-white rounded-xl shadow-lg p-2"
                 >
-                  <div className="flex ">
-                    <div className="flex flex-col gap-2 justify-center items-center pr-3">
-                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-blue-300 to-blue-800">
+                  <div className="grid grid-cols-2 gap-1 ">
+                    <div className="flex flex-col gap-2  justify-center items-center ">
+                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-amber-300 to-amber-800">
                         <Image
                           loader={() => row.imageUrl}
                           className="
@@ -66,7 +68,7 @@ export default function Chat(props) {
                           height={75}
                         />
                       </div>
-                      <div class="flex items-center">
+                      <div class="flex items-center ">
                         {Array.apply(null, {
                           length: 5,
                         })
@@ -94,36 +96,49 @@ export default function Chat(props) {
                           })}
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                      <div className="text-lg font-medium cursor-pointer hover:text-blue-500">
+
+                    <div className="flex flex-col gap-2 text-black">
+                      <div className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black">
                         {row.fullName}
                       </div>
-                      <div className="text-[#807f7f] text-sm">
-                        Giới tính: {row.gender}
+                      <div className="text-[#807f7f] text-sm text-black">
+                        Giới tính: {row.gender == "Male" ? "Nam" : "Nữ"}
                       </div>
-                      <div className="text-[#807f7f] text-sm">
+                      <div className="text-[#807f7f] text-sm text-black">
                         Địa chỉ: {row.address}
                       </div>
-                      <div className="text-[#807f7f] text-sm">
+                      <div className="text-[#807f7f] text-sm text-black">
                         Kinh nghiệm: {row.experience} năm
                       </div>
                     </div>
                   </div>
-                  <div className=" mb-4 ml-4 self-end">
+                  
+                  <div className=" flex flex-row justify-center items-center ">
                     <button
-                      className="h-10 w-20 text-xs text-center rounded-3xl text-blue-500 border-2 border-blue-500 hover:ring hover:ring-blue-300"
+                      className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium"
                       onClick={() => onChat(row)}
                     >
                       Đặt lịch
                     </button>
+
                   </div>
                 </div>
               ))}
-          </div>
+            </div>
+
+
+
+
+
+          ) : (
+            <div className=" px-7 text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center text-3xl">
+              <span>Hiện Tại Không Có Tư Vấn Viên Nào</span>
+            </div>
+          )}
         </div>
       </section>
-      <ModalLogin ref={modalLoginRef}  />
-      <ModalBooking ref={modalBookingRef}  />
+      <ModalLogin ref={modalLoginRef} />
+      <ModalBooking ref={modalBookingRef} />
     </>
   );
 }

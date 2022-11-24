@@ -110,8 +110,8 @@ function Question({
   return (
     <div>
       {question && (
-        <div className="flex flex-col justify-center items-center bg-sky-100 mr-70 ml-70 mt-5 mb-20 m-60 pb-5 pt-10 rounded-lg border-black border-2">
-          <h1 className="question font-bold text-2xl"> {question}</h1>
+        <div className="flex flex-col justify-center items-center bg-[#17384e] mr-70 ml-70 mt-5 mb-20 m-60 pb-5 pt-10 rounded-lg border-black border-2">
+          <h1 className="question font-bold text-2xl text-[#ff7010]"> {question}</h1>
           <div>
             {survey.map((option, index) => (
               <div
@@ -119,7 +119,7 @@ function Question({
                 className="answers flex flex-col pt-5"
                 onClick={() => handleClick(result.push(option.id))}
               >
-                <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-orange-400 rounded-lg shadow-lg hover:bg-slate-300 ">
+                <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-[#286289] rounded-lg shadow-lg hover:bg-slate-300 ">
                   {option.optionText}
                 </p>
               </div>

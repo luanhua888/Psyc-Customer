@@ -37,6 +37,16 @@ class DepositService extends AbstractService {
       pagenumber: 1,
     });
   };
+
+
+  getDepositByDate  = (code, date, pagesize = 5, pagenumber = 1) => {
+    return this.httpGET(API.GET_ALLDEPOSIT, {
+      code,
+      date,
+      pagesize,
+      pagenumber,
+    });
+  }
 }
 
 export const depositService = new DepositService();
