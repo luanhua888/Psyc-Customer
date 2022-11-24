@@ -12,7 +12,7 @@ import noCam from "../../public/photos/icon/no-video.png";
 import camera from "../../public/photos/icon/video-camera.png";
 import connect from "../../public/photos/icon/link.png";
 
-export default function VideoCall() {
+export default function Article() {
   const router = useRouter();
 
   let { roomCall } = router.query;
