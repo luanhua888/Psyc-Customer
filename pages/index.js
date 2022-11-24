@@ -209,7 +209,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac1.id },
                       });
                     }}
