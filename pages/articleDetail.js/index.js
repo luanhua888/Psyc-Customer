@@ -6,21 +6,19 @@ import { articleService } from "../../services/ArticleService";
 import DOMPurify from "dompurify";
 import Paragraph from "antd/lib/typography/Paragraph";
 export default function ArticleDetail() {
-
-  
-
   const router = useRouter();
-  const { articleId } = router.query;
-  const props = {
+
+  let { articleId } = router.query;
+
+  let props = {
     articleId,
   };
 
-  console.log("articleId", articleId);
   const [article, setArticleId] = useState({});
 
   useEffect(() => {
     (async () => {
-      const data = await articleService.detailArticle(props.articleId);
+      const data = await articleService.detailArticle(articleId);
       if (data.statusCode == 200) {
         setArticleId(data.data[0]);
       }
@@ -38,8 +36,6 @@ export default function ArticleDetail() {
           <h1
             className="card-title
             text-4xl font-bold text-center text-gray-800 mt-4
-            flex flex-row items-center justify-center
-            text-[#ff7010]
             "
           >
             {article.title}

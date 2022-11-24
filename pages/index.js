@@ -233,7 +233,7 @@ export default function Home(props) {
                         pathname: "/zodiacDetail",
                         query: { zodiacId: zodiac2.id },
                       });
-                      
+
                      
                     }}
                   >
@@ -503,14 +503,12 @@ export default function Home(props) {
                   className="flex flex-row justify-center"
                   key={key}
                   onClick={() => {
-                   //gửi id bài viết qua trang chi tiết
                     router.push({
-                      // gửi id qua trang chi tiết mà bị 404 
-                      pathname: "/articleDetail",
-                      query: { articleId: row.id },
+                      pathname: "/articleDetail" + "/" + row.id,
 
-                   
+                      // query: { articleId: row.id },
                     });
+                   
                   }}
                 >
                  <div className="articleBox flex flex-row">

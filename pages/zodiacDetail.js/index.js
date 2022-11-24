@@ -5,14 +5,26 @@ import { zodiacService } from "../../services/ZodiacService";
 import astroRoundedImg from "../../public/photos/astro-rounded.png";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-export default function ArticleDetail() {
-  const router = useRouter();
+export default function ArticleDetail({zodiacId}) {
 
-  let { zodiacId } = router.query;
+//  lấy id của cung hoàng đạo từ url 
 
-  let props = {
-    zodiacId,
-  };
+    
+
+ArticleDetail.getInitialProps =({query : {zodiacId} })=>{
+    return {zodiacId}
+}
+
+
+console.log( "zodiacId",zodiacId);
+
+  // const router = useRouter();
+
+  // let { zodiacId } = router.query;
+
+  // let props = {
+  //   zodiacId,
+  // };
 
   const [zodiac, setZodiac] = useState([]);
   useEffect(() => {
@@ -27,7 +39,7 @@ export default function ArticleDetail() {
 
   return (
     //bài viết cung hoàng đạo
-    <div className="row flex flex-row items-center justify-center w-3/5 mt-2 mx-auto bg-[#17384e] text-white">
+    <div className="row flex flex-row items-center justify-center w-3/5 mt-2 mx-auto">
       <div className="card ">
         <div className="card-body flex flex-col">
           <h1
