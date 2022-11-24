@@ -19,7 +19,7 @@ export default function ArticleDetail() {
 
   useEffect(() => {
     (async () => {
-      const data = await articleService.detailArticle(articleId);
+      const data = await articleService.detailArticle(props.articleId);
       if (data.statusCode == 200) {
         setArticleId(data.data[0]);
       }
