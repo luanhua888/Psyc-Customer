@@ -12,10 +12,10 @@ import Paragraph from "antd/lib/typography/Paragraph";
 export default function Article() {
   const router = useRouter();
 
-  let { articleId  } = router.query;
+  let { zodiacId  } = router.query;
 
   let props = {
-    articleId ,
+    zodiacId ,
   };
 
   console.log("articleId", articleId);
@@ -23,7 +23,7 @@ export default function Article() {
 
   useEffect(() => {
     (async () => {
-        const data = await articleService.detailArticle(props.articleId);
+        const data = await articleService.detailArticle(props.zodiacId);
         if (data.statusCode == 200) {
           setArticleId(data.data[0]);
         }
