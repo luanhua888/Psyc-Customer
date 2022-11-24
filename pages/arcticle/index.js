@@ -21,7 +21,7 @@ export default function Article() {
     articleId ,
   };
 
-  console.log("roomCall1", roomCall);
+  // console.log("roomCall1", roomCall);
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";
@@ -35,7 +35,7 @@ export default function Article() {
   useEffect(() => {
     (async () => {
      
-        const data = await videoCallService.getRoomAgrora(props.roomCall);
+        const data = await videoCallService.getRoomAgrora(props.articleId);
 
         if (data.statusCode == 200) {
 
