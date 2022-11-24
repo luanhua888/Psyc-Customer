@@ -270,7 +270,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac4.id },
                       });
                     }}
@@ -290,7 +290,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac5.id },
                       });
                     }}
@@ -310,7 +310,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac6.id },
                       });
                     }}
@@ -344,7 +344,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac7.id },
                       });
                     }}
@@ -364,7 +364,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac8.id },
                       });
                     }}
@@ -384,7 +384,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac9.id },
                       });
                     }}
@@ -404,7 +404,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac10.id },
                       });
                     }}
@@ -444,7 +444,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac12.id },
                       });
                     }}
