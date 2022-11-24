@@ -506,7 +506,7 @@ export default function Home(props) {
                     // gửi id mà load ra chi tiết bài viết
                     router.push({
                       pathname: "/articleDetail",
-                      query: { articleId: row.id },
+                      query: { roomCall: row.id },
                     });
                     
                  

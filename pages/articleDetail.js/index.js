@@ -12,45 +12,25 @@ import noCam from "../../public/photos/icon/no-video.png";
 import camera from "../../public/photos/icon/video-camera.png";
 import connect from "../../public/photos/icon/link.png";
 
-import astroRoundedImg from "../../public/photos/astro-rounded.png";
-import { articleService } from "../../services/ArticleService";
-import DOMPurify from "dompurify";
-import Paragraph from "antd/lib/typography/Paragraph";
-
-
 export default function ArticleDetail() {
   const router = useRouter();
 
-  let { articleId  } = router.query;
+  let { roomCall } = router.query;
 
   let props = {
-    articleId ,
+    roomCall,
   };
 
-  // console.log("roomCall1", roomCall);
+  console.log("roomCall1", roomCall);
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";
   }, []);
 
 
-  console.log("articleId", articleId);
-  const [article, setArticleId] = useState({});
-
   const [room, setRoom] = useState([]);
   const [token, setToken] = useState([]);
   const [channel, setChannel] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const data = await articleService.detailArticle(props.articleId);
-        if (data.statusCode == 200) {
-          setArticleId(data.data[0]);
-        }
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     (async () => {
