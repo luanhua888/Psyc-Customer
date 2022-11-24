@@ -18,12 +18,12 @@ export default function ArticleDetail() {
 
 
 
-  useEffect(() => {
-    document.getElementById("noCam").style.display = "none";
-    document.getElementById("noMic").style.display = "none";
-  }, []);
+  // useEffect(() => {
+  //   document.getElementById("noCam").style.display = "none";
+  //   document.getElementById("noMic").style.display = "none";
+  // }, []);
 
-  const [zodiac, setZodiac] = useState([]);
+ 
   useEffect(() => {
     (async () => {
       const data = await zodiacService.detailZodiac(props.zodiacId);
@@ -33,6 +33,8 @@ export default function ArticleDetail() {
       }
     })();
   }, []);
+  
+  const [zodiac, setZodiac] = useState([]);
 
   return (
     //bài viết cung hoàng đạo
