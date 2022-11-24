@@ -228,10 +228,13 @@ export default function Home(props) {
                 <li className="as_sign_box">
                   <a
                     onClick={() => {
+                      // gửi id qua url mà ko bị 404 lỗi
                       router.push({
                         pathname: "/zodiacDetail",
                         query: { zodiacId: zodiac2.id },
                       });
+                      
+                     
                     }}
                   >
                     <span className="as_sign">
@@ -500,9 +503,13 @@ export default function Home(props) {
                   className="flex flex-row justify-center"
                   key={key}
                   onClick={() => {
+                   //gửi id bài viết qua trang chi tiết
                     router.push({
+                      // gửi id qua trang chi tiết mà bị 404 
                       pathname: "/articleDetail",
                       query: { articleId: row.id },
+
+                   
                     });
                   }}
                 >

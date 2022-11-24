@@ -6,11 +6,12 @@ import { articleService } from "../../services/ArticleService";
 import DOMPurify from "dompurify";
 import Paragraph from "antd/lib/typography/Paragraph";
 export default function ArticleDetail() {
+
+  
+
   const router = useRouter();
-
-  let { articleId } = router.query;
-
-  let props = {
+  const { articleId } = router.query;
+  const props = {
     articleId,
   };
 
