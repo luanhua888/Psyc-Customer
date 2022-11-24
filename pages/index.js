@@ -209,7 +209,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac1.id },
                       });
                     }}
@@ -228,8 +228,9 @@ export default function Home(props) {
                 <li className="as_sign_box">
                   <a
                     onClick={() => {
+                      // gửi id qua url mà ko bị 404 lỗi
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac2.id },
                       });
                     }}
@@ -249,7 +250,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac3.id },
                       });
                     }}
@@ -269,7 +270,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac4.id },
                       });
                     }}
@@ -289,7 +290,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac5.id },
                       });
                     }}
@@ -309,7 +310,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac6.id },
                       });
                     }}
@@ -343,7 +344,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac7.id },
                       });
                     }}
@@ -363,7 +364,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac8.id },
                       });
                     }}
@@ -383,7 +384,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac9.id },
                       });
                     }}
@@ -403,7 +404,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac10.id },
                       });
                     }}
@@ -423,7 +424,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac11.id },
                       });
                     }}
@@ -443,7 +444,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac12.id },
                       });
                     }}
@@ -499,35 +500,35 @@ export default function Home(props) {
                 <SwiperSlide
                   className="flex flex-row justify-center"
                   key={key}
-                  onClick={() => {
+                  onClick={() =>
                     router.push({
-                      pathname: "/articleDetail",
-                      query: { articleId: row.id },
-                    });
-                  }}
+                      pathname: "/arcticle",
+                      query: { articleId : row.id },
+                    })
+                  }
                 >
-                 <div className="articleBox flex flex-row">
-                 <Image
-                    loader={() => row.urlBanner}
-                    className="rounded-tl-xl rounded-bl-xl align-middle"
-                    src={astroRoundedImg}
-                    alt=""
-                    width={350}
-                    height={350}
-                  />
-                  <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
-                    <h1 className="px-2 text-2xl  text-white font-semibold ">
-                      {row.title}
-                    </h1>
-                    <h1
-                      className="px-2 text-2xl text-white first-of-type:font-semibold 
+                  <div className="articleBox flex flex-row">
+                    <Image
+                      loader={() => row.urlBanner}
+                      className="rounded-tl-xl rounded-bl-xl align-middle"
+                      src={astroRoundedImg}
+                      alt=""
+                      width={350}
+                      height={350}
+                    />
+                    <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
+                      <h1 className="px-2 text-2xl  text-white font-semibold ">
+                        {row.title}
+                      </h1>
+                      <h1
+                        className="px-2 text-2xl text-white first-of-type:font-semibold 
                              text-justif
                     "
-                    >
-                      {row.description}
-                    </h1>
+                      >
+                        {row.description}
+                      </h1>
+                    </div>
                   </div>
-                 </div>
                 </SwiperSlide>
               ))}
             </Swiper>
