@@ -8,9 +8,9 @@ import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
 
-
 export default function Chat(props) {
   const { consultants } = props;
+  console.log("consultants", consultants);
 
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();
@@ -24,7 +24,6 @@ export default function Chat(props) {
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
-          
         }
       }
     })();
@@ -43,18 +42,17 @@ export default function Chat(props) {
   return (
     <>
       <section>
-        <div className="md:container mx-auto pt-12">
-          <div className="flex flex-wrap justify-between grid gap-x-8 gap-y-4 grid-cols-3">
-            {!_.isUndefined(consultants) &&
-              !_.isEmpty(consultants) &&
-              consultants.map((row, index) => (
+        <div className="md:container mx-auto px-[10%] pt-12">
+          {consultants != null ? (
+            <div className="flex flex-wrap justify-between grid gap-x-8 gap-y-4 grid-cols-3">
+              {consultants.map((row, index) => (
                 <div
                   key={index}
                   className="flex px-7 bg-white p-4 rounded-xl shadow-lg"
                 >
                   <div className="flex ">
                     <div className="flex flex-col gap-2 justify-center items-center pr-3">
-                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-blue-300 to-blue-800">
+                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-amber-300 to-amber-800">
                         <Image
                           loader={() => row.imageUrl}
                           className="
@@ -95,7 +93,7 @@ export default function Chat(props) {
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <div className="text-lg font-medium cursor-pointer hover:text-blue-500">
+                      <div className="text-lg font-medium cursor-pointer hover:text-amber-500">
                         {row.fullName}
                       </div>
                       <div className="text-[#807f7f] text-sm">
@@ -109,9 +107,9 @@ export default function Chat(props) {
                       </div>
                     </div>
                   </div>
-                  <div className=" mb-4 ml-4 self-end">
+                  <div className=" flex flex-row justify-center items-center ">
                     <button
-                      className="h-10 w-20 text-xs text-center rounded-3xl text-blue-500 border-2 border-blue-500 hover:ring hover:ring-blue-300"
+                      className="h-10 w-20 text-xs text-center rounded-3xl text-amber-500 border-2 border-amber-500 hover:ring hover:ring-amber-300"
                       onClick={() => onChat(row)}
                     >
                       Đặt lịch
@@ -119,11 +117,16 @@ export default function Chat(props) {
                   </div>
                 </div>
               ))}
-          </div>
+            </div>
+          ) : (
+            <div className=" px-7 text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center text-3xl">
+              <span>Hiện Tại Không Có Tư Vấn Viên Nào</span>
+            </div>
+          )}
         </div>
       </section>
-      <ModalLogin ref={modalLoginRef}  />
-      <ModalBooking ref={modalBookingRef}  />
+      <ModalLogin ref={modalLoginRef} />
+      <ModalBooking ref={modalBookingRef} />
     </>
   );
 }

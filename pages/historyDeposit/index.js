@@ -2,7 +2,8 @@ import { Button, Table, Pagination, Tabs } from "flowbite-react";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import Image from "next/image";
-import heroBanner from "../../public/photos/hero-banner-profile.png";
+import heroBanner from "../../public/photos/zodiac.png";
+import searchIcon from "../../public/photos/icon/search.png";
 import { useRouter } from "next/router";
 
 import { useRef, useEffect, useState, Component } from "react";
@@ -55,6 +56,23 @@ export default function HistoryDeposit() {
     }
   };
 
+  const getDepositByDate = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await depositService.getDepositByDate(
+        localStorage.getItem("idcustomer"),
+        date,
+        currentPage,
+        5
+      );
+
+      if (data.statusCode == 200) {
+        setHistoryDeposit(data.data);
+        setPageTotal(data.totalpage);
+      }
+    }
+
+  }
+
   const getHistory = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await depositService.getAllDepositWithdrawal(
@@ -99,7 +117,7 @@ export default function HistoryDeposit() {
 
   return (
     <>
-      <section className="bg-blue-300">
+      <section className="bg-[#031d2e]">
         <div className="md:container mx-auto px-24 py-6 ">
           <div className="flex justify-center items-center">
             <div className="flex-1">
@@ -112,31 +130,31 @@ export default function HistoryDeposit() {
               />
             </div>
             <div className="flex flex-1 justify-center items-center">
-              <p className=" text-slate-700 font-bold text-5xl pb-5 border-b-4 border-b-slate-700">
-                Lịch Sử Giao Dịch
+              <p className=" text-[#ff7010] font-bold text-5xl pb-5 border-b-4 border-b-[#ff7010]">
+                Lịch Sử Nạp Tiền
               </p>
             </div>
           </div>
         </div>
       </section>
       {/* Table */}
-      <section className="bg-slate-400  items-center">
-        <div className="md:container mx-auto py-5">
-          <main className="px-7 py-3 rounded-3xl bg-white">
-            <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700">
+      <section className="bg-[#031d2e]  items-center">
+        <div className="md:container mx-auto px-[10%] py-5">
+          <main className="px-7 py-3 rounded-3xl bg-[#17384e]">
+            <h1 className="text-center mb-6 text-[#ff7010] font-bold text-3xl pb-5 border-b-4 border-b-slate-700">
               LỊCH SỬ NẠP TIỀN
             </h1>
 
             <div className="">
               <div className="flex flex-col">
                 <div className=" w-full">
-                  <div class=" w-1/4 mb-2 flex flex-row gap-2 float-right  ">
+                  <div class=" w-2/4 mb-2 flex flex-row gap-2 float-right  ">
                     <div class="flex absolute inset-y-0 right-0 items-center  pointer-events-none"></div>
                     <input
                       datepicker
                       datepicker-autohide
                       type="date"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       placeholder="Select date"
                       onChange={(e) => {
                         setDate(e.target.value);
@@ -147,28 +165,30 @@ export default function HistoryDeposit() {
                       datepicker
                       datepicker-autohide
                       type="text"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       placeholder="Select date"
                       onChange={(e) => {
                         setDate(e.target.value);
                       }}
                     />
-
-                    <button
-                      type="button"
-                      class="inline-flex items-center px-5  border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => {
-                        getAppointmentBooking();
-                      }}
-                    >
-                      Tìm Kiếm
-                    </button>
+                    <div className="flex flex-row justify-center items-center">
+                      <Image
+                        className="cursor-pointer"
+                        src={searchIcon}
+                        width={50}
+                        height={50}
+                        alt=""
+                        onClick={() => {
+                          getDepositByDate();
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="historyDeposit">
                   <Table hoverable={true}>
-                    <Table.Head class="bg-gray-200">
+                    <Table.Head className="bg-[#143246] text-[#ff7010]">
                       {/* <tr class='border border-gray-400'> */}
                       <Table.HeadCell>STT</Table.HeadCell>
                       <Table.HeadCell>Code </Table.HeadCell>
@@ -176,13 +196,14 @@ export default function HistoryDeposit() {
                       <Table.HeadCell>Số Gem</Table.HeadCell>
                       <Table.HeadCell>Thời gian</Table.HeadCell>
                       <Table.HeadCell>Trạng thái</Table.HeadCell>
-                      <Table.HeadCell></Table.HeadCell>
                       {/* </tr> */}
                     </Table.Head>
                     {historyDeposit.map((row, index) => (
                       <Table.Body key={(index = 0)} class="divide-y">
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                          <Table.Cell>{index + 1}</Table.Cell>
+                        <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
+                          <Table.Cell className="text-[#ff7010]">
+                            {index + 1}
+                          </Table.Cell>
                           <Table.Cell>{row.code}</Table.Cell>
                           <Table.Cell>
                             {new Intl.NumberFormat("vi-VN", {
@@ -195,22 +216,16 @@ export default function HistoryDeposit() {
                             "DD/MM/YYYY"
                           )} `}</Table.Cell>
                           <Table.Cell>
-                          {/* nếu status = success thì là thành công 
+                            {/* nếu status = success thì là thành công 
                           nếu status = waiting thì là đang chờ
                           nếu status = fail thì là thất bại */}
-                            {
-                              row.status == "success" ? (
-                                <span className="text-green-500">
-                                  Thành Công
-                                </span>
-                              ) : row.status == "waiting" ? (
-                                <span className="text-yellow-500">
-                                  Đang Chờ
-                                </span>
-                              ) : (
-                                <span className="text-red-500">Thất Bại</span>
-                              )
-                              }
+                            {row.status == "success" ? (
+                              <span className="text-green-500">Thành Công</span>
+                            ) : row.status == "waiting" ? (
+                              <span className="text-yellow-500">Đang Chờ</span>
+                            ) : (
+                              <span className="text-red-500">Thất Bại</span>
+                            )}
                           </Table.Cell>
 
                           {/* <Table.Cell>

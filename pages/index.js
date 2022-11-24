@@ -112,7 +112,7 @@ export default function Home(props) {
 
       <div className=" bg-[#17384e]  mx-auto px-[10%]  py-6">
         <div className="col-lg-12 jus text-center">
-          <h1 className="as_heading as_heading_center">
+          <h1 className=" w-[40%] justify-center flex flex-row items-center mx-auto text-3xl border-b-2 border-[#ff7010]">
             CÁC DỊCH VỤ CỦA CHÚNG TÔI
           </h1>
           <p className="as_font14 as_padderBottom5">
@@ -194,7 +194,7 @@ export default function Home(props) {
         </div>
       </div>
 
-      <div className="md:container mx-auto py-6">
+      <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
           <div className="flex flex-row justify-center">
             <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
@@ -528,7 +528,7 @@ export default function Home(props) {
         </div>
       </section>
 
-      <section id="about_us" className=" mx-auto px-[10%]  py-6">
+      <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
         <div className="md:container mx-auto py-5">
           <div className="flex flex-row justify-center mb-3">
             <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">

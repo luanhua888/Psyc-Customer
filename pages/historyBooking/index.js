@@ -1,11 +1,17 @@
-import { Button, Table, Pagination, Tabs } from "flowbite-react";
+import { Button, Table, Pagination, Tabs, Toast } from "flowbite-react";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import Image from "next/image";
-import heroBanner from "../../public/photos/hero-banner-profile.png";
+import heroBanner from "../../public/photos/zodiac.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
 import googleMapReact from "google-map-react";
 import { useRouter } from "next/router";
+import joinIcon from "../../public/photos/icon/join.png";
+import voteIcon from "../../public/photos/icon/cross-circle.png";
+import rateIcon from "../../public/photos/icon/rating.png";
+import searchIcon from "../../public/photos/icon/search.png";
+import successIcon from "../../public/photos/icon/checked.png";
+
 
 import { useRef, useEffect, useState, Component } from "react";
 import { historyService } from "../../services/HistoryService";
@@ -51,9 +57,11 @@ export default function HistoryBooking() {
   const [pageTotal, setPageTotal] = useState([]);
   const [pageTotalHistoryBooking, setPageTotalHistoryBooking] = useState([]);
   const [date, setDate] = useState();
-  const [bookingId, setBookingId] = useState([]);
+  const [bookingId, setBookingId] = useState(0);
+  const [btnDisplayToast, setBtnDisplayToast] = useState(true);
 
-  console.log("historyBooking", historyBooking);
+
+  console.log("bookingId", bookingId);
   const getAppointmentBooking = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await historyService.getAppointmentBookingDefault(
@@ -101,8 +109,8 @@ export default function HistoryBooking() {
 
   return (
     <>
-      <section className="bg-blue-300">
-        <div className="md:container mx-auto px-24 py-6 ">
+      <section className="bg-[#031d2e]">
+        <div className="md:container mx-auto px-24 py-6  ">
           <div className="flex justify-center items-center">
             <div className="flex-1">
               <Image
@@ -114,27 +122,51 @@ export default function HistoryBooking() {
               />
             </div>
             <div className="flex flex-1 justify-center items-center">
-              <p className=" text-slate-700 font-bold text-5xl pb-5 border-b-4 border-b-slate-700">
+              <p className=" text-[#ff7010] font-bold text-5xl pb-5 border-b-4 border-b-[#ff7010]">
                 Lịch sử cuộc hẹn
               </p>
             </div>
           </div>
         </div>
       </section>
+      {/* toast */}
+
+
+      <div className="absolute right-10 flex flex-row"
+        // không hiển thị
+        style={{ display: btnDisplayToast ? "block" : "none" }}
+        >
+          <Toast
+            title="Success"
+            autohide
+            delay={5000}
+          >
+            <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
+              <Image src={successIcon} width={30} height={30}  alt=""
+                className="justify-center items-center"
+              />
+
+            </div>
+            <div className="ml-3 text-sm font-normal">Thành công</div>
+            <Toast.Toggle />
+          </Toast>
+        </div>
       {/* Table */}
-      <section className="bg-slate-400  items-center">
-        <div className="md:container mx-auto py-5">
-          <main className="px-7 py-3 rounded-3xl bg-white">
+      <section className="bg-[#031d2e]  items-center">
+        <div className="md:container mx-auto px-[10%] py-5">
+          <main className="px-7 py-3 rounded-3xl bg-[#17384e]">
             <div>
               <Tabs.Group
                 id="groupTab"
                 aria-label="Default tabs"
                 style="underline"
+                color="white"
               >
                 {/* Appointment */}
                 <Tabs.Item
                   title="CUỘC HẸN SẮP DIỄN RA"
                   // icon={}
+                  className="bg-[#143246] text-[#ff7010] "
                 >
                   <div className="flex flex-col">
                     <div className=" w-full">
@@ -144,7 +176,7 @@ export default function HistoryBooking() {
                           datepicker
                           datepicker-autohide
                           type="date"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                           placeholder="Select date"
                           onChange={(e) => {
                             setDate(e.target.value);
@@ -162,25 +194,28 @@ export default function HistoryBooking() {
                   }}
                 />
                 */}
-                        <button
-                          type="button"
-                          class="inline-flex items-center px-5  border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                          onClick={() => {
-                            getAppointmentBooking();
-                          }}
-                        >
-                          Tìm Kiếm
-                        </button>
+
+                        <div className="flex flex-row justify-center items-center">
+                          <Image
+                            className="cursor-pointer"
+                            src={searchIcon}
+                            width={30}
+                            height={30}
+                            alt=""
+                            onClick={() => {
+                              getAppointmentBooking();
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
 
                     <div className="upcoming">
                       <Table hoverable={true}>
-                        <Table.Head class="bg-gray-200">
+                        <Table.Head className="bg-[#143246] text-[#ff7010]">
                           {/* <tr class='border border-gray-400'> */}
                           <Table.HeadCell>STT</Table.HeadCell>
                           <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
-                          <Table.HeadCell>Chủ đề</Table.HeadCell>
                           <Table.HeadCell>Thời gian</Table.HeadCell>
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
@@ -190,10 +225,11 @@ export default function HistoryBooking() {
                         </Table.Head>
                         {appointmentBooking.map((row, index) => (
                           <Table.Body key={(index = 0)} class="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                              <Table.Cell>{index + 1}</Table.Cell>
+                            <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
+                              <Table.Cell className="text-[#ff7010]">
+                                {index + 1}
+                              </Table.Cell>
                               <Table.Cell>{row.consultantName}</Table.Cell>
-                              <Table.Cell>Gia đình</Table.Cell>
                               <Table.Cell>{`${dayjs(row.dateSlot).format(
                                 "DD/MM/YYYY"
                               )} `}</Table.Cell>
@@ -203,7 +239,18 @@ export default function HistoryBooking() {
                               <Table.Cell>Sắp diễn ra</Table.Cell>
                               <Table.Cell>
                                 <div className="flex gap-2">
-                                  <Button onClick={handleOpen}>Hủy</Button>
+                                  {/* <Button onClick={handleOpen}>Hủy</Button> */}
+                                  <div>
+                                    <Image
+                                      className="cursor-pointer"
+                                      src={voteIcon}
+                                      width={40}
+                                      height={40}
+                                      alt=""
+                                      onClick={handleOpen}
+                                    />
+                                  </div>
+
                                   <ModalCancelBooking
                                     id={row.id}
                                     className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
@@ -211,17 +258,21 @@ export default function HistoryBooking() {
                                     handleClose={handleClose}
                                   />
 
-                                  <Button
-                                    onClick={() =>
-                                      // onEnjoy(row.id) &&
-                                      router.push({
-                                        pathname: "/videoCall",
-                                        query: { roomCall: row.id },
-                                      })
-                                    }
-                                  >
-                                    Tham gia
-                                  </Button>
+                                  <div>
+                                    <Image
+                                      className="cursor-pointer"
+                                      src={joinIcon}
+                                      width={40}
+                                      height={40}
+                                      alt=""
+                                      onClick={() =>
+                                        router.push({
+                                          pathname: "/videoCall",
+                                          query: { roomCall: row.id },
+                                        })
+                                      }
+                                    />
+                                  </div>
                                 </div>
                               </Table.Cell>
                             </Table.Row>
@@ -231,6 +282,8 @@ export default function HistoryBooking() {
                     </div>
                     <div className=" items-center justify-center text-center">
                       <Pagination
+                        previousLabel="Trước"
+                        nextLabel="Sau"
                         currentPage={currentPage}
                         layout="pagination"
                         onPageChange={async (page) => {
@@ -259,6 +312,7 @@ export default function HistoryBooking() {
 
                 <Tabs.Item
                   title="CUỘC HẸN ĐÃ KẾT THÚC"
+                  id="tabItem2"
                   // icon={}
                 >
                   <div className="flex flex-col">
@@ -269,7 +323,7 @@ export default function HistoryBooking() {
                           datepicker
                           datepicker-autohide
                           type="date"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                           placeholder="Select date"
                           onChange={(e) => {
                             setDate(e.target.value);
@@ -287,24 +341,27 @@ export default function HistoryBooking() {
                   }}
                 />
                 */}
-                        <button
-                          type="button"
-                          class="inline-flex items-center px-5  border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                          onClick={() => {
-                            getHistoryBooking();
-                          }}
-                        >
-                          Tìm Kiếm
-                        </button>
+
+                        <div className="flex flex-row justify-center items-center">
+                          <Image
+                            className="cursor-pointer"
+                            src={searchIcon}
+                            width={30}
+                            height={30}
+                            alt=""
+                            onClick={() => {
+                              getHistoryBooking();
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="historyBooking">
                       <Table hoverable={true}>
-                        <Table.Head class="bg-gray-200">
+                        <Table.Head className="bg-[#143246] text-[#ff7010]">
                           {/* <tr class='border border-gray-400'> */}
                           <Table.HeadCell>STT</Table.HeadCell>
                           <Table.HeadCell>Tên Tư vấn viên</Table.HeadCell>
-                          <Table.HeadCell>Chủ đề</Table.HeadCell>
                           <Table.HeadCell>Thời gian</Table.HeadCell>
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
@@ -314,35 +371,40 @@ export default function HistoryBooking() {
                         </Table.Head>
                         {historyBooking.map((row, index) => (
                           <Table.Body key={index} class="divide-y">
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
                               <Table.Cell
                                 onClick={() =>
                                   setSelectedBooking(row) &&
                                   setSlotId(selectedBooking.id)
                                 }
+                                className="text-[#ff7010]"
                               >
                                 {index + 1}
                               </Table.Cell>
                               <Table.Cell>{row.consultantName}</Table.Cell>
-                              <Table.Cell>Sự nghiệp</Table.Cell>
                               <Table.Cell>{`${dayjs(row.dateSlot).format(
                                 "DD/MM/YYYY"
                               )} `}</Table.Cell>
                               <Table.Cell>{row.timeStart}</Table.Cell>
                               <Table.Cell>{row.timeEnd}</Table.Cell>
+                              <Table.Cell>{row.bookingId}</Table.Cell>
+
                               <Table.Cell>Đã kết thúc</Table.Cell>
                               {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
                               <Table.Cell>
-                                <div
-                                  className="flex gap-2"
-                                  
-                                >
-                                  <Button onClick={()=> 
-                                  handleVoteRate(setBookingId(row.bookingId)) 
-                                  
-                                  }>
-                                    Đánh Giá
-                                  </Button>
+                                <div>
+                                  <Image
+                                    className="cursor-pointer"
+                                    src={rateIcon}
+                                    width={40}
+                                    height={40}
+                                    alt=""
+                                    onClick={() =>
+                                      handleVoteRate(
+                                        setBookingId(row.bookingId)
+                                      )
+                                    }
+                                  />
                                 </div>
                               </Table.Cell>
                             </Table.Row>

@@ -133,7 +133,7 @@ const ModalBooking = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200",
+              "bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200 text-white",
             label: btnActionType[actionType],
           },
         ]}

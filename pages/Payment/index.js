@@ -125,7 +125,8 @@ export default function Payment() {
   }, []);
 
   return (
-    <>
+    <div className="w-auto flex justify-center items-center">
+      <section className=" w-full  bg-[#031d2e] " >
       <Formik
         innerRef={formRef}
         initialValues={{ amount: null }}
@@ -147,14 +148,15 @@ export default function Payment() {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <div class="flex flex-col justify-center items-center bg-gray-100 mr-70 ml-70 mt-2 mb-20 m-60 pb-10 rounded-xl shadow-2xl">
-            <button class="flex flex-row justify-center items-center bg-white w-1/2 rounded-xl shadow-lg m-2 p-2">
-              <div class="justify-center items-center w-full">
+          
+          <div class="flex flex-col justify-center items-center bg-[#17384e] mr-70 ml-70 mt-2 mb-20 m-60 pb-10 rounded-xl shadow-2xl">
+            <button class="flex flex-row justify-center items-center bg-[#17384e] w-full  rounded-xl shadow-lg m-2 p-2">
+              <div class=" text-[#ff7010] font-bold text-2xl pb-5 border-b-4 border-b-[#ff7010]">
                 CỔNG THANH TOÁN
               </div>
             </button>
             <div
-              class="flex flex-row justify-center bg-white w-1/2 rounded-xl shadow-lg m-2 p-2 
+              class="flex flex-row justify-center bg-white w-auto m-4 rounded-xl shadow-lg mx-5
             "
             >
               <Tabs.Group
@@ -162,7 +164,7 @@ export default function Payment() {
                 aria-label="Default tabs"
                 style="underline"
               >
-                <Tabs.Item active={true} title="MOMO">
+                <Tabs.Item active={true} title="MOMO" text="black">
                   <div class="flex flex-col relative">
                     <div class="flex flex-row justify-start">
                       <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
@@ -180,7 +182,7 @@ export default function Payment() {
                           />
                           <div class="text-left p-6">
                             <div class="mb-1 text-xs"></div>
-                            <div class="-mt-1 font-sans text-xl font-semibold">
+                            <div class="-mt-1 font-sans text-xl text-black font-semibold">
                               Hạn mức nạp 50 - 20000
                             </div>
                           </div>
@@ -190,10 +192,10 @@ export default function Payment() {
                         <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 "></div>
                       </div>
                       <div class="p-4 flex flex-col justify-center items-center">
-                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <h3 class="text-black justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           Phí xử lý
                         </h3>
-                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <h3 class="text-black justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           0%
                         </h3>
                       </div>
@@ -243,7 +245,7 @@ export default function Payment() {
                         </div>
                       </div>
                       {/* <div class="m-10"></div> */}
-                      <div className="justify-center items-center flex flex-rowVND(k)
+                      <div className=" text-black justify-center items-center flex flex-rowVND(k)
                       
                       ">VND(k)</div>
                     </div>
@@ -252,63 +254,63 @@ export default function Payment() {
                       <button
                         onClick={changeAmount}
                         value={50}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         50
                       </button>
                       <button
                         onClick={changeAmount}
                         value={100}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         100
                       </button>
                       <button
                         onClick={changeAmount}
                         value={200}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         200
                       </button>
                       <button
                         onClick={changeAmount}
                         value={500}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         500
                       </button>
                       <button
                         onClick={changeAmount}
                         value={600}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         600
                       </button>
                       <button
                         onClick={changeAmount}
                         value={700}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         700
                       </button>
                       <button
                         onClick={changeAmount}
                         value={1000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         1000
                       </button>
                       <button
                         onClick={changeAmount}
                         value={2000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         2000
                       </button>
                       <button
                         onClick={changeAmount}
                         value={5000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        className="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-[#143246] hover:border-transparent rounded"
                       >
                         5000
                       </button>
@@ -316,7 +318,7 @@ export default function Payment() {
 
                     <button
                       type="submit"
-                      class=" flex flex-col justify-between items-center w-full  text-xl bg-blue-500 text-white mt-5 rounded-xl"
+                      className=" bg-[#17384e] text-[#ff7010] flex flex-col justify-between items-center w-full  text-xl  mt-5 rounded-xl"
                       onClick={handleOpen}
                     >
                       MÃ QR MOMO
@@ -354,7 +356,7 @@ export default function Payment() {
 
                           <div class="text-left p-6">
                             <div class="mb-1 text-xs"></div>
-                            <div class="-mt-1 font-sans text-xl font-semibold">
+                            <div class="-mt-1 font-sans text-xl text-black font-semibold">
                               Hạn mức nạp 50 - 20000
                             </div>
                           </div>
@@ -364,10 +366,10 @@ export default function Payment() {
                         <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 "></div>
                       </div>
                       <div class="flex flex-col justify-center items-center">
-                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <h3 class="text-black justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           Phí xử lý
                         </h3>
-                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <h3 class=" text-black justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
                           0%
                         </h3>
                       </div>
@@ -416,56 +418,56 @@ export default function Payment() {
                         </div>
                       </div>
                       {/* <div class="m-10"></div> */}
-                      <div className="flex flex-row justify-center items-center ">VND(k)</div>
+                      <div className="text-black flex flex-row justify-center items-center ">VND(k)</div>
                     </div>
 
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
                       <button
                         onClick={changeAmount}
                         value={50}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         50
                       </button>
                       <button
                         onClick={changeAmount}
                         value={100}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         100
                       </button>
                       <button
                         onClick={changeAmount}
                         value={200}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         200
                       </button>
                       <button
                         onClick={changeAmount}
                         value={500}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         500
                       </button>
                       <button
                         onClick={changeAmount}
                         value={600}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         600
                       </button>
                       <button
                         onClick={changeAmount}
                         value={700}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         700
                       </button>
                       <button
                         onClick={changeAmount}
                         value={1000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         1000
                       </button>
@@ -486,7 +488,7 @@ export default function Payment() {
                     </div>
 
                     <button
-                      class=" flex flex-col justify-between items-center w-full  text-xl bg-blue-500 text-white mt-5 rounded-xl"
+                      class="bg-[#17384e] text-[#ff7010] flex flex-col justify-between items-center w-full  text-xl mt-5 rounded-xl"
                       onClick={handleOpenModalBankPayment}
                     >
                       MÃ QR NGÂN HÀNG
@@ -508,6 +510,8 @@ export default function Payment() {
         amount={amount}
         ref={modalBankPaymentRef}
       />
-    </>
+    </section>
+    </div>
+    
   );
 }

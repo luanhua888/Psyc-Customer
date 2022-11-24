@@ -27,7 +27,7 @@ export default function ArticleDetail() {
 
   return (
     //bài viết cung hoàng đạo
-    <div className="row flex flex-row items-center justify-center w-3/5 mt-2 mx-auto">
+    <div className="row flex flex-row items-center justify-center w-3/5 mt-2 mx-auto bg-[#17384e] text-white">
       <div className="card ">
         <div className="card-body flex flex-col">
           <h1
