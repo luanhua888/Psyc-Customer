@@ -139,8 +139,9 @@ export default function Home(props) {
             </div>
           </div>
           <div className=" w-[250px] ">
-            <div className="as_service_box text-center cursor-pointer" 
-             onClick={() => router.push("/chat")}
+            <div
+              className="as_service_box text-center cursor-pointer"
+              onClick={() => router.push("/chat")}
             >
               <span className="as_icon">
                 <Image src={service1} alt="" />
@@ -156,7 +157,8 @@ export default function Home(props) {
             </div>
           </div>
           <div className=" w-[250px] ">
-            <div className="as_service_box text-center cursor-pointer" 
+            <div
+              className="as_service_box text-center cursor-pointer"
               onClick={() => router.push("/RoomLive")}
             >
               <span className="as_icon">
@@ -173,15 +175,14 @@ export default function Home(props) {
             </div>
           </div>
           <div className=" w-[250px] ">
-            <div className="as_service_box text-center cursor-pointer"
-                onClick={() => router.push("/Survey")}
+            <div
+              className="as_service_box text-center cursor-pointer"
+              onClick={() => router.push("/Survey")}
             >
               <span className="as_icon">
                 <Image src={service3} alt="" height={45} width={45} />
               </span>
-              <h4 className="as_subheading"
-              
-              >Bài khảo sát</h4>
+              <h4 className="as_subheading">Bài khảo sát</h4>
               <p>
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
@@ -505,7 +506,8 @@ export default function Home(props) {
                     });
                   }}
                 >
-                  <Image
+                 <div className="articleBox flex flex-row">
+                 <Image
                     loader={() => row.urlBanner}
                     className="rounded-tl-xl rounded-bl-xl align-middle"
                     src={astroRoundedImg}
@@ -513,14 +515,19 @@ export default function Home(props) {
                     width={350}
                     height={350}
                   />
-                  <div className="flex flex-col justify-center items-center gap-5 w-[500px] h-[400px] bg-[#031d2e] rounded-tr-xl rounded-br-xl">
+                  <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
                     <h1 className="px-2 text-2xl  text-white font-semibold ">
                       {row.title}
                     </h1>
-                    <h1 className="px-2 text-2xl text-white first-of-type:font-semibold">
+                    <h1
+                      className="px-2 text-2xl text-white first-of-type:font-semibold 
+                             text-justif
+                    "
+                    >
                       {row.description}
                     </h1>
                   </div>
+                 </div>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -537,7 +544,10 @@ export default function Home(props) {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p>
+            <p
+              //căn đều 2 bên theo chiều ngang của màn hình
+              className="text-justify text-white"
+            >
               Chiêm tinh học là một ngành khoa học dự đoán với các bộ phương
               pháp, tuyên bố và phát hiện riêng đã mãi mãi truyền cảm hứng và
               cho phép mọi người có cái nhìn sâu sắc về các khía cạnh khác nhau
@@ -547,7 +557,7 @@ export default function Home(props) {
               như vậy bất chấp thế giới đang thay đổi căn cứ từ những gì họ tin
               tưởng và những gì họ không tin tưởng.
             </p>
-            <p>
+            <p className="text-justify text-white">
               Nếu người ta phải đi sâu vào các kỹ thuật của chiêm tinh học, đó
               là nghiên cứu về các vật thể vũ trụ khác nhau, thường là các ngôi
               sao và hành tinh, có ảnh hưởng đến cuộc sống của con người. Bạn
@@ -558,7 +568,7 @@ export default function Home(props) {
               nhiên, hành tinh Trái đất, trong chiêm tinh học, không được tính
               trong số chín hành tinh.
             </p>
-            <p>
+            <p className="text-justify text-white">
               Trong số các hành tinh này, một số hành tinh được gọi là hành tinh
               thân thiện, có nghĩa là sự hiện diện của chúng mang lại sự tích
               cực cho cuộc sống của bạn. Và sau đó, cũng có những hành tinh có

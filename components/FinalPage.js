@@ -19,8 +19,8 @@ function FinalPage({
   // console.log("resultSurvey1", resultSurvey.linkresult);  
   return (
     <div>
-      <div className="flex flex-col justify-center items-center bg-sky-100 mr-70 ml-70 mt-5 mb-20 m-60 pb-5 pt-10 rounded-lg border-black border-2 shadow-2xl">
-        <h1 className="question font-bold text-2xl">Kết quả bài khảo sát của bạn</h1>
+      <div className="flex flex-col justify-center items-center bg-[#17384e ] mr-70 ml-70 mt-5 mb-20 m-60 pb-5 pt-10 rounded-lg border-black border-2 shadow-2xl">
+        <h1 className="question font-bold text-[#ff7010] text-2xl">Kết quả bài khảo sát của bạn</h1>
 
         <Image
                       loader={() => resultSurvey.linkresult}

@@ -1,7 +1,7 @@
 import AbstractService from './AbstractService';
 
 const API = {
-    GET_ALL: 'Articles/Getallarticles',
+    GET_ALL: 'Articles/getarticlescustomer',
     DETAIL_ARTICLE: 'Articles/getbyid',
 };
 
@@ -12,7 +12,7 @@ class ArticleService extends AbstractService {
 
 
     detailArticle = (id) => {
-        return this.httpGET(API.DETAIL_ARTICLE, { id:7 });
+        return this.httpGET(API.DETAIL_ARTICLE, { id });
     };
 
 

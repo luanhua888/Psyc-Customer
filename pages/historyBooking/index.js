@@ -58,7 +58,7 @@ export default function HistoryBooking() {
   const [pageTotalHistoryBooking, setPageTotalHistoryBooking] = useState([]);
   const [date, setDate] = useState();
   const [bookingId, setBookingId] = useState(0);
-  const [btnDisplayToast, setBtnDisplayToast] = useState(true);
+  const [btnDisplayToast, setBtnDisplayToast] = useState(false);
 
 
   console.log("bookingId", bookingId);
@@ -387,7 +387,7 @@ export default function HistoryBooking() {
                               )} `}</Table.Cell>
                               <Table.Cell>{row.timeStart}</Table.Cell>
                               <Table.Cell>{row.timeEnd}</Table.Cell>
-                              <Table.Cell>{row.bookingId}</Table.Cell>
+                              {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
 
                               <Table.Cell>Đã kết thúc</Table.Cell>
                               {/* <Table.Cell>{row.bookingId}</Table.Cell> */}

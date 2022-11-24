@@ -126,7 +126,7 @@ export default function RoomLive(props) {
             {consultants.map((row, index) => (
               <div
                 key={index}
-                class="  cover items-center  max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  "
+                class=" consultantBox   "
               >
                 <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
                   <Image
@@ -143,17 +143,17 @@ export default function RoomLive(props) {
                     href="#"
                     className="w-full flex flex-col sm:flex-row items-center justify-center "
                   >
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-white dark:text-white">
                       {row.consultantName}
                     </h5>
                   </a>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 w-full flex flex-col sm:flex-row items-center justify-center ">
+                  <p class="mb-3 font-normal text-white dark:text-gray-400 w-full flex flex-col sm:flex-row items-center justify-center ">
                     {row.description}
                   </p>
                   <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
                     <a
                       href="#"
-                      class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-[#ff7010] rounded-lg hover:bg-[#17384e] focus:ring-4 focus:outline-none"
+                      class="joinBox  inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-[#ff7010] rounded-lg hover:bg-[#17384e] focus:ring-4 focus:outline-none"
                       onClick={() =>
                         router.push({
                           pathname: "/LiveStream",

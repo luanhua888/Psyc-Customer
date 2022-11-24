@@ -44,7 +44,6 @@ const ModalBooking = forwardRef((props, ref) => {
     [ACTION_TYPE.CONFIRM]: "Xác nhận",
   });
 
-
   const getSlotBookings = (date, consultantId) => {
     slotBookingService.getAll(date, consultantId).then((response) => {
       if (!_.isEmpty(response.data)) {
@@ -101,6 +100,7 @@ const ModalBooking = forwardRef((props, ref) => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        classes=" bg-[#17384e] text-[#ff7010] p-4"
         title={"Đặt lịch hẹn"}
         onConfirm={() => {
           if (actionType === ACTION_TYPE.BOOKING) {
@@ -109,7 +109,7 @@ const ModalBooking = forwardRef((props, ref) => {
 
           if (actionType === ACTION_TYPE.CONFIRM) {
             onPayment();
-          } 
+          }
           // else {
           //  onBookingFail();
           // }
@@ -126,14 +126,14 @@ const ModalBooking = forwardRef((props, ref) => {
             role: "discard",
             toClose: true,
             classes:
-              "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
+              "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200 text-white  bg-[#17384e] text-[#ff7010] ",
             label: "Hủy",
           },
           {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-indigo-500 px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200 text-white",
+              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#286289] transition-all duration-200 text-white  ",
             label: btnActionType[actionType],
           },
         ]}
@@ -141,12 +141,16 @@ const ModalBooking = forwardRef((props, ref) => {
         {...props}
       >
         {actionType === ACTION_TYPE.BOOKING ? (
-          <div className="flex flex-row ">
+          <div className="flex flex-row  bg-[#031d2e]">
             <div>
               <FullCalendar
+                // chuyển today thành ngày hiện tại
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 height="auto"
+                // chuyển  thành tiếng việt
+                locale="vi"
+                className="bg-[#17384e]"
                 showNonCurrentDates={false}
                 selectable={true}
                 select={(info) => {
@@ -156,13 +160,13 @@ const ModalBooking = forwardRef((props, ref) => {
                   setSelectionInfo(info);
                   getSlotBookings(info.startStr, consultant.id);
                   if (daySelected >= currentDay) {
-                      getSlotBookings(info.startStr);
-                      setSelectionInfo(info);
+                    getSlotBookings(info.startStr);
+                    setSelectionInfo(info);
                   }
                 }}
               />
             </div>
-            <div>
+            <div locale="vi">
               {!_.isEmpty(selectionInfo) && !_.isEmpty(slotBookings) && (
                 <div>
                   <div className="flex flex-col flex-wrap gap-2 px-4 py-4  justify-center items-center">
@@ -170,7 +174,7 @@ const ModalBooking = forwardRef((props, ref) => {
                       {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
                     </div>
                     <div className="justify-center">
-                      <span className="text-sky-400 font-mono">
+                      <span className="text-[#ff7010] font-mono">
                         Giá: {selectedBooking.price} Gem
                       </span>
                     </div>
@@ -183,10 +187,10 @@ const ModalBooking = forwardRef((props, ref) => {
                         {slotBookings.map((row, index) => (
                           <button
                             key={row.id}
-                            className="py-2 px-2 h-10 w-60 border-2 border-blue-500 text-blue-500 rounded-2xl cursor-pointer hover:ring focus:ring"
+                            className="py-2 px-2 h-10 w-60 border-2 ring-[#17384e] hover:text-white  text-[#ff7010] rounded-2xl hover:bg-[#ff7010] cursor-pointer hover:ring focus:ring"
                             onClick={() =>
                               setSelectedBooking(row) &&
-                              setSlotId(selectedBooking.id) 
+                              setSlotId(selectedBooking.id)
                             }
                           >
                             {row.timeStart} - {row.timeEnd}
@@ -208,15 +212,13 @@ const ModalBooking = forwardRef((props, ref) => {
             {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
           </div>
         )}
-
-
       </Modal>
       <ModalSuccess
         id={selectedBooking}
         // consultantId={consultantId}
         ref={modalSuccessRef}
       />
-      <ModalBookingFail id={selectedBooking.id}  ref={modalBookingFailRef}  />
+      <ModalBookingFail id={selectedBooking.id} ref={modalBookingFailRef} />
     </div>
   );
 });

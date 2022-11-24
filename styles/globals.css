@@ -420,7 +420,7 @@ input {
   align-items: center;
 
 
-  
+
 }
 
 /* ==test
@@ -678,4 +678,34 @@ h6,
 .as_sign_ul.as_sign_ul_right li:nth-child(2),
 .as_sign_ul.as_sign_ul_right li:nth-child(5) {
   transform: translateX(-100px);
+}
+
+.articleBox {
+  border-radius: 47px;
+  background: #0a2c43;
+  box-shadow: inset -32px -32px 43px #051724,
+              inset 32px 32px 43px #0f4162;
+}
+
+.consultantBox{
+  border-radius: 18px;
+  background: #0c5776;
+  box-shadow: inset -30px -30px 50px #093f55,
+              inset 30px 30px 50px #0f6f97;
+}
+
+.joinBox{
+  border-radius: 16px;
+  background: #ff7010;
+  box-shadow: inset -5px -5px 10px #9e450a,
+              inset 5px 5px 10px #ff9b16;
+
+
+}
+
+.bookingBox{
+  border-radius: 16px;
+background: #ffffff;
+box-shadow: inset -5px -5px 10px #9e9e9e,
+            inset 5px 5px 10px #ffffff;
 }
