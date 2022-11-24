@@ -233,8 +233,6 @@ export default function Home(props) {
                         pathname: "/zodiacDetail",
                         query: { zodiacId: zodiac2.id },
                       });
-
-                     
                     }}
                   >
                     <span className="as_sign">
@@ -502,39 +500,35 @@ export default function Home(props) {
                 <SwiperSlide
                   className="flex flex-row justify-center"
                   key={key}
-                  onClick={() => {
-                    // gửi id mà load ra chi tiết bài viết
+                  onClick={() =>
                     router.push({
                       pathname: "/articleDetail",
                       query: { roomCall: row.id },
-                    });
-                    
-                 
-                   
-                  }}
+                    })
+                  }
                 >
-                 <div className="articleBox flex flex-row">
-                 <Image
-                    loader={() => row.urlBanner}
-                    className="rounded-tl-xl rounded-bl-xl align-middle"
-                    src={astroRoundedImg}
-                    alt=""
-                    width={350}
-                    height={350}
-                  />
-                  <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
-                    <h1 className="px-2 text-2xl  text-white font-semibold ">
-                      {row.title}
-                    </h1>
-                    <h1
-                      className="px-2 text-2xl text-white first-of-type:font-semibold 
+                  <div className="articleBox flex flex-row">
+                    <Image
+                      loader={() => row.urlBanner}
+                      className="rounded-tl-xl rounded-bl-xl align-middle"
+                      src={astroRoundedImg}
+                      alt=""
+                      width={350}
+                      height={350}
+                    />
+                    <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
+                      <h1 className="px-2 text-2xl  text-white font-semibold ">
+                        {row.title}
+                      </h1>
+                      <h1
+                        className="px-2 text-2xl text-white first-of-type:font-semibold 
                              text-justif
                     "
-                    >
-                      {row.description}
-                    </h1>
+                      >
+                        {row.description}
+                      </h1>
+                    </div>
                   </div>
-                 </div>
                 </SwiperSlide>
               ))}
             </Swiper>
