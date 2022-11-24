@@ -230,7 +230,7 @@ export default function Home(props) {
                     onClick={() => {
                       // gửi id qua url mà ko bị 404 lỗi
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac2.id },
                       });
                     }}
@@ -250,7 +250,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac3.id },
                       });
                     }}
@@ -424,7 +424,7 @@ export default function Home(props) {
                   <a
                     onClick={() => {
                       router.push({
-                        pathname: "/zodiacDetail",
+                        pathname: "/zodiac",
                         query: { zodiacId: zodiac11.id },
                       });
                     }}

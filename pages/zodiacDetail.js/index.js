@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useEffect, useState, Component } from "react";
 import { zodiacService } from "../../services/ZodiacService";
 import astroRoundedImg from "../../public/photos/astro-rounded.png";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-export default function ArticleDetail() {
-  
+export default function Zodiac() {
   const router = useRouter();
 
   let { zodiacId } = router.query;
@@ -15,30 +14,16 @@ export default function ArticleDetail() {
     zodiacId,
   };
 
-
-
-
-  // useEffect(() => {
-  //   document.getElementById("noCam").style.display = "none";
-  //   document.getElementById("noMic").style.display = "none";
-  // }, []);
-
- 
-
-
+  const [zodiac, setZodiac] = useState([]);
   useEffect(() => {
     (async () => {
-      
-
-      const data = await zodiacService.detailZodiac(props.zodiacId);
+      const data = await zodiacService.detailZodiac(zodiacId);
       if (data.statusCode == 200) {
         setZodiac(data.data[0]);
         console.log("zodiac", data.data);
       }
     })();
   }, []);
-
-  const [zodiac, setZodiac] = useState([]);
 
   return (
     //bài viết cung hoàng đạo
