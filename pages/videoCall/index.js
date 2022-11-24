@@ -21,13 +21,12 @@ export default function VideoCall() {
     roomCall,
   };
 
-  console.log("roomCall", roomCall);
+  console.log("roomCall1", roomCall);
   useEffect(() => {
     document.getElementById("noCam").style.display = "none";
     document.getElementById("noMic").style.display = "none";
   }, []);
 
-  console.log("props", props);
 
   const [room, setRoom] = useState([]);
   const [token, setToken] = useState([]);

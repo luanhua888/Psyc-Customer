@@ -24,8 +24,12 @@ export default function ArticleDetail() {
   // }, []);
 
  
+
+
   useEffect(() => {
     (async () => {
+      
+
       const data = await zodiacService.detailZodiac(props.zodiacId);
       if (data.statusCode == 200) {
         setZodiac(data.data[0]);
@@ -33,7 +37,7 @@ export default function ArticleDetail() {
       }
     })();
   }, []);
-  
+
   const [zodiac, setZodiac] = useState([]);
 
   return (

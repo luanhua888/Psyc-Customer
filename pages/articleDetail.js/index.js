@@ -6,10 +6,7 @@ import { articleService } from "../../services/ArticleService";
 import DOMPurify from "dompurify";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-
 export default function ArticleDetail() {
-  
-
   const router = useRouter();
 
   const { articleId } = router.query;
@@ -18,15 +15,16 @@ export default function ArticleDetail() {
     articleId,
   };
 
-
   console.log("articleId", articleId);
   const [article, setArticleId] = useState({});
 
   useEffect(() => {
     (async () => {
-      const data = await articleService.detailArticle(props.articleId);
-      if (data.statusCode == 200) {
-        setArticleId(data.data[0]);
+      if (localStorage.getItem("jwttoken")) {
+        const data = await articleService.detailArticle(props.articleId);
+        if (data.statusCode == 200) {
+          setArticleId(data.data[0]);
+        }
       }
     })();
   }, []);
@@ -61,16 +59,13 @@ export default function ArticleDetail() {
 
           <Paragraph>
             <div
-                className="w-full leading-8"
-                dangerouslySetInnerHTML={{
-                    __html: (article.contentNews),
-                    }}
-
-                style={{
-                    textAlign: "justify ",
-                }}
-
-                
+              className="w-full leading-8"
+              dangerouslySetInnerHTML={{
+                __html: article.contentNews,
+              }}
+              style={{
+                textAlign: "justify ",
+              }}
             ></div>
           </Paragraph>
         </div>
