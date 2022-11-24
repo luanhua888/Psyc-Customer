@@ -502,7 +502,7 @@ export default function Home(props) {
                   key={key}
                   onClick={() =>
                     router.push({
-                      pathname: "/articleDetail",
+                      pathname: "/videoCall",
                       query: { roomCall: row.id },
                     })
                   }
