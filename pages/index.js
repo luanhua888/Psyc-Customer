@@ -503,7 +503,7 @@ export default function Home(props) {
                   onClick={() =>
                     router.push({
                       pathname: "/arcticle",
-                      query: { roomCall: row.id },
+                      query: { articleId : row.id },
                     })
                   }
                 >

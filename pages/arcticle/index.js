@@ -15,10 +15,10 @@ import connect from "../../public/photos/icon/link.png";
 export default function Article() {
   const router = useRouter();
 
-  let { roomCall } = router.query;
+  let { articleId  } = router.query;
 
   let props = {
-    roomCall,
+    articleId ,
   };
 
   console.log("roomCall1", roomCall);
