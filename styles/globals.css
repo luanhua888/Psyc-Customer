@@ -479,6 +479,11 @@ h6,
   background-color: #07273c;
   padding: 50px 22px;
   margin-top: 30px;
+  box-shadow: inset -5px -5px 10px #051e2e,
+    inset 5px 5px 10px #09304a;
+
+  border-radius: 16px;
+  color: white;
 }
 
 .as_service_box .as_icon {
@@ -684,28 +689,39 @@ h6,
   border-radius: 47px;
   background: #0a2c43;
   box-shadow: inset -32px -32px 43px #051724,
-              inset 32px 32px 43px #0f4162;
+    inset 32px 32px 43px #0f4162;
 }
 
-.consultantBox{
+.consultantBox {
   border-radius: 18px;
   background: #0c5776;
   box-shadow: inset -30px -30px 50px #093f55,
-              inset 30px 30px 50px #0f6f97;
+    inset 30px 30px 50px #0f6f97;
 }
 
-.joinBox{
+.joinBox {
   border-radius: 16px;
   background: #ff7010;
   box-shadow: inset -5px -5px 10px #9e450a,
-              inset 5px 5px 10px #ff9b16;
+    inset 5px 5px 10px #ff9b16;
 
 
 }
 
-.bookingBox{
+.bookingBox {
   border-radius: 16px;
-background: #ffffff;
-box-shadow: inset -5px -5px 10px #9e9e9e,
-            inset 5px 5px 10px #ffffff;
+  background: #ffffff;
+  box-shadow: inset -5px -5px 10px #9e9e9e,
+    inset 5px 5px 10px #ffffff;
+}
+
+.btnViewDaily {
+  border-radius: 16px;
+  background: #f6863b;
+  box-shadow: inset -5px -5px 10px #bb662d,
+    inset 5px 5px 10px #ffa649;
+}
+
+.btnSelect{
+  
 }

@@ -9,6 +9,9 @@ import logoSpin from "../public/service_img2.png";
 import service1 from "../public/photos/service1.svg";
 import service2 from "../public/photos/icon/iconCamera.png";
 import service3 from "../public/photos/icon/iconTest.png";
+import service5 from "../public/photos/icon/service5.svg";
+import service6 from "../public/photos/icon/service6.svg";
+import service7 from "../public/photos/icon/service7.svg";
 
 import { zodiacService } from "../services/ZodiacService";
 import { articleService } from "../services/ArticleService";
@@ -18,6 +21,8 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
 import { useRouter } from "next/router";
+
+
 
 export default function Home(props) {
   const router = useRouter();
@@ -110,6 +115,7 @@ export default function Home(props) {
         </div>
       </section>
 
+      {/*service  */}
       <div className=" bg-[#17384e]  mx-auto px-[10%]  py-6">
         <div className="col-lg-12 jus text-center">
           <h1 className=" w-[40%] justify-center flex flex-row items-center mx-auto text-3xl border-b-2 border-[#ff7010]">
@@ -124,18 +130,18 @@ export default function Home(props) {
 
         <div className="flex flex-row justify-center gap-4 mx-auto ">
           <div className=" w-[250px]">
-            <div className="as_service_box text-center">
+            <div className="as_service_box text-center"
+              onClick={() => router.push("/dailyHoroscop")}
+            >
               <span className="as_icon">
-                <Image src={service3} width={45} height={45} alt="" />
+                <Image src={service7} width={40} height={40} alt="" />
               </span>
-              <h4 className="as_subheading">Vastu Shastra</h4>
+              <h4 className="as_subheading">Lá Số Tử Vi</h4>
               <p>
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
               </p>
-              {/* <a href="service_detail.html" className="as_link">
-                read more
-              </a> */}
+           
             </div>
           </div>
           <div className=" w-[250px] ">
@@ -164,7 +170,7 @@ export default function Home(props) {
               <span className="as_icon">
                 <Image src={service2} alt="" height={45} width={45} />
               </span>
-              <h4 className="as_subheading ">Trực tiếp</h4>
+              <h4 className="as_subheading ">Trực Tiếp</h4>
               <p>
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
@@ -182,7 +188,7 @@ export default function Home(props) {
               <span className="as_icon">
                 <Image src={service3} alt="" height={45} width={45} />
               </span>
-              <h4 className="as_subheading">Bài khảo sát</h4>
+              <h4 className="as_subheading">Bài Khảo Sát</h4>
               <p>
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
@@ -195,6 +201,7 @@ export default function Home(props) {
         </div>
       </div>
 
+      {/* zodiac   */}
       <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
           <div className="flex flex-row justify-center">
@@ -466,7 +473,7 @@ export default function Home(props) {
         </div>
       </div>
 
-      {/* <SliderComponent/> */}
+      {/* article */}
 
       <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-8 items-center ">
@@ -503,7 +510,7 @@ export default function Home(props) {
                   onClick={() =>
                     router.push({
                       pathname: "/arcticle",
-                      query: { articleId : row.id },
+                      query: { articleId: row.id },
                     })
                   }
                 >
@@ -535,6 +542,10 @@ export default function Home(props) {
           </div>
         </div>
       </section>
+     
+
+      {/* footer */}
+      {/*  */}
 
       <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
         <div className="md:container mx-auto py-5">
