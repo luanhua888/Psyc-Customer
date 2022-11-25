@@ -188,8 +188,6 @@ export default function Profile(props) {
         >
           <Toast
             title="Success"
-            autohide
-            delay={5000}
           >
             <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
               <Image src={successIcon} width={30} height={30}  alt=""
@@ -461,7 +459,7 @@ export default function Profile(props) {
                   <Image
                     src={addIcon}
                     alt=""
-                    className="rounded-xl ml-[50%] cursor-pointer --fa-animation-duration: 2s"
+                    className="rounded-xl ml-[50%] cursor-pointer"
                     width={30}
                     height={30}
                     onClick={() => {

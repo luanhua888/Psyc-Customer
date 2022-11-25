@@ -14,6 +14,8 @@ const API = {
   UPLOAD_IMAGE: "FirebaseServices/upload",
   UPDATE_IMAGE_PROFILE: "Customers/update",
   CREATE_SUP_PROFILE: "Profiles/create",
+  DAILY_HOROCOP : "DailyHoroscopes/Getalldailyhoroscopes",
+  GET_USERBYID : "Customers/getbyid"
 };
 
 class UserService extends AbstractService {
@@ -138,6 +140,15 @@ class UserService extends AbstractService {
       oldPassword: oldPassword,
       newPassword: newPassword,
     });
+  }
+
+  getDailyHorocop= (id, date) => {
+    return this.httpGET(API.DAILY_HOROCOP,{ id:id, date:date });
+  }
+
+
+  getZodiacId = (id) => {
+    return this.httpGET(API.GET_USERBYID, { id });
   }
 
 
