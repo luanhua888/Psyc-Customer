@@ -39,10 +39,11 @@ class DepositService extends AbstractService {
   };
 
 
-  getDepositByDate  = (code, date, pagesize = 5, pagenumber = 1) => {
+  getDepositByDate  = ( search, date, customerid,  pagesize = 5, pagenumber = 1) => {
     return this.httpGET(API.GET_ALLDEPOSIT, {
-      code,
+      search,
       date,
+      customerid,
       pagesize,
       pagenumber,
     });

@@ -59,7 +59,7 @@ const ModalDailyHorocop = forwardRef((id, ref) => {
             width={200}
           />
 
-          <h1 className="text-xl">{`${dayjs(id.id.date).format("DD/MM")}`}</h1>
+          <h1 className="text-xl">{`${dayjs(id.id.date).format("DD/MM/YYYY")}`}</h1>
           <p className="text-[] w-2/3">{id.id.context}</p>
           <p className="w-2/3">
             <span className="text-white">Công Việc: </span> {id.id.job}

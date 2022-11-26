@@ -24,11 +24,11 @@ export default function DailyHoroscop() {
   const [day, setDay] = useState("");
   const [dayLy, setDaily] = useState("");
 
-  const handleOpenModalDailyHoroscop = async(a) => {
+  const handleOpenModalDailyHoroscop = async (a) => {
     modalDailyHorocopRef.current?.open();
     // getDaily();
     // console.log("a", a);
-    
+
     const data = await userService.getDailyHorocop(zodiacId, a);
     if (data.statusCode == 200) {
       setDaily(data.data[0]);
@@ -36,7 +36,6 @@ export default function DailyHoroscop() {
   };
 
   console.log("dayLy", dayLy);
-
 
   useEffect(() => {
     (async () => {
@@ -66,6 +65,11 @@ export default function DailyHoroscop() {
               <div className=" w-[250px] ">
                 <div
                   className="as_service_box text-center cursor-pointer  "
+                  onClick={() =>
+                    handleOpenModalDailyHoroscop(
+                      dayjs().subtract(1, "day").format("YYYY-MM-DD")
+                    )
+                  }
 
                   //   onClick={() => router.push("/")}
                 >
@@ -78,7 +82,9 @@ export default function DailyHoroscop() {
                     className="text-white btnViewDaily font-bold px-10 mt-2 py-2
                   "
                     onClick={() =>
-                      handleOpenModalDailyHoroscop(dayjs().subtract(1, "day").format("YYYY-MM-DD")) 
+                      handleOpenModalDailyHoroscop(
+                        dayjs().subtract(1, "day").format("YYYY-MM-DD")
+                      )
                     }
                   >
                     Xem
@@ -88,7 +94,9 @@ export default function DailyHoroscop() {
               <div className=" w-[250px] ">
                 <div
                   className="as_service_box text-center cursor-pointer"
-                  //   onClick={() => router.push("/")}
+                  onClick={() =>
+                    handleOpenModalDailyHoroscop(dayjs().format("YYYY-MM-DD"))
+                  }
                 >
                   <span className="as_icon">
                     <Image src={service6} alt="" height={45} width={45} />
@@ -99,25 +107,6 @@ export default function DailyHoroscop() {
                     {dayjs().format("DD/MM/YYYY")}
                   </h5>
                   <div>
-                    <select
-                      className="text-[#d7d0cc] w-full bg-[#255c81] outline-none rounded-xl  hover:outline-[#455f71] hover:bg-[#031d2e] btnSelect"
-                      id="ZODIAC"
-                    >
-                      <option className="" value="1">
-                        Bạch Dương
-                      </option>
-                      <option value="2">Kim Ngưu</option>
-                      <option value="3">Song Tử</option>
-                      <option value="4">Cự Giải</option>
-                      <option value="5">Sư Tử</option>
-                      <option value="6">Xử Nữ</option>
-                      <option value="7">Thiên Bình</option>
-                      <option value="8">Bọ Cạp</option>
-                      <option value="9">Nhân Mã</option>
-                      <option value="10">Ma Kết</option>
-                      <option value="11">Bảo Bình</option>
-                      <option value="12">Song Ngư</option>
-                    </select>
                     <button className="text-white btnViewDaily font-bold px-10 mt-2 py-2">
                       Xem
                     </button>
@@ -127,7 +116,11 @@ export default function DailyHoroscop() {
               <div className=" w-[250px] ">
                 <div
                   className="as_service_box text-center cursor-pointer"
-                  onClick={() => router.push("/")}
+                  onClick={() =>
+                    handleOpenModalDailyHoroscop(
+                      dayjs().add(1, "day").format("YYYY-MM-DD")
+                    )
+                  }
                 >
                   <span className="as_icon">
                     <Image src={service7} alt="" height={45} width={45} />
@@ -138,25 +131,6 @@ export default function DailyHoroscop() {
                     {dayjs().add(1, "day").format("DD-MM-YYYY")}
                   </h5>
                   <div>
-                    <select
-                      className="text-[#d7d0cc] w-full bg-[#255c81] outline-none rounded-xl  hover:outline-[#455f71] hover:bg-[#031d2e] btnSelect"
-                      id="ZODIAC"
-                    >
-                      <option className="" value="1">
-                        Bạch Dương
-                      </option>
-                      <option value="2">Kim Ngưu</option>
-                      <option value="3">Song Tử</option>
-                      <option value="4">Cự Giải</option>
-                      <option value="5">Sư Tử</option>
-                      <option value="6">Xử Nữ</option>
-                      <option value="7">Thiên Bình</option>
-                      <option value="8">Bọ Cạp</option>
-                      <option value="9">Nhân Mã</option>
-                      <option value="10">Ma Kết</option>
-                      <option value="11">Bảo Bình</option>
-                      <option value="12">Song Ngư</option>
-                    </select>
                     <button className="text-white btnViewDaily font-bold px-10 mt-2 py-2">
                       Xem
                     </button>
@@ -168,7 +142,7 @@ export default function DailyHoroscop() {
         </div>
       </section>
 
-      <ModalDailyHorocop id={dayLy}  ref={modalDailyHorocopRef} />
+      <ModalDailyHorocop id={dayLy} ref={modalDailyHorocopRef} />
     </div>
   );
 }

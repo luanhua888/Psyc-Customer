@@ -40,6 +40,7 @@ export default function HistoryDeposit() {
   const [historyDeposit, setHistoryDeposit] = useState([]);
   const [pageTotal, setPageTotal] = useState([]);
   const [date, setDate] = useState();
+  const [search, setSearch] = useState();
 
   const getHistoryDeposit = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -59,10 +60,11 @@ export default function HistoryDeposit() {
   const getDepositByDate = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await depositService.getDepositByDate(
-        localStorage.getItem("idcustomer"),
+        search,
         date,
-        currentPage,
-        5
+        localStorage.getItem("idcustomer"),
+        5,
+        currentPage
       );
 
       if (data.statusCode == 200) {
@@ -70,8 +72,7 @@ export default function HistoryDeposit() {
         setPageTotal(data.totalpage);
       }
     }
-
-  }
+  };
 
   const getHistory = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -153,6 +154,7 @@ export default function HistoryDeposit() {
                     <input
                       datepicker
                       datepicker-autohide
+                      format="dd/MM/yyyy"
                       type="date"
                       class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       placeholder="Select date"
@@ -168,7 +170,7 @@ export default function HistoryDeposit() {
                       class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                       placeholder="Select date"
                       onChange={(e) => {
-                        setDate(e.target.value);
+                        setSearch(e.target.value);
                       }}
                     />
                     <div className="flex flex-row justify-center items-center">
@@ -198,37 +200,46 @@ export default function HistoryDeposit() {
                       <Table.HeadCell>Trạng thái</Table.HeadCell>
                       {/* </tr> */}
                     </Table.Head>
-                    {historyDeposit.map((row, index) => (
-                      <Table.Body key={(index = 0)} class="divide-y">
-                        <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
-                          <Table.Cell className="text-[#ff7010]">
-                            {index + 1}
-                          </Table.Cell>
-                          <Table.Cell>{row.code}</Table.Cell>
-                          <Table.Cell>
-                            {new Intl.NumberFormat("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            }).format(row.amount * 1000)}
-                          </Table.Cell>
-                          <Table.Cell>{row.amount}</Table.Cell>
-                          <Table.Cell>{`${dayjs(row.dateCreate).format(
-                            "DD/MM/YYYY"
-                          )} `}</Table.Cell>
-                          <Table.Cell>
-                            {/* nếu status = success thì là thành công 
+                    {/* nếu historyDeposit.length > 0 thì  */}
+                    {historyDeposit.length > 0 ? (
+                      <Table.Body class="divide-y">
+                        {historyDeposit.map((row, index) => (
+                          <Table.Row
+                            key={(index = 0)}
+                            className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
+                          >
+                            <Table.Cell className="text-[#ff7010]">
+                              {index + 1}
+                            </Table.Cell>
+                            <Table.Cell>{row.code}</Table.Cell>
+                            <Table.Cell>
+                              {new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(row.amount * 1000)}
+                            </Table.Cell>
+                            <Table.Cell>{row.amount}</Table.Cell>
+                            <Table.Cell>{`${dayjs(row.dateCreate).format(
+                              "MM/DD/YYYY"
+                            )} `}</Table.Cell>
+                            <Table.Cell>
+                              {/* nếu status = success thì là thành công 
                           nếu status = waiting thì là đang chờ
                           nếu status = fail thì là thất bại */}
-                            {row.status == "success" ? (
-                              <span className="text-green-500">Thành Công</span>
-                            ) : row.status == "waiting" ? (
-                              <span className="text-yellow-500">Đang Chờ</span>
-                            ) : (
-                              <span className="text-red-500">Thất Bại</span>
-                            )}
-                          </Table.Cell>
+                              {row.status == "success" ? (
+                                <span className="text-green-500">
+                                  Thành Công
+                                </span>
+                              ) : row.status == "waiting" ? (
+                                <span className="text-yellow-500">
+                                  Đang Chờ
+                                </span>
+                              ) : (
+                                <span className="text-red-500">Thất Bại</span>
+                              )}
+                            </Table.Cell>
 
-                          {/* <Table.Cell>
+                            {/* <Table.Cell>
                               <div className="flex gap-2">
                                 <Button onClick={handleOpen}>Hủy</Button>
                                 <ModalCancelBooking
@@ -251,9 +262,21 @@ export default function HistoryDeposit() {
                                 </Button>
                               </div>
                             </Table.Cell> */}
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    ) : (
+                      <Table.Body>
+                        <Table.Row>
+                          <Table.Cell
+                            colSpan={6}
+                            className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
+                          >
+                            Không có dữ liệu
+                          </Table.Cell>
                         </Table.Row>
                       </Table.Body>
-                    ))}
+                    )}
                   </Table>
                 </div>
                 <div className=" items-center justify-center text-center">
