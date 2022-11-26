@@ -24,11 +24,9 @@ export default function Navbar() {
   const [user, setUser] = useState({});
   const [crab, setCrab] = useState([]);
 
-
   const handleOpenModalChangePassword = () => {
     modalChangePasswordRef.current.open();
-
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -157,9 +155,9 @@ export default function Navbar() {
                       <Dropdown.Item onClick={() => router.push("/Payment")}>
                         Nạp tiền
                       </Dropdown.Item>
-                      <Dropdown.Item
-                      onClick={handleOpenModalChangePassword}
-                      >Đổi mật khẩu</Dropdown.Item>
+                      <Dropdown.Item onClick={handleOpenModalChangePassword}>
+                        Đổi mật khẩu
+                      </Dropdown.Item>
                       <Dropdown.Item onClick={onLogout}>
                         Đăng xuất
                       </Dropdown.Item>
@@ -223,10 +221,11 @@ export default function Navbar() {
                       href="#"
                       className="pb-2 hover:border-b-2 hover:border-amber-600 cursor-pointer
                       hover:text-amber-600
-                      
                       "
+                      onClick={() => router.push("/Survey")}
+
                     >
-                      Tương thích cặp đôi
+                      Bài Khảo sát
                     </a>
                   </li>
                   <li className="hover:text-amber-600">

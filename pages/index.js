@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useRef, useEffect, useState, Component } from "react";
 import astroRoundedImg from "../public/photos/astro-rounded.png";
 import logoFooterImg from "../public/logo1.png";
+
+import ModalLogin from "../components/modal/ModalLogin";
+
 import logoSpin from "../public/service_img2.png";
 import service1 from "../public/photos/service1.svg";
 import service2 from "../public/photos/icon/iconCamera.png";
@@ -21,10 +24,14 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
 import { useRouter } from "next/router";
+import { userService } from "../services/UserService";
 
 
 
 export default function Home(props) {
+
+  const modalLoginRef = useRef();
+
   const router = useRouter();
   const { zodiacs, articles } = props;
   const [zodiac, setZodiac] = useState([]);
@@ -41,6 +48,9 @@ export default function Home(props) {
   const [zodiac11, setZodiac11] = useState([]);
   const [zodiac12, setZodiac12] = useState([]);
   const [article, setArticle] = useState([]);
+
+  const [user, setUser] = useState({});
+
   console.log("article", article.id);
   console.log("zodiac", zodiac);
 
@@ -76,6 +86,33 @@ export default function Home(props) {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("jwttoken")) {
+        const data = await userService.profile(localStorage.getItem("iddb"));
+
+        if (data.statusCode == 200) {
+          setUser(data.data[0]);
+        }
+      }
+    })();
+  }, []);
+
+
+  const onJoin = () => {
+    if (
+      !user.id
+
+    ) {
+      modalLoginRef.current.open();
+      return;
+    }
+
+    router.push({
+      pathname: "/dailyHoroscop",
+    })
+  };
 
   const settings = {
     autoAdjustGap: true,
@@ -131,7 +168,7 @@ export default function Home(props) {
         <div className="flex flex-row justify-center gap-4 mx-auto ">
           <div className=" w-[250px]">
             <div className="as_service_box text-center"
-              onClick={() => router.push("/dailyHoroscop")}
+              onClick={() => onJoin()}
             >
               <span className="as_icon">
                 <Image src={service7} width={40} height={40} alt="" />
@@ -658,6 +695,8 @@ export default function Home(props) {
           </div>
         </div>
       </footer>
+      <ModalLogin ref={modalLoginRef} />
+
     </>
   );
 }

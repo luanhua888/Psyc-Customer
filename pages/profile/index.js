@@ -42,8 +42,6 @@ export default function Profile(props) {
     getSupProfile();
   };
 
-
-
   const pageCount = 5;
 
   const onSubmit = async (data) => {
@@ -89,11 +87,18 @@ export default function Profile(props) {
 
     if (data.statusCode == 200) {
       //hiển thị toast success
-      setBtnDisplayToast(true);
       getSupProfile();
     }
     getSupProfile();
+    setBtnDisplayToast(true);
+
+    //time hiển thị toast 5s
+    setTimeout(() => {
+      setBtnDisplayToast(false);
+    }, 5000);
+   
   };
+
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -182,24 +187,26 @@ export default function Profile(props) {
     <>
       <section className="bg-[#031d2e]">
 
-        <div className="absolute right-10 flex flex-row"
-        // không hiển thị
-        style={{ display: btnDisplayToast ? "block" : "none" }}
+
+        <div
+          className="absolute right-10 top-20 flex flex-row"
+          // không hiển thị
+          style={{ display: btnDisplayToast ? "block" : "none" }}
         >
-          <Toast
-            title="Success"
-          >
+          <Toast title="Success">
             <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
-              <Image src={successIcon} width={30} height={30}  alt=""
+              <Image
+                src={successIcon}
+                width={30}
+                height={30}
+                alt=""
                 className="justify-center items-center"
               />
-
             </div>
             <div className="ml-3 text-sm font-normal">Thành công</div>
             <Toast.Toggle />
           </Toast>
         </div>
-
 
         <div className="md:container mx-auto px-24 py-6 ">
           <div className="flex justify-center items-center">
@@ -481,9 +488,13 @@ export default function Profile(props) {
                     <Table.HeadCell>Nơi Sinh</Table.HeadCell>
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                   </Table.Head>
-                  {supProfile.map((item, index) => (
-                    <Table.Body key={index} className=" ">
-                      <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
+                  {supProfile.length > 0 ? (
+                  <Table.Body className=" ">
+                    {supProfile.map((item, index) => (
+                      <Table.Row
+                        key={index}
+                        className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
+                      >
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 text-[#ff7010]">
                           {index + 1}
                         </Table.Cell>
@@ -503,7 +514,7 @@ export default function Profile(props) {
                           <div className="flex flex-wrap gap-3">
                             <div>
                               <Image
-                              className="cursor-pointer"
+                                className="cursor-pointer"
                                 src={deleteIcon}
                                 width={20}
                                 height={20}
@@ -513,8 +524,7 @@ export default function Profile(props) {
                             </div>
                             <div>
                               <Image
-                              className="cursor-pointer"
-
+                                className="cursor-pointer"
                                 src={editIcon}
                                 width={20}
                                 height={20}
@@ -528,8 +538,7 @@ export default function Profile(props) {
                             </div>
                             <div>
                               <Image
-                              className="cursor-pointer"
-
+                                className="cursor-pointer"
                                 src={starIcon}
                                 width={20}
                                 height={20}
@@ -544,8 +553,22 @@ export default function Profile(props) {
                           </div>
                         </Table.Cell>
                       </Table.Row>
-                    </Table.Body>
-                  ))}
+                    ))}
+
+                  </Table.Body>
+
+                  ) : (
+                    <Table.Body>
+                        <Table.Row>
+                          <Table.Cell
+                            colSpan={6}
+                            className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
+                          >
+                            Không có dữ liệu
+                          </Table.Cell>
+                        </Table.Row>
+                      </Table.Body>
+                  )}
                 </Table>
               </div>
 

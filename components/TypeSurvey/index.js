@@ -1,6 +1,10 @@
 import { Card } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { surveyService } from "../../services/SurveyService";
+import ModalLogin from "../../components/modal/ModalLogin";
+import { userService } from "../../services/UserService";
+
+
 
 function TypeSurvey({
   setStartPage,
@@ -15,7 +19,14 @@ function TypeSurvey({
   setShowTypeSurvey,
   setListSurvey,
 }) {
+
+  const modalLoginRef = useRef();
+
+
+
   const [typeSurvey, setTypeSurvey] = useState([]);
+  const [user, setUser] = useState({});
+
 
   useEffect(() => {
     (async () => {
@@ -38,6 +49,30 @@ function TypeSurvey({
     })();
   };
 
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("jwttoken")) {
+        const data = await userService.profile(localStorage.getItem("iddb"));
+
+        if (data.statusCode == 200) {
+
+          setUser(data.data[0]);
+        }
+      }
+    })();
+  }, []);
+
+  const onJoin = () => {
+    if (_.isEmpty(user)) {
+      modalLoginRef.current.open();
+      return;
+    }
+    setStartPage(true);
+    setShowTypeSurvey(false);
+
+  };
+
   return (
     <section id="services" className="bg-[#031d2e]">
       <div className="md:container mx-auto px-[6%] py-6">
@@ -52,8 +87,10 @@ function TypeSurvey({
                   imgSrc="https://i.pinimg.com/236x/d5/d9/4b/d5d94b0e074c6cfee308c5623ecd866c.jpg"
                   onClick={() => {
                     getSurveyByIdType(row.id);
-                    setStartPage(true);
-                    setShowTypeSurvey(false);
+               
+                
+
+                    onJoin()
                   }}
                 >
                   <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -64,6 +101,7 @@ function TypeSurvey({
             ))}
           </div>
         </div>
+        <ModalLogin ref={modalLoginRef} />
         </section>
   );
 }
