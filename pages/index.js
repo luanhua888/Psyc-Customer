@@ -155,10 +155,10 @@ export default function Home(props) {
       {/*service  */}
       <div className=" bg-[#17384e]  mx-auto px-[10%]  py-6">
         <div className="col-lg-12 jus text-center">
-          <h1 className=" w-[40%] justify-center flex flex-row items-center mx-auto text-3xl border-b-2 border-[#ff7010]">
+          <h1 className="text-white w-[40%] justify-center flex flex-row items-center mx-auto text-3xl border-b-2 border-[#ff7010]">
             CÁC DỊCH VỤ CỦA CHÚNG TÔI
           </h1>
-          <p className="as_font14 as_padderBottom5">
+          <p className="text-white as_font14 as_padderBottom5">
             Consectetur adipiscing elit, sed do eiusmod tempor
             incididuesdeentiut labore <br />
             etesde dolore magna aliquapspendisse and the gravida.
@@ -241,14 +241,14 @@ export default function Home(props) {
       {/* zodiac   */}
       <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
-          <div className="flex flex-row justify-center">
+          <div className="flex flex-row justify-center text-white">
             <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
               CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
             </h1>
           </div>
           <div className="flex flex-row justify-between as_verticle_center md:container mx-auto px-[10%] py-6">
             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-              <ul className="as_sign_ul">
+              <ul className="as_sign_ul text-white">
                 <li className="as_sign_box">
                   <a
                     onClick={() => {
@@ -383,8 +383,8 @@ export default function Home(props) {
               </div>
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-              <ul className="as_sign_ul as_sign_ul_right">
-                <li className="as_sign_box">
+              <ul className="as_sign_ul as_sign_ul_right text-white">
+                <li className="as_sign_box text-white">
                   <a
                     onClick={() => {
                       router.push({
@@ -393,7 +393,7 @@ export default function Home(props) {
                       });
                     }}
                   >
-                    <span className="as_sign">
+                    <span className="as_sign text-white">
                       <img src={zodiac7.imageUrl} alt />
                     </span>
                     <div>
@@ -404,7 +404,7 @@ export default function Home(props) {
                     </div>
                   </a>
                 </li>
-                <li className="as_sign_box">
+                <li className="as_sign_box text-white">
                   <a
                     onClick={() => {
                       router.push({
@@ -515,7 +515,7 @@ export default function Home(props) {
       <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-8 items-center ">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+            <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
               NHỮNG BÀI VIẾT MỚI NHẤT​
             </h1>
           </div>
@@ -587,7 +587,7 @@ export default function Home(props) {
       <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
         <div className="md:container mx-auto py-5">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+            <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
               TẠI SAO CHỌN PSYC​
             </h1>
           </div>

@@ -1,13 +1,18 @@
-import AbstractService from './AbstractService';
+import AbstractService from "./AbstractService";
 
 const API = {
-    GET_ALL: 'Consultants/Getallconsultant',
+  GET_ALL: "Consultants/Getconsultantbyspecial",
+  GET_TYPE: "SpecializationTypes/getallspecype",
 };
 
 class ConsultantService extends AbstractService {
-    getAll = () => {
-        return this.httpGET(API.GET_ALL);
-    };
+  getAll = (search) => {
+    return this.httpGET(API.GET_ALL, { search });
+  };
+
+  getTypeConsultant = (search) => {
+    return this.httpGET(API.GET_TYPE);
+  };
 }
 
 export const consultantService = new ConsultantService();

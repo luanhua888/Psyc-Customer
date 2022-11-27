@@ -2,32 +2,51 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import _, { values } from "lodash";
 
-import avatarImg from "../public/photos/avatar.jpeg";
+import searchIcon from "../public/photos/icon/search.png";
 import { consultantService } from "../services/ConsultantService";
 import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
+import { Dropdown } from "flowbite-react";
+import iconProfile from "../public/icon_profile.png";
 
 export default function Chat(props) {
-  const { consultants } = props;
-  console.log("consultants", consultants);
-
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();
-
   const [user, setUser] = useState({});
+  const [typeConSultant, setTypeConSultant] = useState([]);
+  const [consultants, setConsultants] = useState([]);
+  const [valueType, setValueType] = useState("");
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
         const data = await userService.profile(localStorage.getItem("iddb"));
+        const data1 = await consultantService.getTypeConsultant();
+        const data2 = await consultantService.getAll();
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
         }
+
+        if (data1.statusCode == 200) {
+          setTypeConSultant(data1.data);
+        }
+
+        if (data2.statusCode == 200) {
+          setConsultants(data2.data);
+        }
       }
     })();
   }, []);
+
+  const getConsultant = async () => {
+    const data = await consultantService.getAll(valueType);
+
+    if (data.statusCode == 200) {
+      setConsultants(data.data);
+    }
+  };
 
   const onChat = (consultant) => {
     if (_.isEmpty(user)) {
@@ -42,12 +61,45 @@ export default function Chat(props) {
   return (
     <>
       <section>
-        <div className="md:container mx-auto px-[10%] pt-12">
+        <div className="px-[20%] flex flex-row justify-end items-end mt-2">
+          <div className="max-w-[150px] flex flex-row justify-center m-2 items-end">
+            <label
+              for="gender"
+              class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-400"
+            >
+              {}
+            </label>
+
+            <select
+              id="gender"
+              name="gender"
+              class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+              value={values.gender}
+              onChange={(e) => setValueType(e.target.value) && getConsultant()}
+            >
+              {typeConSultant.map((item, index) => (
+                <option key={index} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+            <div className="pl-4">
+            <Image
+              className="
+                   
+                        "
+              src={searchIcon}
+              alt=""
+              width={50}
+              height={50}
+              onClick={() => getConsultant()}
+            />
+            </div>
+          </div>
+        </div>
+
+        <div className="md:container mx-auto px-[10%] pt-12 flex flex-col">
           {consultants != null ? (
-
-
-
-
             <div className=" flex-wrap justify-between grid gap-x-2 gap-y-4 grid-cols-3">
               {consultants.map((row, index) => (
                 <div
@@ -62,7 +114,7 @@ export default function Chat(props) {
                           className="
                         rounded-full
                         "
-                          src={avatarImg}
+                          src={searchIcon}
                           alt=""
                           width={75}
                           height={75}
@@ -108,11 +160,14 @@ export default function Chat(props) {
                         Địa chỉ: {row.address}
                       </div>
                       <div className="text-[#807f7f] text-sm text-black">
-                        Kinh nghiệm: {row.experience} năm
+                        Level: {row.experience}
+                      </div>
+                      <div className="text-[#807f7f] text-sm text-black">
+                        Chuyên môn: {row.specialName}
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className=" flex flex-row justify-center items-center ">
                     <button
                       className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium"
@@ -120,16 +175,10 @@ export default function Chat(props) {
                     >
                       Đặt lịch
                     </button>
-
                   </div>
                 </div>
               ))}
             </div>
-
-
-
-
-
           ) : (
             <div className=" px-7 text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center text-3xl">
               <span>Hiện Tại Không Có Tư Vấn Viên Nào</span>
@@ -141,14 +190,4 @@ export default function Chat(props) {
       <ModalBooking ref={modalBookingRef} />
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  const { data: consultants } = await consultantService.getAll();
-
-  return {
-    props: {
-      consultants,
-    },
-  };
 }

@@ -4,6 +4,7 @@ const API = {
   PROFILE: "Customers/getbyid",
   GET_SUPPROFILE: "Profiles/getbyidcustomer",
   DELETE_SUPPROFILE: `Profiles/`,
+  GET_LOVECOMPATILITY: "Profiles/lovecompatibility",
 };
 
 class ProfileService extends AbstractService {
@@ -23,13 +24,11 @@ class ProfileService extends AbstractService {
   // params query string
   deleteSupProfile = (id) => {
     return this.httpDELETE(API.DELETE_SUPPROFILE + id);
-  }
-  
- 
- 
+  };
 
-
-
+  getLovecompatility = (customerid, profileid) => {
+    return this.httpGET(API.GET_LOVECOMPATILITY, { customerid, profileid });
+  };
 }
 
 export const profileService = new ProfileService();
