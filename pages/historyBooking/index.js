@@ -12,7 +12,6 @@ import rateIcon from "../../public/photos/icon/rating.png";
 import searchIcon from "../../public/photos/icon/search.png";
 import successIcon from "../../public/photos/icon/checked.png";
 
-
 import { useRef, useEffect, useState, Component } from "react";
 import { historyService } from "../../services/HistoryService";
 import { videoCallService } from "../../services/VideoCallService";
@@ -59,7 +58,6 @@ export default function HistoryBooking() {
   const [date, setDate] = useState();
   const [bookingId, setBookingId] = useState(0);
   const [btnDisplayToast, setBtnDisplayToast] = useState(false);
-
 
   console.log("bookingId", bookingId);
   const getAppointmentBooking = async () => {
@@ -131,26 +129,25 @@ export default function HistoryBooking() {
       </section>
       {/* toast */}
 
-
-      <div className="absolute right-10 flex flex-row"
+      <div
+        className="absolute right-10 flex flex-row"
         // không hiển thị
         style={{ display: btnDisplayToast ? "block" : "none" }}
-        >
-          <Toast
-            title="Success"
-            autohide
-            delay={5000}
-          >
-            <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
-              <Image src={successIcon} width={30} height={30}  alt=""
-                className="justify-center items-center"
-              />
-
-            </div>
-            <div className="ml-3 text-sm font-normal">Thành công</div>
-            <Toast.Toggle />
-          </Toast>
-        </div>
+      >
+        <Toast title="Success" autohide delay={5000}>
+          <div className="  h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 ">
+            <Image
+              src={successIcon}
+              width={30}
+              height={30}
+              alt=""
+              className="justify-center items-center"
+            />
+          </div>
+          <div className="ml-3 text-sm font-normal">Thành công</div>
+          <Toast.Toggle />
+        </Toast>
+      </div>
       {/* Table */}
       <section className="bg-[#031d2e]  items-center">
         <div className="md:container mx-auto px-[10%] py-5">
@@ -220,64 +217,80 @@ export default function HistoryBooking() {
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
                           <Table.HeadCell>Trạng thái</Table.HeadCell>
-                          <Table.HeadCell></Table.HeadCell>
                           {/* </tr> */}
                         </Table.Head>
-                        {appointmentBooking.map((row, index) => (
-                          <Table.Body key={(index = 0)} class="divide-y">
-                            <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
-                              <Table.Cell className="text-[#ff7010]">
-                                {index + 1}
-                              </Table.Cell>
-                              <Table.Cell>{row.consultantName}</Table.Cell>
-                              <Table.Cell>{`${dayjs(row.dateSlot).format(
-                                "DD/MM/YYYY"
-                              )} `}</Table.Cell>
-                              <Table.Cell>{row.timeStart}</Table.Cell>
-                              <Table.Cell>{row.timeEnd}</Table.Cell>
 
-                              <Table.Cell>Sắp diễn ra</Table.Cell>
-                              <Table.Cell>
-                                <div className="flex gap-2">
-                                  {/* <Button onClick={handleOpen}>Hủy</Button> */}
-                                  <div>
-                                    <Image
-                                      className="cursor-pointer"
-                                      src={voteIcon}
-                                      width={40}
-                                      height={40}
-                                      alt=""
-                                      onClick={handleOpen}
+                        {appointmentBooking.length > 0 ? (
+                          <Table.Body class="divide-y">
+                            {appointmentBooking.map((row, index) => (
+                              <Table.Row
+                                key={(index = 0)}
+                                className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
+                              >
+                                <Table.Cell className="text-[#ff7010]">
+                                  {index + 1}
+                                </Table.Cell>
+                                <Table.Cell>{row.consultantName}</Table.Cell>
+                                <Table.Cell>{`${dayjs(row.dateSlot).format(
+                                  "DD/MM/YYYY"
+                                )} `}</Table.Cell>
+                                <Table.Cell>{row.timeStart}</Table.Cell>
+                                <Table.Cell>{row.timeEnd}</Table.Cell>
+
+                                <Table.Cell>Sắp diễn ra</Table.Cell>
+                                <Table.Cell>
+                                  <div className="flex gap-2">
+                                    {/* <Button onClick={handleOpen}>Hủy</Button> */}
+                                    <div>
+                                      <Image
+                                        className="cursor-pointer"
+                                        src={voteIcon}
+                                        width={40}
+                                        height={40}
+                                        alt=""
+                                        onClick={handleOpen}
+                                      />
+                                    </div>
+
+                                    <ModalCancelBooking
+                                      id={row.id}
+                                      className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                                      isOpen={isOpen}
+                                      handleClose={handleClose}
                                     />
-                                  </div>
 
-                                  <ModalCancelBooking
-                                    id={row.id}
-                                    className=" w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
-                                    isOpen={isOpen}
-                                    handleClose={handleClose}
-                                  />
-
-                                  <div>
-                                    <Image
-                                      className="cursor-pointer"
-                                      src={joinIcon}
-                                      width={40}
-                                      height={40}
-                                      alt=""
-                                      onClick={() =>
-                                        router.push({
-                                          pathname: "/videoCall",
-                                          query: { roomCall: row.id },
-                                        })
-                                      }
-                                    />
+                                    <div>
+                                      <Image
+                                        className="cursor-pointer"
+                                        src={joinIcon}
+                                        width={40}
+                                        height={40}
+                                        alt=""
+                                        onClick={() =>
+                                          router.push({
+                                            pathname: "/videoCall",
+                                            query: { roomCall: row.id },
+                                          })
+                                        }
+                                      />
+                                    </div>
                                   </div>
-                                </div>
+                                </Table.Cell>
+                              </Table.Row>
+                            ))}
+                          </Table.Body>
+                        ) : (
+                          <Table.Body>
+                            <Table.Row>
+                              <Table.Cell
+                                colSpan={6}
+                                className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
+                              >
+                                Không Có Dữ Liệu
                               </Table.Cell>
                             </Table.Row>
                           </Table.Body>
-                        ))}
+                        )}
                       </Table>
                     </div>
                     <div className=" items-center justify-center text-center">
@@ -366,50 +379,65 @@ export default function HistoryBooking() {
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
                           <Table.HeadCell>Trạng thái</Table.HeadCell>
-                          <Table.HeadCell></Table.HeadCell>
                           {/* </tr> */}
                         </Table.Head>
-                        {historyBooking.map((row, index) => (
-                          <Table.Body key={index} class="divide-y">
-                            <Table.Row className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]">
-                              <Table.Cell
-                                onClick={() =>
-                                  setSelectedBooking(row) &&
-                                  setSlotId(selectedBooking.id)
-                                }
-                                className="text-[#ff7010]"
+                        {historyBooking.length > 0 ? (
+                          <Table.Body class="divide-y">
+                            {historyBooking.map((row, index) => (
+                              <Table.Row
+                                key={index}
+                                className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
                               >
-                                {index + 1}
-                              </Table.Cell>
-                              <Table.Cell>{row.consultantName}</Table.Cell>
-                              <Table.Cell>{`${dayjs(row.dateSlot).format(
-                                "DD/MM/YYYY"
-                              )} `}</Table.Cell>
-                              <Table.Cell>{row.timeStart}</Table.Cell>
-                              <Table.Cell>{row.timeEnd}</Table.Cell>
-                              {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
+                                <Table.Cell
+                                  onClick={() =>
+                                    setSelectedBooking(row) &&
+                                    setSlotId(selectedBooking.id)
+                                  }
+                                  className="text-[#ff7010]"
+                                >
+                                  {index + 1}
+                                </Table.Cell>
+                                <Table.Cell>{row.consultantName}</Table.Cell>
+                                <Table.Cell>{`${dayjs(row.dateSlot).format(
+                                  "DD/MM/YYYY"
+                                )} `}</Table.Cell>
+                                <Table.Cell>{row.timeStart}</Table.Cell>
+                                <Table.Cell>{row.timeEnd}</Table.Cell>
+                                {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
 
-                              <Table.Cell>Đã kết thúc</Table.Cell>
-                              {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
-                              <Table.Cell>
-                                <div>
-                                  <Image
-                                    className="cursor-pointer"
-                                    src={rateIcon}
-                                    width={40}
-                                    height={40}
-                                    alt=""
-                                    onClick={() =>
-                                      handleVoteRate(
-                                        setBookingId(row.bookingId)
-                                      )
-                                    }
-                                  />
-                                </div>
+                                <Table.Cell>Đã kết thúc</Table.Cell>
+                                {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
+                                <Table.Cell>
+                                  <div>
+                                    <Image
+                                      className="cursor-pointer"
+                                      src={rateIcon}
+                                      width={40}
+                                      height={40}
+                                      alt=""
+                                      onClick={() =>
+                                        handleVoteRate(
+                                          setBookingId(row.bookingId)
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                </Table.Cell>
+                              </Table.Row>
+                            ))}
+                          </Table.Body>
+                        ) : (
+                          <Table.Body>
+                            <Table.Row>
+                              <Table.Cell
+                                colSpan={6}
+                                className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
+                              >
+                                Không Có Dữ Liệu
                               </Table.Cell>
                             </Table.Row>
                           </Table.Body>
-                        ))}
+                        )}
                       </Table>
                       <div className="flex items-center justify-center text-center">
                         <Pagination

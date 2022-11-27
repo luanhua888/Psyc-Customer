@@ -93,7 +93,7 @@ const ModalLogin = forwardRef((props, ref) => {
         {...props}
       >
         <div className="flex flex-row justify-center">
-          <span className=" text-[white] w-1/3 text-2xl flex flex-row justify-center border-b-2 border-[#ff7010] ">
+          <span className=" text-white w-1/3 text-2xl flex flex-row justify-center border-b-2 border-[#ff7010] ">
             Đăng Nhập
           </span>
         </div>

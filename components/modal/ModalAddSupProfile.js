@@ -40,6 +40,8 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
     gender: "",
   });
 
+  console.log("dataForm", dataForm);
+
   useImperativeHandle(ref, () => ({
     open: (data) => {
       setDataForm(data);
@@ -55,8 +57,11 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
   };
 
   const onSubmit = async (data) => {
+
+
+
     try {
-      await userService.PostSupProfile(
+      const data = await userService.PostSupProfile(
         dataForm.name,
         dataForm.birthPlace,
         dataForm.dob,
@@ -65,6 +70,10 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
         dataForm.gender,
         localStorage.getItem("idcustomer")
       );
+
+      if (data.status === 200) {
+        setIsOpen(false);
+      }
     } catch (err) {
       console.log("err", err);
     }
@@ -75,9 +84,9 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
   // nếu ModalEditSupProfile discard thì sẽ gọi hàm getSupProfile ở
 
   return (
-    <div className="absolute top-0">
+    <div className="absolute top-0 ">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
+        classes="bg-[#17384e] overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         // title={"Thêm hồ sơ phụ" }
@@ -92,9 +101,11 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
         //   },
         // ]}
       >
-        <h1 className="text-3xl font-bold justify-center flex flex-row ">
-          Thêm Hồ Sơ Phụ
-        </h1>
+        <div className="flex flex-row justify-center">
+          <span className=" text-white w-1/3 text-3xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] ">
+            Thêm Hồ Sơ Phụ
+          </span>
+        </div>
         <div>
           {user && (
             <Formik
@@ -112,6 +123,14 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                 gender: "",
               }}
               validate={(values) => {
+
+                if (!values.name) {
+                  return {
+                    name: "Vui lòng nhập tên",
+                  };
+                }
+
+
                 const errors = {};
 
                 return errors;
@@ -133,7 +152,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                     <div>
                       <label
                         for="name"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                       >
                         Họ và Tên
                       </label>
@@ -141,7 +160,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                         type="text"
                         id="name"
                         name="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập họ và tên"
                         required
                         onChange={(e) =>
@@ -158,7 +177,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                     <div onClick={handleOpenModalPickerChild}>
                       <label
                         for="birthPlace"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                       >
                         Nơi sinh
                       </label>
@@ -167,7 +186,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                         id="birthPlace"
                         disabled={true}
                         name="birthPlace"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập dữ liệu"
                         required
                         onChange={(e) =>
@@ -186,7 +205,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                     <div>
                       <label
                         for="gender"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                        class="text-[#ff7010] block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                       >
                         {}
                         Giới tính
@@ -194,7 +213,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                       <select
                         id="gender"
                         name="gender"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         onChange={(e) =>
                           setDataForm({
                             ...dataForm,
@@ -202,16 +221,16 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                           })
                         }
                         onBlur={handleBlur}
-                        value={values.gender}
+                        // value={values.gender}
                       >
-                        <option value="male">Nam</option>
                         <option value="female">Nữ</option>
+                        <option value="male">Nam</option>
                       </select>
                     </div>
                     <div>
                       <label
                         for="dob"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="text-[#ff7010] block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
                         Ngày tháng năm sinh
                       </label>
@@ -219,7 +238,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                         type="datetime-local"
                         id="dob"
                         name="dob"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Ngày tháng năm sinh"
                         onChange={(e) =>
                           setDataForm({
@@ -248,7 +267,7 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                         type="text"
                         id="longitude"
                         name="longitude"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập dữ liệu"
                         onChange={(e) =>
                           setDataForm({
@@ -282,11 +301,11 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
                       />
                     </div>
                   </div>
-                  <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2 ">
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      class="text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1 text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white  bg-[#ff7010]  hover:bg-[#286289] focus:outline-none    font-medium rounded-full text-sm px-6 py-1 text-center mr-2 mb-2 "
                       // onClick={handleClose}
                     >
                       Thêm mới
@@ -313,7 +332,6 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
             birthPlace,
           })
         }
-       
       />
     </div>
   );

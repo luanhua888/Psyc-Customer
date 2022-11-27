@@ -9,7 +9,10 @@ import addIcon from "../../public/photos/icon/add.png";
 import deleteIcon from "../../public/photos/icon/trash.png";
 import editIcon from "../../public/photos/icon/edit.png";
 import starIcon from "../../public/photos/icon/solar-system.png";
+import heartIcon from "../../public/photos/icon/heart-arrow.png";
 import successIcon from "../../public/photos/icon/checked.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useRef, useEffect, useState } from "react";
 import { profileService } from "../../services/ProfileService";
@@ -18,15 +21,18 @@ import ModalMap from "../../components/modal/ModalMap";
 import ModalEditSupProfile from "../../components/modal/ModalEditSupProfile";
 import ModalStarMap from "../../components/modal/ModalStarMap";
 import ModalAddSupProfile from "../../components/modal/ModalAddSupProfile";
+import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
   const modalAddSupProfileRef = useRef();
+  const modalLoveCompalityRef = useRef();
   const formRef = useRef();
-
   const [dataForm, setDataForm] = useState({});
   const modalMapRef = useRef();
+
+  const notify = () => toast("Xóa hồ sơ thành công!");
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
@@ -59,10 +65,12 @@ export default function Profile(props) {
   };
 
   const [supProfile, setSupProfile] = useState([]);
+  const [nameSupProfile, setNameSupProfile] = useState("");
   const [imageFirebaseUrl, setImageFirebaseUrl] = useState({});
   //upload image  firebase
   // const [fileimageFirebaseUrl, setFileImageFirebaseUrl] = useState();
   const [starMap, setStarMap] = useState([]);
+  const [lovecompatility, setLovecompatility] = useState([]);
   const [supProfileId, setSupProfileId] = useState({});
   const [supProfileResult, setSupProfileResult] = useState({});
   console.log("supProfileId", supProfileId);
@@ -83,22 +91,20 @@ export default function Profile(props) {
   }, []);
 
   const handleDeleteSupProfile = async (id) => {
-    const data = await profileService.deleteSupProfile(id);
+    if (localStorage.getItem("jwttoken")) {
+      const data = await profileService.deleteSupProfile(id);
 
-    if (data.statusCode == 200) {
-      //hiển thị toast success
+      notify();
       getSupProfile();
-    }
-    getSupProfile();
-    setBtnDisplayToast(true);
+      
+     
+      modalEditSupProfileRef.current?.close();
 
-    //time hiển thị toast 5s
-    setTimeout(() => {
-      setBtnDisplayToast(false);
-    }, 5000);
-   
+
+    }
   };
 
+  
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -170,11 +176,6 @@ export default function Profile(props) {
     }
   };
 
-  //upload ảnh lên firebase và update ảnh profile của user
-  // const handleUploadImage = (e) => {
-  //   setFileImageFirebaseUrl(e.target.files[0]);
-  //   postImageFirebase();
-  // };
 
   useEffect(() => {
     (async () => {
@@ -183,13 +184,30 @@ export default function Profile(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  const getLovecompatility = async (id, name) => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await profileService.getLovecompatility(
+        localStorage.getItem("idcustomer"),
+        id
+      );
+
+      if (data.statusCode == 200) {
+        setLovecompatility(data);
+        modalLoveCompalityRef.current?.open();
+        console.log("data", data);
+        setNameSupProfile(name)
+      }
+    }
+  };
+
+
+
   return (
     <>
       <section className="bg-[#031d2e]">
-
-
         <div
-          className="absolute right-10 top-20 flex flex-row"
+          className="absolute right-[3%] top-[55%] flex flex-row"
           // không hiển thị
           style={{ display: btnDisplayToast ? "block" : "none" }}
         >
@@ -489,85 +507,102 @@ export default function Profile(props) {
                     <Table.HeadCell>Thao tác</Table.HeadCell>
                   </Table.Head>
                   {supProfile.length > 0 ? (
-                  <Table.Body className=" ">
-                    {supProfile.map((item, index) => (
-                      <Table.Row
-                        key={index}
-                        className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
-                      >
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 text-[#ff7010]">
-                          {index + 1}
-                        </Table.Cell>
-                        <Table.Cell>{item.name} </Table.Cell>
+                    <Table.Body className=" ">
+                      {supProfile.map((item, index) => (
+                        <Table.Row
+                          key={index}
+                          className="bg-[#2e4b5f] text-white dark:border-gray-700 dark:bg-gray-800 hover:bg-[#455f71]"
+                        >
+                          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 text-[#ff7010]">
+                            {index + 1}
+                          </Table.Cell>
+                          <Table.Cell>{item.name} </Table.Cell>
 
-                        <Table.Cell>{`${dayjs(item.dob).format(
-                          "DD/MM/YYYY"
-                        )} `}</Table.Cell>
-                        <Table.Cell>
-                          {item.gender == "male" ? "Nam" : "Nữ"}
-                        </Table.Cell>
-                        {/* <Table.Cell>{item.latitude}</Table.Cell>
+                          <Table.Cell>{`${dayjs(item.dob).format(
+                            "DD/MM/YYYY"
+                          )} `}</Table.Cell>
+                          <Table.Cell>
+                            {item.gender == "male" ? "Nam" : "Nữ"}
+                          </Table.Cell>
+                          {/* <Table.Cell>{item.latitude}</Table.Cell>
                         <Table.Cell>{item.longitude}</Table.Cell> */}
-                        <Table.Cell>{item.birthPlace}</Table.Cell>
+                          <Table.Cell>{item.birthPlace}</Table.Cell>
+                          <Table.Cell>{item.id}</Table.Cell>
 
-                        <Table.Cell>
-                          <div className="flex flex-wrap gap-3">
-                            <div>
-                              <Image
-                                className="cursor-pointer"
-                                src={deleteIcon}
-                                width={20}
-                                height={20}
-                                alt=""
-                                onClick={() => handleDeleteSupProfile(item.id)}
-                              />
+                          <Table.Cell>
+                            <div className="flex flex-wrap gap-3">
+                              {/* <div>
+                              <ToastContainer />
+                                <Image
+                                  className="cursor-pointer"
+                                  src={deleteIcon}
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                  onClick={() =>
+                                    handleDeleteSupProfile(item.id)
+                                  }
+                                />
+                              </div> */}
+                              <div>
+                                <button onClick={notify}>Notify!</button>
+                              </div>
+                              <div>
+                                <Image
+                                  className="cursor-pointer"
+                                  src={editIcon}
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                  onClick={() =>
+                                    handleOpenModalEditSupProfile(
+                                      setSupProfileResult(item)
+                                    )
+                                  }
+                                />
+                              </div>
+                              <div>
+                                <Image
+                                  className="cursor-pointer"
+                                  src={starIcon}
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                  onClick={() =>
+                                    handleOpenModalStarMap(
+                                      setStarMap(item.birthChart)
+                                    )
+                                  }
+                                />
+                              </div>
+                              <div>
+                                <Image
+                                  className="cursor-pointer"
+                                  src={heartIcon}
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                  onClick={() =>
+                                    getLovecompatility(item.id, item.name)
+                                  }
+                                />
+                              </div>
                             </div>
-                            <div>
-                              <Image
-                                className="cursor-pointer"
-                                src={editIcon}
-                                width={20}
-                                height={20}
-                                alt=""
-                                onClick={() =>
-                                  handleOpenModalEditSupProfile(
-                                    setSupProfileResult(item)
-                                  )
-                                }
-                              />
-                            </div>
-                            <div>
-                              <Image
-                                className="cursor-pointer"
-                                src={starIcon}
-                                width={20}
-                                height={20}
-                                alt=""
-                                onClick={() =>
-                                  handleOpenModalStarMap(
-                                    setStarMap(item.birthChart)
-                                  )
-                                }
-                              />
-                            </div>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-
-                  </Table.Body>
-
-                  ) : (
-                    <Table.Body>
-                        <Table.Row>
-                          <Table.Cell
-                            colSpan={6}
-                            className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
-                          >
-                            Không có dữ liệu
                           </Table.Cell>
                         </Table.Row>
-                      </Table.Body>
+                      ))}
+                    </Table.Body>
+                  ) : (
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell
+                          colSpan={6}
+                          className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
+                        >
+                          Không có dữ liệu
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
                   )}
                 </Table>
               </div>
@@ -615,6 +650,7 @@ export default function Profile(props) {
       />
       <ModalStarMap id={starMap} ref={modalStarMapRef} />
       <ModalAddSupProfile ref={modalAddSupProfileRef} />
+      <ModalLoveCompality name={user.fullname}  supName={nameSupProfile} love={lovecompatility} ref={modalLoveCompalityRef} />
     </>
   );
 }
