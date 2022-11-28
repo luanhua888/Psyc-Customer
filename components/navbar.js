@@ -64,22 +64,25 @@ export default function Navbar() {
   };
 
   return (
-    <div>
-      <nav className="shadow-2xl bg-[#17384e]">
-        <div className="md:container mx-auto px-[4%] py-3">
-          <div className="flex justify-between items-center ">
+      <nav className="shadow-2xl bg-[#17384e] justify-center items-center flex  ">
+        <div className=" mx-auto px-[4%] py-[2%] ">
+          <div className="">
             <div className="flex gap-3 justify-center items-center float-left pr-1 border-r-2 border-x-[#2e4b5f]">
-              <Image src={logo} alt="" width={100} height={100} />
-              <div className="flex flex-col font-bold text-white">
-                <span>PSYC</span>
+              <Image src={logo} alt="" className="max-w-[100px] max-h-[100px]" />
+              <div className="flex flex-col font-bold text-white   max-text-[200px]   ">
+           
+                <span className="
+               
+                "
+                >PSYC</span>
                 <span>Psychological Counselling</span>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 text-white">
-              <div className="flex flex-row gap-8 ">
+            <div className="flex flex-col gap-[1%] text-white">
+              <div className="flex flex-row gap-[1%] ">
                 <div className=" flex flex-row  justify-center items-center gap-4 ">
-                  <div className="  ">
+                  <div className="">
                     <span className=" bg-slate-600 py-2 px-2 rounded-full mr-1">
                       <Image
                         src={iconHeadPhone}
@@ -99,7 +102,8 @@ export default function Navbar() {
                       <Image src={iconMail1} alt="" width={18} height={15} />
                     </span>
                     <span className="text-amber-600">Liên hệ qua email - </span>
-                    PsychologicalCounselling@gmail.com
+                    <span className="text-white">  PsychologicalCounselling@gmail.com</span>
+                  
                   </div>
                 </div>
                 {Object.keys(user).length >= 1 ? (
@@ -255,6 +259,5 @@ export default function Navbar() {
         <ModalLogin ref={modalLoginRef} />
         <ModalChangePassword ref={modalChangePasswordRef} />
       </nav>
-    </div>
   );
 }

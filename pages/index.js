@@ -26,10 +26,7 @@ import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
 import { useRouter } from "next/router";
 import { userService } from "../services/UserService";
 
-
-
 export default function Home(props) {
-
   const modalLoginRef = useRef();
 
   const router = useRouter();
@@ -51,10 +48,6 @@ export default function Home(props) {
 
   const [user, setUser] = useState({});
 
-  console.log("article", article.id);
-  console.log("zodiac", zodiac);
-
-  console.log("article", article.urlBanner);
   useEffect(() => {
     (async () => {
       const data = await zodiacService.getAll();
@@ -99,19 +92,15 @@ export default function Home(props) {
     })();
   }, []);
 
-
   const onJoin = () => {
-    if (
-      !user.id
-
-    ) {
+    if (!user.id) {
       modalLoginRef.current.open();
       return;
     }
 
     router.push({
       pathname: "/dailyHoroscop",
-    })
+    });
   };
 
   const settings = {
@@ -127,27 +116,39 @@ export default function Home(props) {
 
   return (
     <>
-      <section id="hero-banner" className="bg-[#031d2e]">
-        <div className="md:container mx-auto px-[10%] py-6">
-          <div className="p-12 flex justify-between items-center text-white font-bold rounded-3xl">
-            <Image className="animate-spin  " src={astroRoundedImg} alt="" />
-            <div className="flex flex-col gap-4 text-slate-800">
-              <h3 className="font-sans text-[2.625rem] leading-[3.125rem] text-white  ">
+      <section
+        id="hero-banner"
+        className="bg-[#031d2e]  flex justify-center items-center "
+      >
+        <div className="md:container  px-[10%] py-6  w-auto h-auto">
+          <div className="p-12 flex justify-between items-center text-white font-bold rounded-3xl gap-[5%]">
+            <div>
+              <Image className="animate-spin  " src={astroRoundedImg} alt="" />
+            </div>
+            <div className="flex flex-col gap-[10%] text-slate-800 md:text-5xl ">
+              <h3
+                className="font-sans text-4xl text-white"
+              >
                 Bất kì câu hỏi nào?
               </h3>
-              <h1 className="font-sans text-[2.65rem] leading-[3.875rem] text-white  ">
+
+              <h1
+                className="font-sans 
+              text-5xl  
+               text-white"
+              >
                 Trò chuyện với tư vấn viên
               </h1>
-              <p className="font-sans text-[2.625rem] leading-[3.125rem] text-white  ">
-                Miễn Phí
-              </p>
             </div>
-            <a
-              href="#"
-              className="py-3 px-4 bg-[#fd7e14] rounded-full text-3xl font-semibold hover:bg-[#17384e] hover:text-white"
-            >
-              Trò chuyện ngay
-            </a>
+            <div className="max-[200px] ">
+              <a
+                onClick={onJoin}
+             
+                className="flex flex-row justify-center items-center w-[] bg-[#fd7e14] rounded-2xl md:text-2xl font-semibold hover:bg-[#17384e] hover:text-white "
+              >
+                Trò chuyện ngay
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -167,7 +168,8 @@ export default function Home(props) {
 
         <div className="flex flex-row justify-center gap-4 mx-auto ">
           <div className=" w-[250px]">
-            <div className="as_service_box text-center"
+            <div
+              className="as_service_box text-center"
               onClick={() => onJoin()}
             >
               <span className="as_icon">
@@ -178,7 +180,6 @@ export default function Home(props) {
                 Consectetur adipiscing elit sed do <br />
                 eiusmod tempor incididunt.
               </p>
-           
             </div>
           </div>
           <div className=" w-[250px] ">
@@ -239,7 +240,7 @@ export default function Home(props) {
       </div>
 
       {/* zodiac   */}
-      <div className="md:container mx-auto py-6 bg-[#031d2e]">
+      {/* <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
           <div className="flex flex-row justify-center text-white">
             <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
@@ -374,11 +375,7 @@ export default function Home(props) {
             </div>
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="as_sign_img text-center">
-                {/* <img
-                src="../public/photos/hero-banner-profile.png"
-                alt
-                className="img-responsive"
-              /> */}
+               
                 <Image className="animate-spin" src={logoSpin} alt="" />
               </div>
             </div>
@@ -508,11 +505,11 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* article */}
 
-      <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
+      {/* <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-8 items-center ">
           <div className="flex flex-row justify-center mb-3">
             <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
@@ -578,13 +575,12 @@ export default function Home(props) {
             </Swiper>
           </div>
         </div>
-      </section>
-     
+      </section> */}
 
       {/* footer */}
       {/*  */}
 
-      <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
+      {/* <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
         <div className="md:container mx-auto py-5">
           <div className="flex flex-row justify-center mb-3">
             <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
@@ -631,9 +627,9 @@ export default function Home(props) {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <footer className="bg-[#17384e] mx-auto px-[10%]  py-6">
+      {/* <footer className="bg-[#17384e] mx-auto px-[10%]  py-6">
         <div className="md:container mx-auto py-10 px-12">
           <div className="flex flex-row justify-between items-center text-slate-200">
             <div className="flex flex-col gap-5">
@@ -694,9 +690,8 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
       <ModalLogin ref={modalLoginRef} />
-
     </>
   );
 }
