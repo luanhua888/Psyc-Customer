@@ -7,16 +7,23 @@ import { consultantService } from "../services/ConsultantService";
 import ModalLogin from "../components/modal/ModalLogin";
 import { userService } from "../services/UserService";
 import ModalBooking from "../components/modal/ModalBooking";
+import ModalConsultantDetail from "../components/modal/ModalConsultantDetail";
 import { Dropdown } from "flowbite-react";
 import iconProfile from "../public/icon_profile.png";
 
 export default function Chat(props) {
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();
+  const modalConsultantDetail = useRef();
   const [user, setUser] = useState({});
   const [typeConSultant, setTypeConSultant] = useState([]);
   const [consultants, setConsultants] = useState([]);
+  const [consultantDetail, setConsultantDetail] = useState([]);
+  const [consultantDetail1, setConsultantDetail1] = useState([]);
+  const [idConsultant, setIdConsultant] = useState(0);
   const [valueType, setValueType] = useState("");
+
+  console.log("consultantDetail", consultantDetail);
 
   useEffect(() => {
     (async () => {
@@ -40,13 +47,14 @@ export default function Chat(props) {
     })();
   }, []);
 
-  const getConsultant = async () => {
-    const data = await consultantService.getAll(valueType);
+  const getConsultant = async (type) => {
+    const data = await consultantService.getAll(type);
 
     if (data.statusCode == 200) {
       setConsultants(data.data);
     }
   };
+  
 
   const onChat = (consultant) => {
     if (_.isEmpty(user)) {
@@ -58,11 +66,26 @@ export default function Chat(props) {
     modalBookingRef.current.open(consultant);
   };
 
+  const onViewDetail = async (id) => {
+    modalConsultantDetail.current.open(id);
+    const data = await consultantService.getConsultantDetail(id);
+    const data1 = await consultantService.getConsultantDetail1(id);
+
+    if (data.statusCode == 200) {
+      setConsultantDetail(data.data);
+    }
+    if (data1.statusCode == 200) {
+      setConsultantDetail1(data1.data);
+    }
+
+
+  };
+
   return (
     <>
       <section>
         <div className="px-[20%] flex flex-row justify-end items-end mt-2">
-          <div className="max-w-[150px] flex flex-row justify-center m-2 items-end">
+          <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
             <label
               for="gender"
               class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-400"
@@ -73,9 +96,9 @@ export default function Chat(props) {
             <select
               id="gender"
               name="gender"
-              class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
-              value={values.gender}
-              onChange={(e) => setValueType(e.target.value) && getConsultant()}
+              class=" rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+              value={valueType}
+              onChange={(e) => getConsultant(e.target.value)}
             >
               {typeConSultant.map((item, index) => (
                 <option key={index} value={item.name}>
@@ -83,7 +106,7 @@ export default function Chat(props) {
                 </option>
               ))}
             </select>
-            <div className="pl-4">
+            {/* <div className="pl-4">
             <Image
               className="
                    
@@ -94,7 +117,7 @@ export default function Chat(props) {
               height={50}
               onClick={() => getConsultant()}
             />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -104,15 +127,15 @@ export default function Chat(props) {
               {consultants.map((row, index) => (
                 <div
                   key={index}
-                  className="bookingBox flex flex-col  bg-white rounded-xl shadow-lg p-2"
+                  className="bookingBox flex flex-col   bg-white rounded-xl shadow-lg p-2"
                 >
-                  <div className="grid grid-cols-2 gap-1 ">
+                  <div className="flex flex-col">
                     <div className="flex flex-col gap-2  justify-center items-center ">
-                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-amber-300 to-amber-800">
+                      <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-amber-300 to-amber-800 shadow-sm">
                         <Image
                           loader={() => row.imageUrl}
                           className="
-                        rounded-full
+                        rounded-full shadow-sm
                         "
                           src={searchIcon}
                           alt=""
@@ -149,18 +172,18 @@ export default function Chat(props) {
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 text-black">
+                    <div className="flex flex-col gap-2 justify-center items-center text-black">
                       <div className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black">
                         {row.fullName}
                       </div>
                       <div className="text-[#807f7f] text-sm text-black">
                         Giới tính: {row.gender == "Male" ? "Nam" : "Nữ"}
                       </div>
-                      <div className="text-[#807f7f] text-sm text-black">
+                      {/* <div className="text-[#807f7f] text-sm text-black">
                         Địa chỉ: {row.address}
-                      </div>
+                      </div> */}
                       <div className="text-[#807f7f] text-sm text-black">
-                        Level: {row.experience}
+                        Cấp độ: {row.experience}
                       </div>
                       <div className="text-[#807f7f] text-sm text-black">
                         Chuyên môn: {row.specialName}
@@ -168,12 +191,20 @@ export default function Chat(props) {
                     </div>
                   </div>
 
-                  <div className=" flex flex-row justify-center items-center ">
+                  <div className=" flex flex-row justify-center items-center gap-[2%] ">
                     <button
-                      className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium"
+                      className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]" 
                       onClick={() => onChat(row)}
                     >
                       Đặt lịch
+                    </button>
+
+              
+                    <button
+                      className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
+                      onClick={() => onViewDetail(row.consultantId)}
+                    >
+                      Chi Tiết       
                     </button>
                   </div>
                 </div>
@@ -188,6 +219,7 @@ export default function Chat(props) {
       </section>
       <ModalLogin ref={modalLoginRef} />
       <ModalBooking ref={modalBookingRef} />
+      <ModalConsultantDetail id={consultantDetail} consultant={consultantDetail1} ref={modalConsultantDetail} />
     </>
   );
 }
