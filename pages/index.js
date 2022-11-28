@@ -240,7 +240,7 @@ export default function Home(props) {
       </div>
 
       {/* zodiac   */}
-      {/* <div className="md:container mx-auto py-6 bg-[#031d2e]">
+      <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
           <div className="flex flex-row justify-center text-white">
             <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
@@ -505,7 +505,7 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* article */}
 
