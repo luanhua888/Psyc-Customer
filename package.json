@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/pro-skeleton": "^2.0.6",
     "@babel/preset-react": "^7.18.6",
     "@emotion/core": "10.1.1",
     "@emotion/react": "^11.10.4",

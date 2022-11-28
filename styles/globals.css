@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+:root {
+  min-width: fit-content;
+  min-width: max-content;
+}
 
 .animate-spin {
   animation: spin 10s linear infinite;
