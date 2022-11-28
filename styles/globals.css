@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 :root {
-  min-width: fit-content;
   min-width: max-content;
 }
 
