@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* responsive trên iphone */
+@media (max-width: 640px) {
+  .container {
+    @apply max-w-full;
+  }
+}
+
 :root {
   min-width: max-content;
 }
@@ -479,7 +487,7 @@ h6,
 /* service css start */
 .as_service_box {
   background-color: #07273c;
-  padding: 50px 22px;
+  /* padding: 50px 22px; */
   margin-top: 30px;
   box-shadow: inset -5px -5px 10px #051e2e,
     inset 5px 5px 10px #09304a;
