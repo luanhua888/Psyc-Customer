@@ -23,12 +23,14 @@ export default function Chat(props) {
   const [consultantDetail1, setConsultantDetail1] = useState([]);
   const [idConsultant, setIdConsultant] = useState(0);
   const [valueType, setValueType] = useState("");
+  const [loading, setLoading] = useState(true);
 
   console.log("consultantDetail", consultantDetail);
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
+        setLoading(true)
         const data = await userService.profile(localStorage.getItem("iddb"));
         const data1 = await consultantService.getTypeConsultant();
         const data2 = await consultantService.getAll();
@@ -44,6 +46,7 @@ export default function Chat(props) {
         if (data2.statusCode == 200) {
           setConsultants(data2.data);
         }
+        setLoading(false);
       }
     })();
   }, []);
