@@ -12,7 +12,11 @@ class ArticleService extends AbstractService {
 
 
     detailArticle = (id) => {
-        return this.httpGET(API.DETAIL_ARTICLE, { id });
+        return this.httpGET(API.DETAIL_ARTICLE, {id}, {
+            params: {
+                id: id,
+            }
+        });
     };
 
 

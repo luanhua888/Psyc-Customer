@@ -73,14 +73,7 @@ export default function Zodiac() {
               />
             </div>
             <div
-            // className="w-full leading-8"
-            // dangerouslySetInnerHTML={{ __html: zodiac.descriptionDetail }}
-            // //căn đêu nội dung
-            // style={{
-            //   textAlign: "justify ",
-            //   //khoảng cách giữa các đoạn văn strong
-            //   p: "padding-top: 100px",
-            // }}
+           
             >
               {" "}
               <Paragraph>

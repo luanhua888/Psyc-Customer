@@ -47,6 +47,7 @@ export default function Home(props) {
   const [article, setArticle] = useState([]);
 
   const [user, setUser] = useState({});
+  const [articleId, setArticleId] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -114,6 +115,23 @@ export default function Home(props) {
     stopUponHover: true,
   };
 
+  const getArticleDetail = (id) => {
+    (async () => {
+      const article = await articleService.detailArticle(id);
+      console.log("article đó", article.data[0]);
+
+      router.push({
+        pathname: "/article",
+        query: {
+          articleId: article.data[0].id,
+          title: article.data[0].title,
+          contentNews: article.data[0].contentNews,
+          urlBanner: article.data[0].urlBanner,
+        },
+      });
+    })();
+  };
+
   return (
     <>
       <section
@@ -141,7 +159,7 @@ export default function Home(props) {
             <div className="max-[200px] ">
               <a
                 onClick={onJoin}
-                className="flex flex-row justify-center items-center w-[] bg-[#fd7e14] rounded-2xl md:text-2xl font-semibold hover:bg-[#17384e] hover:text-white "
+                className="flex flex-row justify-center items-center w-[200px] bg-[#fd7e14] rounded-2xl md:text-2xl font-semibold hover:bg-[#17384e] hover:text-white "
               >
                 Trò chuyện ngay
               </a>
@@ -151,9 +169,9 @@ export default function Home(props) {
       </section>
 
       {/*service  */}
-      <div className=" bg-[#17384e]  mx-auto px-[10%]  py-6">
+      <div className=" bg-[#17384e]    py-6">
         <div className="col-lg-12 jus text-center">
-          <h1 className="text-white w-[40%] justify-center flex flex-row items-center mx-auto text-3xl border-b-2 border-[#ff7010]">
+          <h1 className="text-white w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
             CÁC DỊCH VỤ CỦA CHÚNG TÔI
           </h1>
           <p className="text-white as_font14 as_padderBottom5">
@@ -164,9 +182,9 @@ export default function Home(props) {
         </div>
 
         <div className="flex flex-row justify-center gap-4 mx-auto ">
-          <div className=" w-[250px]">
+          <div className=" max-w-[350px]">
             <div
-              className="as_service_box text-center"
+              className="as_service_box text-center cursor-pointer  py-[30%] px-[5%]"
               onClick={() => onJoin()}
             >
               <span className="as_icon">
@@ -179,9 +197,9 @@ export default function Home(props) {
               </p>
             </div>
           </div>
-          <div className=" w-[250px] ">
+          <div className=" max-w-[350px]">
             <div
-              className="as_service_box text-center cursor-pointer"
+              className="as_service_box text-center cursor-pointer py-[30%] px-[5%]"
               onClick={() => router.push("/chat")}
             >
               <span className="as_icon">
@@ -197,9 +215,9 @@ export default function Home(props) {
               </a> */}
             </div>
           </div>
-          <div className=" w-[250px] ">
+          <div className=" max-w-[350px]">
             <div
-              className="as_service_box text-center cursor-pointer"
+              className="as_service_box text-center cursor-pointer  py-[30%] px-[5%]"
               onClick={() => router.push("/RoomLive")}
             >
               <span className="as_icon">
@@ -215,9 +233,9 @@ export default function Home(props) {
               </a> */}
             </div>
           </div>
-          <div className=" w-[250px] ">
+          <div className=" max-w-[350px]">
             <div
-              className="as_service_box text-center cursor-pointer"
+              className="as_service_box text-center cursor-pointer  py-[30%] px-[5%]"
               onClick={() => router.push("/Survey")}
             >
               <span className="as_icon">
@@ -508,12 +526,12 @@ export default function Home(props) {
       <section className="bg-[#17384e] ">
         <div className="md:container mx-auto py-8 ">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className="text-white justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+            <h1 className="text-white justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] ">
               NHỮNG BÀI VIẾT MỚI NHẤT​
             </h1>
           </div>
           <div className="flex flex-row justify-center ">
-            <div className="max-w-[800px]">
+            <div className="max-w-[900px]">
               <Swiper
                 effect={"coverflow"}
                 grabCursor={true}
@@ -538,12 +556,7 @@ export default function Home(props) {
                   <SwiperSlide
                     className="flex flex-row justify-center"
                     key={key}
-                    onClick={() =>
-                      router.push({
-                        pathname: "/arcticle",
-                        query: { articleId: row.id },
-                      })
-                    }
+                    onClick={() => getArticleDetail(row.id)}
                   >
                     <div className="articleBox flex flex-row">
                       <Image
@@ -578,57 +591,59 @@ export default function Home(props) {
       {/* footer */}
       {/*  */}
 
-      {/* <section id="about_us" className=" mx-auto px-[10%] bg-[#031d2e]  py-6">
-        <div className="md:container mx-auto py-5">
+      <section id="about_us" className="  bg-[#031d2e]  ">
+        <div className="md:container mx-auto  py-5 ">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+            <h1 className="text-white w-[40%] justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] ">
               TẠI SAO CHỌN PSYC​
             </h1>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <p
-              //căn đều 2 bên theo chiều ngang của màn hình
-              className="text-justify text-white"
-            >
-              Chiêm tinh học là một ngành khoa học dự đoán với các bộ phương
-              pháp, tuyên bố và phát hiện riêng đã mãi mãi truyền cảm hứng và
-              cho phép mọi người có cái nhìn sâu sắc về các khía cạnh khác nhau
-              của cuộc sống của họ. Chiêm tinh học, với những kinh ngạc và cách
-              thức của nó, hài lòng và đủ chấp thuận để khiến mọi người trở
-              thành một tín đồ của cùng một. Và may mắn thay, nó tiếp tục làm
-              như vậy bất chấp thế giới đang thay đổi căn cứ từ những gì họ tin
-              tưởng và những gì họ không tin tưởng.
-            </p>
-            <p className="text-justify text-white">
-              Nếu người ta phải đi sâu vào các kỹ thuật của chiêm tinh học, đó
-              là nghiên cứu về các vật thể vũ trụ khác nhau, thường là các ngôi
-              sao và hành tinh, có ảnh hưởng đến cuộc sống của con người. Bạn
-              phải lưu ý rằng có tới 8 hành tinh trong hệ mặt trời. Tuy nhiên,
-              nếu tôi hỏi một nhà chiêm tinh học trực tuyến gần tôi về các hành
-              tinh trong chiêm tinh học, họ sẽ nói với tôi rằng có tới 9 hành
-              tinh trong chiêm tinh học còn được gọi là Navagrahas. Và đáng ngạc
-              nhiên, hành tinh Trái đất, trong chiêm tinh học, không được tính
-              trong số chín hành tinh.
-            </p>
-            <p className="text-justify text-white">
-              Trong số các hành tinh này, một số hành tinh được gọi là hành tinh
-              thân thiện, có nghĩa là sự hiện diện của chúng mang lại sự tích
-              cực cho cuộc sống của bạn. Và sau đó, cũng có những hành tinh có
-              ảnh hưởng tiêu cực đến con người. Sau này sẽ là các hành tinh như
-              Rahu và Ketu. Sự hiện diện của họ trong Kundli của một người được
-              cho là mang lại nỗi đau và sự khốn khổ. Tuy nhiên, có một khía
-              cạnh khác mà người ta cần phải nhận thức được. Đó là thực tế rằng
-              sự hiện diện của Ketu trong tử vi của một người không phải lúc nào
-              cũng xấu và tương tự, sự hiện diện của Sao Mộc trong Kundli của
-              một người có thể không phải là tốt nhất mọi lúc.
-            </p>
+          <div className="flex flex-row justify-center items-center">
+            <div className="max-w-[1000px]">
+              <div className="flex flex-col gap-4  ">
+                <p className="text-justify text-white">
+                  Chiêm tinh học là một ngành khoa học dự đoán với các bộ phương
+                  pháp, tuyên bố và phát hiện riêng đã mãi mãi truyền cảm hứng
+                  và cho phép mọi người có cái nhìn sâu sắc về các khía cạnh
+                  khác nhau của cuộc sống của họ. Chiêm tinh học, với những kinh
+                  ngạc và cách thức của nó, hài lòng và đủ chấp thuận để khiến
+                  mọi người trở thành một tín đồ của cùng một. Và may mắn thay,
+                  nó tiếp tục làm như vậy bất chấp thế giới đang thay đổi căn cứ
+                  từ những gì họ tin tưởng và những gì họ không tin tưởng.
+                </p>
+                <p className="text-justify text-white">
+                  Nếu người ta phải đi sâu vào các kỹ thuật của chiêm tinh học,
+                  đó là nghiên cứu về các vật thể vũ trụ khác nhau, thường là
+                  các ngôi sao và hành tinh, có ảnh hưởng đến cuộc sống của con
+                  người. Bạn phải lưu ý rằng có tới 8 hành tinh trong hệ mặt
+                  trời. Tuy nhiên, nếu tôi hỏi một nhà chiêm tinh học trực tuyến
+                  gần tôi về các hành tinh trong chiêm tinh học, họ sẽ nói với
+                  tôi rằng có tới 9 hành tinh trong chiêm tinh học còn được gọi
+                  là Navagrahas. Và đáng ngạc nhiên, hành tinh Trái đất, trong
+                  chiêm tinh học, không được tính trong số chín hành tinh.
+                </p>
+                <p className="text-justify text-white">
+                  Trong số các hành tinh này, một số hành tinh được gọi là hành
+                  tinh thân thiện, có nghĩa là sự hiện diện của chúng mang lại
+                  sự tích cực cho cuộc sống của bạn. Và sau đó, cũng có những
+                  hành tinh có ảnh hưởng tiêu cực đến con người. Sau này sẽ là
+                  các hành tinh như Rahu và Ketu. Sự hiện diện của họ trong
+                  Kundli của một người được cho là mang lại nỗi đau và sự khốn
+                  khổ. Tuy nhiên, có một khía cạnh khác mà người ta cần phải
+                  nhận thức được. Đó là thực tế rằng sự hiện diện của Ketu trong
+                  tử vi của một người không phải lúc nào cũng xấu và tương tự,
+                  sự hiện diện của Sao Mộc trong Kundli của một người có thể
+                  không phải là tốt nhất mọi lúc.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
-      {/* <footer className="bg-[#17384e] mx-auto px-[10%]  py-6">
-        <div className="md:container mx-auto py-10 px-12">
+      <footer className="bg-[#17384e] px-[10%] ">
+        <div className="md:container mx-auto py-10  max-w-[800px]">
           <div className="flex flex-row justify-between items-center text-slate-200">
             <div className="flex flex-col gap-5">
               <h3 className="font-semibold text-2xl border-b-2 border-[#ff7010]">
@@ -688,7 +703,8 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </footer> */}
+      </footer>
+
       <ModalLogin ref={modalLoginRef} />
     </>
   );

@@ -527,7 +527,6 @@ export default function Profile(props) {
                           {/* <Table.Cell>{item.latitude}</Table.Cell>
                         <Table.Cell>{item.longitude}</Table.Cell> */}
                           <Table.Cell>{item.birthPlace}</Table.Cell>
-                          <Table.Cell>{item.id}</Table.Cell>
 
                           <Table.Cell>
                             <div className="flex flex-wrap gap-3">
@@ -544,9 +543,6 @@ export default function Profile(props) {
                                   }
                                 />
                               </div> */}
-                              <div>
-                                <button onClick={notify}>Notify!</button>
-                              </div>
                               <div>
                                 <Image
                                   className="cursor-pointer"

@@ -174,7 +174,7 @@ export default function Chat(props) {
 
                     <div className="flex flex-col gap-2 justify-center items-center text-black">
                       <div className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black">
-                        {row.fullName}
+                        {row.name}
                       </div>
                       <div className="text-[#807f7f] text-sm text-black">
                         Giới tính: {row.gender == "Male" ? "Nam" : "Nữ"}
