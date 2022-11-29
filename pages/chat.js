@@ -10,6 +10,7 @@ import ModalBooking from "../components/modal/ModalBooking";
 import ModalConsultantDetail from "../components/modal/ModalConsultantDetail";
 import { Dropdown } from "flowbite-react";
 import iconProfile from "../public/icon_profile.png";
+import { Skeleton } from "antd";
 
 export default function Chat(props) {
   const modalLoginRef = useRef();
@@ -83,7 +84,26 @@ export default function Chat(props) {
 
   return (
     <>
-      <section>
+       {loading ? (
+               <div>
+               <div className="px-[20%] flex flex-row justify-end items-end mt-2">
+                  <Skeleton width={200} height={50} />
+               </div>
+         
+                 <div className="md:container mx-auto px-[10%] pt-4 flex flex-col">
+                  
+                     <div className=" flex-wrap justify-between grid gap-x-2 gap-y-4 grid-cols-3">
+                     <Skeleton width={300} height={400} />
+                     <Skeleton width={300} height={400} />
+                     <Skeleton width={300} height={400} />
+                     </div>
+                   
+                   
+                 </div>
+                 </div>
+      
+      ):(
+        <div>
         <div className="px-[20%] flex flex-row justify-end items-end mt-2">
           <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
             <label
@@ -216,7 +236,9 @@ export default function Chat(props) {
             </div>
           )}
         </div>
-      </section>
+        </div>
+      )
+      }
       <ModalLogin ref={modalLoginRef} />
       <ModalBooking ref={modalBookingRef} />
       <ModalConsultantDetail id={consultantDetail} consultant={consultantDetail1} ref={modalConsultantDetail} />
