@@ -10,6 +10,8 @@ import ModalBooking from "../../components/modal/ModalBooking";
 import { liveStreamService } from "../../services/LiveStreamService";
 import { useRouter } from "next/router";
 
+import nolive from "../../public/no_live.png";
+
 export default function RoomLive(props) {
   const { consultants } = props;
   const router = useRouter();
@@ -45,7 +47,7 @@ export default function RoomLive(props) {
   return (
     <>
       <div className="px-[10%] mt-2">
-        {consultants != null ? (
+        {consultants.length > 0 ? (
           <div className="consultant__live__orther grid grid-cols-4 gap-4 mt-4   ">
             {consultants.map((row, index) => (
               <div
@@ -72,7 +74,7 @@ export default function RoomLive(props) {
                     </h5>
                   </a>
                   <p class="mb-3 font-normal text-white dark:text-gray-400 w-full flex flex-col sm:flex-row items-center justify-center ">
-                    {row.description}
+                    Nội dung: {row.description}
                   </p>
                   <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
                     <a
@@ -105,12 +107,19 @@ export default function RoomLive(props) {
               </div>
             ))}
           </div>
+         
         ) : (
-          <div className="  text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center px-[10%] text-3xl">
-            <span>Hiện Tại Không Có Phòng Live Trực Tiếp Nào</span>
-          </div>
+          <div className="flex flex-col items-center justify-center">
+        <Image src={nolive} alt=""  
+        // căn giữa trung tâ
+        width={500}
+        height={500}
+        />
+         </div>
         )}
+
       </div>
+
 
       <ModalLogin ref={modalLoginRef} />
       <ModalBooking ref={modalBookingRef} />

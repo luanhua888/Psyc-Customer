@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { surveyService } from "../../services/SurveyService";
 import ModalLogin from "../../components/modal/ModalLogin";
 import { userService } from "../../services/UserService";
-
+import Skeleton from '@mui/material/Skeleton';
 
 
 function TypeSurvey({
@@ -26,15 +26,17 @@ function TypeSurvey({
 
   const [typeSurvey, setTypeSurvey] = useState([]);
   const [user, setUser] = useState({});
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const data = await surveyService.getAllTypeSurvey();
       if (data.statusCode == 200) {
         setTypeSurvey(data.data);
         console.log("data", data.data);
       }
+      setLoading(false);
     })();
   }, []);
   console.log("data", typeSurvey.name);
@@ -74,8 +76,20 @@ function TypeSurvey({
   };
 
   return (
+    
     <section id="services" className="bg-[#031d2e]">
-      <div className="md:container mx-auto px-[6%] py-6">
+      {loading ? (
+           <div className="md:container mx-auto px-[6%] py-6">
+           <div className=" grid grid-cols-3 gap-4">
+            <Skeleton variant="rectangular" width={350} height={400} />
+            <Skeleton variant="rectangular" width={350} height={400} />
+            <Skeleton variant="rectangular" width={350} height={400} />
+ 
+           </div>
+           </div>
+      
+         ) : (
+          <div className="md:container mx-auto px-[6%] py-6">
           <div className=" grid grid-cols-3 gap-4">
             {typeSurvey.map((row, key) => (
               <div
@@ -100,9 +114,14 @@ function TypeSurvey({
               </div>
             ))}
           </div>
-        </div>
+      </div>
+         )
+        }
         <ModalLogin ref={modalLoginRef} />
-        </section>
+    </section>
+   
+
+
   );
 }
 

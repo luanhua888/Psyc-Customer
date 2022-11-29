@@ -174,11 +174,6 @@ export default function Home(props) {
           <h1 className="text-white w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
             CÁC DỊCH VỤ CỦA CHÚNG TÔI
           </h1>
-          <p className="text-white as_font14 as_padderBottom5">
-            Consectetur adipiscing elit, sed do eiusmod tempor
-            incididuesdeentiut labore <br />
-            etesde dolore magna aliquapspendisse and the gravida.
-          </p>
         </div>
 
         <div className="flex flex-row justify-center gap-4 mx-auto ">
@@ -192,8 +187,7 @@ export default function Home(props) {
               </span>
               <h4 className="as_subheading">Lá Số Tử Vi</h4>
               <p>
-                Consectetur adipiscing elit sed do <br />
-                eiusmod tempor incididunt.
+                
               </p>
             </div>
           </div>
@@ -206,10 +200,7 @@ export default function Home(props) {
                 <Image src={service1} alt="" />
               </span>
               <h4 className="as_subheading">Đặt lịch</h4>
-              <p>
-                Consectetur adipiscing elit sed do <br />
-                eiusmod tempor incididunt.
-              </p>
+             
               {/* <a href="service_detail.html" className="as_link">
                 read more
               </a> */}
@@ -224,10 +215,7 @@ export default function Home(props) {
                 <Image src={service2} alt="" height={45} width={45} />
               </span>
               <h4 className="as_subheading ">Trực Tiếp</h4>
-              <p>
-                Consectetur adipiscing elit sed do <br />
-                eiusmod tempor incididunt.
-              </p>
+             
               {/* <a href="service_detail.html" className="as_link">
                 read more
               </a> */}
@@ -242,10 +230,6 @@ export default function Home(props) {
                 <Image src={service3} alt="" height={45} width={45} />
               </span>
               <h4 className="as_subheading">Bài Khảo Sát</h4>
-              <p>
-                Consectetur adipiscing elit sed do <br />
-                eiusmod tempor incididunt.
-              </p>
               {/* <a href="service_detail.html" className="as_link">
                 read more
               </a> */}
@@ -564,8 +548,9 @@ export default function Home(props) {
                         className="rounded-tl-xl rounded-bl-xl align-middle"
                         src={astroRoundedImg}
                         alt=""
-                        width={350}
-                        height={350}
+                        width={300}
+                        height={300}
+                      
                       />
                       <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
                         <h1 className="px-2 text-2xl  text-white font-semibold ">
