@@ -23,6 +23,8 @@ import ModalStarMap from "../../components/modal/ModalStarMap";
 import ModalAddSupProfile from "../../components/modal/ModalAddSupProfile";
 import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 
+import Skeleton from '@mui/material/Skeleton';
+
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
@@ -31,6 +33,8 @@ export default function Profile(props) {
   const formRef = useRef();
   const [dataForm, setDataForm] = useState({});
   const modalMapRef = useRef();
+
+  const [loading, setLoading] = useState(true);
 
   const notify = () => toast("Xóa hồ sơ thành công!");
 
@@ -163,24 +167,14 @@ export default function Profile(props) {
     }
   };
 
-  const getSupProfileDetail = async () => {
-    if (localStorage.getItem("jwttoken")) {
-      const data = await profileService.getSupProfileDetail(
-        localStorage.getItem("idcustomer"),
-        supProfileId
-      );
-
-      if (data.statusCode == 200) {
-        setSupProfileResult(data.data);
-      }
-    }
-  };
 
 
   useEffect(() => {
     (async () => {
+      setLoading(true)
       getSupProfile();
     })();
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -205,7 +199,143 @@ export default function Profile(props) {
 
   return (
     <>
-      <section className="bg-[#031d2e]">
+     {loading ? (
+      <div>
+        <section className="bg-[#031d2e]">
+      <div className="md:container mx-auto px-[10%] py-5">
+        <div className="px-7 py-3 rounded-3xl bg-[#17384e]">
+          {user && (
+            <div className="flex gap-5 mb-12">
+              <div className="flex flex-col gap-2">
+                <div className="w-[260px] h-[250px] flex flex-row  justify-center items-center">
+                <Skeleton width={260} height={250} />
+                </div>
+                <button
+                >
+                  <Skeleton width={100} height={30} />
+                </button>
+              </div>
+              <div className="flex flex-1 flex-col ">
+                {!_.isEmpty(user) && (
+                  <Formik
+                    innerRef={formRef}
+                    initialValues={{
+                      email: user.email,
+                      fullname: user.fullname,
+                      address: user.address,
+                      gender: user.gender,
+                      dob: user.dob,
+                      longitude: user.longitude,
+                      latitude: user.latitude,
+                    }}
+                    validate={(values) => {
+                      const errors = {};
+
+                      return errors;
+                    }}
+                    onSubmit={onSubmit}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                      /* and other goodies */
+                    }) => (
+                      <form className="pt-2" onSubmit={handleSubmit}>
+                        <input
+                          type="hidden"
+                          name="email"
+                          id="email"
+                          value={values.email}
+                          defaultValue={values.email}
+                        />
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div>
+                            <label
+                              for="fullname"
+                              class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
+                            >
+                             <Skeleton width={100} height={20} />
+                            </label>
+                           <Skeleton width={300} height={30} />
+                          </div>
+
+                          <div>
+                            <label
+                              for="address"
+                              class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
+                            >
+                              <Skeleton width={100} height={20} />
+                            </label>
+                            <Skeleton width={300} height={30} />
+                          </div>
+                        </div>
+
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                          <div>
+                            <label
+                              for="gender"
+                              class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-400"
+                            >
+                              {}
+                              <Skeleton width={100} height={20} />
+                            </label>
+                            <Skeleton width={300} height={30} />
+                          </div>
+                          <div>
+                            <label
+                              for="dob"
+                              class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
+                            >
+                              <Skeleton width={100} height={20} />
+                            </label>
+                            <Skeleton width={300} height={30} />
+                          </div>
+                        </div>
+
+
+                        <div className="d-flex flex float-right   text-white    focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm  text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          <button
+                            type="submit"
+                          >
+                            <Skeleton width={100} height={20} />
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </Formik>
+                )}
+              </div>
+            </div>
+          )}
+          <div>
+            <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
+              <p className="w-[100%] ">
+                <span className="pr-[20%] pl-[24%] text-[#ff7010]">
+                  <Skeleton width={900} height={40} />
+                </span>
+              </p>
+            </h1>
+
+            <div>
+             <Skeleton width={900} height={40} />
+             <Skeleton width={900} height={40} />
+             <Skeleton width={900} height={40} />
+             
+            </div>
+          </div>
+        </div>
+      </div>
+        </section>
+      
+      </div> 
+     ):(
+      <div>
+        <section className="bg-[#031d2e]">
         <div
           className="absolute right-[3%] top-[55%] flex flex-row"
           // không hiển thị
@@ -636,7 +766,10 @@ export default function Profile(props) {
           </div>
         </div>
       </section>
-
+      </div>
+     )
+}
+      
       <ModalMap
         ref={modalMapRef}
         onChangeLocation={(latitude, longitude, address) =>
