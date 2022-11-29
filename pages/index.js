@@ -126,9 +126,7 @@ export default function Home(props) {
               <Image className="animate-spin  " src={astroRoundedImg} alt="" />
             </div>
             <div className="flex flex-col gap-[10%] text-slate-800 md:text-5xl ">
-              <h3
-                className="font-sans text-4xl text-white"
-              >
+              <h3 className="font-sans text-4xl text-white">
                 Bất kì câu hỏi nào?
               </h3>
 
@@ -143,7 +141,6 @@ export default function Home(props) {
             <div className="max-[200px] ">
               <a
                 onClick={onJoin}
-             
                 className="flex flex-row justify-center items-center w-[] bg-[#fd7e14] rounded-2xl md:text-2xl font-semibold hover:bg-[#17384e] hover:text-white "
               >
                 Trò chuyện ngay
@@ -243,7 +240,7 @@ export default function Home(props) {
       <div className="md:container mx-auto py-6 bg-[#031d2e]">
         <div className="as_zodiac_inner text-left">
           <div className="flex flex-row justify-center text-white">
-            <h1 className=" w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010]">
+            <h1 className=" w-[50%] justify-center items-center flex flex-row md:text-3xl border-b-2 border-[#ff7010]">
               CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
             </h1>
           </div>
@@ -375,7 +372,6 @@ export default function Home(props) {
             </div>
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="as_sign_img text-center">
-               
                 <Image className="animate-spin" src={logoSpin} alt="" />
               </div>
             </div>
@@ -509,73 +505,75 @@ export default function Home(props) {
 
       {/* article */}
 
-      {/* <section className="bg-[#17384e] mx-auto px-[10%]  py-6">
-        <div className="md:container mx-auto py-8 items-center ">
+      <section className="bg-[#17384e] ">
+        <div className="md:container mx-auto py-8 ">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className="text-white w-[40%] justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
+            <h1 className="text-white justify-center flex flex-row text-3xl border-b-2 border-[#ff7010] ">
               NHỮNG BÀI VIẾT MỚI NHẤT​
             </h1>
           </div>
-          <div className="">
-            <Swiper
-              effect={"coverflow"}
-              grabCursor={true}
-              centeredSlides={true}
-              slidesPerView={"auto"}
-              autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-              }}
-              coverflowEffect={{
-                rotate: 50,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows: true,
-              }}
-              pagination={false}
-              modules={[EffectCoverflow, Pagination, Autoplay]}
-              className="mySwiper "
-            >
-              {article.map((row, key) => (
-                <SwiperSlide
-                  className="flex flex-row justify-center"
-                  key={key}
-                  onClick={() =>
-                    router.push({
-                      pathname: "/arcticle",
-                      query: { articleId: row.id },
-                    })
-                  }
-                >
-                  <div className="articleBox flex flex-row">
-                    <Image
-                      loader={() => row.urlBanner}
-                      className="rounded-tl-xl rounded-bl-xl align-middle"
-                      src={astroRoundedImg}
-                      alt=""
-                      width={350}
-                      height={350}
-                    />
-                    <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
-                      <h1 className="px-2 text-2xl  text-white font-semibold ">
-                        {row.title}
-                      </h1>
-                      <h1
-                        className="px-2 text-2xl text-white first-of-type:font-semibold 
-                             text-justif
+          <div className="flex flex-row justify-center ">
+            <div className="max-w-[800px]">
+              <Swiper
+                effect={"coverflow"}
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView={"auto"}
+                autoplay={{
+                  delay: 2000,
+                  disableOnInteraction: false,
+                }}
+                coverflowEffect={{
+                  rotate: 50,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 1,
+                  slideShadows: true,
+                }}
+                pagination={false}
+                modules={[EffectCoverflow, Pagination, Autoplay]}
+                className="mySwiper "
+              >
+                {article.map((row, key) => (
+                  <SwiperSlide
+                    className="flex flex-row justify-center"
+                    key={key}
+                    onClick={() =>
+                      router.push({
+                        pathname: "/arcticle",
+                        query: { articleId: row.id },
+                      })
+                    }
+                  >
+                    <div className="articleBox flex flex-row">
+                      <Image
+                        loader={() => row.urlBanner}
+                        className="rounded-tl-xl rounded-bl-xl align-middle"
+                        src={astroRoundedImg}
+                        alt=""
+                        width={350}
+                        height={350}
+                      />
+                      <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
+                        <h1 className="px-2 text-2xl  text-white font-semibold ">
+                          {row.title}
+                        </h1>
+                        <h1
+                          className="px-2 text-2xl text-white first-of-type:font-semibold 
+                            
                     "
-                      >
-                        {row.description}
-                      </h1>
+                        >
+                          {row.description}
+                        </h1>
+                      </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* footer */}
       {/*  */}
