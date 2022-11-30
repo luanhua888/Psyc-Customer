@@ -14,6 +14,8 @@ import { Formik } from "formik";
 import ModalForgotPassword from "./ModalForgotPassword";
 import { Link } from "@mui/material";
 import Password from "antd/lib/input/Password";
+// toast
+
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = forwardRef((props, ref) => {
@@ -79,7 +81,6 @@ const ModalLogin = forwardRef((props, ref) => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
 
   return (
     <div className="absolute left-1  top-0">
@@ -170,7 +171,7 @@ const ModalLogin = forwardRef((props, ref) => {
                   </div>
                 </div>
                 <div className="rounded">
-                  <Password
+                  <input
                     class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                     name="password"
                     //cho hiện mật khẩu
@@ -180,9 +181,6 @@ const ModalLogin = forwardRef((props, ref) => {
                     onBlur={handleBlur}
                     value={values.password}
                   />
-                
-                
-                
                 </div>
               </div>
               <div className="flex justify-end">

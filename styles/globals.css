@@ -488,6 +488,7 @@ h6,
 .as_service_box {
   background-color: #07273c;
   /* padding: 50px 22px; */
+  min-width: 200px;
   margin-top: 30px;
   box-shadow: inset -5px -5px 10px #051e2e,
     inset 5px 5px 10px #09304a;
