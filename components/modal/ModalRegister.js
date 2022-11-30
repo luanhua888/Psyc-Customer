@@ -323,7 +323,7 @@ const ModalRegister = forwardRef((props, ref) => {
   };
 
   return (
-    <>
+    <div className="absolute left-1 mt-[5%]">
       <Modal
         classes="overflow-hidden max-w-full max-h-full w-2/3 pb-5 mb-[15%] h-auto p-4 bg-white rounded-lg bg-[#17384e] "
         isOpen={isOpen}
@@ -947,7 +947,7 @@ const ModalRegister = forwardRef((props, ref) => {
         }
       />
       <ModalLogin ref={modalLoginRef} />
-    </>
+    </div>
   );
 });
 

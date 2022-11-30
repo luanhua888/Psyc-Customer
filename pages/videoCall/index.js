@@ -92,10 +92,6 @@ export default function VideoCall() {
           return;
         }
 
-        
-
-        
-
         await rtc.client.subscribe(user, mediaType);
         if (mediaType === "video") {
           const remoteVideoTrack = user.videoTrack;

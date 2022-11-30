@@ -10,9 +10,6 @@
   }
 }
 
-:root {
-  min-width: max-content;
-}
 
 .animate-spin {
   animation: spin 10s linear infinite;
@@ -488,19 +485,22 @@ h6,
 .as_service_box {
   background-color: #07273c;
   /* padding: 50px 22px; */
-  min-width: 200px;
-  margin-top: 30px;
+  
+}
+
+.as_service_box {
   box-shadow: inset -5px -5px 10px #051e2e,
     inset 5px 5px 10px #09304a;
-
   border-radius: 16px;
   color: white;
 }
 
+
 .as_service_box .as_icon {
-  width: 80px;
+ max-width: 80px;
+  
   background-color: #10334a;
-  height: 80px;
+  max-height: 80px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -508,6 +508,8 @@ h6,
   position: relative;
   transition: all 0.3s linear;
 }
+
+
 
 .as_service_box .as_icon:after {
   border: 1px dashed #173f59;
@@ -540,22 +542,7 @@ h6,
   position: relative;
 }
 
-.as_service_box .as_subheading:after {
-  width: 70px;
-  height: 2px;
-  background-color: var(--secondary-color);
-  position: absolute;
-  content: '';
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
 
-
-.as_service_box p {
-  font-size: 14px;
-  line-height: 24px;
-}
 
 
 
@@ -575,7 +562,7 @@ h6,
 .as_sign_box {
   background-color: #0e344d;
   max-width: 230px;
-  padding: 10px;
+  min-width: 30px;
   position: relative;
   display: flex;
   align-items: center;
@@ -589,8 +576,8 @@ h6,
 
 .as_sign_box .as_sign {
   background-color: #07273c;
-  height: 80px;
-  width: 54px;
+  max-height: 80px;
+  max-width: 54px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -599,17 +586,7 @@ h6,
   transition: all 0.2s linear;
 }
 
-.as_sign_box h5 {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 2px;
-}
 
-.as_sign_box p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-}
 
 .as_sign_box:after,
 .as_sign_box:before {
@@ -733,10 +710,9 @@ h6,
     inset 5px 5px 10px #ffa649;
 }
 
-.btnSelect{
-  
-}
+.btnSelect {}
 
-table{
-  position: relative;;
+table {
+  position: relative;
+  ;
 }

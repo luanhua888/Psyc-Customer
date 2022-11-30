@@ -50,9 +50,10 @@ export default function DailyHoroscop() {
   }, []);
 
   return (
-    <div className="mx-auto">
+    <div className="">
       <section id="services" className="">
-        <div className="mx-[10%] justify-center items-center flex flex-row  mt-[5%] py-6 rounded-2xl bg-[#17384e]  ">
+      
+        <div className="mx-[10%]  justify-center items-center flex flex-row  mt-[5%] py-6 rounded-2xl bg-[#17384e]  ">
           <div className="flex flex-col justify-between gap-4 ">
             <div className="col-lg-12 jus text-center">
               <h1 className=" w-[40%] justify-center flex flex-row items-center text-white mx-auto text-3xl border-b-2 border-[#ff7010]">
@@ -61,10 +62,10 @@ export default function DailyHoroscop() {
               <p className="as_font14 as_padderBottom5"></p>
             </div>
 
-            <div className="flex flex-row justify-center gap-4 mx-auto ">
-              <div className=" w-[250px] ">
+            <div className="flex flex-row justify-center gap-4 mx-auto  ">
+              <div className=" ">
                 <div
-                  className="as_service_box text-center cursor-pointer  "
+                  className="as_service_box text-center cursor-pointer py-[10%]  "
                   onClick={() =>
                     handleOpenModalDailyHoroscop(
                       dayjs().subtract(1, "day").format("YYYY-MM-DD")
@@ -79,7 +80,7 @@ export default function DailyHoroscop() {
                   <h4 className="as_subheading">Hôm Qua</h4>
                   <h5>{dayjs().subtract(1, "day").format("DD/MM/YYYY")}</h5>
                   <button
-                    className="text-white btnViewDaily font-bold px-10 mt-2 py-2
+                    className="text-white btnViewDaily font-bold px-10 mt-2 py-2 
                   "
                     onClick={() =>
                       handleOpenModalDailyHoroscop(
@@ -91,9 +92,9 @@ export default function DailyHoroscop() {
                   </button>
                 </div>
               </div>
-              <div className=" w-[250px] ">
+              <div className="">
                 <div
-                  className="as_service_box text-center cursor-pointer"
+                  className="as_service_box text-center cursor-pointer  py-[10%]"
                   onClick={() =>
                     handleOpenModalDailyHoroscop(dayjs().format("YYYY-MM-DD"))
                   }
@@ -113,9 +114,9 @@ export default function DailyHoroscop() {
                   </div>
                 </div>
               </div>
-              <div className=" w-[250px] ">
+              <div className="">
                 <div
-                  className="as_service_box text-center cursor-pointer"
+                  className="as_service_box text-center cursor-pointer  py-[10%]"
                   onClick={() =>
                     handleOpenModalDailyHoroscop(
                       dayjs().add(1, "day").format("YYYY-MM-DD")
