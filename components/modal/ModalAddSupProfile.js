@@ -24,7 +24,6 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [birthPlace, setBirthPlace] = useState([]);
-  console.log("birthPlace", birthPlace);
 
   const [dataForm, setDataForm] = useState({
     name: "",
@@ -40,7 +39,6 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
     gender: "",
   });
 
-  console.log("dataForm", dataForm);
 
   useImperativeHandle(ref, () => ({
     open: (data) => {
@@ -75,11 +73,9 @@ const ModalAddSupProfile = forwardRef((props, ref) => {
         setIsOpen(false);
       }
     } catch (err) {
-      console.log("err", err);
     }
   };
 
-  console.log("dataForm", dataForm);
 
   // nếu ModalEditSupProfile discard thì sẽ gọi hàm getSupProfile ở
 

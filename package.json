@@ -46,6 +46,7 @@
     "react-google-picker": "^0.1.0",
     "react-loading": "^2.0.3",
     "react-places-autocomplete": "^7.3.0",
+    "react-stars-display": "^0.1.24",
     "react-toastify": "^9.1.1",
     "swiper": "^8.4.4",
     "yup": "^0.32.11"

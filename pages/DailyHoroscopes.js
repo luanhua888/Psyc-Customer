@@ -7,8 +7,7 @@ export default function DailyHoroscopes() {
       {/* Content */}
       <div className="flex flex-row">
         <div
-        style={{backgroundColor: '#30263B', height: '20vh', width: '100%', marginRight:"10%", marginLeft:"10%", marginTop:"10px", borderRadius:"10px"
-      }}
+       
         >
           <h1  className='text-white text-3xl font-bold text-center pt-10'>LÁ PHIẾU HÔM NAY CỦA BẠN</h1>
         </div>
@@ -16,17 +15,17 @@ export default function DailyHoroscopes() {
         
       {/* Card DailyHoroscopes */}
     <div className="card__dailyHoroscopes flex flex-row justify-center items-center"
-      style={{ marginTop: '10px', marginBottom: '10px', marginLeft: '10px', marginRight: '10px' }}
     >
       
 
       {/* HÔM QUA */}
-    <div class="max-w-sm rounded overflow-hidden shadow-lg mt-5"
-      style={{ marginTop: '50px', marginBottom: '10px', marginLeft: '10px', marginRight: '10px' }}
+    <div class="max-w-sm rounded overflow-hidden shadow-lg mt-5 py-[10%]"
+     
     >
     <div class="font-bold text-xl mb-2 text-center text-gray-900">
       Hôm qua
     </div>
+
   <img class="w-full" src="https://firebasestorage.googleapis.com/v0/b/psychologicalcounseling-28efa.appspot.com/o/zodiac%2Faries.png?alt=media&token=928fed58-c87c-4301-a55c-8e1a3ad53edd" alt="Sunset in the mountains" />
   <div class="px-6 py-4">
     
@@ -104,6 +103,8 @@ export default function DailyHoroscopes() {
     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Trái Đất</span>
   </div>
     </div>
+
+    
     {/* HÔM NAY */}
     <div class="max-w-sm rounded overflow-hidden shadow-lg"
       style={{ marginTop: '50px', marginBottom: '10px', marginLeft: '10px', marginRight: '10px' }}

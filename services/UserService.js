@@ -152,6 +152,11 @@ class UserService extends AbstractService {
   }
 
 
+  getUser = (id) => {
+    return this.httpGET(API.GET_USERBYID, { id });
+  }
+
+
 
 }
 

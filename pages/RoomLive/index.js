@@ -110,11 +110,7 @@ export default function RoomLive(props) {
          
         ) : (
           <div className="flex flex-col items-center justify-center">
-        <Image src={nolive} alt=""  
-        // căn giữa trung tâ
-        width={500}
-        height={500}
-        />
+      
          </div>
         )}
 
