@@ -26,6 +26,9 @@ import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
 import { useRouter } from "next/router";
 import { userService } from "../services/UserService";
 
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Home(props) {
   const modalLoginRef = useRef();
 
@@ -48,6 +51,7 @@ export default function Home(props) {
 
   const [user, setUser] = useState({});
   const [articleId, setArticleId] = useState(0);
+
 
   useEffect(() => {
     (async () => {
@@ -131,6 +135,8 @@ export default function Home(props) {
       });
     })();
   };
+
+  
 
   return (
     <>
