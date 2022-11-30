@@ -11,8 +11,7 @@ import ModalConsultantDetail from "../components/modal/ModalConsultantDetail";
 import { Dropdown } from "flowbite-react";
 import iconProfile from "../public/icon_profile.png";
 
-
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 
 export default function Chat(props) {
   const modalLoginRef = useRef();
@@ -27,18 +26,14 @@ export default function Chat(props) {
   const [valueType, setValueType] = useState("");
   const [loading, setLoading] = useState(true);
 
-
-
   console.log("consultantDetail", consultantDetail);
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
-        setLoading(true)
         const data = await userService.profile(localStorage.getItem("iddb"));
         const data1 = await consultantService.getTypeConsultant();
         const data2 = await consultantService.getAll();
-        
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
@@ -49,8 +44,26 @@ export default function Chat(props) {
         }
 
         if (data2.statusCode == 200) {
+          console.log("alloalao", data2.data);
           setConsultants(data2.data);
+          setLoading(false);
         }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const data1 = await consultantService.getTypeConsultant();
+      const data2 = await consultantService.getAll();
+
+      if (data1.statusCode == 200) {
+        setTypeConSultant(data1.data);
+      }
+
+      if (data2.statusCode == 200) {
+        console.log("alloalao", data2.data);
+        setConsultants(data2.data);
         setLoading(false);
       }
     })();
@@ -63,7 +76,6 @@ export default function Chat(props) {
       setConsultants(data.data);
     }
   };
-  
 
   const onChat = (consultant) => {
     if (_.isEmpty(user)) {
@@ -80,41 +92,91 @@ export default function Chat(props) {
     const data = await consultantService.getConsultantDetail(id);
     const data1 = await consultantService.getConsultantDetail1(id);
 
-    
-
     if (data.statusCode == 200) {
       setConsultantDetail(data.data);
     }
     if (data1.statusCode == 200) {
       setConsultantDetail1(data1.data);
     }
-
-
   };
 
   return (
     <>
       {loading ? (
-               <div>
-               <div className="px-[20%] flex flex-row justify-end items-end mt-2">
-                  <Skeleton width={200} height={50} />
-               </div>
-         
-                 <div className="md:container mx-auto px-[10%] pt-4 flex flex-col">
-                  
-                     <div className=" flex-wrap justify-between grid gap-x-2 gap-y-4 grid-cols-3">
-                     <Skeleton width={300} height={400} />
-                     <Skeleton width={300} height={400} />
-                     <Skeleton width={300} height={400} />
-                     </div>
-                   
-                   
-                 </div>
-                 </div>
-      
-      ):(
         <div>
-        <div className="px-[20%] flex flex-row justify-end items-end mt-2">
+          <div className="px-[20%] flex flex-row justify-end items-end mt-2">
+            <Skeleton width={200} height={50} />
+          </div>
+          <div className="md:container mx-auto  flex flex-col justify-center items-center ">
+            <div className=" justify-between grid gap-x-2 gap-y-4 grid-cols-3 mt-[5%] ">
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+                
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                variant="rect"
+                width="300px"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                variant="rect"
+                width="300px"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+              <Skeleton
+                variant="rect"
+                width="300px"
+                height="200px"
+                className="mb-4 rounded-2xl"
+              />
+             
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="px-[20%] flex flex-row justify-end items-end mt-2">
             <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
               <label
                 for="gender"
@@ -122,7 +184,7 @@ export default function Chat(props) {
               >
                 {}
               </label>
-  
+
               <select
                 id="gender"
                 name="gender"
@@ -150,7 +212,7 @@ export default function Chat(props) {
               </div> */}
             </div>
           </div>
-  
+
           <div className="md:container mx-auto px-[10%] pt-12 flex flex-col">
             {consultants != null ? (
               <div className=" flex-wrap justify-between grid gap-x-2 gap-y-4 grid-cols-3">
@@ -180,11 +242,11 @@ export default function Chat(props) {
                             .map(Number.call, Number)
                             .map((num, index) => {
                               let stateStar = "text-yellow-400";
-  
+
                               if (num >= row.rating) {
                                 stateStar = "text-gray-300 dark:text-gray-500";
                               }
-  
+
                               return (
                                 <svg
                                   key={num}
@@ -201,7 +263,7 @@ export default function Chat(props) {
                             })}
                         </div>
                       </div>
-  
+
                       <div className="flex flex-col gap-2 justify-center items-center text-black">
                         <div className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black">
                           {row.fullName}
@@ -220,21 +282,20 @@ export default function Chat(props) {
                         </div>
                       </div>
                     </div>
-  
+
                     <div className=" flex flex-row justify-center items-center gap-[2%] ">
                       <button
-                        className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]" 
+                        className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
                         onClick={() => onChat(row)}
                       >
                         Đặt lịch
                       </button>
-  
-                
+
                       <button
                         className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
                         onClick={() => onViewDetail(row.consultantId)}
                       >
-                        Chi Tiết       
+                        Chi Tiết
                       </button>
                     </div>
                   </div>
@@ -246,12 +307,15 @@ export default function Chat(props) {
               </div>
             )}
           </div>
-          </div>
-      )
-      }
+        </div>
+      )}
       <ModalLogin ref={modalLoginRef} />
       <ModalBooking ref={modalBookingRef} />
-      <ModalConsultantDetail id={consultantDetail} consultant={consultantDetail1} ref={modalConsultantDetail} />
+      <ModalConsultantDetail
+        id={consultantDetail}
+        consultant={consultantDetail1}
+        ref={modalConsultantDetail}
+      />
     </>
   );
 }

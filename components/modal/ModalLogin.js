@@ -13,6 +13,7 @@ import { userService } from "../../services/UserService";
 import { Formik } from "formik";
 import ModalForgotPassword from "./ModalForgotPassword";
 import { Link } from "@mui/material";
+import Password from "antd/lib/input/Password";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = forwardRef((props, ref) => {
@@ -72,6 +73,14 @@ const ModalLogin = forwardRef((props, ref) => {
     }
   };
 
+  //hiện mật khẩu ô input
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+
   return (
     <div className="absolute left-1  top-0">
       <Modal
@@ -81,7 +90,6 @@ const ModalLogin = forwardRef((props, ref) => {
         onConfirm={() => formRef.current.submitForm()}
         onDiscard={() => console.log("Button discard")}
         buttons={[
-         
           {
             role: "confirm",
             toClose: false,
@@ -162,15 +170,19 @@ const ModalLogin = forwardRef((props, ref) => {
                   </div>
                 </div>
                 <div className="rounded">
-                  <input
-                    className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                  <Password
+                    class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                     name="password"
-                    type="password"
+                    //cho hiện mật khẩu
+                    type={"password"}
                     placeholder="Mật khẩu"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
                   />
+                
+                
+                
                 </div>
               </div>
               <div className="flex justify-end">
