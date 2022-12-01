@@ -182,51 +182,84 @@ export default function Home(props) {
             </h1>
           </div>
 
-          <div className="px-[10%] my-[1%] ">
-            <div className="grid grid-cols-4 mb-[%]">
-              <div className=" max-w-[250px] min-w-[50px]">
+          <div className="px-[5%] my-[1%] ">
+            <div className="grid grid-cols-4 mb-[%] gap-[1%]">
+{/*             
+              <div className=" max-w-[250px] min-w-[60px] ">
                 <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md mb-[2%]"
+                  className="as_service_box text-center  cursor-pointer sm:py-[25%]  bg-[#07273c] rounded-md mb-[2%] pt-[10%]"
                   onClick={() => onJoin()}
                 >
                   <span className="as_icon">
+                    <Image src={service7} 
+                    alt=""
+                    style={{
+                    //icon lớn nhất là 40px nhỏ nhất là 20px
+                    
+                    width: "40px",
+                    height: "40px",
+
+
+                    }}
+                    
+                     />
+                  </span>
+                  <h4
+                    className="as_subheading md:text"
+                    style={{
+                      // cỡ chữ nhỏ nhất là 12px
+                      fontSize: "clamp(10px, 1.5vw, 24px)",
+                    }}
+                  >
+                    Lá Số Hằng Ngày
+                  </h4>
+                  <p></p>
+                </div>
+              </div> */}
+
+              <div className=" max-w-[250px] min-w-[60px]">
+                <div
+                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md pt-[10%]"
+                  onClick={() => onJoin()}
+                >
+                  <span className="as_icon ">
                     <Image src={service7} height={40} width={40} alt="" />
                   </span>
                   <h4
                     className="as_subheading md:text"
                     style={{
                       // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(12px, 1.5vw, 24px)",
+                      fontSize: "clamp(10px, 1.5vw, 24px)",
                     }}
                   >
-                    Lá Số Tử Vi
+                    Lá Số Hằng Ngày
                   </h4>
-                  <p></p>
                 </div>
               </div>
 
-              <div className=" max-w-[250px] min-w-[50px]">
+              <div className=" max-w-[250px] min-w-[60px]">
                 <div
-                  className="as_service_box text-center cursor-pointer sm:py-[25%] "
+                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md pt-[10%]"
                   onClick={() => router.push("/chat")}
                 >
-                  <span className="as_icon">
+                  <span className="as_icon ">
                     <Image src={service1} height={40} width={40} alt="" />
                   </span>
                   <h4
                     className="as_subheading md:text"
                     style={{
                       // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(12px, 1.5vw, 24px)",
+                      fontSize: "clamp(10px, 1.5vw, 24px)",
                     }}
                   >
                     Đặt lịch
                   </h4>
                 </div>
               </div>
-              <div className=" max-w-[250px] min-w-[50px]">
+
+              <div className=" max-w-[250px] min-w-[60px]">
                 <div
-                  className="as_service_box text-center cursor-pointer sm:py-[25%]  "
+                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md  pt-[10%]"
                   onClick={() => router.push("/RoomLive")}
                 >
                   <span className="as_icon">
@@ -236,16 +269,16 @@ export default function Home(props) {
                     className="as_subheading md:text "
                     style={{
                       // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(12px, 1.5vw, 24px)",
+                      fontSize: "clamp(10px, 1.5vw, 24px)",
                     }}
                   >
                     Trực Tiếp
                   </h4>
                 </div>
               </div>
-              <div className=" max-w-[250px] min-w-[50px]">
+              <div className=" max-w-[250px] min-w-[60px]">
                 <div
-                  className="as_service_box text-center cursor-pointer sm:py-[25%] "
+                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md mb-[2%] pt-[10%]"
                   onClick={() => router.push("/Survey")}
                 >
                   <span className="as_icon">
@@ -256,7 +289,7 @@ export default function Home(props) {
                 "
                     style={{
                       // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(12px, 1.5vw, 24px)",
+                      fontSize: "clamp(10px, 1.5vw, 24px)",
                     }}
                   >
                     Bài Khảo Sát
