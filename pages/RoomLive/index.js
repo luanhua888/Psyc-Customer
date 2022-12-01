@@ -11,6 +11,7 @@ import { liveStreamService } from "../../services/LiveStreamService";
 import { useRouter } from "next/router";
 
 import nolive from "../../public/no_live.png";
+import { Skeleton } from "antd";
 
 export default function RoomLive(props) {
   const { consultants } = props;
@@ -19,6 +20,7 @@ export default function RoomLive(props) {
   const modalBookingRef = useRef();
 
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -41,81 +43,63 @@ export default function RoomLive(props) {
     router.push({
       pathname: "/LiveStream",
       query: { roomLive: consultant },
-    })
+    });
   };
 
   return (
     <>
-      <div className="px-[10%] mt-2">
-        {consultants.length > 0 ? (
-          <div className="consultant__live__orther grid grid-cols-4 gap-4 mt-4   ">
-            {consultants.map((row, index) => (
-              <div
-                key={index}
-                class=" consultantBox   "
-              >
-                <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
-                  <Image
-                    loader={() => row.imageUrl}
-                    className="rounded-full"
-                    src={avatarImg}
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div class="p-5 ">
-                  <a
-                    href="#"
-                    className="w-full flex flex-col sm:flex-row items-center justify-center "
+      <section id="services" className="bg-[#031d2e]">
+        <div>
+          <div className="justify-center items-center flex flex-col bg-[#17384e]  mx-[8%] p-[10%] mt-[1%] rounded-md shadow-md">
+            <p className=" text-[#ff7010] font-bold md:text-5xl mb-[5%] border-b-4 border-b-[#ff7010]">
+              Các Phòng Live Stream
+            </p>
+            <div className=" grid grid-cols-3  gap-[2%] ">
+              {consultants.map((row, key) => (
+                <div key={key}>
+                  <div className="flex flex-row justify-center items-center px-[10%] 
+                  "
+                 
                   >
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-white dark:text-white">
-                      {row.consultantName}
-                    </h5>
-                  </a>
-                  <p class="mb-3 font-normal text-white dark:text-gray-400 w-full flex flex-col sm:flex-row items-center justify-center ">
-                    Nội dung: {row.description}
-                  </p>
-                  <div className="w-full flex flex-col sm:flex-row items-center justify-center ">
-                    <a
-                      href="#"
-                      class="joinBox  inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-[#ff7010] rounded-lg hover:bg-[#17384e] focus:ring-4 focus:outline-none"
-                      onClick={() =>
-                        onJoin(row.id)
-                        
-                        
-                      
-                      }
+                    <div
+                      className="rounded-lg shadow-lg bg-white max-w-[300px] sm:w-[300px] min-w-[80px]  "
+                      onClick={() => onJoin(row.id)}
                     >
-                      Tham gia  
-                      <svg
-                        aria-hidden="true"
-                        class="ml-2 -mr-1 w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </a>
+                      <a href="#!" className="flex flex-row justify-center">
+                        <Image
+                          loader={() => row.imageUrl}
+                          src={row.imageUrl}
+                          alt=""
+                          height={150}
+                          width={150}
+                        />
+                      </a>
+                      <div className="p-[4%] ">
+                        <h5
+                          className="text-gray-900 sm:text-xl font-medium mb-2 flex justify-center "
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
+                          {row.consultantName}
+                        </h5>
+                        <span
+                          className="flex flex-row justify-center items-center text-xs"
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
+                          {row.name}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-         
-        ) : (
-          <div className="flex flex-col items-center justify-center">
-      
-         </div>
-        )}
-
-      </div>
-
+        </div>
+      </section>
 
       <ModalLogin ref={modalLoginRef} />
       <ModalBooking ref={modalBookingRef} />

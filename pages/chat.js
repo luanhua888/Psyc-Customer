@@ -104,7 +104,14 @@ export default function Chat(props) {
   return (
     <>
       <div className="flex flex-row justify-center mt-[2%]">
-        <span className=" text-white w-1/3 text-3xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] ">
+        <span
+          className=" text-white w-auto md:text-4xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] "
+          style={{
+            fontSize: "clamp(25px, 1.5vw, 26px)",
+            //căn giữa
+     
+          }}
+        >
           DANH SÁCH CÁC TƯ VẤN VIÊN
         </span>
       </div>
@@ -181,7 +188,7 @@ export default function Chat(props) {
         </div>
       ) : (
         <div>
-          <div className="px-[20%] flex flex-row justify-end items-end mt-2">
+          <div className="sm:px-[20%] flex flex-row justify-end items-end mt-2">
             <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
               <label
                 for="gender"
@@ -203,18 +210,6 @@ export default function Chat(props) {
                   </option>
                 ))}
               </select>
-              {/* <div className="pl-4">
-              <Image
-                className="
-                     
-                          "
-                src={searchIcon}
-                alt=""
-                width={50}
-                height={50}
-                onClick={() => getConsultant()}
-              />
-              </div> */}
             </div>
           </div>
 
@@ -224,9 +219,9 @@ export default function Chat(props) {
                 {consultants.map((row, index) => (
                   <div
                     key={index}
-                    className="bookingBox flex flex-col   bg-white rounded-xl shadow-lg p-2"
+                    className="bookingBox flex flex-col min-w-[100px]  bg-white rounded-xl shadow-lg p-2"
                   >
-                    <div className="flex flex-col">
+                    <div className="flex flex-col min-w-[80px]">
                       <div className="flex flex-col gap-2  justify-center items-center ">
                         <div className="w-[75px] h-[75px]  vertical-align rounded-full bg-gradient-to-bl from-amber-300 to-amber-800 shadow-sm">
                           <Image
@@ -247,24 +242,47 @@ export default function Chat(props) {
                             value={row.rating}
                             precision={0.5}
                             readOnly
+                            style={{
+                              fontSize: "clamp(10px, 1.5vw, 20px)",
+                            }}
                           />
                         </div>
                       </div>
 
                       <div className="flex flex-col gap-2 justify-center items-center text-black">
-                        <div className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black">
-                          {row.fullName}
+                        <div
+                          className="text-lg font-medium cursor-pointer hover:text-amber-500 text-black"
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
+                          {row.name}
                         </div>
-                        <div className="text-[#807f7f] text-sm text-black">
+                        <div
+                          className="text-[#807f7f] text-sm text-black"
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
                           Giới tính: {row.gender == "Male" ? "Nam" : "Nữ"}
                         </div>
                         {/* <div className="text-[#807f7f] text-sm text-black">
                           Địa chỉ: {row.address}
                         </div> */}
-                        <div className="text-[#807f7f] text-sm text-black">
+                        <div
+                          className="text-[#807f7f] text-sm text-black"
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
                           Cấp độ: {row.experience}
                         </div>
-                        <div className="text-[#807f7f] text-sm text-black">
+                        <div
+                          className="text-[#807f7f] text-sm text-black"
+                          style={{
+                            fontSize: "clamp(10px, 1.5vw, 20px)",
+                          }}
+                        >
                           Chuyên môn: {row.specialName}
                         </div>
                       </div>
@@ -274,6 +292,9 @@ export default function Chat(props) {
                       <button
                         className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
                         onClick={() => onChat(row)}
+                        style={{
+                          fontSize: "clamp(10px, 1.5vw, 20px)",
+                        }}
                       >
                         Đặt lịch
                       </button>
@@ -281,6 +302,9 @@ export default function Chat(props) {
                       <button
                         className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
                         onClick={() => onViewDetail(row.consultantId)}
+                        style={{
+                          fontSize: "clamp(10px, 1.5vw, 20px)",
+                        }}
                       >
                         Chi Tiết
                       </button>
@@ -289,7 +313,7 @@ export default function Chat(props) {
                 ))}
               </div>
             ) : (
-              <div className=" px-7 text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center text-3xl">
+              <div className=" px-7 text-[#ff7010] bg-[#17384e] p-4 rounded-xl shadow-lg flex flex-row justify-center items-center md:text-3xl">
                 <span>Hiện Tại Không Có Tư Vấn Viên Nào</span>
               </div>
             )}

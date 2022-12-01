@@ -16,6 +16,7 @@ import { Dropdown } from "flowbite-react";
 import { walletService } from "../services/WalletService";
 import { collectFromHash } from "@fullcalendar/react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import DropdownButton from "antd/lib/dropdown/dropdown-button";
 
 export default function Navbar() {
   const router = useRouter();
@@ -91,6 +92,63 @@ export default function Navbar() {
     setUser({});
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("jwttoken");
+    localStorage.removeItem("iddb");
+    localStorage.removeItem("idcustomer");
+    router.push("/");
+    setUser({});
+
+    handleNav();
+  };
+
+  const handleOpenModalRegister = () => {
+    modalRegisterRef.current.open();
+    handleNav();
+  };
+
+  const handleOpenModalLogin = () => {
+    modalLoginRef.current?.open();
+    handleNav();
+  };
+
+  const handleHomePage = () => {
+    router.push("/");
+    handleNav();
+  };
+
+  const handleLivePage = () => {
+    router.push("/RoomLive");
+    handleNav();
+  };
+
+  const handleBookingPage = () => {
+    router.push("/chat");
+    handleNav();
+  };
+
+  const handleProfilePage = () => {
+    router.push("/profile");
+    handleNav();
+  };
+
+  const handleHisBookingPage = () => {
+    router.push("/historyBooking");
+    handleNav();
+  };
+
+  const handleHisDepositPage = () => {
+    router.push("/historyDeposit")
+    handleNav();
+  };
+
+  const handlePayment = () => {
+    router.push("/Payment")
+    handleNav();
+  };
+
+
+
   return (
     <div className="">
       <div className="flex justify-between px-[10%] p-[1%] shadow-md bg-[#17384e] ">
@@ -101,7 +159,7 @@ export default function Navbar() {
             <Image
               src={logo}
               alt=""
-              className="w-[100px] h-[100px] object-contain min-h[20px] min-w-[20px] cursor-pointer"
+              className="sm:w-[100px] sm:h-[100px] object-contain min-h[20px] min-w-[20px] cursor-pointer"
             />
           </div>
           {/* title */}
@@ -277,81 +335,220 @@ export default function Navbar() {
         onClick={handleNav}
       >
         {nav ? (
-         <></>
+          <></>
         ) : (
-          <Image
-            src={iconOutline}
-            alt=""
-            width={30}
-            height={30}
-            className=" my-[1%] "
-            style={{ color: `${textColor}` }}
-          />
+          <div className="flex">
+            <Image
+              src={iconOutline}
+              alt=""
+              width={30}
+              height={30}
+              className=" my-[1%] "
+              style={{ color: `${textColor}` }}
+            />
+          </div>
         )}
       </div>
 
       <div
         className={
           nav
-            ? "xl:hidden absolute  top-0 left-0 right-0 bottom-0 flex justify-center items-center text-center ease-in duration-300 w-full h-full bg-black bg-opacity-50 z-50"
-            : "xl:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center text-center ease-in duration-300 w-full h-full bg-black bg-opacity-50 z-50"
+            ? "xl:hidden absolute  top-0 left-0 right-0 bottom-0 flex justify-center items-center text-center ease-in duration-300 w-full h-full bg-[#031d2e] bg-opacity-500 z-50 "
+            : "xl:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center text-center ease-in duration-300 w-full h-full bg-[#031d2e] bg-opacity-50 z-50 text-[#ff7010]"
         }
       >
-        {<div
-        className="absolute xl:hidden   right-3 top-5 ease-in"
-        onClick={handleNav}
-      >
-        {nav ? (
-          <AiOutlineClose size={20} style={{color: `${textColor}`, }} />
-        ) : (
-          <Image
-            src={iconOutline}
-            alt=""
-            width={30}
-            height={30}
-            className=" my-[1%] "
-            style={{ color: `${textColor}` }}
-          />
-        )}
-      </div>}
+        {
+          <div
+            className="absolute xl:hidden   right-3 top-5 ease-in"
+            onClick={handleNav}
+          >
+            {nav ? (
+              <AiOutlineClose size={20} style={{ color: `${textColor}` }} />
+            ) : (
+              <Image
+                src={iconOutline}
+                alt=""
+                width={30}
+                height={30}
+                className=" my-[1%] "
+                style={{ color: `${textColor}` }}
+              />
+            )}
+          </div>
+        }
+
+        <div className="absolute top-2 left-2 flex">
+          {crab.map((item) => {
+            return (
+              <div key={item} className="flex flex-row justify-end  ">
+                <span className="text-[#ff7010]  ">
+                  {" "}
+                  Số dư tài khoản:{" "}
+                  <span className="text-white ">
+                    {item.gem}
+                    <Image src={iconGem} alt="" width={15} height={15} />
+                  </span>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
         <ul className="flex flex-col gap-2 font-bold text-white ">
           <li>
+            {Object.keys(user).length >= 1 ? (
+              <a className="block text-md font-medium truncate  text-[#ff7010]  text-2xl">
+                <Dropdown
+                  label={user.email + "▼"}
+                  arrowIcon={false}
+                  inline={true}
+                  className="flex justify-center items-center "
+                >
+                  <Dropdown.Item onClick={() => handleProfilePage()}>
+                    Thông tin
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      router.push("/historyBooking") && handleNav()
+                    }
+                  >
+                    Lịch sử cuộc hẹn
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push("/historyDeposit")}>
+                    Lịch sử nạp tiền
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push("/Payment")}>
+                    Nạp tiền
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={handleOpenModalChangePassword}>
+                    Đổi mật khẩu
+                  </Dropdown.Item>
+                </Dropdown>
+              </a>
+            ) : (
+              <div className="flex flex-row gap-5 justify-end ">
+                <a
+                  className="hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010] text-2xl
+                                "
+                  onClick={() => handleOpenModalLogin()}
+                >
+                  Đăng nhập
+                </a>
+
+                <a
+                  className="hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010]
+                                text-2xl
+                                "
+                  onClick={() => handleOpenModalRegister()}
+                >
+                  Đăng ký
+                </a>
+              </div>
+            )}
+          </li>
+          <li className="py-[5%]">
             <a
-              onClick={() => router.push("/")}
+              onClick={() => handleHomePage()}
               className="p-2 hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
                                 hover:text-amber-600
+                                text-[#ff7010] text-2xl
                                 "
             >
               Trang chủ
             </a>
           </li>
-          <li>
+          <li className="py-[5%]">
             <a
-              className="p-2 hover:border-b-2 hover:border-amber-600 cursor-pointer hover:text-amber-600"
-              onClick={() => router.push("/RoomLive")}
+              onClick={() => handleProfilePage()}
+              className="p-2 hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010] text-2xl
+                                "
+            >
+              Thông Tin
+            </a>
+          </li>
+          <li className="py-[5%]">
+            <a
+              onClick={() => handleHisBookingPage()}
+              className="p-2 hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010] text-2xl
+                                "
+            >
+              Lịch sử cuộc hẹn
+            </a>
+          </li>
+          <li className="py-[5%]">
+            <a
+              onClick={() => handleHisDepositPage()}
+              className="p-2 hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010] text-2xl
+                                "
+            >
+              Lịch sử nạp tiền
+            </a>
+          </li>
+          <li className="py-[5%]">
+            <a
+              onClick={() => handlePayment()}
+              className="p-2 hover:border-b-2
+                                hover:border-amber-600 cursor-pointer
+                                hover:text-amber-600
+                                text-[#ff7010] text-2xl
+                                "
+            >
+              Nạp tiền
+            </a>
+          </li>
+          <li className="py-[5%]">
+            <a
+              className="p-2 hover:border-b-2 hover:border-amber-600 cursor-pointer hover:text-amber-600  text-[#ff7010] text-2xl"
+              onClick={() => handleLivePage()}
             >
               Trực tiếp
             </a>
           </li>
-          <li>
+          <li className="py-[5%]">
             <a
               href="#"
-              className="p-2 hover:border-b-2 hover:border-amber-600 cursor-pointer hover:text-amber-600"
-              onClick={() => router.push("/chat")}
+              className="p-2 hover:border-b-2 hover:border-amber-600 cursor-pointer hover:text-amber-600  text-[#ff7010] text-2xl"
+              onClick={() => handleBookingPage()}
             >
               Đặt Lịch
             </a>
           </li>
-          <li>
+          <li className="py-[5%]">
             <a
               href="#"
               className="p-2 hover:border-b-2 hover:border-amber-600 cursor-pointer
                       hover:text-amber-600
+                      text-[#ff7010] text-2xl
+                      
                       "
               onClick={() => router.push("/Survey")}
             >
               Bài Khảo sát
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={handleLogout}
+              className=" text-[#ff7010] text-2xl"
+              // tắt nav khi logout
+            >
+              Đăng xuất
             </a>
           </li>
         </ul>

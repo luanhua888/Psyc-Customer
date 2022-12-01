@@ -20,10 +20,6 @@ const ModalDailyHorocop = forwardRef((id, ref) => {
   const [dayLy, setDaily] = useState([]);
   const [zodiacId, setZodiacId] = useState(0);
 
-  console.log("id", id.id.id );
-  // console.log("day", id.day);
-  // console.log("dayLy", dayLy);
-
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
@@ -33,20 +29,18 @@ const ModalDailyHorocop = forwardRef((id, ref) => {
     },
   }));
 
-
-
-  
-
   return (
-    <div className="absolute top-0">
+    <div className="absolute left-1 top-0 overflow-auto  ">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-auto h-auto p-4 bg-white rounded-lg  items-center justify-center bg-[#17384e]"
+        classes="overflow-auto    max-h-[600px] max-w-[1024px]  rounded-lg  items-center justify-center bg-[#17384e] mb-[6%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
+        //màu discard 
+        discardClasses="bg-white text-white hover:bg-[#ff7010] hover:text-[#07273c] "
       >
         <div className="flex flex-1 justify-center items-center">
-          <p className=" text-[#ff7010] font-bold text-5xl pb-5 border-b-4 border-b-[#ff7010]">
+          <p className=" text-[#ff7010] font-bold md:text-5xl pb-5 border-b-4 border-b-[#ff7010]">
             Lá Phiếu Tử Vi
           </p>
         </div>
@@ -59,27 +53,45 @@ const ModalDailyHorocop = forwardRef((id, ref) => {
             width={200}
           />
 
-          <h1 className="text-xl">{`${dayjs(id.id.date).format("DD/MM/YYYY")}`}</h1>
-          <p className="text-[] w-2/3">{id.id.context}</p>
-          <p className="w-2/3">
+          <h1 className="text-xl">{`${dayjs(id.id.date).format(
+            "DD/MM/YYYY"
+          )}`}</h1>
+          <p
+            className="text-[] md:w-2/3"
+            style={{
+              // căn đều chữ
+              textAlign: "justify",
+              // cách 2 bên 10px
+              textJustify: "inter-word",
+            }}
+          >
+            {id.id.context}
+          </p>
+          <p
+            className="md:w-2/3"
+            style={{
+              // căn đều chữ
+              textAlign: "justify",
+            }}
+          >
             <span className="text-white">Công Việc: </span> {id.id.job}
           </p>
-          <p className="w-2/3">
+          <p className="md:w-2/3">
             <span className="text-white">Con số may mắn của bạn: </span>{" "}
             {id.id.luckyNumber}
           </p>
-          <p className="w-2/3">
+          <p className="md:w-2/3">
             <span className="text-white">Thời gian tốt trong ngày: </span>{" "}
             {id.id.goodTime}
           </p>
-          <p className="w-2/3">
+          <p className="md:w-2/3">
             <span className="text-white">Màu may mắn: </span> {id.id.color}
           </p>
-          <p className="w-2/3">
+          <p className="md:w-2/3">
             <span className="text-white">Những điều nên làm: </span>{" "}
             {id.id.shouldThing}
           </p>
-          <p className="w-2/3">
+          <p className="md:w-2/3">
             <span className="text-white">Những điều không nên làm: </span>{" "}
             {id.id.shouldNotThing}
           </p>

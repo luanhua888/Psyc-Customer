@@ -4,7 +4,7 @@ const API = {
   GET_ALL: "Consultants/Getconsultantbyspecial",
   GET_TYPE: "SpecializationTypes/getallspecype",
   GET_COL_DETAIL: "Consultants/getfeedbackbyid",
-  GET_COL_DETAIL1: "Consultants/getbyid",
+  GET_COL_DETAIL1: "Consultants/getbyidv2",
 };
 
 class ConsultantService extends AbstractService {

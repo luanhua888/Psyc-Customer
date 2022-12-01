@@ -49,6 +49,9 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
       };
 
       await userService.profileUpdate(dataPost, id.id.id);
+
+      setIsOpen(false);
+      
     } catch (err) {
       console.log("err", err);
     }
@@ -56,7 +59,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
 
 
 
-// nếu ModalEditSupProfile discard thì sẽ gọi hàm getSupProfile ở
+
 
  
  
@@ -64,7 +67,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4  rounded-lg bg-[#17384e] "
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={"Chỉnh sửa thông tin"}
@@ -115,7 +118,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     <div>
                       <label
                         for="name"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300"
                       >
                         Họ và Tên
                       </label>
@@ -123,7 +126,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                         type="text"
                         id="name"
                         name="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập họ và tên"
                         required
                         onChange={handleChange}
@@ -136,19 +139,20 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     <div>
                       <label
                         for="birthPlace"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300"
                       >
                         Nơi sinh
                       </label>
                       <input
                         id="birthPlace"
                         name="birthPlace"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập dữ liệu"
                         required
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.birthPlace}
+                        onClick={handleOpenModalPickerChild}
                       />
                     </div>
                   </div>
@@ -157,7 +161,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     <div>
                       <label
                         for="gender"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-400"
                       >
                         {}
                         Giới tính
@@ -165,7 +169,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                       <select
                         id="gender"
                         name="gender"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.gender}
@@ -177,7 +181,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     <div>
                       <label
                         for="dob"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300"
                       >
                         Ngày tháng năm sinh
                       </label>
@@ -185,7 +189,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                         type="datetime-local"
                         id="dob"
                         name="dob"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Ngày tháng năm sinh"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -198,10 +202,10 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                   </div>
 
                   <div class="grid gap-6 mb-6 md:grid-cols-2">
-                    <div>
+                    <div className="hidden">
                       <label
                         for="longitude"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-400 hidden"
                       >
                         Kinh độ
                       </label>
@@ -209,7 +213,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                         type="text"
                         id="longitude"
                         name="longitude"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập dữ liệu"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -218,10 +222,10 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                         required
                       />
                     </div>
-                    <div>
+                    <div className="hidden">
                       <label
                         for="longitude"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300 "
                       >
                         Vĩ độ
                       </label>
@@ -229,7 +233,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                         type="text"
                         id="longitude"
                         name="longitude"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         placeholder="Nhập dữ liệu"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -239,15 +243,8 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                       />
                     </div>
                   </div>
-                  <div className="d-flex flex float-right   text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <Button
-                      class=" text-white  bg-blue-700  hover:bg-blue-800 focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-1  text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      type="primary"
-                      width="default"
-                      onClick={handleOpenModalPickerChild}
-                    >
-                      Chọn vị trí
-                    </Button>
+                  <div className="d-flex flex float-right    text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  
                     <Button
                       type="submit"
                       disabled={isSubmitting}
