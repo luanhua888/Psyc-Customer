@@ -633,7 +633,7 @@ export default function Home(props) {
 
       {/* article */}
 
-      {/* <section className="bg-[#17384e] ">
+      <section className="bg-[#17384e] ">
         <div className="md:container mx-auto py-8 ">
           <div className="flex flex-row justify-center mb-3">
             <h1 className="text-white justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] ">
@@ -678,7 +678,7 @@ export default function Home(props) {
                         height={300}
                       
                       />
-                      <div className=" flex flex-col justify-center items-center gap-5 w-[600px] h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
+                      <div className=" flex flex-col justify-center items-center gap-5 max-w-[600px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
                         <h1 className="px-2 text-2xl  text-white font-semibold ">
                           {row.title}
                         </h1>
@@ -697,11 +697,11 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* footer */}
       {/*  */}
-      {/* 
+      
       <section id="about_us" className="  bg-[#031d2e]  ">
         <div className="md:container mx-auto  py-5 ">
           <div className="flex flex-row justify-center mb-3">
@@ -751,9 +751,9 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
-      {/* <footer className="bg-[#17384e] px-[10%] ">
+      <footer className="bg-[#17384e] px-[10%] ">
         <div className="md:container mx-auto py-10  max-w-[800px]">
           <div className="flex flex-row justify-between items-center text-slate-200">
             <div className="flex flex-col gap-5">
@@ -814,7 +814,7 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-      </footer> */}
+      </footer>
 
       <ModalLogin ref={modalLoginRef} />
     </div>

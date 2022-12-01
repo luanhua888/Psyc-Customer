@@ -37,6 +37,7 @@ export default function Profile(props) {
   const [loading, setLoading] = useState(true);
 
   const notify = () => toast("Xóa hồ sơ thành công!");
+  const uploadSuccess = () => toast("Xóa hồ sơ thành công!");
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
@@ -157,6 +158,10 @@ export default function Profile(props) {
         user.email,
         imageFirebaseUrl.data
       );
+
+      if (data.statusCode == 200) {
+        uploadSuccess();
+      }
 
       getProfile();
     }
@@ -385,7 +390,9 @@ export default function Profile(props) {
                   
                   py-1 text-xl text-white rounded-xl"
                         onClick={updateImageProfile}
+
                       >
+                      <ToastContainer />
                         Tải lên
                       </button>
                     </div>

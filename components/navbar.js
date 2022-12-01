@@ -128,9 +128,26 @@ export default function Navbar() {
   };
 
   const handleProfilePage = () => {
-router.push("/profile")
+    router.push("/profile");
     handleNav();
   };
+
+  const handleHisBookingPage = () => {
+    router.push("/historyBooking");
+    handleNav();
+  };
+
+  const handleHisDepositPage = () => {
+    router.push("/historyDeposit")
+    handleNav();
+  };
+
+  const handlePayment = () => {
+    router.push("/Payment")
+    handleNav();
+  };
+
+
 
   return (
     <div className="">
@@ -321,8 +338,6 @@ router.push("/profile")
           <></>
         ) : (
           <div className="flex">
-          
-
             <Image
               src={iconOutline}
               alt=""
@@ -362,7 +377,6 @@ router.push("/profile")
           </div>
         }
 
-
         <div className="absolute top-2 left-2 flex">
           {crab.map((item) => {
             return (
@@ -378,53 +392,38 @@ router.push("/profile")
               </div>
             );
           })}
-         
         </div>
 
-
-        
-
-
-
-
-
-
         <ul className="flex flex-col gap-2 font-bold text-white ">
-         
-
-
-
-
           <li>
             {Object.keys(user).length >= 1 ? (
               <a className="block text-md font-medium truncate  text-[#ff7010]  text-2xl">
-
-             
-              <Dropdown
-               label={user.email + "▼"} 
-                arrowIcon={false}
-                inline={true}
-                className="flex justify-center items-center "
-              >
-               
-                <Dropdown.Item onClick={() => handleProfilePage()}>
-                  Thông tin
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => router.push("/historyBooking") && handleNav() }>
-                  Lịch sử cuộc hẹn
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => router.push("/historyDeposit")}>
-                  Lịch sử nạp tiền
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => router.push("/Payment")}>
-                  Nạp tiền
-                </Dropdown.Item>
-                <Dropdown.Item onClick={handleOpenModalChangePassword}>
-                  Đổi mật khẩu
-                </Dropdown.Item>
-              </Dropdown>
-
-
+                <Dropdown
+                  label={user.email + "▼"}
+                  arrowIcon={false}
+                  inline={true}
+                  className="flex justify-center items-center "
+                >
+                  <Dropdown.Item onClick={() => handleProfilePage()}>
+                    Thông tin
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      router.push("/historyBooking") && handleNav()
+                    }
+                  >
+                    Lịch sử cuộc hẹn
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push("/historyDeposit")}>
+                    Lịch sử nạp tiền
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => router.push("/Payment")}>
+                    Nạp tiền
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={handleOpenModalChangePassword}>
+                    Đổi mật khẩu
+                  </Dropdown.Item>
+                </Dropdown>
               </a>
             ) : (
               <div className="flex flex-row gap-5 justify-end ">
@@ -438,7 +437,7 @@ router.push("/profile")
                 >
                   Đăng nhập
                 </a>
-              
+
                 <a
                   className="hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
@@ -479,7 +478,7 @@ router.push("/profile")
           </li>
           <li className="py-[5%]">
             <a
-              onClick={() => handleProfilePage()}
+              onClick={() => handleHisBookingPage()}
               className="p-2 hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
                                 hover:text-amber-600
@@ -491,7 +490,7 @@ router.push("/profile")
           </li>
           <li className="py-[5%]">
             <a
-              onClick={() => handleProfilePage()}
+              onClick={() => handleHisDepositPage()}
               className="p-2 hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
                                 hover:text-amber-600
@@ -503,14 +502,14 @@ router.push("/profile")
           </li>
           <li className="py-[5%]">
             <a
-              onClick={() => handleProfilePage()}
+              onClick={() => handlePayment()}
               className="p-2 hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
                                 hover:text-amber-600
                                 text-[#ff7010] text-2xl
                                 "
             >
-              Nạp tiền 
+              Nạp tiền
             </a>
           </li>
           <li className="py-[5%]">

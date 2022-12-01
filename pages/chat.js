@@ -256,7 +256,7 @@ export default function Chat(props) {
                             fontSize: "clamp(10px, 1.5vw, 20px)",
                           }}
                         >
-                          {row.fullName}
+                          {row.name}
                         </div>
                         <div
                           className="text-[#807f7f] text-sm text-black"

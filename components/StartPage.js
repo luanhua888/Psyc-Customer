@@ -56,7 +56,7 @@ function StartPage({
                   getQuestionByIdSurvey(row.id);
                 }}
               >
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Tên Khảo sát: {row.name}
                 </h5>
               </Card>
