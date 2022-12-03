@@ -42,7 +42,7 @@ const ModalRating = forwardRef((id, ref, handleClose) => {
       );
 
       if (data.statusCode == 200) {
-     Router.push("/");
+          Router.push("/");
       }
     })();
   };

@@ -10,6 +10,7 @@ import vnPayIcon from "../../public/photos/vnpay.png";
 import { Formik } from "formik";
 import { isEmpty, set } from "lodash";
 import { number } from "yup";
+import Router from "next/router";
 
 export default function Payment() {
   const modalPaymentRef = useRef();
@@ -129,10 +130,11 @@ export default function Payment() {
     (async () => {
       const res = await payMentService.getQrCode(
         localStorage.getItem("idcustomer"),
-        amount,
+       amount,
       );
-      if (res) {
-        setQrCode(res);
+
+      if (res.statusCode == 200) {
+        Router.push(res.vnpaylink);
       }
     })();
   }
