@@ -2,6 +2,7 @@ import { useRef, useState, forwardRef, useImperativeHandle } from "react";
 import Modal from "../modal";
 import { userService } from "../../services/UserService";
 import { Button } from "flowbite-react";
+import Router from "next/router";
 
 // eslint-disable-next-line react/display-name
 const ModalRating = forwardRef((id, ref, handleClose) => {
@@ -37,7 +38,12 @@ const ModalRating = forwardRef((id, ref, handleClose) => {
     (async () => {
       const data = await userService.postVnPay(
         localStorage.getItem("idcustomer"),
+
       );
+
+      if (data.statusCode == 200) {
+     Router.push("/");
+      }
     })();
   };
 
@@ -51,8 +57,8 @@ const ModalRating = forwardRef((id, ref, handleClose) => {
         onDiscard={() => console.log("Button discard")}
       >
         <div className="flex justify-center">
-          <p>Nạp tiền thành công</p>
-          <p>Ấn xác nhận để quay lại trang chủ</p>
+          <p className="font-bold text-xl">Nạp tiền thành công</p>
+       
         </div>
 
         <Button onClick={handleConfirm}>Xác Nhận</Button>

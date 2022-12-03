@@ -143,7 +143,11 @@ export default function Profile(props) {
 
   return (
     <>
+  
+   
       <ModalRating ref={modalratingRef} />
+     
+
     </>
   );
 }

@@ -21,6 +21,8 @@ class PayMentService extends AbstractService {
       }
     );
   };
+
+  
 }
 
 export const payMentService = new PayMentService();
