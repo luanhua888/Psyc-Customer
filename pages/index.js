@@ -160,14 +160,7 @@ export default function Home(props) {
               </h1>
             </div>
             {/* buttom */}
-            <div className="max-[200px] min-w-[100px]">
-              <a
-                onClick={onJoin}
-                className="flex flex-row justify-center items-center  p-2 bg-[#fd7e14] rounded-2xl md:text-2xl font-semibold hover:bg-[#17384e] hover:text-white "
-              >
-                <p>Đăt lịch ngay</p>
-              </a>
-            </div>
+        
           </div>
         </div>
       </div>

@@ -392,7 +392,6 @@ export default function Profile(props) {
                         onClick={updateImageProfile}
 
                       >
-                      <ToastContainer />
                         Tải lên
                       </button>
                     </div>
@@ -650,9 +649,10 @@ export default function Profile(props) {
                               <Table.Cell>{item.birthPlace}</Table.Cell>
 
                               <Table.Cell>
+
                                 <div className="flex flex-wrap gap-3">
-                                  {/* <div>
-                              <ToastContainer />
+                                  <div>
+                            
                                 <Image
                                   className="cursor-pointer"
                                   src={deleteIcon}
@@ -663,7 +663,7 @@ export default function Profile(props) {
                                     handleDeleteSupProfile(item.id)
                                   }
                                 />
-                              </div> */}
+                              </div>
                                   <div>
                                     <Image
                                       className="cursor-pointer"
@@ -775,6 +775,8 @@ export default function Profile(props) {
         love={lovecompatility}
         ref={modalLoveCompalityRef}
       />
+                      <ToastContainer />
+
     </>
   );
 }
