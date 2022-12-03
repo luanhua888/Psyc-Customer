@@ -1,67 +1,64 @@
-import {
-    useRef,
-    useState,
-    forwardRef,
-    useImperativeHandle,
-} from "react";
+import { useRef, useState, forwardRef, useImperativeHandle } from "react";
 import Modal from "../modal";
 import { userService } from "../../services/UserService";
+import { Button } from "flowbite-react";
 
 // eslint-disable-next-line react/display-name
 const ModalRating = forwardRef((id, ref, handleClose) => {
-    const modalMapRef = useRef();
+  const modalMapRef = useRef();
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [dataForm, setDataForm] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [dataForm, setDataForm] = useState({});
 
-    useImperativeHandle(ref, () => ({
-        open: () => {
-            setIsOpen(true);
-        },
-        close: () => {
-            setIsOpen(false);
-        },
-    }));
+  useImperativeHandle(ref, () => ({
+    open: () => {
+      setIsOpen(true);
+    },
+    close: () => {
+      setIsOpen(false);
+    },
+  }));
 
+  const onSubmit = async (data) => {
+    try {
+      let dataPost = {
+        ...data,
+        latitude: data.latitude.toString(),
+        longitude: data.longitude.toString(),
+      };
 
-    const onSubmit = async (data) => {
-        try {
-            let dataPost = {
-                ...data,
-                latitude: data.latitude.toString(),
-                longitude: data.longitude.toString(),
-            };
+      await userService.profileUpdate(dataPost, id.id.id);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
 
-            await userService.profileUpdate(dataPost, id.id.id);
-        } catch (err) {
-            console.log("err", err);
-        }
-    };
+  const handleConfirm = () => {
+    (async () => {
+      const data = await userService.postVnPay(
+        localStorage.getItem("idcustomer"),
+      );
+    })();
+  };
 
-
-    return (
-        <div className="absolute top-0">
-            <Modal
-                classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                title={"Đánh giá cuộc hẹn"}
-                onClose={handleClose}
-                onDiscard={() => console.log("Button discard")}
-                // buttons={[
-                //   {
-                //     role: "discard",
-                //     toClose: true,
-                //     classes:
-                //       "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-                //     label: "Cập nhật",
-                //   },
-                // ]}
-            >
-
-            </Modal>
+  return (
+    <div className="absolute top-0">
+      <Modal
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg "
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onClose={handleClose}
+        onDiscard={() => console.log("Button discard")}
+      >
+        <div className="flex justify-center">
+          <p>Nạp tiền thành công</p>
+          <p>Ấn xác nhận để quay lại trang chủ</p>
         </div>
-    );
+
+        <Button onClick={handleConfirm}>Xác Nhận</Button>
+      </Modal>
+    </div>
+  );
 });
 
 export default ModalRating;

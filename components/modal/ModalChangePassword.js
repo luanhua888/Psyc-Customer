@@ -78,7 +78,7 @@ const ModalChangePassword = forwardRef((props, ref) => {
   return (
     <div className="absolute left-1 top-0">
       <Modal
-        classes="  px-2 py-2 h-50 rounded bg-white bg-[#17384e] "
+        classes="  px-2 py-2 h-50 rounded bg-white bg-[#17384e]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onConfirm={() => formRef.current.submitForm()}

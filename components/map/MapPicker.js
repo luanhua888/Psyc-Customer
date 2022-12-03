@@ -58,6 +58,10 @@ const MapPicker = ({
     const map = React.useRef();
     const marker = React.useRef();
 
+
+
+
+
     function handleChangeLocation() {
         if (onChangeLocation) {
             //lấy vị trí và trả về longitude và latitude và địa chỉ
@@ -134,7 +138,8 @@ const MapPicker = ({
                 marker.current,
                 'dragend',
                 handleChangeLocation,
-                handleChangeLocationAddress
+                handleChangeLocationAddress,
+                
             );
         } else {
             marker.current.setPosition(validLocation);

@@ -14,8 +14,9 @@ const API = {
   UPLOAD_IMAGE: "FirebaseServices/upload",
   UPDATE_IMAGE_PROFILE: "Customers/update",
   CREATE_SUP_PROFILE: "Profiles/create",
-  DAILY_HOROCOP : "DailyHoroscopes/Getalldailyhoroscopes",
-  GET_USERBYID : "Customers/getbyid"
+  DAILY_HOROCOP: "DailyHoroscopes/Getalldailyhoroscopes",
+  GET_USERBYID: "Customers/getbyid",
+  POST_VNPAY: "VnPay/ConfirmVnpay",
 };
 
 class UserService extends AbstractService {
@@ -44,7 +45,7 @@ class UserService extends AbstractService {
     imageUrl
   ) => {
     return this.httpPUT(API.REGISTER_INFOR, {
-       fullname: fullname,
+      fullname: fullname,
       email: email,
       address: address,
       dob: dob,
@@ -65,21 +66,25 @@ class UserService extends AbstractService {
       }
     );
   };
-  
-  PostSupProfile = (name, birthPlace, dob, latitude, longitude, gender , customerId) => {
-    return this.httpPOST(
-      API.CREATE_SUP_PROFILE,
-      {
-        name: name,
-        birthPlace: birthPlace,
-        dob: dob,
-        latitude: latitude,
-        longitude: longitude,
-        gender: gender,
-        customerId: customerId,
-      },
-      
-    );
+
+  PostSupProfile = (
+    birthPlace,
+    name,
+    dob,
+    longitude,
+    latitude,
+    gender,
+    customerId
+  ) => {
+    return this.httpPOST(API.CREATE_SUP_PROFILE, {
+      birthPlace: birthPlace,
+      name: name,
+      dob: dob,
+      longitude: longitude,
+      latitude: latitude,
+      gender: gender,
+      customerId: customerId,
+    });
   };
 
   registerConfirm = (email, code) => {
@@ -124,8 +129,6 @@ class UserService extends AbstractService {
     });
   };
 
-
-
   //upload file image to firebase
 
   uploadImage = (file) => {
@@ -140,24 +143,23 @@ class UserService extends AbstractService {
       oldPassword: oldPassword,
       newPassword: newPassword,
     });
-  }
+  };
 
-  getDailyHorocop= (id, date) => {
-    return this.httpGET(API.DAILY_HOROCOP,{ id:id, date:date });
-  }
-
+  getDailyHorocop = (id, date) => {
+    return this.httpGET(API.DAILY_HOROCOP, { id: id, date: date });
+  };
 
   getZodiacId = (id) => {
     return this.httpGET(API.GET_USERBYID, { id });
-  }
-
+  };
 
   getUser = (id) => {
     return this.httpGET(API.GET_USERBYID, { id });
-  }
+  };
 
-
-
+  postVnPay = (id) => {
+    return this.httpPOST(API.POST_VNPAY, { id });
+  };
 }
 
 export const userService = new UserService();
