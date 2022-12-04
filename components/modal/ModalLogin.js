@@ -14,13 +14,20 @@ import { Formik } from "formik";
 import ModalForgotPassword from "./ModalForgotPassword";
 import { Link } from "@mui/material";
 import Password from "antd/lib/input/Password";
-// toast
+import ModalLoginSuccess from "./ModalLoginSuccess";
+import { data } from "autoprefixer";
+
+
+
 
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = forwardRef((props, ref) => {
   const formRef = useRef();
   const modalForgotPasswordRef = useRef();
+  
+  const modalLoginSuccessRef = useRef();
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessages, setErrorMessages] = useState({
@@ -46,32 +53,49 @@ const ModalLogin = forwardRef((props, ref) => {
     };
   }, []);
 
+  const loginSuccess = () => toast("Xóa hồ sơ thành công!");
+
+
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
       const data = await userService.login(username, password);
 
+      if (data.statusCode === 200) {
+        setIsOpen(false);
+       
+        setTimeout(() => {
+          modalLoginSuccessRef.current.open();
+        }, 100);
+    
+      }
+  
+    
       setErrorMessages({
         isError: false,
         message: data.messsage,
+        
       });
 
       localStorage.setItem("jwttoken", data.jwttoken);
       localStorage.setItem("iddb", data.iddb);
       localStorage.setItem("idcustomer", data.idcustomer);
      
-
+    
 
       setTimeout(() => {
         setErrorMessages({});
         setIsOpen(false);
         Router.reload(window.location.pathname);
+
+  
+
       }, 500);
     } catch (err) {
       setErrorMessages({
         isError: true,
-        message: err.response.data.message,
+        message: "Tài khoản hoặc mật khẩu không đúng",
       });
       return;
     }
@@ -201,6 +225,7 @@ const ModalLogin = forwardRef((props, ref) => {
         </Formik>
       </Modal>
       <ModalForgotPassword ref={modalForgotPasswordRef} />
+      <ModalLoginSuccess ref={modalLoginSuccessRef} />
     </div>
   );
 });

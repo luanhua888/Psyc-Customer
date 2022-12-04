@@ -5,6 +5,7 @@ const API = {
   GET_SUPPROFILE: "Profiles/getbyidcustomer",
   DELETE_SUPPROFILE: `Profiles/`,
   GET_LOVECOMPATILITY: "Profiles/lovecompatibility",
+  GET_ZODIACCUS: "Zodiacs/getbyid",
 };
 
 class ProfileService extends AbstractService {
@@ -29,6 +30,15 @@ class ProfileService extends AbstractService {
   getLovecompatility = (customerid, profileid) => {
     return this.httpGET(API.GET_LOVECOMPATILITY, { customerid, profileid });
   };
+
+  getZodiacCus = (id) => {
+    return this.httpGET(API.GET_ZODIACCUS,{id}, { 
+      params: {
+        id,
+      },
+     });
+  };
+
 }
 
 export const profileService = new ProfileService();

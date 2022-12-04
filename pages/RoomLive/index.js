@@ -54,6 +54,8 @@ export default function RoomLive(props) {
             <p className=" text-[#ff7010] font-bold md:text-5xl mb-[5%] border-b-4 border-b-[#ff7010]">
               Các Phòng Live Stream
             </p>
+
+            {consultants.length > 0 ? (
             <div className=" grid grid-cols-3  gap-[2%] ">
               {consultants.map((row, key) => (
                 <div key={key}>
@@ -97,6 +99,12 @@ export default function RoomLive(props) {
                 </div>
               ))}
             </div>
+            ) : (
+              <div>
+                HIỆN TẠI KHÔNG CÓ PHÒNG LIVE STREAM NÀO
+              </div>
+            )
+          }
           </div>
         </div>
       </section>
