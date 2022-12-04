@@ -53,9 +53,6 @@ const ModalSuccess = forwardRef((id, ref) => {
             <p className="text-2xl font-bold text-center mt-4">
               Đặt lịch thành công
             </p>
-            <p className="text-base text-center mt-2">
-              Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất
-            </p>
           </div>
 
           <div className="flex flex-row items-center justify-center mt-4 gap-2">

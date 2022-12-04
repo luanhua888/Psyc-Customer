@@ -25,11 +25,13 @@ import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 
 import Skeleton from "@mui/material/Skeleton";
 import ModalStarCus from "../../components/modal/ModalStarCus";
+import ModalResultSurvey from "../../components/modal/ModalResultSurvey";
 
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
   const modalStarCusRef = useRef();
+  const modalResultSurveyRef = useRef();
   const modalAddSupProfileRef = useRef();
   const modalLoveCompalityRef = useRef();
   const formRef = useRef();
@@ -98,7 +100,7 @@ export default function Profile(props) {
   };
   const [user, setUser] = useState({});
 
-  console.log("user nè",user);
+  console.log("user nè", user);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -171,7 +173,7 @@ export default function Profile(props) {
       );
 
       if (data.statusCode == 200) {
-        uploadImageSuccess
+        uploadImageSuccess;
       }
 
       getProfile();
@@ -202,25 +204,34 @@ export default function Profile(props) {
     }
   };
 
-
-  const  [zodiacCus, setZodiacCus] = useState([]);
-  console.log("zodiacCus", zodiacCus);
+  const [zodiacCus, setZodiacCus] = useState([]);
+  
   const getZodiacCus = async () => {
     if (localStorage.getItem("jwttoken")) {
-      const data = await profileService.getZodiacCus(
-       user.zodiacId
-      );
+      const data = await profileService.getZodiacCus(user.zodiacId);
 
-      console.log("data1", data);
+      const data1 = await profileService.getResultSurvey(
+        localStorage.getItem("idcustomer")
+      );
 
 
       if (data.statusCode == 200) {
         setZodiacCus(data.data[0].name);
       }
+
+      if (data1.statusCode == 200) {
+        setResultSurvey(data1.data[0].discchart);
+      }
     }
   };
 
-   
+  const handleOpenModalResult = () => {
+    modalResultSurveyRef.current?.open();
+  }
+
+
+
+
   return (
     <>
       {loading ? (
@@ -599,18 +610,29 @@ export default function Profile(props) {
                               </div>
 
                               <div className="d-flex flex float-right   text-white    focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm  text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                              <button
+                               
+                               
+                                <button
+                                  type="submit"
+                                  // disabled={isSubmitting}
+                                  class=" text-white  bg-[#ff7010]  hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
+                                        transition duration-500 ease-in-out
+                              "
+                                  onClick={handleOpenModalResult}
+                                >
+                                 Kêt quả khảo sát
+                                </button>
+                                <button
                                   type="submit"
                                   // disabled={isSubmitting}
                                   class=" text-white  bg-[#ff7010] x-[1%] hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center mx-2   dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
                                         transition duration-500 ease-in-out
                               "
-                              onClick={handleOpenModalStarMapCus}
+                                  onClick={handleOpenModalStarMapCus}
                                 >
                                   Bản đồ sao
                                 </button>
-                                
-                                
+
                                 <button
                                   type="submit"
                                   // disabled={isSubmitting}
@@ -662,7 +684,7 @@ export default function Profile(props) {
                         <Table.HeadCell>Ngày sinh</Table.HeadCell>
                         {/* <Table.HeadCell>Giới Tính</Table.HeadCell>
                     <Table.HeadCell>Kinh độ</Table.HeadCell> */}
-                        <Table.HeadCell>Vĩ độ</Table.HeadCell>
+                        <Table.HeadCell>Giới Tính</Table.HeadCell>
                         <Table.HeadCell>Nơi Sinh</Table.HeadCell>
                         <Table.HeadCell>Thao tác</Table.HeadCell>
                       </Table.Head>
@@ -716,7 +738,7 @@ export default function Profile(props) {
                                       }
                                     />
                                   </div>
-                                  <div>
+                                  {/* <div>
                                     <Image
                                       className="cursor-pointer"
                                       src={starIcon}
@@ -729,7 +751,7 @@ export default function Profile(props) {
                                         )
                                       }
                                     />
-                                  </div>
+                                  </div> */}
                                   <div>
                                     <Image
                                       className="cursor-pointer"
@@ -805,8 +827,20 @@ export default function Profile(props) {
         ref={modalEditSupProfileRef}
         handleClose={handleCloseModalEditSupProfile}
       />
-      <ModalStarMap id={starMap} name={zodiacCus} address={user.address} nameCus={user.fullname}  ref={modalStarMapRef} />
-      <ModalStarCus id={user.birthchart} name={zodiacCus} address={user.address} nameCus={user.fullname} ref={modalStarCusRef} />
+      <ModalStarMap
+        id={starMap}
+        name={zodiacCus}
+        address={user.address}
+        nameCus={user.fullname}
+        ref={modalStarMapRef}
+      />
+      <ModalStarCus
+        id={user.birthchart}
+        name={zodiacCus}
+        address={user.address}
+        nameCus={user.fullname}
+        ref={modalStarCusRef}
+      />
       <ModalAddSupProfile ref={modalAddSupProfileRef} />
       <ModalLoveCompality
         name={user.fullname}
@@ -814,6 +848,7 @@ export default function Profile(props) {
         love={lovecompatility}
         ref={modalLoveCompalityRef}
       />
+      <ModalResultSurvey  ref={modalResultSurveyRef}/>
       <ToastContainer />
     </>
   );
