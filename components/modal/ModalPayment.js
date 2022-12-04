@@ -53,7 +53,7 @@ const ModalPayment = forwardRef((amount, ref) => {
     }
   };
 
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(300);
 
   const getCountDown = async () => {
     //điếm ngược thời gian 5 phút
@@ -128,6 +128,9 @@ const ModalPayment = forwardRef((amount, ref) => {
                       class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2"
                       //nếu hết thời gian 0 thì sẽ open modal cancel booking
                     >
+                     {/* hiển thị đồng hồ với phút giấy */}
+
+                     
                       {Math.floor(time / 60)}:{time % 60}
                     </h3>
                   </div>
