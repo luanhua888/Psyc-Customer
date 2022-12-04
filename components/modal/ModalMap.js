@@ -12,7 +12,8 @@ import Modal from "../modal";
 
 // eslint-disable-next-line react/display-name
 const ModalMap = forwardRef((props, ref) => {
-  const { onChangeLocation, onChangeLocationAddress } = props;
+  const { onChangeLocation } = props;
+  const { onChangeLocationAddress } = props;
 
   const DefaultLocation = { lat: 10.8, lng: 106.8 };
   const DefaultZoom = 10;
@@ -66,9 +67,9 @@ const ModalMap = forwardRef((props, ref) => {
   }
 
   return (
-    <div className="absolute left-1 top-0">
+    <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-[95%] w-2/3 p-2 bg-white rounded-lg mb-[10%]"
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
