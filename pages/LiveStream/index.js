@@ -111,7 +111,7 @@ export default function LiveStream_r() {
   return (
     <>
       <div id="room__container" className="relative ">
-        <section
+        {/* <section
           id="members__container"
           className="max-w-[250px] bg-black overflow-y-auto w-[90%] fixed   h-full"
         >
@@ -126,9 +126,9 @@ export default function LiveStream_r() {
           </div>
 
           <div id="member__list" className="flex flex-col gap-1 pb-2"></div>
-        </section>
+        </section> */}
 
-        <section id="stream__container" className=" relative   ">
+        <section id="stream__container" className="flex justify-center items-center ">
           <div id="stream__box" className="bg-gray-400  hidden"></div>
 
           <div
@@ -176,7 +176,7 @@ export default function LiveStream_r() {
             width="24"
             height="24"
             id="join-btn"
-            className="absolute"
+            className="absolute bottom-0"
             onClick={startOneToOneVideoCall}
           >
             Tham Gia
@@ -197,7 +197,7 @@ export default function LiveStream_r() {
           </button>
         </section>
 
-        <section
+        {/* <section
           id="messages__container"
           className="h-[80%] bg-slate-900 right-0  fixed overflow-y-auto"
         >
@@ -210,7 +210,7 @@ export default function LiveStream_r() {
               placeholder="Send a message...."
             />
           </form>
-        </section>
+        </section> */}
       </div>
 
       <Script src="https://cdn.agora.io/sdk/release/AgoraRTC_N-4.2.1.js"></Script>

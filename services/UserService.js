@@ -7,7 +7,7 @@ const API = {
   REGISTER_RESEND_CODE: "register/resend",
   REGISTER_CHECK_BY_EMAIL: "Users/checkbyemail",
   REGISTER_CONFIRM: "register/confirm",
-  CHANGE_PASSWORD: "Users/changepassuser",
+  CHANGE_PASSWORD: "Users/changepassuserbycustomerid",
   PROFILE: "Users/getbyid",
   SUPPROFILE_ID: "Profiles/getbyid",
   UPDATE_PROFILE: "Profiles/update",
@@ -137,9 +137,9 @@ class UserService extends AbstractService {
     return this.httpPOST(API.UPLOAD_IMAGE, formData);
   };
 
-  changePasswordAlLogin = (userName, oldPassword, newPassword) => {
+  changePasswordAlLogin = (id, oldPassword, newPassword) => {
     return this.httpPUT(API.CHANGE_PASSWORD, {
-      userName: userName,
+      id: id,
       oldPassword: oldPassword,
       newPassword: newPassword,
     });

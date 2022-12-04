@@ -13,6 +13,8 @@ import { userService } from "../../services/UserService";
 import { Formik } from "formik";
 import ModalForgotPassword from "./ModalForgotPassword";
 import { Link } from "@mui/material";
+import { data } from "autoprefixer";
+
 
 // eslint-disable-next-line react/display-name
 const ModalChangePassword = forwardRef((props, ref) => {
@@ -21,6 +23,7 @@ const ModalChangePassword = forwardRef((props, ref) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState({});
+
   const [errorMessages, setErrorMessages] = useState({
     isError: false,
     message: "",
@@ -64,14 +67,20 @@ const ModalChangePassword = forwardRef((props, ref) => {
 
     try {
       const data = await userService.changePasswordAlLogin(
-        user.userName,
+        localStorage.getItem("idcustomer"),
         oldPassword,
         newPassword,
       );
 
-    } catch (err) {
-    
-      return;
+      if (data.statusCode == 200) {
+        setIsOpen(false);
+      }
+    } 
+    catch (error) {
+     setErrorMessages({
+        isError: true,
+        message: "Mật khẩu cũ không đúng",
+      });
     }
   };
 
@@ -99,15 +108,17 @@ const ModalChangePassword = forwardRef((props, ref) => {
             Đổi Mật Khẩu
           </span>
         </div>
-        {errorMessages.message && (
-          <div
-            className={`flex justify-center items-center mb-3 font-medium ${
-              errorMessages.isError ? "text-[#ff7010]" : "text-blue-500"
-            }`}
-          >
-            {errorMessages.message}
+
+       {errorMessages.isError && (
+          <div className="flex flex-row justify-center">  
+            <span className="  w-2/3 text-xl flex flex-row justify-center text-[#ff7010] border-[#ff7010] ">
+              {errorMessages.message}
+            </span>
           </div>
-        )}
+       )
+        }
+
+
         <Formik
           innerRef={formRef}
           initialValues={{

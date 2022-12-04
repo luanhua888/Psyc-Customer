@@ -14,6 +14,7 @@ import { style } from "@mui/system";
 import { userService } from "../../services/UserService";
 import { Router } from "next/router";
 import Profile from "../../pages/profile";
+import { setElSeg } from "@fullcalendar/react";
 
 // eslint-disable-next-line react/display-name
 const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
@@ -24,6 +25,21 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [dataForm, setDataForm] = useState({});
+  const [errorMessages, setErrorMessages] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const [errorMessagesName, setErrorMessagesName] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const [errorMessagesPlace, setErrorMessagesPlace] = useState({
+    isError: false,
+    message: "",
+  });
+
 
   useImperativeHandle(ref, () => ({
     open: (data) => {
@@ -35,34 +51,71 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
     },
   }));
 
-
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
   };
 
   const onSubmit = async (data) => {
+
+
+
     try {
+
       let dataPost = {
         ...data,
         latitude: data.latitude.toString(),
         longitude: data.longitude.toString(),
       };
+      //tuổi phải lớn hơn 18
 
-      await userService.profileUpdate(dataPost, id.id.id);
 
-      setIsOpen(false);
+      if (dayjs().diff(dayjs(data.dob), "year") < 18) {
+        setErrorMessages({
+          isError: true,
+          message: "Tuổi phải lớn hơn 18",
+        });
+      }
+
+      if (dayjs().diff(dayjs(data.dob), "year") > 18) {
+        setErrorMessages({
+          isError: false,
+          message: "",
+        });
+      }
       
+      //họ tên không được để trống
+      if (data.name == "") {
+        setErrorMessagesName({
+          isError: true,
+          message: "Họ tên không được để trống",
+        });
+      }
+
+      //nơi sinh không được để trống
+      if (data.birthPlace == "") {
+        setErrorMessagesPlace({
+          isError: true,
+          message: "Nơi sinh không được để trống",
+        });
+      }
+
+      
+    
+
+
+
+
+   
+
+      // await userService.profileUpdate(dataPost, id.id.id);
+
+      // setIsOpen(false);
+
+
     } catch (err) {
       console.log("err", err);
     }
   };
-
-
-
-
-
- 
- 
 
   return (
     <div className="absolute top-0">
@@ -97,9 +150,9 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                 latitude: id.id.latitude,
               }}
               validate={(values) => {
-                const errors = {};
+             
 
-                return errors;
+             
               }}
               onSubmit={onSubmit}
             >
@@ -122,6 +175,11 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                       >
                         Họ và Tên
                       </label>
+                      {errorMessagesName.isError && (
+                          <div className="text-[#ff7010] text-sm flex justify-center">
+                            {errorMessagesName.message}
+                          </div>
+                        )}
                       <input
                         type="text"
                         id="name"
@@ -179,12 +237,21 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                       </select>
                     </div>
                     <div>
-                      <label
-                        for="dob"
-                        class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300"
-                      >
-                        Ngày tháng năm sinh
-                      </label>
+                      <div className="flex ">
+                        {" "}
+                        <label
+                          for="dob"
+                          class="block mb-2 text-sm font-medium text-[#ff7010]  dark:text-gray-300 mx-1"
+                        >
+                          Ngày tháng năm sinh
+                        </label>
+                        {errorMessages.isError && (
+                          <div className="text-[#ff7010] text-sm flex justify-center">
+                            {errorMessages.message}
+                          </div>
+                        )}
+                      </div>
+
                       <input
                         type="datetime-local"
                         id="dob"
@@ -244,7 +311,6 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
                     </div>
                   </div>
                   <div className="d-flex flex float-right    text-white  gap-5  focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm px-7 py- text-center mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  
                     <Button
                       type="submit"
                       disabled={isSubmitting}
