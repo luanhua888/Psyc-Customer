@@ -38,6 +38,7 @@ export default function Profile(props) {
 
   const notify = () => toast("Xóa hồ sơ thành công!");
   const uploadSuccess = () => toast("Xóa hồ sơ thành công!");
+  const uploadImageSuccess = () => toast("Tải ảnh lên thành công!");
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
@@ -152,6 +153,7 @@ export default function Profile(props) {
 
   // console.log("email", localStorage.getItem("email"));
   const updateImageProfile = async () => {
+    loading ? setLoading(false) : setLoading(true);
     if (localStorage.getItem("jwttoken")) {
       const data = await userService.updateImageProfile(
         //email,
@@ -160,7 +162,7 @@ export default function Profile(props) {
       );
 
       if (data.statusCode == 200) {
-        uploadSuccess();
+        uploadImageSuccess
       }
 
       getProfile();
@@ -376,7 +378,7 @@ export default function Profile(props) {
                           loader={() => user.imageUrl}
                           src={profileAvatar}
                           alt=""
-                          className="rounded-xl"
+                          className="rounded-xl bg-cover"
                         />
                       </div>
                       <input
@@ -390,7 +392,6 @@ export default function Profile(props) {
                   
                   py-1 text-xl text-white rounded-xl"
                         onClick={updateImageProfile}
-
                       >
                         Tải lên
                       </button>
@@ -649,21 +650,19 @@ export default function Profile(props) {
                               <Table.Cell>{item.birthPlace}</Table.Cell>
 
                               <Table.Cell>
-
                                 <div className="flex flex-wrap gap-3">
                                   <div>
-                            
-                                <Image
-                                  className="cursor-pointer"
-                                  src={deleteIcon}
-                                  width={20}
-                                  height={20}
-                                  alt=""
-                                  onClick={() =>
-                                    handleDeleteSupProfile(item.id)
-                                  }
-                                />
-                              </div>
+                                    <Image
+                                      className="cursor-pointer"
+                                      src={deleteIcon}
+                                      width={20}
+                                      height={20}
+                                      alt=""
+                                      onClick={() =>
+                                        handleDeleteSupProfile(item.id)
+                                      }
+                                    />
+                                  </div>
                                   <div>
                                     <Image
                                       className="cursor-pointer"
@@ -775,8 +774,7 @@ export default function Profile(props) {
         love={lovecompatility}
         ref={modalLoveCompalityRef}
       />
-                      <ToastContainer />
-
+      <ToastContainer />
     </>
   );
 }

@@ -117,8 +117,8 @@ const ModalRegister = forwardRef((props, ref) => {
       localStorage.getItem("idcustomer")
     );
     if (data.statusCode == 201) {
-      // createSuccess();
-      // setIsOpen(false);
+      createSuccess();
+      setIsOpen(false);
       setloading(false);
     } else {
       setMessage("Tạo thất bại");
