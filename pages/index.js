@@ -135,8 +135,9 @@ export default function Home(props) {
 
   return (
     <div className="">
-      <div className="bg-[#031d2e] mt-[5%] justify-center items-center flex ">
-        <div className="md:container  px-[10%] flex flex-row justify-between items-center">
+
+
+      <div className="bg-[#031d2e] justify-center items-center flex my-[2%] ">
           <div className=" flex flex-row justify-between items-center text-white font-bold rounded-3xl gap-[5%] ">
             {/* hình ảnh */}
             <div className="min-w-[100px]">
@@ -144,7 +145,7 @@ export default function Home(props) {
             </div>
 
             <div className="flex flex-col gap-[10%] text-slate-800 md:text-5xl ">
-              <h3 className="font-sans sm:text-4xl text-white">
+              <h3 className="font-sans sm:text-5xl text-white">
                 Bất kì câu hỏi nào?
               </h3>
               {/* Text */}
@@ -160,134 +161,93 @@ export default function Home(props) {
               </h1>
             </div>
             {/* buttom */}
-        
           </div>
-        </div>
       </div>
 
       {/*service  */}
 
       <div className=" bg-[#17384e] ">
         <div className="">
-          <div className="text-center">
-            <h1 className="text-white w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
-              CÁC DỊCH VỤ CỦA CHÚNG TÔI
-            </h1>
-          </div>
-
-          <div className="px-[5%] my-[1%] ">
-            <div className="grid grid-cols-4 mb-[%] gap-[1%]">
-{/*             
-              <div className=" max-w-[250px] min-w-[60px] ">
-                <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]  bg-[#07273c] rounded-md mb-[2%] pt-[10%]"
-                  onClick={() => onJoin()}
+          <div className="grid grid-cols-4 p-4 items-center justify-center">
+            {/*  1*/}
+            <div className="">
+              <div
+                className="as_service_box text-center  cursor-pointer  bg-[#07273c] rounded-md pt-[10%] mx-[10%]"
+                onClick={() => onJoin()}
+              >
+                <span className="as_icon ">
+                  <Image src={service7} height={40} width={40} alt="" />
+                </span>
+                <h1
+                  className="as_subheading md:text"
+                  style={{
+                    // cỡ chữ nhỏ nhất là 12px
+                    fontSize: "clamp(10px, 1.5vw, 24px)",
+                  }}
                 >
-                  <span className="as_icon">
-                    <Image src={service7} 
-                    alt=""
-                    style={{
-                    //icon lớn nhất là 40px nhỏ nhất là 20px
-                    
-                    width: "40px",
-                    height: "40px",
-
-
-                    }}
-                    
-                     />
-                  </span>
-                  <h4
-                    className="as_subheading md:text"
-                    style={{
-                      // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(10px, 1.5vw, 24px)",
-                    }}
-                  >
-                    Lá Số Hằng Ngày
-                  </h4>
-                  <p></p>
-                </div>
-              </div> */}
-
-              <div className=" max-w-[250px] min-w-[60px]">
-                <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md pt-[10%]"
-                  onClick={() => onJoin()}
-                >
-                  <span className="as_icon ">
-                    <Image src={service7} height={40} width={40} alt="" />
-                  </span>
-                  <h4
-                    className="as_subheading md:text"
-                    style={{
-                      // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(10px, 1.5vw, 24px)",
-                    }}
-                  >
-                    Lá Số Hằng Ngày
-                  </h4>
-                </div>
+                  Lá Số Hằng Ngày
+                </h1>
               </div>
-
-              <div className=" max-w-[250px] min-w-[60px]">
-                <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md pt-[10%]"
-                  onClick={() => router.push("/chat")}
+            </div>
+            {/*  2*/}
+            <div className=" ">
+              <div
+                className="as_service_box text-center  cursor-pointer  bg-[#07273c] rounded-md pt-[10%] mx-[10%]"
+                onClick={() => router.push("/chat")}
+              >
+                <span className="as_icon ">
+                  <Image src={service1} height={40} width={40} alt="" />
+                </span>
+                <h4
+                  className="as_subheading md:text"
+                  style={{
+                    // cỡ chữ nhỏ nhất là 12px
+                    fontSize: "clamp(10px, 1.5vw, 24px)",
+                  }}
                 >
-                  <span className="as_icon ">
-                    <Image src={service1} height={40} width={40} alt="" />
-                  </span>
-                  <h4
-                    className="as_subheading md:text"
-                    style={{
-                      // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(10px, 1.5vw, 24px)",
-                    }}
-                  >
-                    Đặt lịch
-                  </h4>
-                </div>
+                  Đặt lịch
+                </h4>
               </div>
-
-              <div className=" max-w-[250px] min-w-[60px]">
-                <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md  pt-[10%]"
-                  onClick={() => router.push("/RoomLive")}
+            </div>
+            {/*  3*/}
+            <div className=" ">
+              <div
+                className="as_service_box text-center  cursor-pointer  bg-[#07273c] rounded-md pt-[10%] mx-[10%]"
+                onClick={() => router.push("/RoomLive")}
+              >
+                <span className="as_icon">
+                  <Image src={service2} height={40} width={40} alt="" />
+                </span>
+                <h4
+                  className="as_subheading md:text "
+                  style={{
+                    // cỡ chữ nhỏ nhất là 12px
+                    fontSize: "clamp(10px, 1.5vw, 24px)",
+                  }}
                 >
-                  <span className="as_icon">
-                    <Image src={service2} height={40} width={40} alt="" />
-                  </span>
-                  <h4
-                    className="as_subheading md:text "
-                    style={{
-                      // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(10px, 1.5vw, 24px)",
-                    }}
-                  >
-                    Trực Tiếp
-                  </h4>
-                </div>
+                  Trực Tiếp
+                </h4>
               </div>
-              <div className=" max-w-[250px] min-w-[60px]">
-                <div
-                  className="as_service_box text-center  cursor-pointer sm:py-[25%]   bg-[#07273c] rounded-md mb-[2%] pt-[10%]"
-                  onClick={() => router.push("/Survey")}
-                >
-                  <span className="as_icon">
-                    <Image src={service3} height={40} width={40} alt="" />
-                  </span>
-                  <h4
-                    className="as_subheading md:text
+            </div>
+            {/* 4 */}
+            <div className=" ">
+              <div
+                className="as_service_box text-center  cursor-pointer  bg-[#07273c] rounded-md pt-[10%] mx-[10%]"
+                onClick={() => router.push("/Survey")}
+              >
+                <span className="as_icon">
+                  <Image src={service3} height={40} width={40} alt="" />
+                </span>
+                <h4
+                  className="as_subheading md:text
                 "
-                    style={{
-                      // cỡ chữ nhỏ nhất là 12px
-                      fontSize: "clamp(10px, 1.5vw, 24px)",
-                    }}
-                  >
-                    Bài Khảo Sát
-                  </h4>
-                </div>
+                  style={{
+                    // cỡ chữ nhỏ nhất là 12px
+                    fontSize: "clamp(10px, 1.5vw, 24px)",
+                  }}
+                >
+                  Bài Khảo Sát
+                </h4>
               </div>
             </div>
           </div>
@@ -295,334 +255,331 @@ export default function Home(props) {
       </div>
 
       <div className=" bg-[#031d2e] ">
-        <div className="">
-          <div className="text-center">
-            <h1 className="text-white w-[50%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
-              CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
-            </h1>
-          </div>
+        <div className="text-center">
+          <h1 className="text-white my-[1%]  w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
+          CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
+          </h1>
+        </div>
 
-          <div className="px-[10%] my-[1%]">
-            <div className="grid grid-cols-6 gap-2">
+        <div className="px-[10%] my-[2%]">
+          <div className="grid grid-cols-6 gap-2 items-center justify-center">
+            <div
+              className="  bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac1.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac1.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac1.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac1.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac1.name}</h5>
-                  <p>{`${dayjs(zodiac1.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac1.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac1.name}</h5>
+                <p>{`${dayjs(zodiac1.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac1.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac2.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac2.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac2.id },
-                  });
-                }}
-              >
-                <span className="flex justify-center ">
-                  <img src={zodiac2.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center 
+                className="flex flex-col items-center justify-center 
                  text-[#ff7010]"
-                  style={{
-                    // cỡ chữ nhỏ nhất là 12px
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac2.name}</h5>
-                  <p>{`${dayjs(zodiac2.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac2.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
-              </div>
-
-              <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac3.id },
-                  });
+                style={{
+                  // cỡ chữ nhỏ nhất là 12px
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac3.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac3.name}</h5>
-                  <p>{`${dayjs(zodiac3.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac3.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac2.name}</h5>
+                <p>{`${dayjs(zodiac2.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac2.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac3.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac3.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac4.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac4.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac4.name}</h5>
-                  <p>{`${dayjs(zodiac4.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac4.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac3.name}</h5>
+                <p>{`${dayjs(zodiac3.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac3.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className="bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac4.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac4.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac5.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac5.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac5.name}</h5>
-                  <p>{`${dayjs(zodiac5.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac5.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac4.name}</h5>
+                <p>{`${dayjs(zodiac4.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac4.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className="bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac5.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac5.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac6.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac6.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac6.name}</h5>
-                  <p>{`${dayjs(zodiac6.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac6.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac5.name}</h5>
+                <p>{`${dayjs(zodiac5.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac5.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac6.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac6.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac7.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac7.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac7.name}</h5>
-                  <p>{`${dayjs(zodiac7.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac7.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac6.name}</h5>
+                <p>{`${dayjs(zodiac6.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac6.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac7.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac7.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac8.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac8.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac8.name}</h5>
-                  <p>{`${dayjs(zodiac8.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac8.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac7.name}</h5>
+                <p>{`${dayjs(zodiac7.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac7.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac8.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac8.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac9.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac9.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac9.name}</h5>
-                  <p>{`${dayjs(zodiac9.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac9.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac8.name}</h5>
+                <p>{`${dayjs(zodiac8.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac8.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac9.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac9.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac10.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac10.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac10.name}</h5>
-                  <p>{`${dayjs(zodiac10.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac10.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac9.name}</h5>
+                <p>{`${dayjs(zodiac9.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac9.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className="bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac10.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac10.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac11.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac11.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac11.name}</h5>
-                  <p>{`${dayjs(zodiac11.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac11.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac10.name}</h5>
+                <p>{`${dayjs(zodiac10.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac10.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
+            </div>
 
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac11.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac11.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
               <div
-                className=" max-w-[150px] min-w-[50px] bg-slate-700 rounded-md hover:bg-[#07273c]"
-                onClick={() => {
-                  router.push({
-                    pathname: "/zodiac",
-                    query: { zodiacId: zodiac12.id },
-                  });
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
                 }}
               >
-                <span className="flex justify-center ">
-                  <img src={zodiac12.imageUrl} height={80} width={80} alt />
-                </span>
-                {/*  */}
-                <div
-                  className="flex flex-col items-center justify-center text-[#ff7010]"
-                  style={{
-                    fontSize: "clamp(8px, 1.5vw, 16px)",
-                  }}
-                >
-                  <h5>{zodiac12.name}</h5>
-                  <p>{`${dayjs(zodiac12.dateStart).format("DD/MM")} - ${dayjs(
-                    zodiac12.dateEnd
-                  ).format("DD/MM")}`}</p>
-                </div>
+                <h5>{zodiac11.name}</h5>
+                <p>{`${dayjs(zodiac11.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac11.dateEnd
+                ).format("DD/MM")}`}</p>
+              </div>
+            </div>
+
+            <div
+              className=" bg-[#07273c] rounded-md hover:bg-[#455f71]"
+              onClick={() => {
+                router.push({
+                  pathname: "/zodiac",
+                  query: { zodiacId: zodiac12.id },
+                });
+              }}
+            >
+              <span className="flex justify-center ">
+                <img src={zodiac12.imageUrl} height={80} width={80} alt />
+              </span>
+              {/*  */}
+              <div
+                className="flex flex-col items-center justify-center text-[#ff7010]"
+                style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
+                }}
+              >
+                <h5>{zodiac12.name}</h5>
+                <p>{`${dayjs(zodiac12.dateStart).format("DD/MM")} - ${dayjs(
+                  zodiac12.dateEnd
+                ).format("DD/MM")}`}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* zodiac   */}
 
       {/* article */}
 
@@ -669,7 +626,6 @@ export default function Home(props) {
                         alt=""
                         width={300}
                         height={300}
-                      
                       />
                       <div className=" flex flex-col justify-center items-center gap-5 max-w-[600px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
                         <h1 className="px-2 text-2xl  text-white font-semibold ">
@@ -694,7 +650,7 @@ export default function Home(props) {
 
       {/* footer */}
       {/*  */}
-      
+
       <section id="about_us" className="  bg-[#031d2e]  ">
         <div className="md:container mx-auto  py-5 ">
           <div className="flex flex-row justify-center mb-3">
