@@ -68,7 +68,7 @@ const ModalMap = forwardRef((props, ref) => {
   return (
     <div className="absolute left-1 top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
+        classes="overflow-hidden max-w-full max-h-[95%] w-2/3 p-2 bg-white rounded-lg mb-[10%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
@@ -101,7 +101,7 @@ const ModalMap = forwardRef((props, ref) => {
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
             // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
-            apiKey="AIzaSyDaUTAasyxefKbYlJaudcV2TrZIZtxGknE"
+            apiKey="AIzaSyBF1sVh43XaGd8LYACStWtJ9grV37IO6IE"
           />
         </div>
       </Modal>
