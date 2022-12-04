@@ -11,6 +11,7 @@ import iconGem from "../public/photos/icon/gem.png";
 import iconHeadPhone from "../public/photos/icon/headphone.svg";
 import iconOutline from "../public/photos/icon/menu-burger.png";
 import iconMail1 from "../public/photos/icon/mail1.svg";
+import iconReload from "../public/photos/reload.png";
 import { userService } from "../services/UserService";
 import { Dropdown } from "flowbite-react";
 import { walletService } from "../services/WalletService";
@@ -71,16 +72,7 @@ export default function Navbar() {
 
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem("jwttoken")) {
-        const dataWallet = await walletService.getWallet(
-          localStorage.getItem("idcustomer")
-        );
-
-        if (dataWallet.statusCode == 200) {
-          setCrab(dataWallet.data);
-          // console.log(dataWallet.data);
-        }
-      }
+      reloadGem();
     })();
   }, []);
 
@@ -147,6 +139,18 @@ export default function Navbar() {
     handleNav();
   };
 
+  const reloadGem = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const dataWallet = await walletService.getWallet(
+        localStorage.getItem("idcustomer")
+      );
+
+      if (dataWallet.statusCode == 200) {
+        setCrab(dataWallet.data);
+        // console.log(dataWallet.data);
+      }
+    }
+  }
 
 
   return (
@@ -207,8 +211,12 @@ export default function Navbar() {
             <div className="flex flex-row justify-end items-center mx-[1%] gap-[5%] ">
               {crab.map((item) => {
                 return (
-                  <div key={item} className="flex flex-row justify-end  ">
+                  <div key={item} className="flex flex-row justify-end">
+
+
+
                     <span className="text-amber-600">
+                        <Image src={iconReload} alt="" width={15} height={15} className="cursor-pointer "  onClick={reloadGem}/>
                       {" "}
                       Số dư tài khoản:{" "}
                       <span className="text-white ">
