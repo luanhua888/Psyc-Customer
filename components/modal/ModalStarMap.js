@@ -30,22 +30,36 @@ const ModalStarMap = forwardRef((id, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-auto h-auto p-4 bg-white rounded-lg  items-center justify-center"
+        classes="overflow-hidden max-w-full max-h-full w-[50%]  h-auto p-4 bg-white rounded-lg  items-center justify-center bg-[#17384e]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        title={"BẢN ĐỒ SAO"}
         onDiscard={() => console.log("Button discard")}
       >
-       
-          <div  className="w-auto h-auto relative  top-1/2 mt-[80%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Image
-              loader={() => id.id}
-              src={profileAvatar}
-              alt=""
-            />
-           
-          </div>
-    
+        <div className="flex text-4xl justify-center items-center  my-[2%] text-[#ff7010]">
+          BẢN ĐỒ SAO
+        </div>
+
+        <div className="flex justify-center items-center">
+          <Image
+            loader={() => id.id}
+            src={profileAvatar}
+            alt=""
+            className="sm:w-20 sm:h-20 w-16 h-16 rounded-full"
+          />
+        </div>
+
+        <div className="flex justify-center items-center md:text-xl ">
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.nameCus}</p> 
+            </div>
+            <div className="flex justify-center items-center md:text-xl ">
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.address}</p> 
+            </div>
+            <div className="flex justify-center items-center md:text-xl ">
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.name}</p> 
+            </div>
+
+
+
       </Modal>
     </div>
   );

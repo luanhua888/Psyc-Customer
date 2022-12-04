@@ -24,10 +24,12 @@ import ModalAddSupProfile from "../../components/modal/ModalAddSupProfile";
 import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 
 import Skeleton from "@mui/material/Skeleton";
+import ModalStarCus from "../../components/modal/ModalStarCus";
 
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();
+  const modalStarCusRef = useRef();
   const modalAddSupProfileRef = useRef();
   const modalLoveCompalityRef = useRef();
   const formRef = useRef();
@@ -46,6 +48,11 @@ export default function Profile(props) {
 
   const handleOpenModalAddSupProfile = () => {
     modalAddSupProfileRef.current?.open();
+  };
+
+  const handleOpenModalStarMapCus = () => {
+    modalStarCusRef.current?.open();
+    getZodiacCus();
   };
 
   const handleCloseModalEditSupProfile = () => {
@@ -90,6 +97,8 @@ export default function Profile(props) {
     modalStarMapRef.current?.open();
   };
   const [user, setUser] = useState({});
+
+  console.log("user nè",user);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -188,12 +197,30 @@ export default function Profile(props) {
       if (data.statusCode == 200) {
         setLovecompatility(data);
         modalLoveCompalityRef.current?.open();
-        console.log("data", data);
         setNameSupProfile(name);
       }
     }
   };
 
+
+  const  [zodiacCus, setZodiacCus] = useState([]);
+  console.log("zodiacCus", zodiacCus);
+  const getZodiacCus = async () => {
+    if (localStorage.getItem("jwttoken")) {
+      const data = await profileService.getZodiacCus(
+       user.zodiacId
+      );
+
+      console.log("data1", data);
+
+
+      if (data.statusCode == 200) {
+        setZodiacCus(data.data[0].name);
+      }
+    }
+  };
+
+   
   return (
     <>
       {loading ? (
@@ -359,7 +386,7 @@ export default function Profile(props) {
                   />
                 </div>
                 <div className="flex flex-1 justify-center items-center">
-                  <p className=" text-[#ff7010] font-bold text-5xl pb-5 border-b-4 border-b-[#ff7010]">
+                  <p className=" text-[#ff7010] font-bold md:text-5xl pb-5 border-b-4 border-b-[#ff7010]">
                     Thông tin cá nhân
                   </p>
                 </div>
@@ -572,6 +599,18 @@ export default function Profile(props) {
                               </div>
 
                               <div className="d-flex flex float-right   text-white    focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm  text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              <button
+                                  type="submit"
+                                  // disabled={isSubmitting}
+                                  class=" text-white  bg-[#ff7010] x-[1%] hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center mx-2   dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
+                                        transition duration-500 ease-in-out
+                              "
+                              onClick={handleOpenModalStarMapCus}
+                                >
+                                  Bản đồ sao
+                                </button>
+                                
+                                
                                 <button
                                   type="submit"
                                   // disabled={isSubmitting}
@@ -766,7 +805,8 @@ export default function Profile(props) {
         ref={modalEditSupProfileRef}
         handleClose={handleCloseModalEditSupProfile}
       />
-      <ModalStarMap id={starMap} ref={modalStarMapRef} />
+      <ModalStarMap id={starMap} name={zodiacCus} address={user.address} nameCus={user.fullname}  ref={modalStarMapRef} />
+      <ModalStarCus id={user.birthchart} name={zodiacCus} address={user.address} nameCus={user.fullname} ref={modalStarCusRef} />
       <ModalAddSupProfile ref={modalAddSupProfileRef} />
       <ModalLoveCompality
         name={user.fullname}
