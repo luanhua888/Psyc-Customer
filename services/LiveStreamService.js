@@ -5,9 +5,15 @@ const API = {
 };
 
 class LiveStreamService extends AbstractService {
+
+  
   getAll = (date, consultantid) => {
     return this.httpGET(API.GET_ALL, { date, consultantid });
   };
+
+
+
+
 }
 
 export const liveStreamService = new LiveStreamService();

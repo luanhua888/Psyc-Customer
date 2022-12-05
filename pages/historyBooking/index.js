@@ -217,6 +217,7 @@ export default function HistoryBooking() {
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian két thúc</Table.HeadCell>
                           <Table.HeadCell>Trạng thái</Table.HeadCell>
+                          <Table.HeadCell>Hủy / Tham gia</Table.HeadCell>
                           {/* </tr> */}
                         </Table.Head>
 
@@ -379,6 +380,8 @@ export default function HistoryBooking() {
                           <Table.HeadCell>Thời gian bắt đầu</Table.HeadCell>
                           <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
                           <Table.HeadCell>Trạng thái</Table.HeadCell>
+                          <Table.HeadCell>Đánh giá</Table.HeadCell>
+
                           {/* </tr> */}
                         </Table.Head>
                         {historyBooking.length > 0 ? (

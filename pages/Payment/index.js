@@ -439,66 +439,66 @@ export default function Payment() {
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
                       <button
                         onClick={changeAmount}
+                        value={5}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        5
+                      </button>
+                      <button
+                        onClick={changeAmount}
+                        value={10}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        10
+                      </button>
+                      <button
+                        onClick={changeAmount}
+                        value={20}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        20
+                      </button>
+                      <button
+                        onClick={changeAmount}
                         value={50}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         50
                       </button>
                       <button
                         onClick={changeAmount}
                         value={100}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         100
                       </button>
                       <button
                         onClick={changeAmount}
                         value={200}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         200
                       </button>
                       <button
                         onClick={changeAmount}
+                        value={300}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        300
+                      </button>
+                      <button
+                        onClick={changeAmount}
                         value={500}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         500
                       </button>
                       <button
                         onClick={changeAmount}
-                        value={600}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        600
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={700}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        700
-                      </button>
-                      <button
-                        onClick={changeAmount}
                         value={1000}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
-                        1000
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={2000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        2000
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={5000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        5000
+                       1000
                       </button>
                     </div>
 
@@ -607,66 +607,66 @@ export default function Payment() {
                     <div class="grid gap-x-8 gap-y-4 grid-cols-3">
                       <button
                         onClick={changeAmount}
+                        value={5}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        5
+                      </button>
+                      <button
+                        onClick={changeAmount}
+                        value={10}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        10
+                      </button>
+                      <button
+                        onClick={changeAmount}
+                        value={20}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        20
+                      </button>
+                      <button
+                        onClick={changeAmount}
                         value={50}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         50
                       </button>
                       <button
                         onClick={changeAmount}
                         value={100}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         100
                       </button>
                       <button
                         onClick={changeAmount}
                         value={200}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         200
                       </button>
                       <button
                         onClick={changeAmount}
+                        value={300}
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      >
+                        300
+                      </button>
+                      <button
+                        onClick={changeAmount}
                         value={500}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         500
                       </button>
                       <button
                         onClick={changeAmount}
-                        value={600}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        600
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={700}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        700
-                      </button>
-                      <button
-                        onClick={changeAmount}
                         value={1000}
-                        class="bg-transparent hover:bg-blue-500 text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        class="bg-transparent hover:bg-[#2e4b5f] text-[#ff7010] font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                       >
                         1000
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={2000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        2000
-                      </button>
-                      <button
-                        onClick={changeAmount}
-                        value={5000}
-                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      >
-                        5000
                       </button>
                     </div>
 

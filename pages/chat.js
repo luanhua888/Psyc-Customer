@@ -57,6 +57,7 @@ export default function Chat(props) {
     (async () => {
       const data1 = await consultantService.getTypeConsultant();
       const data2 = await consultantService.getAll();
+   
 
       if (data1.statusCode == 200) {
         setTypeConSultant(data1.data);
@@ -71,7 +72,7 @@ export default function Chat(props) {
   }, []);
 
   const getConsultant = async (type) => {
-    const data = await consultantService.getAll(type);
+    const data = await consultantService.getTypeConSul(type);
 
     if (data.statusCode == 200) {
       setConsultants(data.data);
@@ -103,18 +104,7 @@ export default function Chat(props) {
 
   return (
     <>
-      <div className="flex flex-row justify-center mt-[2%]">
-        <span
-          className=" text-white w-auto md:text-4xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] "
-          style={{
-            fontSize: "clamp(25px, 1.5vw, 26px)",
-            //căn giữa
      
-          }}
-        >
-          DANH SÁCH CÁC TƯ VẤN VIÊN
-        </span>
-      </div>
       <div></div>
       {loading ? (
         <div>
@@ -188,6 +178,18 @@ export default function Chat(props) {
         </div>
       ) : (
         <div>
+        <div className="flex flex-row justify-center mt-[2%]">
+        <span
+          className=" text-white w-auto md:text-4xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] "
+          style={{
+            fontSize: "clamp(25px, 1.5vw, 26px)",
+            //căn giữa
+     
+          }}
+        >
+          DANH SÁCH CÁC TƯ VẤN VIÊN
+        </span>
+      </div>
           <div className="sm:px-[20%] flex flex-row justify-end items-end mt-2">
             <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
               <label
@@ -256,7 +258,7 @@ export default function Chat(props) {
                             fontSize: "clamp(10px, 1.5vw, 20px)",
                           }}
                         >
-                          {row.name}
+                          {row.fullName}
                         </div>
                         <div
                           className="text-[#807f7f] text-sm text-black"

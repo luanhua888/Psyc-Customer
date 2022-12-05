@@ -30,12 +30,7 @@ function Question({
     // setSurvey(listQuestionStart);
   }, []);
 
-  console.log("questionStart", questionStart);
-  console.log("listQuestionStart", listQuestionStart);
-  console.log("survey", survey);
-  console.log("result", result);
-  console.log("lengQuestion", lengQuestion);
-  console.log("questionIndex", questionIndex);
+
 
   useEffect(() => {
     (async () => {
