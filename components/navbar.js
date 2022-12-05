@@ -278,7 +278,9 @@ export default function Navbar() {
               <a
                 className="hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
-                                hover:text-amber-600"
+                                hover:text-amber-600
+                                  text-white
+                                "
                 onClick={() => modalLoginRef.current?.open()}
               >
                 Đăng nhập
@@ -287,7 +289,9 @@ export default function Navbar() {
               <a
                 className="hover:border-b-2
                                 hover:border-amber-600 cursor-pointer
-                                hover:text-amber-600"
+                                hover:text-amber-600
+                                text-white
+                                "
                 onClick={() => modalRegisterRef.current?.open()}
               >
                 Đăng ký

@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import nolive from "../../public/no_live.png";
 import Skeleton from "@mui/material/Skeleton";
 import { data } from "autoprefixer";
+import { date } from "yup";
 
 
 export default function RoomLive(props) {
@@ -23,21 +24,32 @@ export default function RoomLive(props) {
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [today, setToDay] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
+
+
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 2000);
 
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
         const data = await userService.profile(localStorage.getItem("iddb"));
-       const  data1 = await liveStreamService.getAll();
+       const  data1 = await liveStreamService.getAll(
+        today
+       );
 
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
+          setLoading(false);
         }
 
         if (data1.statusCode == 200) {
           setConsultant(data1.data);
-          setLoading(false);
         }
       }
     })();
@@ -59,8 +71,8 @@ export default function RoomLive(props) {
     <>
       {loading ? (
         <div>
-          <div className="px-[20%] flex flex-row justify-end items-center justify-center mt-2">
-            <Skeleton width={200} height={50} />
+          <div className="px-[20%] flex flex-row  items-center justify-center mt-2">
+            <Skeleton width={200} height={150} />
           </div>
           <div className="md:container mx-auto  flex flex-col justify-center items-center ">
             <div className=" justify-between grid gap-x-2 gap-y-4 grid-cols-3 mt-[5%] ">
@@ -140,20 +152,21 @@ export default function RoomLive(props) {
                   {consultants.map((row, key) => (
                     <div key={key}>
                       <div
-                        className="flex flex-row justify-center items-center px-[10%] 
+                        className="flex flex-row justify-center items-center px-[2%] 
                   "
                       >
                         <div
                           className="rounded-lg shadow-lg bg-white max-w-[300px] sm:w-[300px] min-w-[80px]  "
                           onClick={() => onJoin(row.id)}
                         >
-                          <a href="#!" className="flex flex-row justify-center">
+                          <a href="#!" className="flex flex-row my-[2%] justify-center">
                             <Image
                               loader={() => row.imageUrl}
                               src={row.imageUrl}
                               alt=""
                               height={150}
                               width={150}
+                              className="rounded-full"
                             />
                           </a>
                           <div className="p-[4%] ">
@@ -171,7 +184,7 @@ export default function RoomLive(props) {
                                 fontSize: "clamp(10px, 1.5vw, 20px)",
                               }}
                             >
-                              {row.name}
+                              {row.description}
                             </span>
                           </div>
                         </div>
