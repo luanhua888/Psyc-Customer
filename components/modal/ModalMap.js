@@ -60,7 +60,7 @@ const ModalMap = forwardRef((props, ref) => {
       setLongitude(lng);
       setLatitude(lat);
       onChangeLocation(lat(), lng(), place.formatted_address);
-      onChangeLocationAddress(lat(), lng(), place.formatted_address);
+      
       setDefaultLocation({ lat: lat(), lng: lng() });
 
     });
@@ -69,20 +69,12 @@ const ModalMap = forwardRef((props, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg mb-[10%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
         onDiscard={() => console.log("Button discard")}
-        buttons={[
-          {
-            role: "discard",
-            toClose: true,
-            classes:
-              "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-            label: "Cập nhật",
-          },
-        ]}
+        
       >
         <div style={{ height: "100%", width: "100%" }}>
           <input
