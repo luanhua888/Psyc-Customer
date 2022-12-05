@@ -135,33 +135,31 @@ export default function Home(props) {
 
   return (
     <div className="">
-
-
       <div className="bg-[#031d2e] justify-center items-center flex my-[2%] ">
-          <div className=" flex flex-row justify-between items-center text-white font-bold rounded-3xl gap-[5%] ">
-            {/* hình ảnh */}
-            <div className="min-w-[100px]">
-              <Image className="animate-spin  " src={astroRoundedImg} alt="" />
-            </div>
+        <div className=" flex flex-row justify-between items-center text-white font-bold rounded-3xl gap-[5%] ">
+          {/* hình ảnh */}
+          <div className="min-w-[100px]">
+            <Image className="animate-spin  " src={astroRoundedImg} alt="" />
+          </div>
 
-            <div className="flex flex-col gap-[10%] text-slate-800 md:text-5xl ">
-              <h3 className="font-sans sm:text-5xl text-white">
-                Bất kì câu hỏi nào?
-              </h3>
-              {/* Text */}
-              <h1
-                className="
+          <div className="flex flex-col gap-[10%] text-slate-800 md:text-5xl ">
+            <h3 className="font-sans sm:text-5xl text-white">
+              Bất kì câu hỏi nào?
+            </h3>
+            {/* Text */}
+            <h1
+              className="
                 font-sans 
                 sm:text-5xl  
                text-white
                min-w-[100px]
                "
-              >
-                Trò chuyện với tư vấn viên
-              </h1>
-            </div>
-            {/* buttom */}
+            >
+              Trò chuyện với tư vấn viên
+            </h1>
           </div>
+          {/* buttom */}
+        </div>
       </div>
 
       {/*service  */}
@@ -181,7 +179,6 @@ export default function Home(props) {
                 <h1
                   className="as_subheading md:text"
                   style={{
-                    // cỡ chữ nhỏ nhất là 12px
                     fontSize: "clamp(10px, 1.5vw, 24px)",
                   }}
                 >
@@ -256,8 +253,13 @@ export default function Home(props) {
 
       <div className=" bg-[#031d2e] ">
         <div className="text-center">
-          <h1 className="text-white my-[1%]  w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]">
-          CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
+          <h1
+            className="text-white my-[1%]  w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]"
+            style={{
+              fontSize: "clamp(10px, 1.5vw, 24px)",
+            }}
+          >
+            CUNG HOÀNG ĐẠO CỦA BẠN LÀ GÌ?​
           </h1>
         </div>
 
@@ -580,17 +582,16 @@ export default function Home(props) {
         </div>
       </div>
 
-
       {/* article */}
 
       <section className="bg-[#17384e] ">
-        <div className="md:container mx-auto py-8 ">
-          <div className="flex flex-row justify-center mb-3">
+        <div className="md:container mx-auto  ">
+          <div className="flex flex-row justify-center item mb-3">
             <h1 className="text-white justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] ">
               NHỮNG BÀI VIẾT MỚI NHẤT​
             </h1>
           </div>
-          <div className="flex flex-row justify-center ">
+          <div className="flex flex-row justify-center    ">
             <div className="max-w-[900px]">
               <Swiper
                 effect={"coverflow"}
@@ -627,21 +628,22 @@ export default function Home(props) {
                         width={300}
                         height={300}
                       />
-                      <div className=" flex flex-col justify-center items-center gap-5 max-w-[400px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl "
+                      <div
+                        className=" flex flex-col justify-center items-center gap-5 max-w-[400px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl "
                         style={{
-                  fontSize: "clamp(8px, 1.5vw, 16px)",
-                }}
+                          fontSize: "clamp(8px, 1.5vw, 16px)",
+                        }}
                       >
-                        <h1 className="px-2 md:text-2xl  text-white font-semibold "
-                        >
+                        <h1 className="px-2 md:text-2xl  text-white font-semibold ">
                           {row.title}
                         </h1>
                         <h1
                           className="px-2 text-2xl text-white first-of-type:font-semibold 
                             
-                    "  style={{
-                  fontSize: "clamp(8px, 1.5vw, 16px)",
-                }}
+                    "
+                          style={{
+                            fontSize: "clamp(8px, 1.5vw, 16px)",
+                          }}
                         >
                           {row.description}
                         </h1>
@@ -661,14 +663,24 @@ export default function Home(props) {
       <section id="about_us" className="  bg-[#031d2e]  ">
         <div className="md:container mx-auto  py-5 ">
           <div className="flex flex-row justify-center mb-3">
-            <h1 className="text-white w-[40%] justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] ">
+            <h1
+              className="text-white w-[40%] justify-center flex flex-row md:text-3xl border-b-2 border-[#ff7010] "
+              style={{
+                fontSize: "clamp(10px, 1.5vw, 24px)",
+              }}
+            >
               TẠI SAO CHỌN PSYC​
             </h1>
           </div>
 
           <div className="flex flex-row justify-center items-center">
             <div className="max-w-[1000px]">
-              <div className="flex flex-col gap-4  ">
+              <div
+                className="flex flex-col gap-4  "
+                style={{
+                  fontSize: "clamp(10px, 1.5vw, 24px)",
+                }}
+              >
                 <p className="text-justify text-white">
                   Chiêm tinh học là một ngành khoa học dự đoán với các bộ phương
                   pháp, tuyên bố và phát hiện riêng đã mãi mãi truyền cảm hứng
@@ -711,18 +723,38 @@ export default function Home(props) {
 
       <footer className="bg-[#17384e] px-[10%] ">
         <div className="md:container mx-auto py-10  max-w-[800px]">
-          <div className="flex flex-row justify-between items-center text-slate-200">
+          <div
+            className="flex flex-row justify-between items-center text-slate-200"
+            style={{
+              fontSize: "clamp(10px, 1.5vw, 24px)",
+            }}
+          >
             <div className="flex flex-col gap-5">
-              <h3 className="font-semibold text-2xl border-b-2 border-[#ff7010]">
+              <h3
+                className="font-semibold text-2xl border-b-2 border-[#ff7010]"
+                style={{
+                  fontSize: "clamp(10px, 1.5vw, 24px)",
+                }}
+              >
                 TỔNG ĐÀI HỖ TRỢ
               </h3>
               <p>Góp ý, khiếu nại 0964155538</p>
             </div>
             <div className="flex flex-col gap-5">
-              <h3 className="font-semibold text-2xl border-b-2 border-[#ff7010]">
+              <h3
+                className="font-semibold text-2xl border-b-2 border-[#ff7010]"
+                style={{
+                  fontSize: "clamp(10px, 1.5vw, 24px)",
+                }}
+              >
                 VỀ PYSC
               </h3>
-              <ul className="flex flex-col gap-2">
+              <ul
+                className="flex flex-col gap-2"
+                style={{
+                  fontSize: "clamp(10px, 1.5vw, 24px)",
+                }}
+              >
                 <li>
                   <a
                     href="#"
@@ -762,7 +794,12 @@ export default function Home(props) {
                 <Image src={logoFooterImg} alt="" width={100} height={100} />
               </div>
 
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(10px, 1.5vw, 24px)",
+                }}
+                className= "text-justify w-[100%]"
+              >
                 Hướng đến mục tiêu mang lại nơi để mọi người có thể trò chuyện
                 với nhau giải quyết các vấn đề tâm lý. Hãy cùng PYSC hướng đến
                 cuộc sống năng động tích cực hơn.
