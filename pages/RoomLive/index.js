@@ -14,21 +14,18 @@ import nolive from "../../public/no_live.png";
 import Skeleton from "@mui/material/Skeleton";
 import { data } from "autoprefixer";
 import { date } from "yup";
-
+import { formatCountdown } from "antd/lib/statistic/utils";
+import dayjs from "dayjs";
 
 export default function RoomLive(props) {
-  const [ consultants , setConsultant  ] = useState([]);
+  const [consultants, setConsultant] = useState([]);
   const router = useRouter();
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [today, setToDay] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
-
-
+  const [today, setToDay] = useState(dayjs().format("YYYY-MM-DD"));
 
   setTimeout(() => {
     setLoading(false);
@@ -38,10 +35,7 @@ export default function RoomLive(props) {
     (async () => {
       if (localStorage.getItem("jwttoken")) {
         const data = await userService.profile(localStorage.getItem("iddb"));
-       const  data1 = await liveStreamService.getAll(
-        today
-       );
-
+        const data1 = await liveStreamService.getAll(today);
 
         if (data.statusCode == 200) {
           setUser(data.data[0]);
@@ -159,7 +153,10 @@ export default function RoomLive(props) {
                           className="rounded-lg shadow-lg bg-white max-w-[300px] sm:w-[300px] min-w-[80px]  "
                           onClick={() => onJoin(row.id)}
                         >
-                          <a href="#!" className="flex flex-row my-[2%] justify-center">
+                          <a
+                            href="#!"
+                            className="flex flex-row my-[2%] justify-center"
+                          >
                             <Image
                               loader={() => row.imageUrl}
                               src={row.imageUrl}
@@ -205,4 +202,3 @@ export default function RoomLive(props) {
     </>
   );
 }
-

@@ -60,7 +60,6 @@ const ModalMap = forwardRef((props, ref) => {
       setLongitude(lng);
       setLatitude(lat);
       onChangeLocation(lat(), lng(), place.formatted_address);
-      
       setDefaultLocation({ lat: lat(), lng: lng() });
 
     });
@@ -69,7 +68,7 @@ const ModalMap = forwardRef((props, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg mb-[10%]"
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg mb-[1%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
