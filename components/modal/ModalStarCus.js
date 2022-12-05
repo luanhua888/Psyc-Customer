@@ -55,10 +55,10 @@ import {
             </div>
 
             <div className="flex justify-center items-center md:text-xl ">
-             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.nameCus}</p> 
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Họ và tên:</p>  <p>{id.nameCus}</p> 
             </div>
             <div className="flex justify-center items-center md:text-xl ">
-             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.address}</p> 
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Nơi sinh:</p>  <p>{id.address}</p> 
             </div>
             <div className="flex justify-center items-center md:text-xl ">
              <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.name}</p> 

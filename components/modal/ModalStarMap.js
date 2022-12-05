@@ -49,17 +49,14 @@ const ModalStarMap = forwardRef((id, ref) => {
         </div>
 
         <div className="flex justify-center items-center md:text-xl ">
-             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.nameCus}</p> 
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Họ và tên</p>  <p className="text-white">{id.nameCus}</p> 
             </div>
             <div className="flex justify-center items-center md:text-xl ">
-             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.address}</p> 
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Nơi Sinh:</p>  <p className="text-white">{id.address}</p> 
             </div>
             <div className="flex justify-center items-center md:text-xl ">
-             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p>{id.name}</p> 
+             <p className="text-2xl text-[#ff7010] mr-[1%]">Cung hoàng đạo của bạn:</p>  <p className="text-white">{id.name}</p> 
             </div>
-
-
-
       </Modal>
     </div>
   );

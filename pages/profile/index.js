@@ -219,9 +219,9 @@ export default function Profile(props) {
         setZodiacCus(data.data[0].name);
       }
 
-      if (data1.statusCode == 200) {
-        setResultSurvey(data1.data[0].discchart);
-      }
+      // if (data1.statusCode == 200) {
+      //   setResultSurvey(data1.data[0].discchart);
+      // }
     }
   };
 
