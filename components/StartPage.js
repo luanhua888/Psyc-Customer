@@ -48,7 +48,7 @@ function StartPage({
             >
               <Card
                 horizontal={true}
-                imgSrc="https://i.pinimg.com/236x/d5/d9/4b/d5d94b0e074c6cfee308c5623ecd866c.jpg"
+                imgSrc="https://i.pinimg.com/564x/50/15/f3/5015f36b6879c771f21a7c1f848ce875.jpg"
                 onClick={() => {
                   setStartPage(false);
                   setShowQuestionPage(true);

@@ -1,8 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import profileAvatar from "../public/photos/profile-avatar.png";
-import { useRef, useState, forwardRef, useImperativeHandle } from "react";
+import iconLoader from "../public/photos/icon/loader.png";
+import {
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from "react";
 import Skeleton from "@mui/material/Skeleton";
+import { surveyService } from "../services/SurveyService";
 
 function FinalPage({
   setStartPage,
@@ -10,24 +18,38 @@ function FinalPage({
   setResultSurvey,
   resultSurvey,
 }) {
-  const [loading, setLoading] = useState(
-    setTimeout(() => {
-      setLoading(false);
-    }, 20000)
-  );
+  const [loading, setLoading] = useState(true);
 
   const handleStart = () => {
     setStartPage(true);
     setShowFinalImgPage(false);
   };
 
-  console.log("resultSurvey1", resultSurvey.linkresult);
+  console.log("resultSurvey  a", resultSurvey);
+
+  useEffect(() => {
+    (async () => {
+      const data = await surveyService.postResultSurvey(
+        localStorage.getItem("idcustomer"),
+        resultSurvey
+      );
+      
+      if (data.statusCode == 201) {
+        setResultSurvey(data);
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   return (
     <div>
       {loading ? (
         <div className=" flex justify-between mt-[5%]">
-       
           <div className="md:container mx-[10%]  flex flex-col justify-center items-center ">
+          <div className="absolute">
+          <Image src={iconLoader} alt="" className="animate-spin "/>
+
+          </div>
             <Skeleton
               animation="wave"
               variant="rect"

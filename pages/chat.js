@@ -71,7 +71,7 @@ export default function Chat(props) {
   }, []);
 
   const getConsultant = async (type) => {
-    const data = await consultantService.getAll(type);
+    const data = await consultantService.getTypeConSul(type);
 
     if (data.statusCode == 200) {
       setConsultants(data.data);
@@ -103,18 +103,6 @@ export default function Chat(props) {
 
   return (
     <>
-      <div className="flex flex-row justify-center mt-[2%]">
-        <span
-          className=" text-white w-auto md:text-4xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] "
-          style={{
-            fontSize: "clamp(25px, 1.5vw, 26px)",
-            //căn giữa
-     
-          }}
-        >
-          DANH SÁCH CÁC TƯ VẤN VIÊN
-        </span>
-      </div>
       <div></div>
       {loading ? (
         <div>
@@ -188,6 +176,17 @@ export default function Chat(props) {
         </div>
       ) : (
         <div>
+          <div className="flex flex-row justify-center mt-[2%]">
+            <span
+              className=" text-white w-auto md:text-4xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] "
+              style={{
+                fontSize: "clamp(25px, 1.5vw, 26px)",
+                //căn giữa
+              }}
+            >
+              DANH SÁCH CÁC TƯ VẤN VIÊN
+            </span>
+          </div>
           <div className="sm:px-[20%] flex flex-row justify-end items-end mt-2">
             <div className="max-w-[250px] flex flex-row justify-center m-2 items-end">
               <label
@@ -256,7 +255,7 @@ export default function Chat(props) {
                             fontSize: "clamp(10px, 1.5vw, 20px)",
                           }}
                         >
-                          {row.name}
+                          {row.fullName}
                         </div>
                         <div
                           className="text-[#807f7f] text-sm text-black"
@@ -283,7 +282,18 @@ export default function Chat(props) {
                             fontSize: "clamp(10px, 1.5vw, 20px)",
                           }}
                         >
-                          Chuyên môn: {row.specialName}
+
+                        Chuyên môn:                         {/* chỉ hiện 2 chuyên môn đầu tiên, nếu có nhiều hơn 2 thì hiện thêm 1 dấu ..., nếu rỗng thì hiện chữ "Chưa có chuyên môn" */}
+                          {row.specialization.length > 0
+                            ? row.specialization.length > 2
+                              ? row.specialization[0] +
+                                ", " +
+                                row.specialization[1]+
+                                "..."
+                              : row.specialization[0] +
+                                ", " +
+                                row.specialization[1]
+                            : "Chưa có chuyên môn"}
                         </div>
                       </div>
                     </div>
@@ -301,7 +311,7 @@ export default function Chat(props) {
 
                       <button
                         className=" bg-[#ff7010] h-10 w-20 rounded-xl text-white font-medium hover:bg-[#031d2e]"
-                        onClick={() => onViewDetail(row.consultantId)}
+                        onClick={() => onViewDetail(row.id)}
                         style={{
                           fontSize: "clamp(10px, 1.5vw, 20px)",
                         }}

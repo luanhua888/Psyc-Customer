@@ -110,7 +110,7 @@ export default function LiveStream_r() {
 
   return (
     <>
-      <div id="room__container" className="relative ">
+      <div id="room__container" className="flex justify-center relative ">
         {/* <section
           id="members__container"
           className="max-w-[250px] bg-black overflow-y-auto w-[90%] fixed   h-full"
@@ -128,7 +128,7 @@ export default function LiveStream_r() {
           <div id="member__list" className="flex flex-col gap-1 pb-2"></div>
         </section> */}
 
-        <section id="stream__container" className="flex justify-center items-center ">
+        <section id="stream__container" className="flex justify-center items-center bg-white rounded-md h-[800px]">
           <div id="stream__box" className="bg-gray-400  hidden"></div>
 
           <div

@@ -23,6 +23,8 @@ function Question({
   const [question, setQuestion] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [lengQuestion, setLengQuestion] = useState(0);
+
+
   useEffect(() => {
     // setSurvey(questionStart);
     // // setQuestion(questionStart[0]);
@@ -30,12 +32,12 @@ function Question({
     // setSurvey(listQuestionStart);
   }, []);
 
-  console.log("questionStart", questionStart);
-  console.log("listQuestionStart", listQuestionStart);
-  console.log("survey", survey);
-  console.log("result", result);
-  console.log("lengQuestion", lengQuestion);
-  console.log("questionIndex", questionIndex);
+  // console.log("questionStart", questionStart);
+  // console.log("listQuestionStart", listQuestionStart);
+  // console.log("survey", survey);
+  // console.log("result", result);
+  // console.log("lengQuestion", lengQuestion);
+  // console.log("resultSurvey", resultSurvey);
 
   useEffect(() => {
     (async () => {
@@ -52,12 +54,14 @@ function Question({
     })();
   }, []);
 
+
   const getQuestionNext = async (id) => {
     const data = await surveyService.getQuestionBySurveyId(idSurvey);
     if (data.statusCode == 200) {
       setSurvey(data.data[questionIndex + 1].option);
       setQuestion(data.data[questionIndex + 1].description);
       setLengQuestion(data.data.length);
+      setResultSurvey(result);
     }
   };
 
@@ -69,22 +73,24 @@ function Question({
         setQuestion(data.data[questionIndex + 1].description);
         setLengQuestion(data.data.length);
       }else{
-        getResultSurvey();
+        // getResultSurvey();
         setShowQuestionPage(false);
         setShowFinalImgPage(true);
       }
     }
   };
 
-  const getResultSurvey = async () => {
-    const data = await surveyService.postResultSurvey(
-      localStorage.getItem("idcustomer"),
-      result
-    );
-    if (data.statusCode == 201) {
-      setResultSurvey(data);
-    }
-  };
+  // const getResultSurvey = async () => {
+  //   const data = await surveyService.postResultSurvey(
+  //     localStorage.getItem("idcustomer"),
+  //     result
+  //   );
+  //   console.log("data kết quả", data);
+  //   if (data.statusCode == 201) {
+
+  //     setResultSurvey(data);
+  //   }
+  // };
 
   const handleClick = () => {
     // if (questionIndex == 0) {
@@ -117,7 +123,7 @@ function Question({
               <div
                 key={index}
                 className="answers flex flex-col pt-5"
-                onClick={() => handleClick(result.push(option.id))}
+                onClick={() => handleClick( result.push(option.id)   )}
               >
                 <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-[#286289] rounded-lg shadow-lg hover:bg-slate-300 ">
                   {option.optionText}

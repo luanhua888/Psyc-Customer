@@ -627,14 +627,21 @@ export default function Home(props) {
                         width={300}
                         height={300}
                       />
-                      <div className=" flex flex-col justify-center items-center gap-5 max-w-[600px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl ">
-                        <h1 className="px-2 text-2xl  text-white font-semibold ">
+                      <div className=" flex flex-col justify-center items-center gap-5 max-w-[400px] max-h-[400px] bg-gradient-[145deg, #031f31, #031a29] rounded-tr-xl rounded-br-xl "
+                        style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
+                }}
+                      >
+                        <h1 className="px-2 md:text-2xl  text-white font-semibold "
+                        >
                           {row.title}
                         </h1>
                         <h1
                           className="px-2 text-2xl text-white first-of-type:font-semibold 
                             
-                    "
+                    "  style={{
+                  fontSize: "clamp(8px, 1.5vw, 16px)",
+                }}
                         >
                           {row.description}
                         </h1>

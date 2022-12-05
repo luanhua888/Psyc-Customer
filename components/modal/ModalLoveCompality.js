@@ -32,7 +32,7 @@ const ModalLoveCompality = forwardRef((love, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="bg-[#17384e] mx-[10%]  overflow-hidden max-w-full max-h-full w-auto h-auto p-4  rounded-lg  items-center justify-center"
+        classes="overflow-auto bg-[#17384e] mx-[10%]  overflow-hidden max-w-full max-h-full w-auto h-[80%] p-4  rounded-lg  items-center justify-center"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}

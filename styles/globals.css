@@ -222,7 +222,7 @@ input {
   left: 15.7rem;
   top: -10rem;
   /* overflow-y: auto; */
-  height: 80%;
+  max-height: 600px;
 }
 
 #stream__box {
