@@ -49,7 +49,7 @@ import {
                 loader={() => id.id}
                 src={profileAvatar}
                 alt=""
-                className="sm:w-20 sm:h-20 w-16 h-16 rounded-full"
+                className="sm:w-20 sm:h-20 w-16 h-16 rounded-sm"
               />
              
             </div>

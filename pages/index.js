@@ -674,7 +674,7 @@ export default function Home(props) {
           </div>
 
           <div className="flex flex-row justify-center items-center">
-            <div className="max-w-[1000px]">
+            <div className="max-w-[1200px]">
               <div
                 className="flex flex-col gap-4  "
                 style={{
@@ -682,38 +682,39 @@ export default function Home(props) {
                 }}
               >
                 <p className="text-justify text-white">
-                  Chiêm tinh học là một ngành khoa học dự đoán với các bộ phương
-                  pháp, tuyên bố và phát hiện riêng đã mãi mãi truyền cảm hứng
-                  và cho phép mọi người có cái nhìn sâu sắc về các khía cạnh
-                  khác nhau của cuộc sống của họ. Chiêm tinh học, với những kinh
-                  ngạc và cách thức của nó, hài lòng và đủ chấp thuận để khiến
-                  mọi người trở thành một tín đồ của cùng một. Và may mắn thay,
-                  nó tiếp tục làm như vậy bất chấp thế giới đang thay đổi căn cứ
-                  từ những gì họ tin tưởng và những gì họ không tin tưởng.
+                 <span className="text-[#ff7010]">PSYC (Psychological Counselling)</span>  có thể giúp bạn giải toả cảm
+                  xúc của mình cũng như cảm thấy tâm trạng nhẹ nhàng hơn khi
+                  giải tỏa được những căng thẳng. Có cách nhìn thoáng hơn đối
+                  với vấn đề của bản thân. Bạn sẽ cảm thấy được sự đồng cảm khi
+                  có người ủng hộ, hiểu và khích lệ mình. Bạn sẽ nhận được những
+                  lời khuyên tốt và nhận ra các giá trị của của chính mình và
+                  những nguồn lực sẵn có. Trở nên tự tin và mạnh mẽ để tự quyết
+                  định và giải quyết vấn đề. Bạn sẽ nhận được lời khuyên hữu ích
+                  từ chuyên gia tâm lý khi chia sẻ tâm sự trong những phút bế
+                  tắc của cuộc đời và tìm thấy được định hướng cho bản thân
+                  mình. Phục hồi tinh thần và thể chất. Bên cạnh đó, PSYC còn có
+                  thể giúp bạn biết được Cung Hoàng Đạo của bản thân, và có thể
+                  giúp bạn tìm hiểu về Chiêm Tinh Học - hệ thống bói toán dựa
+                  trên sự vận hành của vũ trụ và các hành tinh xung quanh Trái
+                  Đất. Bạn có thể xem được bản đồ sao của mình - “Bản đồ sao” là
+                  hình thức tương tự như “lá số tử vi” của người phương Đông”.
+                  Bạn có thể xem Ý Nghĩa của các hành tinh trong chiêm tinh học,
+                  sự liên hệ giữa cơ thể con người với 12 cung hoàng đạo. Có thể
+                  giúp bạn xem được con số may mắn, cũng như nhũng điều tốt đẹp
+                  nên làm, hay những việc không nên làm theo chiêm tinh học.
                 </p>
                 <p className="text-justify text-white">
-                  Nếu người ta phải đi sâu vào các kỹ thuật của chiêm tinh học,
-                  đó là nghiên cứu về các vật thể vũ trụ khác nhau, thường là
-                  các ngôi sao và hành tinh, có ảnh hưởng đến cuộc sống của con
-                  người. Bạn phải lưu ý rằng có tới 8 hành tinh trong hệ mặt
-                  trời. Tuy nhiên, nếu tôi hỏi một nhà chiêm tinh học trực tuyến
-                  gần tôi về các hành tinh trong chiêm tinh học, họ sẽ nói với
-                  tôi rằng có tới 9 hành tinh trong chiêm tinh học còn được gọi
-                  là Navagrahas. Và đáng ngạc nhiên, hành tinh Trái đất, trong
-                  chiêm tinh học, không được tính trong số chín hành tinh.
+                  Bên cạnh dịch vụ VideoCall/LiveStream, <span className="text-[#ff7010]">PSYC (Psychological Counselling)</span> còn có chức năng tạo Bản Đồ Sao Cá Nhân, Xem tỉ
+                  lệ tương thích giữa 2 người dựa theo cung hoàng đạo.
                 </p>
                 <p className="text-justify text-white">
-                  Trong số các hành tinh này, một số hành tinh được gọi là hành
-                  tinh thân thiện, có nghĩa là sự hiện diện của chúng mang lại
-                  sự tích cực cho cuộc sống của bạn. Và sau đó, cũng có những
-                  hành tinh có ảnh hưởng tiêu cực đến con người. Sau này sẽ là
-                  các hành tinh như Rahu và Ketu. Sự hiện diện của họ trong
-                  Kundli của một người được cho là mang lại nỗi đau và sự khốn
-                  khổ. Tuy nhiên, có một khía cạnh khác mà người ta cần phải
-                  nhận thức được. Đó là thực tế rằng sự hiện diện của Ketu trong
-                  tử vi của một người không phải lúc nào cũng xấu và tương tự,
-                  sự hiện diện của Sao Mộc trong Kundli của một người có thể
-                  không phải là tốt nhất mọi lúc.
+                  Ngoài ra PSYC cung cấp Trắc Nghiệm Tính Cách theo DISC - là
+                  một loại trắc nghiệm dùng để đánh giá hành vi cá nhân tập
+                  trung vào bốn đặc điểm tính cách nổi bật con người trong một
+                  khoảng thời gian nhất định: Sự thống trị (D), Ảnh hưởng (I),
+                  Sự kiên định (S), và Sự tuân thủ (C). Bạn sẽ hiểu rõ hơn về
+                  nhóm tính cách của bản thân thông qua Kết Quả mà PSYC cung cấp
+                  sau khi thực hiện bài trắc nghiệm.
                 </p>
               </div>
             </div>
@@ -798,7 +799,7 @@ export default function Home(props) {
                 style={{
                   fontSize: "clamp(10px, 1.5vw, 24px)",
                 }}
-                className= "text-justify w-[100%]"
+                className="text-justify w-[100%]"
               >
                 Hướng đến mục tiêu mang lại nơi để mọi người có thể trò chuyện
                 với nhau giải quyết các vấn đề tâm lý. Hãy cùng PYSC hướng đến

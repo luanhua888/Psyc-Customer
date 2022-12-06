@@ -13,6 +13,7 @@ import Image from "next/image";
 import { payMentService } from "../../services/PayMentService";
 import bankIcon from "../../public/photos/icon/bank.png";
 import ModalFailure from "../../components/modal/ModalFailure.js";
+import loaderIcon from "../../public/photos/icon/loader.png";
 
 
 // eslint-disable-next-line react/display-name
@@ -20,6 +21,8 @@ const ModalBankPayment = forwardRef((amount, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [qrCodeDisplay, setQrDisplay] = useState({});
   const [mountrecieve, setAmount] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const modalFailureRef = useRef();
 
@@ -44,12 +47,12 @@ const ModalBankPayment = forwardRef((amount, ref) => {
       );
       if (data.statusCode == 200) {
         setQrDisplay(data);
-        console.log("QR", data);
+        setLoading(false);
       }
     }
   };
 
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(600);
 
   const getCountDown = async () => {
     //điếm ngược thời gian 5 phút
@@ -62,7 +65,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
 
       }
       if (time == 0) {
-        clearInterval(interval);
+        setIsOpen(false);
 
       }
     }, 1000);
@@ -87,7 +90,14 @@ const ModalBankPayment = forwardRef((amount, ref) => {
         title={""}
         onDiscard={() => console.log("Button discard")}
       >
-        {qrCodeDisplay && (
+
+      {loading ? (
+        <div className=" flex justify-center">
+          <Image src={loaderIcon} alt="" className="animate-spin" />
+          </div>
+      ) : (
+       <div>
+       {qrCodeDisplay && (
           <div class="modal-body">
             <div class="container-fluid">
               <div class="flex flex-row ...">
@@ -134,7 +144,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
               </div>
               <div class="row">
                 <div
-                  class="flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
+                  class="flex flex-col justify-between items-center text-pink-600  text-4xl mt-2
              "
                 >
                 {
@@ -144,20 +154,12 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                      }).format(qrCodeDisplay.amount * 1000)
                   }
                 </div>
-                {/* <div class='flex flex-col justify-between items-center text-pink-600'>
-              <h3 className='first-line:text-black'>Tài khoản nhận:</h3>
-              <h3 className='second-line:text-black'>0394705508</h3>
-            </div>
-            <div class='flex flex-col justify-between items-center text-pink-600'>
-              <h3 className='first-line:text-black'>Tên người nhận:</h3>
-              <h3 className='second-line:text-black'>Vũ Anh Tuấn</h3>
-              
-            </div> */}
+            
               </div>
               <div className="flex flex-row justify-center items-center">
                 Tài khoản nhận:{"  "}
                 <span className="text-pink-600 text-2xl ml-2">
-                  {qrCodeDisplay.phonenumber}
+                  {qrCodeDisplay.banknumber}
                 </span>
                 <br />
               </div>
@@ -197,7 +199,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                 GHI CHÚ
               </div>
               <div>
-                <l class="list-decimal">
+                <l class="list-decimal text-black">
                   <p>
                     1. Để tiền được cập nhật nhanh chóng, quý khách vui lòng
                     điền chính xác mã hiển thị có 6 ký tự ở phía trên.
@@ -212,6 +214,8 @@ const ModalBankPayment = forwardRef((amount, ref) => {
             </div>
           </div>
         )}
+       </div>
+      )}
       </Modal>
       <ModalFailure  ref={modalFailureRef} />
 

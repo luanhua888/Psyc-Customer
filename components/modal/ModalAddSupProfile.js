@@ -11,12 +11,16 @@ import Loading from "react-loading";
 import LoadIcon from "../../public/photos/icon/loader.png";
 
 import Image from "next/image";
+import { useRouter } from "next/router";
+
 // eslint-disable-next-line react/display-name
 const ModalRegister = forwardRef((props, ref) => {
   const modalMapRef = useRef();
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
   };
+  const router = useRouter();
+
 
   const handleOpenModalLogin = () => {
     setIsOpen(false);
@@ -40,7 +44,7 @@ const ModalRegister = forwardRef((props, ref) => {
   console.log("data nè", dataForm);
 
   const [message, setMessage] = useState("");
-  const [btnSubmitTitle, setBtnSubmitTitle] = useState("Đăng ký");
+  const [btnSubmitTitle, setBtnSubmitTitle] = useState("Thêm");
   const [isVerifyCode, setIsVerifyCode] = useState(false);
 
   const [errorMessagesFullName, setErrorMessagesFullName] = useState({
@@ -93,6 +97,12 @@ const ModalRegister = forwardRef((props, ref) => {
     isError: false,
     message: "",
   });
+  
+  const [messageGender, setErrorMessagesGender] = useState({
+    isError: false,
+    message: "",
+  });
+
   useImperativeHandle(ref, () => ({
     open: () => {
       setIsOpen(true);
@@ -120,6 +130,9 @@ const ModalRegister = forwardRef((props, ref) => {
       createSuccess();
       setIsOpen(false);
       setloading(false);
+    //reload lại trang
+      router.reload();
+    
     } else {
       setMessage("Tạo thất bại");
     }
@@ -180,6 +193,14 @@ const ModalRegister = forwardRef((props, ref) => {
           message: "Vui lòng nhập nơi sinh",
         });
       }
+
+      if (dataForm.gender === "") {
+        setErrorMessagesGender({
+          isError: true,
+          message: "Vui lòng chọn giới tính",
+        });
+      }
+
 
       //nếu tuôi nhỏ hơn 18 tuổi thì không được đăng ký
       if (dataForm.dob !== "") {
@@ -254,14 +275,14 @@ const ModalRegister = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200",
+              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200 text-white",
             label: btnSubmitTitle,
           },
         ]}
         {...props}
       >
         <div className="flex flex-row items-center justify-center text-4xl pb-5">
-          Đăng Kí Tài Khoản
+          Thêm hồ sơ khác
         </div>
         <Formik
           innerRef={formRef}
@@ -404,55 +425,6 @@ const ModalRegister = forwardRef((props, ref) => {
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
                       <label className="mb-1 font-medium text-[#ff7010] w-1/3">
-                        Ngày sinh
-                      </label>
-                      <div className="w-full flex flex-row items-center justify-center">
-                        {errorMessagesBirthday.message && (
-                          <div
-                            className={`flex justify-center items-center  font-medium ${
-                              errorMessagesBirthday.isError
-                                ? "text-[#ff7010]"
-                                : "text-[#ff7010]"
-                            }`}
-                          >
-                            {errorMessagesBirthday.message}
-                          </div>
-                        )}
-
-                        {errors.dob && touched.dob && (
-                          <div className="text-[#ff7010] font-medium">
-                            {errors.dob && touched.dob && errors.dob}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <input
-                      type="date"
-                      name="confirmPassword"
-                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
-                      onChange={(e) =>
-                        setDataForm({
-                          ...dataForm,
-                          dob: e.currentTarget.value,
-                        })
-                      }
-                      onBlur={() =>
-                        dataForm.dob === ""
-                          ? setErrorMessagesBirthday({
-                              isError: true,
-                              message: "Vui lòng chọn ngày sinh",
-                            })
-                          : setErrorMessagesBirthday({
-                              isError: false,
-                              message: "",
-                            })
-                      }
-                    />
-                  </div>
-
-                  <div className="flex flex-col mb-3">
-                    <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
                         Nơi sinh
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -505,13 +477,87 @@ const ModalRegister = forwardRef((props, ref) => {
                     />
                   </div>
 
+                  <div className="flex flex-col mb-3">
+                    <div className="flex flex-row gap-5">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
+                        Ngày sinh
+                      </label>
+                      <div className="w-full flex flex-row items-center justify-center">
+                        {errorMessagesBirthday.message && (
+                          <div
+                            className={`flex justify-center items-center  font-medium ${
+                              errorMessagesBirthday.isError
+                                ? "text-[#ff7010]"
+                                : "text-[#ff7010]"
+                            }`}
+                          >
+                            {errorMessagesBirthday.message}
+                          </div>
+                        )}
+
+                        {errors.dob && touched.dob && (
+                          <div className="text-[#ff7010] font-medium">
+                            {errors.dob && touched.dob && errors.dob}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <input
+                      type="date"
+                      name="confirmPassword"
+                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                      onChange={(e) =>
+                        setDataForm({
+                          ...dataForm,
+                          dob: e.currentTarget.value,
+                        })
+                      }
+                      onBlur={() =>
+                        dataForm.dob === ""
+                          ? setErrorMessagesBirthday({
+                              isError: true,
+                              message: "Vui lòng chọn ngày sinh",
+                            })
+                          : setErrorMessagesBirthday({
+                              isError: false,
+                              message: "",
+                            })
+                      }
+                    />
+                  </div>
+
+                  
+
                   <div>
                     <label
                       for="gender"
                       class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-400"
                     >
-                      {}
-                      Giới tính
+                     <div className="flex flex-row gap-5">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
+                    Giới tính
+                      </label>
+                      <div className="w-full flex flex-row items-center justify-center">
+                        {messageGender.message && (
+                          <div
+                            className={`flex justify-center items-center font-medium ${
+                              messageGender.isError
+                                ? "text-[#ff7010]"
+                                : "text-[#286289]"
+                            }`}
+                          >
+                            {messageGender.message}
+                          </div>
+                        )}
+                        {errors.gender && touched.gender && (
+                          <div className="text-[#ff7010] font-medium ">
+                            {errors.gender &&
+                              touched.gender &&
+                              errors.gender}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     </label>
                     <select
                       id="gender"
