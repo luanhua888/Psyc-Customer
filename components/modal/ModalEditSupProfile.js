@@ -123,7 +123,7 @@ const ModalEditSupProfile = forwardRef((id, ref, handleClose) => {
         classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4  rounded-lg bg-[#17384e] "
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        title={"Chỉnh sửa thông tin"}
+        title={"Chỉnh sửa thông tin hồ sơ"}
         onClose={handleClose}
         onDiscard={() => console.log("Button discard") && handleCloseModal()}
         // buttons={[

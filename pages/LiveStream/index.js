@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { videoCallService } from "../../services/VideoCallService";
 import noCam from "../../public/photos/icon/no-video.png";
 
+
+
+
 export default function LiveStream_r() {
   const router = useRouter();
 
@@ -110,7 +113,9 @@ export default function LiveStream_r() {
 
   return (
     <>
+
       <div id="room__container" className="flex justify-center relative ">
+
       
         {/* <section
           id="members__container"

@@ -8,6 +8,7 @@ import {
 import Router from "next/router";
 import avatarImg from "../../public/photos/avatar.jpeg";
 import momoIcon from "../../public/photos/icon/MoMo_Logo.png";
+import loaderIcon from "../../public/photos/icon/loader.png";
 
 import Modal from "../modal";
 import Image from "next/image";
@@ -49,11 +50,12 @@ const ModalPayment = forwardRef((amount, ref) => {
       );
       if (data.statusCode == 200) {
         setQrDisplay(data);
+        setLoading(false);
       }
     }
   };
 
-  const [time, setTime] = useState(300);
+  const [time, setTime] = useState(600);
 
   const getCountDown = async () => {
     //điếm ngược thời gian 5 phút
@@ -63,11 +65,10 @@ const ModalPayment = forwardRef((amount, ref) => {
         setTimeout(() => {
           setTime((time) => time - 1);
         }, 1000);
-
       }
       if (time == 0) {
-        clearInterval(interval);
-
+        // nếu hết thời gian thì đóng modal
+        setIsOpen(false);
       }
     }, 1000);
   };
@@ -86,6 +87,8 @@ const ModalPayment = forwardRef((amount, ref) => {
     modalVoteRateRef.current.open();
   };
 
+  const [loading, setLoading] = useState(true);
+
   return (
     <div className=" absolute top-0">
       <Modal
@@ -95,137 +98,128 @@ const ModalPayment = forwardRef((amount, ref) => {
         title={""}
         onDiscard={() => console.log("Button discard")}
       >
-        {qrCodeDisplay && (
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="flex flex-row ...">
-                <div class="flex flex-row justify-start">
-                  <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
-                    <a
-                      href="#"
-                      class="w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
-                    >
-                      {/* logo momo */}
+        {loading ? (
+          <div className=" flex justify-center">
+          <Image src={loaderIcon} alt="" className="animate-spin" />
+          </div>
+        ) : (
+          <div>
+          {qrCodeDisplay && (
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="flex flex-row ...">
+                    <div class="flex flex-row justify-start">
+                      <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <a
+                          href="#"
+                          class="w-full sm:w-auto bg-white-80 rounded-lg inline-flex items-center justify-center px-4 py-2.5"
+                        >
+                          {/* logo momo */}
 
-                      <Image
-                        // loader={() => user.imageUrl}
-                        src={momoIcon}
-                        alt=""
-                        width={50}
-                        height={50}
-                      />
-                      <span class="ml-2">Momo</span>
-                    </a>
+                          <Image
+                            // loader={() => user.imageUrl}
+                            src={momoIcon}
+                            alt=""
+                            width={50}
+                            height={50}
+                          />
+                          <span class="ml-2">Momo</span>
+                        </a>
+                      </div>
+                      <div class="justify-center ml-38 mr-40">
+                        <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 " />
+                      </div>
+                      <div class="ml-10 mt-5">
+                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                          Đơn hàng hết hạn sau 10 phút
+                        </h3>
+                        <h3
+                          class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2"
+                          //nếu hết thời gian 0 thì sẽ open modal cancel booking
+                        >
+                          {/* hiển thị đồng hồ với phút giấy */}
+                          {Math.floor(time / 60)}:{time % 60}
+                        </h3>
+                      </div>
+                    </div>
                   </div>
-                  <div class="justify-center ml-38 mr-40">
-                    <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 " />
-                  </div>
-                  <div class="ml-10 mt-5">
-                    <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
-                      Đơn hàng hết hạn sau 10 phút
-                    </h3>
-                    <h3
-                      class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 bg-pink-700 text-white border-r-2"
-                      //nếu hết thời gian 0 thì sẽ open modal cancel booking
-                    >
-                     {/* hiển thị đồng hồ với phút giấy */}
-
-                     
-                      {Math.floor(time / 60)}:{time % 60}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col mt-10">
-                <div
-                  class="flex flex-col justify-between items-center text-pink-600 text-4xl
+                  <div class="flex flex-col mt-10">
+                    <div
+                      class="flex flex-col justify-between items-center text-pink-600 text-4xl
             "
-                >
-                  Quét mã để thanh toán
-                </div>
-              </div>
-              <div class="row">
-                <div
-                  class="flex flex-col justify-between items-center text-pink-600 2xl:text-4xl mt-2
-             "
-                >
-                  {
-                    new Intl.NumberFormat("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                     }).format(qrCodeDisplay.amount * 1000)
-                  }
-
-
-                </div>
-                {/* <div class='flex flex-col justify-between items-center text-pink-600'>
-              <h3 className='first-line:text-black'>Tài khoản nhận:</h3>
-              <h3 className='second-line:text-black'>0394705508</h3>
-            </div>
-            <div class='flex flex-col justify-between items-center text-pink-600'>
-              <h3 className='first-line:text-black'>Tên người nhận:</h3>
-              <h3 className='second-line:text-black'>Vũ Anh Tuấn</h3>
-              
-            </div> */}
-              </div>
-              <div className="flex flex-row justify-center items-center">
-                Tài khoản nhận:{"  "}
-                <span className="text-pink-600 text-2xl ml-2">
-                  {qrCodeDisplay.phonenumber}
-                </span>
-                <br />
-              </div>
-              <div className="flex flex-row justify-center items-center">
-                Tên người nhận:{" "}
-                <span className=" text-pink-600 text-2xl ml-2">
-                  {qrCodeDisplay.name}
-                </span>
-                <br />
-              </div>
-              <div className="flex flex-row justify-center items-center">
-                Nội dung:{" "}
-                <span className=" text-pink-600 text-2xl ml-2">
-                  {qrCodeDisplay.code}
-                </span>
-                <br />
-              </div>
-
-              <div>
-                <div class="flex flex-col justify-between items-center text-pink-600 text-2xl">
-                  <div className="border-solid border-2 border-indigo-500 p-2 ">
-                    <Image
-                      loader={() => qrCodeDisplay.qrcodemomo}
-                      className=""
-                      src={avatarImg}
-                      alt=""
-                      width={200}
-                      height={200}
-                    />
+                    >
+                      Quét mã để thanh toán
+                    </div>
                   </div>
-                  <h4>Quét mã Qr để thanh toán </h4>
+                  <div class="row">
+                    <div class="flex flex-col justify-between items-center text-pink-600 text-4xl mt-2">
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(qrCodeDisplay.amount * 1000)}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-center items-center">
+                    Tài khoản nhận:{"  "}
+                    <span className="text-pink-600 text-2xl ml-2">
+                      {qrCodeDisplay.phonenumber}
+                    </span>
+                    <br />
+                  </div>
+                  <div className="flex flex-row justify-center items-center">
+                    Tên người nhận:{" "}
+                    <span className=" text-pink-600 text-2xl ml-2">
+                      {qrCodeDisplay.name}
+                    </span>
+                    <br />
+                  </div>
+                  <div className="flex flex-row justify-center items-center">
+                    Nội dung:{" "}
+                    <span className=" text-pink-600 text-2xl ml-2">
+                      {qrCodeDisplay.code}
+                    </span>
+                    <br />
+                  </div>
+
+                  <div>
+                    <div class="flex flex-col justify-between items-center text-pink-600 text-2xl">
+                      <div className="border-solid border-2 border-indigo-500 p-2 ">
+                        <Image
+                          loader={() => qrCodeDisplay.qrcodemomo}
+                          className=""
+                          src={avatarImg}
+                          alt=""
+                          width={200}
+                          height={200}
+                        />
+                      </div>
+                      <h4>Quét mã Qr để thanh toán </h4>
+                    </div>
+                  </div>
+                  <div className="flex underline flex-col justify-between items-center text-pink-600 text-2xl">
+                    GHI CHÚ
+                  </div>
+                  <div>
+                    <l class="list-decimal">
+                      <p>
+                        1. Để tiền được cập nhật nhanh chóng, quý khách vui lòng
+                        điền chính xác mã hiển thị có 6 ký tự ở phía trên.
+                      </p>
+                      <p>
+                        2.Không được điền thêm bất kỳ chữ cái hoặc kú tự nào
+                        ngoài 6 ký tự có sẵn.
+                      </p>
+                      <p>3.Không được sửa đổi số tiền.</p>
+                    </l>
+                  </div>
                 </div>
               </div>
-              <div className="flex underline flex-col justify-between items-center text-pink-600 text-2xl">
-                GHI CHÚ
-              </div>
-              <div>
-                <l class="list-decimal">
-                  <p>
-                    1. Để tiền được cập nhật nhanh chóng, quý khách vui lòng
-                    điền chính xác mã hiển thị có 6 ký tự ở phía trên.
-                  </p>
-                  <p>
-                    2.Không được điền thêm bất kỳ chữ cái hoặc kú tự nào ngoài 6
-                    ký tự có sẵn.
-                  </p>
-                  <p>3.Không được sửa đổi số tiền.</p>
-                </l>
-              </div>
-            </div>
+            )}
+
           </div>
         )}
       </Modal>
-      <ModalFailure  ref={modalFailureRef} />
+      <ModalFailure ref={modalFailureRef} />
     </div>
   );
 });

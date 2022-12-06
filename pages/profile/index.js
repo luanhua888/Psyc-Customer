@@ -43,6 +43,7 @@ export default function Profile(props) {
   const notify = () => toast("Xóa hồ sơ thành công!");
   const uploadSuccess = () => toast("Xóa hồ sơ thành công!");
   const uploadImageSuccess = () => toast("Tải ảnh lên thành công!");
+  const uploadInForSuccess = () => toast("Cập nhật thông tin thành công!");
 
   const handleOpenModalPickerChild = () => {
     modalMapRef.current?.open();
@@ -73,7 +74,13 @@ export default function Profile(props) {
         longitude: data.longitude.toString(),
       };
 
-      await userService.customerUpdate(dataPost, user.email);
+      const infor = await userService.customerUpdate(dataPost, user.email);
+      console.log("infor", infor);
+
+      if (infor.statusCode == 201) {
+        uploadInForSuccess();
+        getProfile();
+      }
     } catch (err) {
       console.log("err", err);
     }
@@ -93,7 +100,7 @@ export default function Profile(props) {
   const handleOpenModalEditSupProfile = () => {
     modalEditSupProfileRef.current?.open();
   };
-  const [btnSubmit, setBtnSubmit] = useState(true);
+  const [btnSubmit, setBtnSubmit] = useState(false);
   const [btnDisplayToast, setBtnDisplayToast] = useState(false);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
@@ -157,14 +164,12 @@ export default function Profile(props) {
         setImageFirebaseUrl(data.data);
         console.log("data1", data.data);
       }
-
       //reload lại Image Profile sau khi update
     }
   };
 
   // console.log("email", localStorage.getItem("email"));
   const updateImageProfile = async () => {
-    loading ? setLoading(false) : setLoading(true);
     if (localStorage.getItem("jwttoken")) {
       const data = await userService.updateImageProfile(
         //email,
@@ -172,10 +177,9 @@ export default function Profile(props) {
         imageFirebaseUrl.data
       );
 
-      if (data.statusCode == 200) {
+      if (data.statusCode == 201) {
         uploadImageSuccess;
       }
-
       getProfile();
     }
   };
@@ -205,7 +209,7 @@ export default function Profile(props) {
   };
 
   const [zodiacCus, setZodiacCus] = useState([]);
-  
+
   const getZodiacCus = async () => {
     if (localStorage.getItem("jwttoken")) {
       const data = await profileService.getZodiacCus(user.zodiacId);
@@ -213,7 +217,6 @@ export default function Profile(props) {
       const data1 = await profileService.getResultSurvey(
         localStorage.getItem("idcustomer")
       );
-
 
       if (data.statusCode == 200) {
         setZodiacCus(data.data[0].name);
@@ -227,10 +230,7 @@ export default function Profile(props) {
 
   const handleOpenModalResult = () => {
     modalResultSurveyRef.current?.open();
-  }
-
-
-
+  };
 
   return (
     <>
@@ -267,7 +267,6 @@ export default function Profile(props) {
 
                             return errors;
                           }}
-                          onSubmit={onSubmit}
                         >
                           {({
                             values,
@@ -452,12 +451,15 @@ export default function Profile(props) {
 
                             return errors;
                           }}
-                          onSubmit={onSubmit}
+                          // btnSubmit = true;  thì cho phép submit form và hiển thị modal
+
+                          onSubmit={btnSubmit ? null : onSubmit}
                         >
                           {({
                             values,
                             errors,
                             touched,
+
                             handleChange,
                             handleBlur,
                             handleSubmit,
@@ -610,29 +612,6 @@ export default function Profile(props) {
                               </div>
 
                               <div className="d-flex flex float-right   text-white    focus:outline-none   focus:ring-blue-300 font-medium rounded-full text-sm  text-center   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                               
-                               
-                                <button
-                                  type="submit"
-                                  // disabled={isSubmitting}
-                                  class=" text-white  bg-[#ff7010]  hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
-                                        transition duration-500 ease-in-out
-                              "
-                                  onClick={handleOpenModalResult}
-                                >
-                                 Kêt quả khảo sát
-                                </button>
-                                <button
-                                  type="submit"
-                                  // disabled={isSubmitting}
-                                  class=" text-white  bg-[#ff7010] x-[1%] hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center mx-2   dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] 
-                                        transition duration-500 ease-in-out
-                              "
-                                  onClick={handleOpenModalStarMapCus}
-                                >
-                                  Bản đồ sao
-                                </button>
-
                                 <button
                                   type="submit"
                                   // disabled={isSubmitting}
@@ -640,20 +619,37 @@ export default function Profile(props) {
                               transition duration-500 ease-in-out
                               "
                                   onClick={() => {
-                                    if (btnSubmit == false) {
-                                      setBtnSubmit(true);
-                                    } else {
+                                    if (btnSubmit == true) {
                                       setBtnSubmit(false);
+                                    } else {
+                                      setBtnSubmit(true);
                                     }
                                   }}
                                 >
-                                  {btnSubmit == false ? "Lưu" : "Cập nhật"}
+                                  {btnSubmit == true ? "Lưu" : "Cập nhật"}
                                 </button>
                               </div>
                             </form>
                           )}
                         </Formik>
                       )}
+                      <div className="flex justify-end mt-2 gap-2 ">
+                        <button
+                          type="submit"
+                          // disabled={isSubmitting}
+                          class=" text-white  bg-[#ff7010]  hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] transition duration-500 ease-in-out"
+                          onClick={() => handleOpenModalResult()}
+                        >
+                          Kết quả khảo sát
+                        </button>
+
+                        <button
+                          class=" text-white  bg-[#ff7010]  hover:bg-[#031d2e] focus:outline-none   focus:ring-[#031d2e] font-medium rounded-lg text-sm px-6 py-4 text-center dark:bg-[#031d2e] dark:hover:bg-[#031d2e] dark:focus:ring-[#031d2e] transition duration-500 ease-in-out"
+                          onClick={() => handleOpenModalStarMapCus()}
+                        >
+                          Bản đồ sao
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -661,7 +657,7 @@ export default function Profile(props) {
                   <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
                     <p className="w-[100%] ">
                       <span className="pr-[20%] pl-[24%] text-[#ff7010]">
-                        Danh sách các hồ sơ khác của bạn
+                        Danh sách các hồ sơ khác
                       </span>
                       <Image
                         src={addIcon}
@@ -848,7 +844,7 @@ export default function Profile(props) {
         love={lovecompatility}
         ref={modalLoveCompalityRef}
       />
-      <ModalResultSurvey  ref={modalResultSurveyRef}/>
+      <ModalResultSurvey ref={modalResultSurveyRef} />
       <ToastContainer />
     </>
   );
