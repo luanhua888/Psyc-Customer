@@ -11,6 +11,7 @@ import {
 } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { surveyService } from "../services/SurveyService";
+import { Router } from "next/router";
 
 function FinalPage({
   setStartPage,
@@ -81,7 +82,7 @@ function FinalPage({
             </button>
             <button
               className="play_again_btn mx-5 bg-orange-500 p-2 rounded-md  text-white"
-              onClick={handleStart}
+              onClick={() => {Router.push("/")}}
             >
               Thoát
             </button>

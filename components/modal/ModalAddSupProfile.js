@@ -156,7 +156,7 @@ const ModalRegister = forwardRef((props, ref) => {
       if (dataForm.email.indexOf("@") === -1) {
         setErrorMessagesEmail({
           isError: true,
-          message: "Email không hợp lệ",
+          message: "Vui lòng nhập email hoặc email không hợp lệ",
         });
       }
 
@@ -190,7 +190,7 @@ const ModalRegister = forwardRef((props, ref) => {
       if (dataForm.birthPlace === "") {
         setErrorMessagesBirthPlace({
           isError: true,
-          message: "Vui lòng nhập nơi sinh",
+          message: "Vui lòng chọn nơi sinh",
         });
       }
 
@@ -465,7 +465,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         dataForm.birthPlace === ""
                           ? setErrorMessagesBirthPlace({
                               isError: true,
-                              message: "Vui lòng nhập nơi sinh",
+                              message: "Vui lòng chọn nơi sinh",
                             })
                           : setErrorMessagesBirthPlace({
                               isError: false,

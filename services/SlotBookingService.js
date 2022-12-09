@@ -28,9 +28,6 @@ class SlotBookingService extends AbstractService {
             );
     };
 
-    
-
-
 }
 
 export const slotBookingService = new SlotBookingService();

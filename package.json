@@ -44,6 +44,7 @@
     "react-card-slider-component": "^1.0.9",
     "react-dom": "18.2.0",
     "react-google-picker": "^0.1.0",
+
     "react-loading": "^2.0.3",
     "react-places-autocomplete": "^7.3.0",
     "react-stars-display": "^0.1.24",

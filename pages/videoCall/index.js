@@ -12,6 +12,7 @@ import noCam from "../../public/photos/icon/no-video.png";
 import camera from "../../public/photos/icon/video-camera.png";
 import connect from "../../public/photos/icon/connect.png";
 import disconnect from "../../public/photos/icon/logout.png";
+
 import {
   Button,
   Dialog,
@@ -138,8 +139,18 @@ export default function VideoCall() {
   const [loadMic, setLoadMic] = useState(true);
   const [loadCam, setLoadCam] = useState(true);
 
+  const [now1, setNow] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div>
+      <div className="text-3xl font-bold text-[#ff7010] m-4 flex justify-center">{now1.toISOString().slice(11, 19)}</div>
+
       <div className="m-auto   rounded shadow-lg  max-w-[98%] max-h-[100%] bg-white   p-2 place-items-center mt-[4%] ">
         <div className="">
           <div

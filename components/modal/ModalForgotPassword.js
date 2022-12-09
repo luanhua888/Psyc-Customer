@@ -77,7 +77,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
 
                     setErrorMessages({
                         isError: false,
-                        message: responseResendCode.message,
+                        message: "Mã xác nhận đã được gửi đến email của bạn", 
                     });
 
                     setDisabledFields({
@@ -94,7 +94,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
         } catch (err) {
             setErrorMessages({
                 isError: true,
-                message: err.response.data.message,
+                message: "err.response.data.message",
             });
             return;
         }
@@ -113,7 +113,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
 
                 setErrorMessages({
                     isError: false,
-                    message: responseConfirm.message,
+                    message: "Đổi mật khẩu thành công",
                 });
 
                 setDisabledFields({
@@ -129,7 +129,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
         } catch (err) {
             setErrorMessages({
                 isError: true,
-                message: err.response.data.message,
+                message: "Mã xác nhận không đúng",
             });
             return;
         }
@@ -197,7 +197,7 @@ const ModalForgotPassword = forwardRef((props, ref) => {
                     validate={(values) => {
                         const errors = {};
                         if (!values.email) {
-                            errors.email = 'Thông tin bắt buộc';
+                            errors.email = 'Vui lòng nhập email';
                         } else if (
                             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                                 values.email

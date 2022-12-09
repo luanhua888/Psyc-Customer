@@ -123,14 +123,14 @@ const ModalPayment = forwardRef((amount, ref) => {
                             width={50}
                             height={50}
                           />
-                          <span class="ml-2">Momo</span>
+                          <span class="ml-2 text-black">Momo</span>
                         </a>
                       </div>
                       <div class="justify-center ml-38 mr-40">
                         <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 " />
                       </div>
                       <div class="ml-10 mt-5">
-                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                        <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 text-black ">
                           Đơn hàng hết hạn sau 10 phút
                         </h3>
                         <h3
@@ -159,21 +159,21 @@ const ModalPayment = forwardRef((amount, ref) => {
                       }).format(qrCodeDisplay.amount * 1000)}
                     </div>
                   </div>
-                  <div className="flex flex-row justify-center items-center">
+                  <div className="flex flex-row justify-center items-center text-black">
                     Tài khoản nhận:{"  "}
                     <span className="text-pink-600 text-2xl ml-2">
                       {qrCodeDisplay.phonenumber}
                     </span>
                     <br />
                   </div>
-                  <div className="flex flex-row justify-center items-center">
+                  <div className="flex flex-row justify-center items-center text-black">
                     Tên người nhận:{" "}
                     <span className=" text-pink-600 text-2xl ml-2">
                       {qrCodeDisplay.name}
                     </span>
                     <br />
                   </div>
-                  <div className="flex flex-row justify-center items-center">
+                  <div className="flex flex-row justify-center items-center text-black">
                     Nội dung:{" "}
                     <span className=" text-pink-600 text-2xl ml-2">
                       {qrCodeDisplay.code}
@@ -200,7 +200,7 @@ const ModalPayment = forwardRef((amount, ref) => {
                     GHI CHÚ
                   </div>
                   <div>
-                    <l class="list-decimal">
+                    <l class="list-decimal text-black">
                       <p>
                         1. Để tiền được cập nhật nhanh chóng, quý khách vui lòng
                         điền chính xác mã hiển thị có 6 ký tự ở phía trên.

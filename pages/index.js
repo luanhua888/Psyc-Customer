@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRef, useEffect, useState, Component } from "react";
 import astroRoundedImg from "../public/photos/astro-rounded.png";
-import logoFooterImg from "../public/logo1.png";
+import logoFooterImg from "../public/photos/icon/logo18age.png";
 
 import ModalLogin from "../components/modal/ModalLogin";
 
@@ -28,6 +28,8 @@ import { userService } from "../services/UserService";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { planetService } from "../services/PlanetService";
+import { houseService } from "../services/HouseService";
 
 export default function Home(props) {
   const modalLoginRef = useRef();
@@ -51,6 +53,10 @@ export default function Home(props) {
 
   const [user, setUser] = useState({});
   const [articleId, setArticleId] = useState(0);
+  const [planet, setPlanet] = useState([]);
+  const [house, setHouse] = useState([]);
+
+  console.log("house", house);
 
   useEffect(() => {
     (async () => {
@@ -75,10 +81,26 @@ export default function Home(props) {
 
   useEffect(() => {
     (async () => {
+      //all bài viết
       const data = await articleService.getAll();
       if (data.statusCode == 200) {
         setArticle(data.data);
       }
+
+      //all hành tinh
+      const data1 = await planetService.getAll();
+
+      if ((data1.statusCode = 200)) {
+        setPlanet(data1.data);
+      }
+
+      // Nhà
+      const data2 = await houseService.getAll();
+      if ((data1.statusCode = 200)) {
+        setHouse(data2.data);
+      }
+
+
     })();
   }, []);
 
@@ -128,6 +150,41 @@ export default function Home(props) {
           title: article.data[0].title,
           contentNews: article.data[0].contentNews,
           urlBanner: article.data[0].urlBanner,
+        },
+      });
+    })();
+  };
+
+  const getHouseDetail = (id) => {
+    (async () => {
+      const house = await houseService.detailHouse(id);
+      console.log("house đó", house.data[0]);
+
+      router.push({
+        pathname: "/house",
+        query: {
+          houseId: house.data[0].id,
+          name: house.data[0].name,
+          imageUrl: house.data[0].imageUrl,
+          description: house.data[0].description,
+          maincontent: house.data[0].maincontent,
+        },
+      });
+    })();
+  };
+  const getPlanetDetail = (id) => {
+    (async () => {
+      const planet = await planetService.detailPlanet(id);
+      console.log("planet đó", planet.data[0]);
+
+      router.push({
+        pathname: "/planet",
+        query: {
+          planetId: planet.data[0].id,
+          name: planet.data[0].name,
+          imageUrl: planet.data[0].imageUrl,
+          description: planet.data[0].description,
+          maincontent: planet.data[0].maincontent,
         },
       });
     })();
@@ -657,6 +714,101 @@ export default function Home(props) {
         </div>
       </section>
 
+      {/* hành tinh */}
+
+      <div>
+        <div className="text-center">
+          <h1
+            className="text-white my-[1%] w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]"
+            style={{
+              fontSize: "clamp(10px, 1.5vw, 24px)",
+            }}
+          >
+            CÁC HÀNH TINH TRONG CHIÊM TINH HỌC
+          </h1>
+        </div>
+        <div className=" bg-[#031d2e] grid grid-cols-5 gap-4 justify-center m-4">
+          {planet.map((row, key) => (
+            <div key={key}>
+              <div className="">
+                <div
+                  className="  bg-[#07273c]  hover:bg-[#455f71] rounded-full mx-[10%]"
+                  onClick={() => {
+                    getPlanetDetail(row.id);
+                  }}
+                >
+                  <span className="flex justify-center ">
+                    <Image
+                      loader={() => row.imageUrl}
+                      src={astroRoundedImg}
+                      alt=""
+                      width={80}
+                      height={80}
+                    />
+                  </span>
+                  {/*  */}
+                  <div
+                    className="flex flex-col items-center justify-center text-[#ff7010]"
+                    style={{
+                      fontSize: "clamp(8px, 1.5vw, 16px)",
+                    }}
+                  >
+                    <h5>{row.name}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Nhà  */}
+      <div className="bg-[#17384e] ">
+        <div className="text-center">
+          <h1
+            className="text-white my-[1%] w-[40%] justify-center flex flex-row items-center mx-auto md:text-3xl border-b-2 border-[#ff7010]"
+            style={{
+              fontSize: "clamp(10px, 1.5vw, 24px)",
+            }}
+          >
+            CÁC NHÀ TRONG CHIÊM TINH HỌC
+          </h1>
+        </div>
+        <div className=" bg-[#17384e] grid grid-cols-6 gap-4 justify-center m-4">
+          {house.map((row, key) => (
+            <div key={key}>
+              <div className="">
+                <div
+                  className="  bg-[#07273c]  hover:bg-[#455f71] rounded-full mx-[10%]"
+                  onClick={() => {
+                    getHouseDetail(row.id);
+                  }}
+                >
+                  <span className="flex justify-center ">
+                    <Image
+                      loader={() => row.imageUrl}
+                      src={astroRoundedImg}
+                      alt=""
+                      width={80}
+                      height={80}
+                    />
+                  </span>
+                  {/*  */}
+                  <div
+                    className="flex flex-col items-center justify-center text-[#ff7010]"
+                    style={{
+                      fontSize: "clamp(8px, 1.5vw, 16px)",
+                    }}
+                  >
+                    <h5>{row.name}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* footer */}
       {/*  */}
 
@@ -682,30 +834,37 @@ export default function Home(props) {
                 }}
               >
                 <p className="text-justify text-white">
-                 <span className="text-[#ff7010]">PSYC (Psychological Counselling)</span>  có thể giúp bạn giải toả cảm
-                  xúc của mình cũng như cảm thấy tâm trạng nhẹ nhàng hơn khi
-                  giải tỏa được những căng thẳng. Có cách nhìn thoáng hơn đối
-                  với vấn đề của bản thân. Bạn sẽ cảm thấy được sự đồng cảm khi
-                  có người ủng hộ, hiểu và khích lệ mình. Bạn sẽ nhận được những
-                  lời khuyên tốt và nhận ra các giá trị của của chính mình và
-                  những nguồn lực sẵn có. Trở nên tự tin và mạnh mẽ để tự quyết
-                  định và giải quyết vấn đề. Bạn sẽ nhận được lời khuyên hữu ích
-                  từ chuyên gia tâm lý khi chia sẻ tâm sự trong những phút bế
-                  tắc của cuộc đời và tìm thấy được định hướng cho bản thân
-                  mình. Phục hồi tinh thần và thể chất. Bên cạnh đó, PSYC còn có
-                  thể giúp bạn biết được Cung Hoàng Đạo của bản thân, và có thể
-                  giúp bạn tìm hiểu về Chiêm Tinh Học - hệ thống bói toán dựa
-                  trên sự vận hành của vũ trụ và các hành tinh xung quanh Trái
-                  Đất. Bạn có thể xem được bản đồ sao của mình - “Bản đồ sao” là
-                  hình thức tương tự như “lá số tử vi” của người phương Đông”.
-                  Bạn có thể xem Ý Nghĩa của các hành tinh trong chiêm tinh học,
-                  sự liên hệ giữa cơ thể con người với 12 cung hoàng đạo. Có thể
-                  giúp bạn xem được con số may mắn, cũng như nhũng điều tốt đẹp
-                  nên làm, hay những việc không nên làm theo chiêm tinh học.
+                  <span className="text-[#ff7010]">
+                    PSYC (Psychological Counselling)
+                  </span>{" "}
+                  có thể giúp bạn giải toả cảm xúc của mình cũng như cảm thấy
+                  tâm trạng nhẹ nhàng hơn khi giải tỏa được những căng thẳng. Có
+                  cách nhìn thoáng hơn đối với vấn đề của bản thân. Bạn sẽ cảm
+                  thấy được sự đồng cảm khi có người ủng hộ, hiểu và khích lệ
+                  mình. Bạn sẽ nhận được những lời khuyên tốt và nhận ra các giá
+                  trị của của chính mình và những nguồn lực sẵn có. Trở nên tự
+                  tin và mạnh mẽ để tự quyết định và giải quyết vấn đề. Bạn sẽ
+                  nhận được lời khuyên hữu ích từ chuyên gia tâm lý khi chia sẻ
+                  tâm sự trong những phút bế tắc của cuộc đời và tìm thấy được
+                  định hướng cho bản thân mình. Phục hồi tinh thần và thể chất.
+                  Bên cạnh đó, PSYC còn có thể giúp bạn biết được Cung Hoàng Đạo
+                  của bản thân, và có thể giúp bạn tìm hiểu về Chiêm Tinh Học -
+                  hệ thống bói toán dựa trên sự vận hành của vũ trụ và các hành
+                  tinh xung quanh Trái Đất. Bạn có thể xem được bản đồ sao của
+                  mình - “Bản đồ sao” là hình thức tương tự như “lá số tử vi”
+                  của người phương Đông”. Bạn có thể xem Ý Nghĩa của các hành
+                  tinh trong chiêm tinh học, sự liên hệ giữa cơ thể con người
+                  với 12 cung hoàng đạo. Có thể giúp bạn xem được con số may
+                  mắn, cũng như nhũng điều tốt đẹp nên làm, hay những việc không
+                  nên làm theo chiêm tinh học.
                 </p>
                 <p className="text-justify text-white">
-                  Bên cạnh dịch vụ VideoCall/LiveStream, <span className="text-[#ff7010]">PSYC (Psychological Counselling)</span> còn có chức năng tạo Bản Đồ Sao Cá Nhân, Xem tỉ
-                  lệ tương thích giữa 2 người dựa theo cung hoàng đạo.
+                  Bên cạnh dịch vụ VideoCall/LiveStream,{" "}
+                  <span className="text-[#ff7010]">
+                    PSYC (Psychological Counselling)
+                  </span>{" "}
+                  còn có chức năng tạo Bản Đồ Sao Cá Nhân, Xem tỉ lệ tương thích
+                  giữa 2 người dựa theo cung hoàng đạo.
                 </p>
                 <p className="text-justify text-white">
                   Ngoài ra PSYC cung cấp Trắc Nghiệm Tính Cách theo DISC - là
@@ -732,18 +891,21 @@ export default function Home(props) {
           >
             <div className="flex flex-col gap-5">
               <h3
-                className="font-semibold text-2xl border-b-2 border-[#ff7010]"
+                className="font-semibold text-2xl border-b-2 justify-center flex border-[#ff7010]"
                 style={{
                   fontSize: "clamp(10px, 1.5vw, 24px)",
                 }}
               >
                 TỔNG ĐÀI HỖ TRỢ
               </h3>
-              <p>Góp ý, khiếu nại 0964155538</p>
+              <p>
+                Góp ý, khiếu nại:{" "}
+                <span className="text-[#ff7010]">0964155538</span>
+              </p>
             </div>
             <div className="flex flex-col gap-5">
               <h3
-                className="font-semibold text-2xl border-b-2 border-[#ff7010]"
+                className="font-semibold text-2xl flex justify-center border-b-2 border-[#ff7010]"
                 style={{
                   fontSize: "clamp(10px, 1.5vw, 24px)",
                 }}
@@ -760,39 +922,16 @@ export default function Home(props) {
                   <a
                     href="#"
                     className="hover:border-b-2 hover:border-[#ff7010]"
+                    // khi click vào sẽ tải xuống ứng dụng
                   >
-                    Giới thiệu
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:border-b-2 hover:border-[#ff7010]"
-                  >
-                    Giới thiệu
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:border-b-2 hover:border-[#ff7010]"
-                  >
-                    Giới thiệu
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:border-b-2 hover:border-[#ff7010]"
-                  >
-                    Giới thiệu
+                    Tải ứng dụng
                   </a>
                 </li>
               </ul>
             </div>
             <div className="flex flex-col float-right w-1/5 ">
               <div className="flex flex-row justify-center">
-                <Image src={logoFooterImg} alt="" width={100} height={100} />
+                <Image src={logoFooterImg} alt="" />
               </div>
 
               <p
@@ -800,11 +939,7 @@ export default function Home(props) {
                   fontSize: "clamp(10px, 1.5vw, 24px)",
                 }}
                 className="text-justify w-[100%]"
-              >
-                Hướng đến mục tiêu mang lại nơi để mọi người có thể trò chuyện
-                với nhau giải quyết các vấn đề tâm lý. Hãy cùng PYSC hướng đến
-                cuộc sống năng động tích cực hơn.
-              </p>
+              ></p>
             </div>
           </div>
         </div>

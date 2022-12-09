@@ -391,7 +391,6 @@ input {
 }
 
 #join-btn {
-  background-color: #845695;
   font-size: 18px;
   padding: 15px 35px;
   border: none;
@@ -406,7 +405,7 @@ input {
 }
 
 #leave-btn {
-  background-color: #845695;
+
   font-size: 18px;
   padding: 15px 35px;
   border: none;
