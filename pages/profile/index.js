@@ -1,7 +1,7 @@
 import { Button, Pagination, Table, Toast } from "flowbite-react";
 import dayjs from "dayjs";
 import { Formik } from "formik";
-import _, { isNull } from "lodash";
+import _, { isNull, set } from "lodash";
 import Image from "next/image";
 import heroBanner from "../../public/photos/zodiac.png";
 import profileAvatar from "../../public/photos/profile-avatar.png";
@@ -101,6 +101,7 @@ export default function Profile(props) {
     modalEditSupProfileRef.current?.open();
   };
   const [btnSubmit, setBtnSubmit] = useState(false);
+  const [Btndisable, setBtndisable] = useState(true);
   const [btnDisplayToast, setBtnDisplayToast] = useState(false);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
@@ -483,7 +484,7 @@ export default function Profile(props) {
                                     Họ và Tên
                                   </label>
                                   <input
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     type="text"
                                     id="fullname"
                                     name="fullname"
@@ -504,7 +505,7 @@ export default function Profile(props) {
                                     Nơi sinh
                                   </label>
                                   <input
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     id="address"
                                     name="address"
                                     class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
@@ -528,7 +529,7 @@ export default function Profile(props) {
                                     Giới tính
                                   </label>
                                   <select
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     id="gender"
                                     name="gender"
                                     class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
@@ -548,7 +549,7 @@ export default function Profile(props) {
                                     Ngày tháng năm sinh
                                   </label>
                                   <input
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     type="datetime-local"
                                     id="dob"
                                     name="dob"
@@ -573,7 +574,7 @@ export default function Profile(props) {
                                     Kinh độ
                                   </label>
                                   <input
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     type="text"
                                     id="longitude"
                                     name="longitude"
@@ -594,7 +595,7 @@ export default function Profile(props) {
                                     Vĩ độ
                                   </label>
                                   <input
-                                    disabled={btnSubmit} // false
+                                    disabled={Btndisable} // false
                                     type="text"
                                     id="latitude"
                                     name="latitude"
@@ -621,12 +622,15 @@ export default function Profile(props) {
                                   onClick={() => {
                                     if (btnSubmit == true) {
                                       setBtnSubmit(false);
+                                     
+                                      
                                     } else {
                                       setBtnSubmit(true);
+                                      setBtndisable(false);
                                     }
                                   }}
                                 >
-                                  {btnSubmit == true ? "Lưu" : "Cập nhật"}
+                                  {btnSubmit == true ? "Lưu" : "Cập nhật" }
                                 </button>
                               </div>
                             </form>
