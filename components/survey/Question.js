@@ -125,7 +125,7 @@ function Question({
                 className="answers flex flex-col pt-5"
                 onClick={() => handleClick( result.push(option.id)   )}
               >
-                <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-[#286289] rounded-lg shadow-lg hover:bg-slate-300 ">
+                <p className="answer p-4 text-white font-bold cursor-pointer  m-1  text-2xl bg-[#286289] rounded-lg shadow-lg hover:bg-[#ff7010] ">
                   {option.optionText}
                 </p>
               </div>

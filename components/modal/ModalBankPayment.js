@@ -121,8 +121,8 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                   <div class="justify-center ml-38 mr-40">
                     <div class="flex flex-row justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 " />
                   </div>
-                  <div class="ml-10 mt-5">
-                    <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 ">
+                  <div class="mx-4 mt-5">
+                    <h3 class=" justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 text-black ">
                       Đơn hàng sẽ hết hạn sau 10 phút
                     </h3>
                     <h3
@@ -156,21 +156,21 @@ const ModalBankPayment = forwardRef((amount, ref) => {
                 </div>
             
               </div>
-              <div className="flex flex-row justify-center items-center">
+              <div className="flex flex-row justify-center items-center text-black">
                 Tài khoản nhận:{"  "}
                 <span className="text-pink-600 text-2xl ml-2">
                   {qrCodeDisplay.banknumber}
                 </span>
                 <br />
               </div>
-              <div className="flex flex-row justify-center items-center">
+              <div className="flex flex-row justify-center items-center text-black">
                 Tên người nhận:{" "}
                 <span className=" text-pink-600 text-2xl ml-2">
                   {qrCodeDisplay.name}
                 </span>
                 <br />
               </div>
-              <div className="flex flex-row justify-center items-center">
+              <div className="flex flex-row justify-center items-center text-black">
                 Nội dung:{" "}
                 <span className=" text-pink-600 text-2xl ml-2">
                   {qrCodeDisplay.code}

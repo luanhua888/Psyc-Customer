@@ -166,9 +166,12 @@ const ModalBooking = forwardRef((props, ref) => {
                 }}
               />
             </div>
+
+
             <div locale="vi">
-              {!_.isEmpty(selectionInfo) && !_.isEmpty(slotBookings) && (
-                <div>
+             
+                <div className="w-[300px]">
+                  
                   <div className="flex flex-col flex-wrap gap-2 px-4 py-4  justify-center items-center">
                     <div className="border-b-2 pl-2 ">
                       {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
@@ -182,28 +185,57 @@ const ModalBooking = forwardRef((props, ref) => {
                       <span>Hãy chọn giờ bạn muốn đặt</span>
                     </div>
 
+
+                  {slotBookings.length > 0 ? (
                     <div className="">
-                      <div className="flex  h-80 overflow-y-scroll px-1  flex-wrap gap-3">
+                      <div className="flex  h-40 overflow-y-scroll px-1  flex-wrap ">
                         {slotBookings.map((row, index) => (
                           <button
                             key={row.id}
-                            className="py-2 px-2 h-10 w-60 border-2 ring-[#17384e] hover:text-white  text-[#ff7010] rounded-2xl hover:bg-[#ff7010] cursor-pointer hover:ring focus:ring"
+                            className="py-2 px-2 h-10 w-60 border-2 ring-[#17384e] hover:text-white  text-[#ff7010] rounded-2xl hover:bg-[#ff7010] cursor-pointer hover:ring focus:ring
+                          
+                            "
+                            // đổi màu khi chọn giờ
+                            style={{
+                              backgroundColor:
+                                selectedBooking.id === row.id
+                                  ? "#ff7010"
+                                  : "#17384e",
+                              color:
+                                selectedBooking.id === row.id
+                                  ? "#17384e"
+                                  : "#ff7010",
+                            }}
+
                             onClick={() =>
                               setSelectedBooking(row) &&
                               setSlotId(selectedBooking.id)
                             }
+
+
                           >
                             {row.timeStart} - {row.timeEnd}
                           </button>
                         ))}
                       </div>
                     </div>
+
+                  ) : (
+                    <div className="flex flex-col justify-center text-white font-bold">
+                      <span >Không có lịch hẹn nào</span>
+                      <span >Vui lòng chọn ngày khác</span>
+                    </div>
+                  )}
                   </div>
-                  {/* {console.log(slotId)} */}
-                  {/* {console.log(consultant.id)} */}
+                 
                 </div>
-              )}
+             
             </div>
+
+
+
+
+            
           </div>
         ) : (
           <div>

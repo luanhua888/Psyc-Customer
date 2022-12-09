@@ -71,7 +71,7 @@ const ModalMap = forwardRef((props, ref) => {
         classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg mb-[1%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
+        title={"LẤY ĐỊA CHỈ VỊ TRÍ"}
         onDiscard={() => console.log("Button discard")}
         
       >
@@ -82,7 +82,7 @@ const ModalMap = forwardRef((props, ref) => {
             // onChange={(e) => autocomplete(e.target)}
             onBlur={(e) => autocomplete(e.target)}
             id="searchInPut"
-            className="controls rounded-sm shadow-sm mb-1 float-right w-1/3"
+            className="controls rounded-sm shadow-sm mb-1 float-right w-1/3 "
           />
           <MapPicker
             defaultLocation={defaultLocation}
@@ -93,7 +93,7 @@ const ModalMap = forwardRef((props, ref) => {
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
             // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
-            apiKey="AIzaSyBF1sVh43XaGd8LYACStWtJ9grV37IO6IE"
+            apiKey="AIzaSyCtCJXtAJoVUtsqzJQcTs6SCEuMVCMZwo4"
           />
         </div>
       </Modal>

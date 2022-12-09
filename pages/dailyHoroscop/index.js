@@ -70,7 +70,7 @@ export default function DailyHoroscop() {
               <h4 className="as_subheading">Hôm Qua</h4>
               <h5>{dayjs().subtract(1, "day").format("DD/MM/YYYY")}</h5>
               <button
-                className="text-white btnViewDaily font-bold px-10 mt-2 py-2  mb-[2%]
+                className="text-white btnViewDaily font-bold px-10 mt-2 py-2  mb-[2%] hover:bg-[#031d2e]
                   "
                 onClick={() =>
                   handleOpenModalDailyHoroscop(
@@ -79,7 +79,7 @@ export default function DailyHoroscop() {
                 }
               >
                 Xem
-              </button>
+              </button> 
             </div>
           </div>
 

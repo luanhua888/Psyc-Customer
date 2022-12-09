@@ -32,7 +32,7 @@ const ModalLoveCompality = forwardRef((love, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-auto bg-[#17384e] mx-[10%]  overflow-hidden max-w-full max-h-full w-auto h-[80%] p-4  rounded-lg  items-center justify-center"
+        classes="overflow-auto max-w-full max-h-full w-[90%]  h-[80%]  bg-white rounded-lg  items-center justify-center bg-[#17384e]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
@@ -45,11 +45,15 @@ const ModalLoveCompality = forwardRef((love, ref) => {
             Tương Thích Với Hộ Sơ Phụ
           </span>
         </div>
-        <div className="flex flex-col justify-between items-center text-xl ">
+        <div className="flex flex-col justify-between items-center text-xl px-[10%]">
           <div className="text-[#ff7010]">Tỉ lệ hợp giữa {love.name} và {love.supName} là {love.love.compatibility}</div>
           <Paragraph>
             <div
               dangerouslySetInnerHTML={{ __html: love.love.zodiaccustomer }}
+              // căn đều 2 bên
+              style={{ textAlign: "justify" }}
+             
+             
             />
           </Paragraph>
         </div>

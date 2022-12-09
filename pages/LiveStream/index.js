@@ -111,6 +111,13 @@ export default function LiveStream_r() {
     });
   }
 
+  const leaveCall  = async () => {
+    await rtc.client.leave();
+    document.getElementById("join-btn").style.display = "block";
+    document.getElementById("leave-btn").style.display = "none";
+    router.push("/RoomLive");
+  };
+
   return (
     <>
 
@@ -187,24 +194,15 @@ export default function LiveStream_r() {
             width="24"
             height="24"
             id="join-btn"
-            className="absolute bottom-0"
+            className="absolute bottom-2 bg-[#ff7010] hover:bg-[#17384e]"
             onClick={startOneToOneVideoCall}
           >
             Tham Gia
           </button>
-          <button id="leave-btn" className="bg-gray-500">
-            <Image
-              src={noCam}
-              id="noCam"
-              onClick={() => {
-                router.push("/RoomLive");
-                alert("Bạn có muốn thoát phòng live không?");
-              }}
-              alt="Picture of the author"
-              width={24}
-              height={24}
-              className="items-center  cursor-pointer"
-            />
+          <button id="leave-btn" className="bg-[#ff7010] hover:bg-[#17384e]" 
+            onClick={leaveCall}
+          >
+            Thoát
           </button>
         </section>
 

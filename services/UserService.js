@@ -7,7 +7,7 @@ const API = {
   REGISTER_RESEND_CODE: "register/resend",
   REGISTER_CHECK_BY_EMAIL: "Users/checkbyemail",
   REGISTER_CONFIRM: "register/confirm",
-  CHANGE_PASSWORD: "Users/changepassuserbycustomerid",
+  CHANGE_PASSWORD: "register/change-pass",
   PROFILE: "Users/getbyid",
   SUPPROFILE_ID: "Profiles/getbyid",
   UPDATE_PROFILE: "Profiles/update",

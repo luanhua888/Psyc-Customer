@@ -95,7 +95,7 @@ const ModalLogin = forwardRef((props, ref) => {
     } catch (err) {
       setErrorMessages({
         isError: true,
-        message: "Tài khoản hoặc mật khẩu không đúng",
+        message: "Tài khoản hoặc mật khẩu không chính xác!",
       });
       return;
     }
@@ -121,7 +121,7 @@ const ModalLogin = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-[#ff7010] px-6 py-2 rounded-lg hover:bg-[#ff7010] transition-all duration-200 mr-[35%] mb-5 text-white",
+              "bg-[#ff7010] px-6 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200 mr-[35%] mb-5 text-white",
             label: "Đăng nhập",
           },
         ]}

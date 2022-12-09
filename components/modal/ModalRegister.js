@@ -158,7 +158,7 @@ const ModalRegister = forwardRef((props, ref) => {
           dataForm.email
         );
 
-        setMessage(responseResendCode.message);
+        setMessage("Mã xác nhận đã được gửi đến email của bạn");
 
         setTimeout(() => {
           setBtnSubmitTitle("Xác nhận");
@@ -192,7 +192,7 @@ const ModalRegister = forwardRef((props, ref) => {
       if (dataForm.email.indexOf("@") === -1) {
         setErrorMessagesEmail({
           isError: true,
-          message: "Email không hợp lệ",
+          message: "Vui lòng nhập email hoặc email không hợp lệ",
         });
       }
 
@@ -243,7 +243,7 @@ const ModalRegister = forwardRef((props, ref) => {
       if (dataForm.birthPlace === "") {
         setErrorMessagesBirthPlace({
           isError: true,
-          message: "Vui lòng nhập nơi sinh",
+          message: "Vui lòng chọn nơi sinh",
         });
       }
 
@@ -319,6 +319,7 @@ const ModalRegister = forwardRef((props, ref) => {
         setIsVerifyCode(true);
         handleRegister();
       }
+
     }
   };
 
@@ -351,7 +352,7 @@ const ModalRegister = forwardRef((props, ref) => {
             role: "confirm",
             toClose: false,
             classes:
-              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200",
+              "bg-[#ff7010] px-4 py-2 rounded-lg hover:bg-[#031d2e] transition-all duration-200 text-white",
             label: btnSubmitTitle,
           },
         ]}
@@ -805,7 +806,7 @@ const ModalRegister = forwardRef((props, ref) => {
                         dataForm.birthPlace === ""
                           ? setErrorMessagesBirthPlace({
                               isError: true,
-                              message: "Vui lòng nhập nơi sinh",
+                              message: "",
                             })
                           : setErrorMessagesBirthPlace({
                               isError: false,

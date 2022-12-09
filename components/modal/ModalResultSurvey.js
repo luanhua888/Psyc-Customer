@@ -47,7 +47,7 @@ const ModalResultSurvey = forwardRef((id, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-auto max-w-full max-h-full w-[50%]  h-[80%]  bg-white rounded-lg  items-center justify-center bg-[#17384e]"
+        classes="overflow-auto max-w-full max-h-full w-[80%]  h-[80%]  bg-white rounded-lg  items-center justify-center bg-[#17384e]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
@@ -70,7 +70,11 @@ const ModalResultSurvey = forwardRef((id, ref) => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center"> <div>
+              <p className="flex justify-center text-3xl text-[#ff7010]">
+                Kết Quả Khảo Sát Của Bạn
+              </p>
+            </div>
             <Image
               loader={() => resultSurvey}
               src={profileAvatar}
