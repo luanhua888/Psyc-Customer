@@ -154,7 +154,8 @@ export default function Navbar() {
 
 
   return (
-    <div className="">
+    // cứng ở trên
+    <div className="sticky top-0 z-50">
       <div className="flex justify-between px-[10%] p-[1%] shadow-md bg-[#17384e] ">
         <div className="flex px-[1%]  items-center ">
           {/* logo */}
