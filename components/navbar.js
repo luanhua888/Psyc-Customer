@@ -170,7 +170,7 @@ export default function Navbar() {
           {/* title */}
           <div className="flex flex-col text-white md:text-2xl">
             <span>PSYC</span>
-            <span>Psychological Counselling</span>
+            <span>Psychological Counseling</span>
           </div>
         </div>
 
@@ -182,7 +182,7 @@ export default function Navbar() {
               Liên hệ qua email:{" "}
             </span>
             <span className="text-white flex  ml-1 justify-center items-center hover:border-b-2 hover:border-amber-600 cursor-pointer">
-              PsychologicalCounselling@gmail.com
+              PsychologicalCounseling@gmail.com
             </span>
           </div>
           {/* 2 */}

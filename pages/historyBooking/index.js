@@ -284,7 +284,7 @@ export default function HistoryBooking() {
                           <Table.Body>
                             <Table.Row>
                               <Table.Cell
-                                colSpan={6}
+                                colSpan={7}
                                 className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
                               >
                                 Không Có Dữ Liệu
@@ -433,7 +433,7 @@ export default function HistoryBooking() {
                           <Table.Body>
                             <Table.Row>
                               <Table.Cell
-                                colSpan={6}
+                                colSpan={7}
                                 className="text-center  hover:text-white hover:bg-[#455f71]  text-2xl"
                               >
                                 Không Có Dữ Liệu

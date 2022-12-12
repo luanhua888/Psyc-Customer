@@ -34,10 +34,10 @@ function FinalPage({
         localStorage.getItem("idcustomer"),
         resultSurvey
       );
-      
+
       if (data.statusCode == 201) {
         setResultSurvey(data);
-        setLoading(false);
+        // setLoading(false);
       }
     })();
   }, []);
@@ -47,15 +47,20 @@ function FinalPage({
       {loading ? (
         <div className=" flex justify-between mt-[5%]">
           <div className="md:container mx-[10%]  flex flex-col justify-center items-center ">
-          <div className="absolute">
-          <Image src={iconLoader} alt="" className="animate-spin "/>
+            <div className="absolute">
+              <h1 className="question font-bold text-[#ff7010] text-2xl">
+                Đang xử lý kết quả khảo sát của bạn
+              </h1>
 
-          </div>
+              <div className="flex justify-center">
+                <Image src={iconLoader} alt="" className="animate-spin  " />
+              </div>
+            </div>
             <Skeleton
               animation="wave"
               variant="rect"
               width="100%"
-              height="1000px"
+              height="500px"
               className="mb-4 rounded-2xl"
             />
           </div>
@@ -82,7 +87,9 @@ function FinalPage({
             </button>
             <button
               className="play_again_btn mx-5 bg-orange-500 p-2 rounded-md  text-white"
-              onClick={() => {Router.push("/")}}
+              onClick={() => {
+                Router.push("/");
+              }}
             >
               Thoát
             </button>

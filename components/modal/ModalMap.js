@@ -66,22 +66,13 @@ const ModalMap = forwardRef((props, ref) => {
   }
 
   return (
-    <div className="absolute top-0">
+    <div className="absolute top-10">
       <Modal
         classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
         onDiscard={() => console.log("Button discard")}
-        buttons={[
-          {
-            role: "discard",
-            toClose: true,
-            classes:
-              "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-            label: "Cập nhật",
-          },
-        ]}
+        title="Chọn vị trí"
       >
         <div style={{ height: "100%", width: "100%" }}>
           <input
@@ -96,7 +87,7 @@ const ModalMap = forwardRef((props, ref) => {
             defaultLocation={defaultLocation}
             zoom={zoom}
             mapTypeId="roadmap"
-            style={{ height: "600px" }}
+            style={{ height: "400px" }}
             onChangeLocation={onChangeLocation}
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}

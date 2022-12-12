@@ -835,7 +835,7 @@ export default function Home(props) {
               >
                 <p className="text-justify text-white">
                   <span className="text-[#ff7010]">
-                    PSYC (Psychological Counselling)
+                    PSYC (Psychological Counseling)
                   </span>{" "}
                   có thể giúp bạn giải toả cảm xúc của mình cũng như cảm thấy
                   tâm trạng nhẹ nhàng hơn khi giải tỏa được những căng thẳng. Có
@@ -861,7 +861,7 @@ export default function Home(props) {
                 <p className="text-justify text-white">
                   Bên cạnh dịch vụ VideoCall/LiveStream,{" "}
                   <span className="text-[#ff7010]">
-                    PSYC (Psychological Counselling)
+                    PSYC (Psychological Counseling)
                   </span>{" "}
                   còn có chức năng tạo Bản Đồ Sao Cá Nhân, Xem tỉ lệ tương thích
                   giữa 2 người dựa theo cung hoàng đạo.

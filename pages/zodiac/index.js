@@ -102,7 +102,7 @@ export default function Zodiac() {
         </div>
       ) : (
         <div
-          className="card "
+          className="card"
           style={{
             backgroundColor: "white",
             padding: "20px",
