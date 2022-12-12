@@ -1,5 +1,18 @@
 import React from 'react'
 import { Button, Table, Pagination,Avatar } from "flowbite-react";
+
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
 // import { inputBox } from 'postcss';
 
 export default function FinanHistory() {

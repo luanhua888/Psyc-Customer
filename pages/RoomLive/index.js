@@ -17,6 +17,19 @@ import { date } from "yup";
 import { formatCountdown } from "antd/lib/statistic/utils";
 import dayjs from "dayjs";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function RoomLive(props) {
   const [consultants, setConsultant] = useState([]);
   const router = useRouter();

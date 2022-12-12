@@ -7,6 +7,17 @@ import { videoCallService } from "../../services/VideoCallService";
 import noCam from "../../public/photos/icon/no-video.png";
 
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
 
 
 export default function LiveStream_r() {

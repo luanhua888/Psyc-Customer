@@ -89,10 +89,15 @@ const ModalMap = forwardRef((props, ref) => {
             mapTypeId="roadmap"
             style={{ height: "400px" }}
             onChangeLocation={onChangeLocation}
-            onChangeLocationAddress={onChangeLocationAddress}
+            // onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
+<<<<<<< Updated upstream
           
             apiKey="AIzaSyB34FDePsKoWNZT3Gue5sy1-UNMSWqsDoQ"
+=======
+            // apiKey="AIzaSyBF1sVh43XaGd8LYACStWtJ9grV37IO6IE"
+            apiKey="AIzaSyCtCJXtAJoVUtsqzJQcTs6SCEuMVCMZwo4"
+>>>>>>> Stashed changes
           />
         </div>
       </Modal>

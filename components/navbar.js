@@ -77,11 +77,19 @@ export default function Navbar() {
   }, []);
 
   const onLogout = () => {
+
+
     localStorage.removeItem("jwttoken");
     localStorage.removeItem("iddb");
     localStorage.removeItem("idcustomer");
     router.push("/");
     setUser({});
+
+    // reload lại trang
+    router.reload();
+    
+
+   
   };
 
   const handleLogout = () => {
@@ -130,12 +138,12 @@ export default function Navbar() {
   };
 
   const handleHisDepositPage = () => {
-    router.push("/historyDeposit")
+    router.push("/historyDeposit");
     handleNav();
   };
 
   const handlePayment = () => {
-    router.push("/Payment")
+    router.push("/Payment");
     handleNav();
   };
 
@@ -150,12 +158,17 @@ export default function Navbar() {
         // console.log(dataWallet.data);
       }
     }
-  }
-
+  };
 
   return (
+<<<<<<< Updated upstream
     // cứng ở trên
     <div className="sticky top-0 z-50">
+=======
+    
+
+    <div className="sticky top-0 z-50 ">
+>>>>>>> Stashed changes
       <div className="flex justify-between px-[10%] p-[1%] shadow-md bg-[#17384e] ">
         <div className="flex px-[1%]  items-center ">
           {/* logo */}
@@ -209,18 +222,19 @@ export default function Navbar() {
         >
           {/* login */}
           {Object.keys(user).length >= 1 ? (
-
-
             <div className="flex flex-row justify-end items-center mx-[1%] gap-[5%] ">
               {crab.map((item) => {
                 return (
                   <div key={item} className="flex flex-row justify-end">
-
-
-
                     <span className="text-amber-600">
-                        <Image src={iconReload} alt="" width={15} height={15} className="cursor-pointer "  onClick={reloadGem}/>
-                      {" "}
+                      <Image
+                        src={iconReload}
+                        alt=""
+                        width={15}
+                        height={15}
+                        className="cursor-pointer "
+                        onClick={reloadGem}
+                      />{" "}
                       Số dư tài khoản:{" "}
                       <span className="text-white ">
                         {item.gem}
