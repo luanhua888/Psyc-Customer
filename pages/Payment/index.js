@@ -12,6 +12,19 @@ import { isEmpty, set } from "lodash";
 import { number } from "yup";
 import Router from "next/router";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function Payment() {
   const modalPaymentRef = useRef();
   const modalBankPaymentRef = useRef();

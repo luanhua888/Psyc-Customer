@@ -27,6 +27,19 @@ import Skeleton from "@mui/material/Skeleton";
 import ModalStarCus from "../../components/modal/ModalStarCus";
 import ModalResultSurvey from "../../components/modal/ModalResultSurvey";
 
+
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();

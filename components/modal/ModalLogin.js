@@ -17,17 +17,14 @@ import Password from "antd/lib/input/Password";
 import ModalLoginSuccess from "./ModalLoginSuccess";
 import { data } from "autoprefixer";
 
-
-
-
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = forwardRef((props, ref) => {
   const formRef = useRef();
   const modalForgotPasswordRef = useRef();
-  
-  const modalLoginSuccessRef = useRef();
 
+  const modalLoginSuccessRef = useRef();
 
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessages, setErrorMessages] = useState({
@@ -55,7 +52,6 @@ const ModalLogin = forwardRef((props, ref) => {
 
   const loginSuccess = () => toast("Xóa hồ sơ thành công!");
 
-
   const onSubmit = async (values) => {
     const { username, password } = values;
 
@@ -64,33 +60,25 @@ const ModalLogin = forwardRef((props, ref) => {
 
       if (data.statusCode === 200) {
         setIsOpen(false);
-       
+
         setTimeout(() => {
           modalLoginSuccessRef.current.open();
         }, 100);
-    
       }
-  
-    
+
       setErrorMessages({
         isError: false,
         message: data.messsage,
-        
       });
 
       localStorage.setItem("jwttoken", data.jwttoken);
       localStorage.setItem("iddb", data.iddb);
       localStorage.setItem("idcustomer", data.idcustomer);
-     
-    
 
       setTimeout(() => {
         setErrorMessages({});
         setIsOpen(false);
         Router.reload(window.location.pathname);
-
-  
-
       }, 500);
     } catch (err) {
       setErrorMessages({
@@ -186,6 +174,11 @@ const ModalLogin = forwardRef((props, ref) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.username}
+                    onKeyPress={(e) => {
+                      if (e.key === " ") {
+                        e.preventDefault();
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -196,17 +189,38 @@ const ModalLogin = forwardRef((props, ref) => {
                     {errors.password && touched.password && errors.password}
                   </div>
                 </div>
-                <div className="rounded">
+                <div className=" rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010] ">
                   <input
-                    class="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                    class="p-3 rounded w-full  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                     name="password"
                     //cho hiện mật khẩu
-                    type={"password"}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Mật khẩu"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
+                    // không cho phép nhập khoảng trắng
+                    onKeyPress={(e) => {
+                      if (e.key === " ") {
+                        e.preventDefault();
+                      }
+                    }}
                   />
+                </div>
+                <div>
+                  <div className="flex gap-2 ">
+                    <button
+                      className="cursor-pointer"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? (
+                        <AiFillEye className="h-5 w-5 text-[#ff7010]" />
+                      ) : (
+                        <AiFillEyeInvisible className="h-5 w-5 text-[#ff7010]" />
+                      )}
+                    </button>
+                    Hiển thị mật khẩu
+                  </div>
                 </div>
               </div>
               <div className="flex justify-end">

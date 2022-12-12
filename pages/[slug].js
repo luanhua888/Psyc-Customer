@@ -31,8 +31,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { planetService } from "../services/PlanetService";
 import { houseService } from "../services/HouseService";
 
-
-
 export default function Home(props) {
   const modalLoginRef = useRef();
 
@@ -54,10 +52,6 @@ export default function Home(props) {
   const [article, setArticle] = useState([]);
 
   const [user, setUser] = useState({});
-
-  console.log("user", user);
-
-
   const [articleId, setArticleId] = useState(0);
   const [planet, setPlanet] = useState([]);
   const [house, setHouse] = useState([]);
@@ -127,6 +121,7 @@ export default function Home(props) {
       modalLoginRef.current.open();
       return;
     }
+
     router.push({
       pathname: "/dailyHoroscop",
     });
@@ -843,7 +838,7 @@ export default function Home(props) {
               >
                 <p className="text-justify text-white">
                   <span className="text-[#ff7010]">
-                    PSYC (Psychological Counseling)
+                    PSYC (Psychological Counselling)
                   </span>{" "}
                   có thể giúp bạn giải toả cảm xúc của mình cũng như cảm thấy
                   tâm trạng nhẹ nhàng hơn khi giải tỏa được những căng thẳng. Có
@@ -869,7 +864,7 @@ export default function Home(props) {
                 <p className="text-justify text-white">
                   Bên cạnh dịch vụ VideoCall/LiveStream,{" "}
                   <span className="text-[#ff7010]">
-                    PSYC (Psychological Counseling)
+                    PSYC (Psychological Counselling)
                   </span>{" "}
                   còn có chức năng tạo Bản Đồ Sao Cá Nhân, Xem tỉ lệ tương thích
                   giữa 2 người dựa theo cung hoàng đạo.

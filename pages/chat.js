@@ -14,6 +14,19 @@ import iconProfile from "../public/icon_profile.png";
 import Skeleton from "@mui/material/Skeleton";
 import { Rating } from "@mui/material";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function Chat(props) {
   const modalLoginRef = useRef();
   const modalBookingRef = useRef();

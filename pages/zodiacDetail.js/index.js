@@ -5,6 +5,19 @@ import { zodiacService } from "../../services/ZodiacService";
 import astroRoundedImg from "../../public/photos/astro-rounded.png";
 import Paragraph from "antd/lib/typography/Paragraph";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function Zodiac() {
   const router = useRouter();
 

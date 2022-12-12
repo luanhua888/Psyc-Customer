@@ -19,6 +19,19 @@ import { videoCallService } from "../../services/VideoCallService";
 import ModalCancelBooking from "../../components/modal/ModalCancelBooking.js";
 import ModalVoteRate from "../../components/modal/ModalVoteRate";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function HistoryBooking() {
   const [isOpen, setisOpen] = useState(false);
 

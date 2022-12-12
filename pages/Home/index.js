@@ -16,6 +16,19 @@ import { articleService } from "../../services/ArticleService";
 
 import "autogapslider/dist/index.css";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function Home() {
 
     const [zodiacs, setZodiac] = useState([]);
