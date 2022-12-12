@@ -96,11 +96,11 @@ const ModalBooking = forwardRef((props, ref) => {
   }, []);
 
   return (
-    <div className="fixed top-0">
+    <div className="absolute top-0 z-50">
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        classes=" bg-[#17384e] text-[#ff7010] p-4"
+        classes=" bg-[#17384e] text-[#ff7010] p-4 rounded-lg"
         title={"Đặt lịch hẹn"}
         onConfirm={() => {
           if (actionType === ACTION_TYPE.BOOKING) {

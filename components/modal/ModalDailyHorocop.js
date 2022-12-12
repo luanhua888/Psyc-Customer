@@ -30,9 +30,9 @@ const ModalDailyHorocop = forwardRef((id, ref) => {
   }));
 
   return (
-    <div className="absolute left-1 top-0 overflow-auto  ">
+    <div className="absolute left-1 top-[15%] overflow-auto  ">
       <Modal
-        classes="overflow-auto    max-h-[600px] max-w-[1024px]  rounded-lg  items-center justify-center bg-[#17384e] mb-[6%]"
+        classes="overflow-auto    max-h-[550px] max-w-[1024px]  rounded-lg  items-center justify-center bg-[#17384e] mb-[6%]"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
