@@ -60,7 +60,6 @@ const ModalMap = forwardRef((props, ref) => {
       setLongitude(lng);
       setLatitude(lat);
       onChangeLocation(lat(), lng(), place.formatted_address);
-      onChangeLocationAddress(lat(), lng(), place.formatted_address);
       setDefaultLocation({ lat: lat(), lng: lng() });
 
     });
@@ -101,8 +100,8 @@ const ModalMap = forwardRef((props, ref) => {
             onChangeLocation={onChangeLocation}
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
-            // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
-            apiKey="AIzaSyCtCJXtAJoVUtsqzJQcTs6SCEuMVCMZwo4"
+          
+            apiKey="AIzaSyB34FDePsKoWNZT3Gue5sy1-UNMSWqsDoQ"
           />
         </div>
       </Modal>
