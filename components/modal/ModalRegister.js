@@ -186,6 +186,60 @@ const ModalRegister = forwardRef((props, ref) => {
           message: "Vui lòng nhập họ tên",
         });
       }
+
+      if (
+        // không bắt đầu bằng số
+
+        // không chứa ký tự đặc biệt
+        /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/.test(
+          dataForm.fullname
+        ) ||
+        // không chứa các ký tự ! @ # $ % ^ & * ( ) _ + = { } [ ] : ; " ' < > , . ? / \ | ~ ` - 0-9
+        /[\!@#$%\^&\*\(\)_\+\=\{\}\[\]\:\;\"\'\<\>\,\.\?\/\\\|\~\`\-\d]/.test(
+          dataForm.fullname
+        )
+
+        // không chứa khoảng trắng liên tiếp
+
+        // độ dài từ 6 đến 30 ký tự
+      ) {
+        setErrorMessagesFullName({
+          isError: true,
+          message: "Họ tên không hợp lệ",
+        });
+      }
+
+      if (/\s\s/.test(dataForm.fullname)) {
+        setErrorMessagesFullName({
+          isError: true,
+          message: "Không chứa khoảng trắng liên tiếp",
+        });
+      }
+
+      if (dataForm.fullname.charAt(0) === " ") {
+        setErrorMessagesFullName({
+          isError: true,
+          message: "Không bắt đầu bằng khoảng trắng",
+        });
+      }
+
+      if (dataForm.fullname.length < 6 || dataForm.fullname.length > 30) {
+        setErrorMessagesFullName({
+          isError: true,
+          message: "Độ dài họ tên từ 6 đến 30 ký tự",
+        });
+      }
+
+      if (
+        // chỉ chứa chữ cái và số
+        !/^[a-zA-Z0-9]+$/.test(dataForm.username)
+      ) {
+        setErrorMessagesUsername({
+          isError: true,
+          message: "Tên đăng nhập không hợp lệ",
+        });
+      }
+
       if (!dataForm.username) {
         setErrorMessagesUsername({
           isError: true,
@@ -215,7 +269,7 @@ const ModalRegister = forwardRef((props, ref) => {
         setErrorMessagesPassword({
           isError: true,
           message:
-            "Mật khẩu phải có ít nhất 6 ký tự và ít nhất 1 chữ hoa, 1 chữ thường, 1 số",
+            "Mật khẩu phải có ít nhất 6 ký tự và ít nhất 1 chữ hoa, chữ thường, số, không chứa kí tự đặc biệt",
         });
       }
 
@@ -326,7 +380,6 @@ const ModalRegister = forwardRef((props, ref) => {
         setIsVerifyCode(true);
         handleRegister();
       }
-
     }
   };
 
@@ -567,6 +620,11 @@ const ModalRegister = forwardRef((props, ref) => {
                             })
                       }
                       placeholder="Nhập tên đăng nhập"
+                      onKeyPress={(e) => {
+                        if (e.key === " ") {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
 
@@ -616,12 +674,17 @@ const ModalRegister = forwardRef((props, ref) => {
                             })
                       }
                       placeholder="Nhập email"
+                      onKeyPress={(e) => {
+                        if (e.key === " ") {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
 
                   <div className="flex flex-col mb-3">
                     <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
+                      <label className="mb-1 font-medium text-[#ff7010] w-1/6">
                         Mật khẩu
                       </label>
                       <div className="w-full flex flex-row items-center justify-center">
@@ -667,6 +730,12 @@ const ModalRegister = forwardRef((props, ref) => {
                             })
                       }
                       placeholder="Nhập mật khẩu"
+                      // không cho nhập khoảng trắng
+                      onKeyPress={(e) => {
+                        if (e.key === " ") {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
 
@@ -718,56 +787,72 @@ const ModalRegister = forwardRef((props, ref) => {
                             })
                       }
                       placeholder="Nhập lại mật khẩu"
+                      // không cho nhập khoảng trắng
+                      onKeyPress={(e) => {
+                        if (e.key === " ") {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
 
                   <div className="flex flex-col mb-3">
-                    <div className="flex flex-row gap-5">
-                      <label className="mb-1 font-medium text-[#ff7010] w-1/3">
-                        Ngày sinh
-                      </label>
-                      <div className="w-full flex flex-row items-center justify-center">
-                        {errorMessagesBirthday.message && (
-                          <div
-                            className={`flex justify-center items-center  font-medium ${
-                              errorMessagesBirthday.isError
-                                ? "text-[#ff7010]"
-                                : "text-[#ff7010]"
-                            }`}
-                          >
-                            {errorMessagesBirthday.message}
-                          </div>
-                        )}
+                    <div>
+                      <div className="flex flex-row gap-5">
+                        <label className="mb-1 font-medium text-[#ff7010] w-1/3">
+                          Ngày sinh
+                        </label>
+                        <div className="w-full flex flex-row items-center justify-center">
+                          {errorMessagesBirthday.message && (
+                            <div
+                              className={`flex justify-center items-center  font-medium ${
+                                errorMessagesBirthday.isError
+                                  ? "text-[#ff7010]"
+                                  : "text-[#ff7010]"
+                              }`}
+                            >
+                              {errorMessagesBirthday.message}
+                            </div>
+                          )}
 
-                        {errors.dob && touched.dob && (
-                          <div className="text-[#ff7010] font-medium">
-                            {errors.dob && touched.dob && errors.dob}
-                          </div>
-                        )}
+                          {errors.dob && touched.dob && (
+                            <div className="text-[#ff7010] font-medium">
+                              {errors.dob && touched.dob && errors.dob}
+                            </div>
+                          )}
+                        </div>
                       </div>
+                      <input
+                        type="date"
+                        name="dob"
+                        className="p-3 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                        onChange={(e) =>
+                          setDataForm({
+                            ...dataForm,
+                            dob: e.currentTarget.value,
+                          })
+                        }
+                        onBlur={() =>
+                          dataForm.dob === ""
+                            ? setErrorMessagesBirthday({
+                                isError: true,
+                                message: "Vui lòng chọn ngày sinh và giới tính",
+                              })
+                            : setErrorMessagesBirthday({
+                                isError: false,
+                                message: "",
+                              })
+                        }
+                      />
+
+                      {/* select giới tính */}
+                      <select className="p-3 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]" >
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                      </select>
+
+
                     </div>
-                    <input
-                      type="date"
-                      name="confirmPassword"
-                      className="p-3 rounded w-full outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
-                      onChange={(e) =>
-                        setDataForm({
-                          ...dataForm,
-                          dob: e.currentTarget.value,
-                        })
-                      }
-                      onBlur={() =>
-                        dataForm.dob === ""
-                          ? setErrorMessagesBirthday({
-                              isError: true,
-                              message: "Vui lòng chọn ngày sinh",
-                            })
-                          : setErrorMessagesBirthday({
-                              isError: false,
-                              message: "",
-                            })
-                      }
-                    />
                   </div>
 
                   <div className="flex flex-col mb-3">
@@ -827,7 +912,12 @@ const ModalRegister = forwardRef((props, ref) => {
 
                   <label className="text-2xl mt-5 text-white">
                     Bạn đã có tài khoản?{" "}
-                    <span className="text-[#ff7010] border-b-2 border-[#ff7010] hover:text-[#455f71] hover:border-[#455f71] " onClick={handleOpenModalLogin}>Đăng nhập</span>
+                    <span
+                      className="text-[#ff7010] border-b-2 border-[#ff7010] hover:text-[#455f71] hover:border-[#455f71] "
+                      onClick={handleOpenModalLogin}
+                    >
+                      Đăng nhập
+                    </span>
                   </label>
 
                   <div className=" grid-cols-2 gap-2 hidden">

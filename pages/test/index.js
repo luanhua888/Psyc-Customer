@@ -27,6 +27,19 @@ import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 import Skeleton from "@mui/material/Skeleton";
 import ModalRating from "../../components/modal/ModalRating";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 export default function Profile(props) {
   const modalEditSupProfileRef = useRef();
   const modalStarMapRef = useRef();

@@ -4,6 +4,19 @@ import StartPage from "../../components/StartPage";
 import FinalPage from "../../components/FinalPage.js";
 import TypeSurveyPage from "../../components/TypeSurvey/index.js";
 
+export async function getServerSideProps(context) {
+  const { req, res } = context;
+  const { token } = req.cookies;
+  if (!token) {
+    res.writeHead(302, { Location: "/" });
+    res.end();
+  }
+  return {
+    props: {},
+  };
+}
+
+
 function SurveyPage() {
   const [showStartPage, setStartPage] = useState(false);
   const [showtypeSurvey, setShowTypeSurvey] = useState(true);
