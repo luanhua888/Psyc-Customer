@@ -175,6 +175,9 @@ const ModalRegister = forwardRef((props, ref) => {
     }
   };
 
+  
+
+
   const onSubmit = async () => {
     if (isVerifyCode === false) {
       if (!dataForm.fullname) {
@@ -232,6 +235,10 @@ const ModalRegister = forwardRef((props, ref) => {
           message: "Mật khẩu không khớp",
         });
       }
+
+
+
+   
 
       if (dataForm.dob === "") {
         setErrorMessagesBirthday({
