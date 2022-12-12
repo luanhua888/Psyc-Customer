@@ -60,6 +60,7 @@ const ModalMap = forwardRef((props, ref) => {
       setLongitude(lng);
       setLatitude(lat);
       onChangeLocation(lat(), lng(), place.formatted_address);
+      onChangeLocationAddress(lat(), lng(), place.formatted_address);
       setDefaultLocation({ lat: lat(), lng: lng() });
 
     });
@@ -68,12 +69,20 @@ const ModalMap = forwardRef((props, ref) => {
   return (
     <div className="absolute top-0">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg mb-[1%]"
+        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        title={"LẤY ĐỊA CHỈ VỊ TRÍ"}
+        title={"LẤY KINH ĐỘ VÀ VĨ ĐỘ"}
         onDiscard={() => console.log("Button discard")}
-        
+        buttons={[
+          {
+            role: "discard",
+            toClose: true,
+            classes:
+              "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
+            label: "Cập nhật",
+          },
+        ]}
       >
         <div style={{ height: "100%", width: "100%" }}>
           <input
@@ -82,7 +91,7 @@ const ModalMap = forwardRef((props, ref) => {
             // onChange={(e) => autocomplete(e.target)}
             onBlur={(e) => autocomplete(e.target)}
             id="searchInPut"
-            className="controls rounded-sm shadow-sm mb-1 float-right w-1/3 "
+            className="controls rounded-sm shadow-sm mb-1 float-right w-1/3"
           />
           <MapPicker
             defaultLocation={defaultLocation}
@@ -92,9 +101,8 @@ const ModalMap = forwardRef((props, ref) => {
             onChangeLocation={onChangeLocation}
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}
-         
-            apiKey="AIzaSyBF1sVh43XaGd8LYACStWtJ9grV37IO6IE"
-            // apiKey="AIzaSyCtCJXtAJoVUtsqzJQcTs6SCEuMVCMZwo4"
+            // apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
+            apiKey="AIzaSyCtCJXtAJoVUtsqzJQcTs6SCEuMVCMZwo4"
           />
         </div>
       </Modal>
