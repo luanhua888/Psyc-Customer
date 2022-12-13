@@ -31,7 +31,9 @@ const ModalRegister = forwardRef((props, ref) => {
     longitude: "",
     latitude: "",
     imageUrl: "",
+    gender: "",
   });
+  console.log("dataForm", dataForm);
 
   const [message, setMessage] = useState("");
   const [btnSubmitTitle, setBtnSubmitTitle] = useState("Đăng ký");
@@ -64,6 +66,10 @@ const ModalRegister = forwardRef((props, ref) => {
     });
 
   const [errorMessagesBirthday, setErrorMessagesBirthday] = useState({
+    isError: false,
+    message: "",
+  });
+  const [errorMessagesGender, setErrorMessagesGender] = useState({
     isError: false,
     message: "",
   });
@@ -109,6 +115,7 @@ const ModalRegister = forwardRef((props, ref) => {
       setMessage("Đăng ký thành công");
       setIsOpen(false);
       setBtnSubmitTitle("Đăng ký");
+      window.location.reload();
     }
   };
 
@@ -150,7 +157,8 @@ const ModalRegister = forwardRef((props, ref) => {
             dataForm.longitude.toString(),
             dataForm.latitude.toString(),
             (dataForm.imageUrl =
-              "https://i.pinimg.com/564x/99/5f/b5/995fb5b70cd86c194bc9eb48c394eb6c.jpg")
+              "https://i.pinimg.com/564x/99/5f/b5/995fb5b70cd86c194bc9eb48c394eb6c.jpg"),
+            dataForm.gender
           );
         }
 
@@ -174,9 +182,6 @@ const ModalRegister = forwardRef((props, ref) => {
       }
     }
   };
-
-  
-
 
   const onSubmit = async () => {
     if (isVerifyCode === false) {
@@ -290,14 +295,10 @@ const ModalRegister = forwardRef((props, ref) => {
         });
       }
 
-
-
-   
-
-      if (dataForm.dob === "") {
+      if (dataForm.dob === "" || dataForm.gender === "") {
         setErrorMessagesBirthday({
           isError: true,
-          message: "Vui lòng chọn ngày sinh",
+          message: "Vui lòng chọn ngày sinh và giới tính",
         });
       }
 
@@ -358,6 +359,19 @@ const ModalRegister = forwardRef((props, ref) => {
         }
       }
 
+      //giới tính phải được chọn
+      if (
+        dataForm.gender === "" 
+      ) {
+        setErrorMessagesGender({
+          isError: true,
+          message: "Vui lòng chọn giới tính",
+        });
+      }
+
+
+
+
       if (
         dataForm.fullname &&
         dataForm.username &&
@@ -376,6 +390,9 @@ const ModalRegister = forwardRef((props, ref) => {
         dataForm.latitude &&
         //nếu tuôi nhỏ hơn 18 tuổi thì không được đăng ký
         age >= 18
+        //giới tính phải được chọn
+        &&
+        dataForm.gender
       ) {
         setIsVerifyCode(true);
         handleRegister();
@@ -825,7 +842,7 @@ const ModalRegister = forwardRef((props, ref) => {
                       <input
                         type="date"
                         name="dob"
-                        className="p-3 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                        className="p-3 mx-2 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
                         onChange={(e) =>
                           setDataForm({
                             ...dataForm,
@@ -846,12 +863,19 @@ const ModalRegister = forwardRef((props, ref) => {
                       />
 
                       {/* select giới tính */}
-                      <select className="p-3 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]" >
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
+                      <select
+                        onChange={(e) =>
+                          setDataForm({
+                            ...dataForm,
+                            gender: e.currentTarget.value,
+                          })
+                        }
+                        className="p-3 rounded  outline-none focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
+                      >
+                        <option value="">Chọn giới tính</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
                       </select>
-
-
                     </div>
                   </div>
 

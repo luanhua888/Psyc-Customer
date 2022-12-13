@@ -238,8 +238,8 @@ const ModalBooking = forwardRef((props, ref) => {
             
           </div>
         ) : (
-          <div>
-            Bạn đã đặt lịch hẹn với {consultant.fullName} vào lúc{" "}
+          <div className="flex justify-center items-center text-xl">
+            Cuộc hẹn hẹn với {consultant.fullName} vào lúc{" "}
             {selectedBooking.timeStart} - {selectedBooking.timeEnd}{" "}
             {dayjs(selectionInfo.start).format("dddd, DD MMMM YYYY")}
           </div>

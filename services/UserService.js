@@ -42,7 +42,8 @@ class UserService extends AbstractService {
     dob,
     latitude,
     longitude,
-    imageUrl
+    imageUrl,
+    gender
   ) => {
     return this.httpPUT(API.REGISTER_INFOR, {
       fullname: fullname,
@@ -52,6 +53,7 @@ class UserService extends AbstractService {
       latitude: latitude,
       longitude: longitude,
       imageUrl: imageUrl,
+      gender: gender,
     });
   };
 

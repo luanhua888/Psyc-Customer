@@ -151,8 +151,6 @@ export default function Navbar() {
       }
     }
   }
-
-
   return (
     // cứng ở trên
     <div className="sticky top-0 z-50">

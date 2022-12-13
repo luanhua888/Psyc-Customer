@@ -130,6 +130,13 @@ export default function Zodiac() {
             >
               {zodiac.name}
             </h1>
+            <h1
+              className="card-title
+                   font-bold text-center justify-center text-amber-500 mt-4
+                  "
+            >
+              {zodiac.dayStart}-{zodiac.monthStart} /  {zodiac.dayEnd}-{zodiac.monthEnd}
+            </h1>
             <div className="flex flex-row justify-center items-center">
               <Image
                 loader={() => zodiac.imageUrl}

@@ -184,6 +184,7 @@ export default function Profile(props) {
 
   // console.log("email", localStorage.getItem("email"));
   const updateImageProfile = async () => {
+    setLoading(true);
     if (localStorage.getItem("jwttoken")) {
       const data = await userService.updateImageProfile(
         //email,
@@ -193,6 +194,8 @@ export default function Profile(props) {
 
       if (data.statusCode == 201) {
         uploadImageSuccess;
+        //reload lại trang
+        window.location.reload();
       }
       getProfile();
     }

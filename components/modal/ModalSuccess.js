@@ -57,7 +57,7 @@ const ModalSuccess = forwardRef((id, ref) => {
 
           <div className="flex flex-row items-center justify-center mt-4 gap-2">
             <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+              className="bg-[#ff7010] hover:bg-[#031d2e] text-white font-bold py-2 px-4 rounded-full"
               onClick={() => {
                 setIsOpen(false);
                 Router.push("/historyBooking");
@@ -66,7 +66,7 @@ const ModalSuccess = forwardRef((id, ref) => {
               Xem lịch sử
             </button>
             <button
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full "
+              className="bg-[#ff7010] hover:bg-[#031d2e] text-white font-bold py-2 px-4 rounded-full "
               onClick={() => {
                 setIsOpen(false);
                 Router.reload();
