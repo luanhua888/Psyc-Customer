@@ -31,7 +31,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 export default function HistoryBooking() {
   const [isOpen, setisOpen] = useState(false);
 
@@ -281,10 +280,13 @@ export default function HistoryBooking() {
                                         height={40}
                                         alt=""
                                         onClick={() =>
-                                          router.push({
-                                            pathname: "/videoCall",
-                                            query: { roomCall: row.id },
-                                          })
+                                          // thời gian còn 5p thì mới cho vào
+                                          row.timeStart - 5 <= 0
+                                            ? alert("Thời gian đã hết")
+                                            : router.push({
+                                                pathname: "/videoCall",
+                                                query: { roomCall: row.id },
+                                              })
                                         }
                                       />
                                     </div>
@@ -394,7 +396,6 @@ export default function HistoryBooking() {
                           <Table.HeadCell>Thời gian kết thúc</Table.HeadCell>
                           <Table.HeadCell>Trạng thái</Table.HeadCell>
                           <Table.HeadCell>Đánh giá</Table.HeadCell>
-
                           {/* </tr> */}
                         </Table.Head>
                         {historyBooking.length > 0 ? (
@@ -419,25 +420,40 @@ export default function HistoryBooking() {
                                 )} `}</Table.Cell>
                                 <Table.Cell>{row.timeStart}</Table.Cell>
                                 <Table.Cell>{row.timeEnd}</Table.Cell>
-                                {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
-
-                                <Table.Cell>Đã kết thúc</Table.Cell>
-                                {/* <Table.Cell>{row.bookingId}</Table.Cell> */}
                                 <Table.Cell>
-                                  <div>
-                                    <Image
-                                      className="cursor-pointer"
-                                      src={rateIcon}
-                                      width={40}
-                                      height={40}
-                                      alt=""
-                                      onClick={() =>
-                                        handleVoteRate(
-                                          setBookingId(row.bookingId)
-                                        )
-                                      }
-                                    />
-                                  </div>
+                                  {row.status === "success" ? (
+                                    <span className="text-[#59ED0C]">
+                                      Đã hoàn thành
+                                    </span>
+                                  ) : row.status === "cancel" ? (
+                                    <span className="text-[#E78F13]">
+                                      Đã Hủy
+                                    </span>
+                                  ) : (
+                                    <span className="text-[#49E6C3]">
+                                      Quá hạn
+                                    </span>
+                                  )}
+                                </Table.Cell>
+                                <Table.Cell>
+                                  {row.status === "success" ? (
+                                    <div>
+                                      <Image
+                                        className="cursor-pointer"
+                                        src={rateIcon}
+                                        width={40}
+                                        height={40}
+                                        alt=""
+                                        onClick={() =>
+                                          handleVoteRate(
+                                            setBookingId(row.bookingId)
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  ) : (
+                                    <div></div>
+                                  )}
                                 </Table.Cell>
                               </Table.Row>
                             ))}
