@@ -26,6 +26,7 @@ import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 import Skeleton from "@mui/material/Skeleton";
 import ModalStarCus from "../../components/modal/ModalStarCus";
 import ModalResultSurvey from "../../components/modal/ModalResultSurvey";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 
 export async function getServerSideProps(context) {
@@ -115,6 +116,7 @@ export default function Profile(props) {
   };
   const [btnSubmit, setBtnSubmit] = useState(false);
   const [Btndisable, setBtndisable] = useState(true);
+  const [openDelete, setopenDelete] = useState(false);
   const [btnDisplayToast, setBtnDisplayToast] = useState(false);
   const handleOpenModalStarMap = () => {
     modalStarMapRef.current?.open();
@@ -129,6 +131,7 @@ export default function Profile(props) {
   }, []);
 
   const handleDeleteSupProfile = async (id) => {
+
     if (localStorage.getItem("jwttoken")) {
       const data = await profileService.deleteSupProfile(id);
 
@@ -138,6 +141,12 @@ export default function Profile(props) {
       modalEditSupProfileRef.current?.close();
     }
   };
+
+  const handleCloseDelete = async (id) => {
+    setopenDelete(false);
+  };
+
+
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -735,10 +744,50 @@ export default function Profile(props) {
                                       width={20}
                                       height={20}
                                       alt=""
+                              
+
+
                                       onClick={() =>
-                                        handleDeleteSupProfile(item.id)
+                                        setopenDelete(true)
                                       }
                                     />
+                                    <Dialog
+                                      open={openDelete}
+                                      onClose={handleCloseDelete}
+                                      aria-labelledby="alert-dialog-title"
+                                      aria-describedby="alert-dialog-description"
+                                    >
+                                      <DialogTitle id="alert-dialog-title">
+                                        {"Xác nhận xóa hồ sơ"}
+                                      </DialogTitle>
+                                      <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                          Bạn có chắc chắn muốn xóa hồ sơ này?
+                                        </DialogContentText>
+                                      </DialogContent>
+                                      <DialogActions>
+
+                                        <Button
+                                          onClick={handleCloseDelete}
+                                          color="primary"
+                                        >
+                                          Hủy
+                                        </Button>
+                                        <Button
+                                          onClick={() => {
+                                            handleDeleteSupProfile(
+                                              item.id
+                                            );
+                                            handleCloseDelete();
+                                          }}
+                                          color="primary"
+                                          autoFocus
+                                        >
+                                          Xác nhận
+                                        </Button>
+                                      </DialogActions>
+                                    </Dialog>
+
                                   </div>
                                   <div>
                                     <Image
@@ -776,7 +825,7 @@ export default function Profile(props) {
                                       height={20}
                                       alt=""
                                       onClick={() =>
-                                        getLovecompatility(item.id, item.name)
+                                       setopenDelete(true)
                                       }
                                     />
                                   </div>

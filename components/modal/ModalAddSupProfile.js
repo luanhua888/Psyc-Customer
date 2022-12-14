@@ -147,6 +147,34 @@ const ModalRegister = forwardRef((props, ref) => {
           message: "Vui lòng nhập họ tên",
         });
       }
+
+
+      if (
+        // không bắt đầu bằng số
+
+        // không chứa ký tự đặc biệt
+        /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/.test(
+          dataForm.fullname
+        ) ||
+        // không chứa các ký tự ! @ # $ % ^ & * ( ) _ + = { } [ ] : ; " ' < > , . ? / \ | ~ ` - 0-9
+        /[\!@#$%\^&\*\(\)_\+\=\{\}\[\]\:\;\"\'\<\>\,\.\?\/\\\|\~\`\-\d]/.test(
+          dataForm.fullname
+        )
+
+        // không chứa khoảng trắng liên tiếp
+
+        // độ dài từ 6 đến 30 ký tự
+      ) {
+        setErrorMessagesFullName({
+          isError: true,
+          message: "Họ tên không hợp lệ",
+        });
+      }
+
+
+
+
+
       if (!dataForm.username) {
         setErrorMessagesUsername({
           isError: true,
@@ -472,7 +500,7 @@ const ModalRegister = forwardRef((props, ref) => {
                               message: "",
                             })
                       }
-                      placeholder="Nhập nơi sinh"
+                      placeholder="Chọn nơi sinh"
                       value={dataForm.birthPlace}
                     />
                   </div>
