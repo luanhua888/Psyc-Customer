@@ -37,7 +37,7 @@ function FinalPage({
 
       if (data.statusCode == 201) {
         setResultSurvey(data);
-        // setLoading(false);
+        setLoading(false);
       }
     })();
   }, []);
