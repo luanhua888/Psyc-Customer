@@ -825,7 +825,7 @@ export default function Profile(props) {
                                       height={20}
                                       alt=""
                                       onClick={() =>
-                                       setopenDelete(true)
+                                        getLovecompatility(item.id, item.name)
                                       }
                                     />
                                   </div>
