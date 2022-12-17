@@ -34,7 +34,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 export default function VideoCall() {
   const router = useRouter();
 
@@ -45,10 +44,10 @@ export default function VideoCall() {
   };
 
   console.log("roomCall1", roomCall);
-  useEffect(() => {
-    document.getElementById("noCam").style.display = "none";
-    document.getElementById("noMic").style.display = "none";
-  }, []);
+  // useEffect(() => {
+  //   document.getElementById("noCam").style.display = "none";
+  //   document.getElementById("noMic").style.display = "none";
+  // }, []);
 
   const [room, setRoom] = useState([]);
   const [token, setToken] = useState([]);
@@ -90,18 +89,30 @@ export default function VideoCall() {
     localAudioTrack: null,
   };
 
+  const publicVideo = async () => {};
+
   const join = async () => {
     rtc.client = AgoraRTC.createClient(config);
-    await rtc.client.join(options.appId, channel, token || null);
-    rtc.client.publish(rtc.localVideoTrack);
-    rtc.client.publish(rtc.localAudioTrack);
+    await rtc.client.join(options.appId, channel, token);
+    // rtc.client.publish(rtc.localVideoTrack);
+    // rtc.client.publish(rtc.localAudioTrack);
+    startVideo();
+
+    setPublishVideo(true);
+  };
+  const leave = async () => {
+  
   };
 
   const handleConfirmExit = () => {
     setOpenDialog(true);
   };
 
+  const [publishVideo, setPublishVideo] = useState(false);
+
   async function startOneToOneVideoCall() {
+    rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+    rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
     join().then(() => {
       rtc.client.on("user-published", async (user, mediaType) => {
         if (rtc.client._users.length > 2) {
@@ -111,6 +122,9 @@ export default function VideoCall() {
           );
           return;
         }
+
+        rtc.client.publish(rtc.localVideoTrack);
+        rtc.client.publish(rtc.localAudioTrack);
 
         await rtc.client.subscribe(user, mediaType);
         if (mediaType === "video") {
@@ -127,8 +141,6 @@ export default function VideoCall() {
 
   const startVideo = async () => {
     rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-    // rtc.client.publish(rtc.localVideoTrack);
-
     rtc.localVideoTrack.play("local");
   };
 
@@ -138,34 +150,61 @@ export default function VideoCall() {
     rtc.localAudioTrack.play();
   };
 
-  const stopVideo = () => {
-    rtc.localVideoTrack.stop();
-
-    // rtc.client.unpublish(rtc.localVideoTrack);
+  const stopVideo = async () => {
+    if (publishVideo == true) {
+      rtc.localVideoTrack.stop();
+    } else {
+      AgoraRTC.rtc.client.unpublish(rtc.localVideoTrack);
+      setPublishVideo(true);
+      rtc.localVideoTrack.play();
+    }
   };
 
   const stopAudio = () => {
-    rtc.localAudioTrack.stop();
-    // rtc.client.unpublish(rtc.localAudioTrack);
+    // xóa client audio track hiện tại
+    router.push("/chat");
   };
   const [loadConnect, setLoadConnect] = useState(true);
   const [loadMic, setLoadMic] = useState(true);
   const [loadCam, setLoadCam] = useState(true);
 
-  const [now1, setNow] = useState(new Date());
+  const [now1, setNow] = useState(
+    // lấy thời gian hiện tại việt nam
+    new Date(new Date().getTime())
+  );
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setNow(new Date());
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date(new Date().getTime()));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const [time, setTime] = useState(1800000);
+
+  const countdown = () => {
+    const interval = setInterval(() => {
+      setTime((time) => time - 1000);
+    }, 1000);
+    return () => clearInterval(interval);
+  };
+
+  // tắt share screen
+
+
 
   return (
     <div>
-      {/* <div className="text-3xl font-bold text-[#ff7010] m-4 flex justify-center">{now1.toISOString().slice(11, 19)}</div> */}
+      <div className="text-3xl font-bold text-[#ff7010] flex justify-end mx-5">
+        {/* {now1.getHours()}:{now1.getMinutes()}:{now1.getSeconds()} */}
+        {/* hiển thị phút giây của cuộc gọi */}
+        Thời gian còn lại: {Math.floor(time / 60000)}:
+        {Math.floor((time % 60000) / 1000)}
+        {/* nếu 0 thì hiện thị 00 */}
+        {Math.floor((time % 60000) / 1000) < 10 ? "0" : ""}
+      </div>
 
-      <div className="m-auto   rounded shadow-lg  max-w-[98%] max-h-[100%] bg-white   p-2 place-items-center mt-[4%] ">
+      <div className="m-auto   rounded shadow-lg  max-w-[98%] max-h-[100%] bg-white   p-2 place-items-center ">
         <div className="">
           <div
             className="d-flex flex 
@@ -186,7 +225,7 @@ export default function VideoCall() {
               className="items-center m-auto
             "
             >
-              <Image
+              {/* <Image
                 src={camera}
                 id="camera"
                 onClick={() => {
@@ -215,6 +254,7 @@ export default function VideoCall() {
                 height={45}
                 className="items-center  cursor-pointer"
               />
+              
               <Image
                 src={mic}
                 id="mic"
@@ -240,10 +280,18 @@ export default function VideoCall() {
                 width={45}
                 height={45}
                 className="items-center  cursor-pointer"
-              />
+              /> */}
 
               {loadConnect ? (
-                <Image
+                <div
+                  onClick={() => {
+                    startOneToOneVideoCall();
+                    setLoadConnect(false);
+                    countdown();
+                  }}
+                  className="flex items-center cursor-pointer justify-center px-2 bg-[#ff7010] text-white font-bold rounded-lg border border-transparent shadow-sm w-[100%] h-[50px] hover:bg-[#ff7010] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff7010] mt-2"
+                >
+                  {/* <Image
                   src={connect}
                   id="connect"
                   onClick={() => {
@@ -254,9 +302,17 @@ export default function VideoCall() {
                   width={45}
                   height={45}
                   className="items-center cursor-pointer "
-                />
+                /> */}
+                  Tham Gia Cuộc Gọi
+                </div>
               ) : (
-                <Image
+                <div
+                  onClick={() => {
+                    handleConfirmExit();
+                  }}
+                  className="flex items-center justify-center px-2 bg-[#ff7010] text-white font-bold rounded-lg border border-transparent shadow-sm w-[100%] h-[50px] hover:bg-[#ff7010] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff7010] mt-2"
+                >
+                  {/* <Image
                   src={disconnect}
                   id="disconnect"
                   onClick={() => {
@@ -266,7 +322,9 @@ export default function VideoCall() {
                   width={40}
                   height={40}
                   className="items-center cursor-pointer mt-2"
-                />
+                /> */}
+                  Thoát Cuộc Gọi
+                </div>
               )}
 
               {/* hiển thị dialog */}
@@ -295,9 +353,13 @@ export default function VideoCall() {
                     Không
                   </Button>
                   <Button
-                    onClick={() =>
-                      //reset lại trang web
-                      window.location.reload(router.push("/"))
+                    onClick={
+                      () =>
+                        // window.location.reload()
+                        router.push("/historyBooking")
+                      // tắt sử dụng camera và mic của máy
+
+                      //reaload lại trang web và chuyển tới history
                     }
                     className="text-[#ff7010] hover:bg-[#455f71]"
                     autoFocus

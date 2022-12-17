@@ -436,7 +436,7 @@ export default function HistoryBooking() {
                                   )}
                                 </Table.Cell>
                                 <Table.Cell>
-                                  {row.status === "success" ? (
+                                  {row.rating === null && row.status != "cancel"  && row.status !="overdue"  ? (
                                     <div>
                                       <Image
                                         className="cursor-pointer"
@@ -452,7 +452,24 @@ export default function HistoryBooking() {
                                       />
                                     </div>
                                   ) : (
-                                    <div></div>
+                                    <div>
+                                     {row.rating !== null  && row.status != "overdue" ? (
+                                      <div className="">
+                                        <span className=" flex">
+                                         {row.rating} <p className="text-[#FFF200]">✭</p>
+                                        </span>
+
+                                      </div>
+                                     ) : (
+                                      <div>
+                                        <span className="text-[#E78F13]">
+                                          Đã Hủy
+                                        </span>
+                                      </div>
+                                    )
+                                      
+                                      }
+                                    </div>
                                   )}
                                 </Table.Cell>
                               </Table.Row>

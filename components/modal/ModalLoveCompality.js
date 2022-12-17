@@ -30,7 +30,7 @@ const ModalLoveCompality = forwardRef((love, ref) => {
   }));
 
   return (
-    <div className="absolute top-10">
+    <div className="absolute top-10 z-50">
       <Modal
         classes="overflow-auto max-w-full max-h-full w-[90%]  h-[80%]  bg-white rounded-lg  items-center justify-center bg-[#17384e]"
         isOpen={isOpen}

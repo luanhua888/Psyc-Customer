@@ -14,6 +14,7 @@ import profileAvatar from "../../public/photos/profile-avatar.png";
 import { userService } from "../../services/UserService";
 import successIcon from "../../public/photos/icon/Success.png";
 import { slotBookingService } from "../../services/SlotBookingService";
+import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/display-name
 const ModalVoteRate = forwardRef((bookingId, ref) => {
@@ -59,6 +60,8 @@ const ModalVoteRate = forwardRef((bookingId, ref) => {
 
         if (data.statusCode == 200) {
           setIsOpen(false);
+          Router.reload();
+          toast.success("Đánh giá thành công");
         }
       }
     } catch (error) {
