@@ -78,6 +78,9 @@ export default function Profile(props) {
     getSupProfile();
   };
 
+  const [totalpage, setTotalpage] = useState(0);
+
+  console.log("totalpage", totalpage);
   const pageCount = 5;
 
   const onSubmit = async (data) => {
@@ -157,6 +160,8 @@ export default function Profile(props) {
       );
       if (data.statusCode == 200) {
         setSupProfile(data.data);
+        setTotalpage(data.totalpage);
+        // console.log("data oksff", data.totalpage);
       }
     }
   };
@@ -870,7 +875,7 @@ export default function Profile(props) {
                           }
                         }}
                         showIcons={true}
-                        totalPages={pageCount}
+                        totalPages={totalpage}
                       />
                     </div>
                   </div>

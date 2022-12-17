@@ -307,7 +307,7 @@ export default function Payment() {
                       "
                               id="amount"
                               name="amount"
-                              placeholder="50-20000"
+                              placeholder="50 - 20000 (1 gem = 1000 VND)"
                               onBlur={handleBlur}
                               value={amount}
                               onChange={(e) =>
@@ -328,7 +328,7 @@ export default function Payment() {
                       
                       "
                         >
-                          VND(k)
+                          Gem
                         </div>
                       </div>
 
@@ -484,7 +484,7 @@ export default function Payment() {
                       "
                               id="amount"
                               name="amount"
-                              placeholder="50-20000"
+                              placeholder="50 - 20000 (1 gem = 1000 VND)"
                               onBlur={handleBlur}
                               value={amount}
                               onChange={(e) =>
@@ -501,7 +501,7 @@ export default function Payment() {
                         </div>
                         {/* <div class="m-10"></div> */}
                         <div className="text-black flex flex-row justify-center items-center ">
-                          VND(k)
+                         Gem
                         </div>
                       </div>
 
@@ -654,7 +654,7 @@ export default function Payment() {
                       "
                               id="amount"
                               name="amount"
-                              placeholder="50-20000"
+                              placeholder="50 - 20000 (1 gem = 1000 VND)"
                               onBlur={handleBlur}
                               value={amount}
                               onChange={(e) =>
@@ -671,7 +671,7 @@ export default function Payment() {
                         </div>
                         {/* <div class="m-10"></div> */}
                         <div className="text-black flex flex-row justify-center items-center ">
-                          VND(k)
+                          Gem
                         </div>
                       </div>
 
