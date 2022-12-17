@@ -61,7 +61,6 @@ const ModalVoteRate = forwardRef((bookingId, ref) => {
         if (data.statusCode == 200) {
           setIsOpen(false);
           Router.reload();
-          toast.success("Đánh giá thành công");
         }
       }
     } catch (error) {

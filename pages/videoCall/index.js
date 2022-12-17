@@ -355,8 +355,8 @@ export default function VideoCall() {
                   <Button
                     onClick={
                       () =>
-                        // window.location.reload()
-                        router.push("/historyBooking")
+                        window.location.reload()
+                        // router.push("/historyBooking")
                       // tắt sử dụng camera và mic của máy
 
                       //reaload lại trang web và chuyển tới history
