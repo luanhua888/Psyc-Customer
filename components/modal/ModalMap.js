@@ -66,9 +66,9 @@ const ModalMap = forwardRef((props, ref) => {
   }
 
   return (
-    <div className="absolute top-0 z-50">
+    <div className="absolute top-0 z-50 ">
       <Modal
-        classes="overflow-hidden max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg"
+        classes="overflow-hidden  max-w-full max-h-full w-2/3 h-auto p-4 bg-white rounded-lg my-auto items-center justify-center"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onDiscard={() => console.log("Button discard")}
@@ -96,7 +96,7 @@ const ModalMap = forwardRef((props, ref) => {
             defaultLocation={defaultLocation}
             zoom={zoom}
             mapTypeId="roadmap"
-            style={{ height: "500px" }}
+            style={{ height: "400px" }}
             onChangeLocation={onChangeLocation}
             onChangeLocationAddress={onChangeLocationAddress}
             onChangeZoom={handleChangeZoom}

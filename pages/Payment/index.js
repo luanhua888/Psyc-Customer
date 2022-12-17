@@ -74,7 +74,7 @@ export default function Payment() {
     if (amount < 0) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 20000",
+        message: "Số tiền nạp phải nằm trong khoảng 50 - 20000",
       });
     }
     if (amount > 20000) {
@@ -122,7 +122,7 @@ export default function Payment() {
     if (amount < 0) {
       setErrorMessages({
         isError: true,
-        message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 20000",
+        message: "Số tiền nạp phải nằm trong khoảng 50 - 20000",
       });
     }
     if (amount > 20000) {
@@ -173,7 +173,7 @@ export default function Payment() {
       if (amount < 0) {
         setErrorMessages({
           isError: true,
-          message: "Số tiền nạp phải lớn hơn 0 và nằm trong khoảng 50 - 20000",
+          message: "Số tiền nạp phải nằm trong khoảng 50 - 20000",
         });
       }
       if (amount > 20000) {

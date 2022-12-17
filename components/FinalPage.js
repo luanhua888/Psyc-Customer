@@ -88,7 +88,8 @@ function FinalPage({
             <button
               className="play_again_btn mx-5 bg-orange-500 p-2 rounded-md  text-white"
               onClick={() => {
-                Router.push("/");
+               //reload page
+               window.location.reload();
               }}
             >
               Thoát
