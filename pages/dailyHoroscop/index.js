@@ -141,7 +141,7 @@ export default function DailyHoroscop() {
                 <Image src={service7} height={40} width={40} alt="" />
               </span>
               <h4 className="as_subheading">Ngày Mai</h4>
-              <h5>{dayjs().add(1, "day").format("DD-MM-YYYY")}</h5>
+              <h5>{dayjs().add(1, "day").format("DD/MM/YYYY")}</h5>
               <button
                 className="text-white btnViewDaily font-bold px-10 mt-2 py-2 mb-[2%]
                   "
