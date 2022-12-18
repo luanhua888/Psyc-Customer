@@ -26,8 +26,13 @@ import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 import Skeleton from "@mui/material/Skeleton";
 import ModalStarCus from "../../components/modal/ModalStarCus";
 import ModalResultSurvey from "../../components/modal/ModalResultSurvey";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 export async function getServerSideProps(context) {
   const { req, res } = context;
@@ -134,7 +139,6 @@ export default function Profile(props) {
   }, []);
 
   const handleDeleteSupProfile = async (id) => {
-
     if (localStorage.getItem("jwttoken")) {
       const data = await profileService.deleteSupProfile(id);
 
@@ -148,8 +152,6 @@ export default function Profile(props) {
   const handleCloseDelete = async (id) => {
     setopenDelete(false);
   };
-
-
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -480,6 +482,42 @@ export default function Profile(props) {
                           validate={(values) => {
                             const errors = {};
 
+                            if (!values.fullname) {
+                              errors.fullname =
+                                "Thông tin này không được để trống";
+                            } else if (values.fullname.length > 15) {
+                              errors.fullname = "Must be 15 characters or less";
+                            }
+
+                            if (!values.address) {
+                              errors.address =
+                                "Thông tin này không được để trống";
+                            } else if (values.address.length > 20) {
+                              errors.address = "Must be 20 characters or less";
+                            }
+
+                            const getAge = (dateString) => {
+                              var today = new Date();
+                              var birthDate = new Date(dateString);
+                              var age =
+                                today.getFullYear() - birthDate.getFullYear();
+                              var m = today.getMonth() - birthDate.getMonth();
+                              if (
+                                m < 0 ||
+                                (m === 0 &&
+                                  today.getDate() < birthDate.getDate())
+                              ) {
+                                age--;
+                              }
+                              return age;
+                            };
+
+                            if (!values.dob) {
+                              errors.dob = "Required";
+                            } else if (getAge(values.dob) < 18) {
+                              errors.dob = "Bạn phải trên 18 tuổi";
+                            }
+
                             return errors;
                           }}
                           // btnSubmit = true;  thì cho phép submit form và hiển thị modal
@@ -490,7 +528,6 @@ export default function Profile(props) {
                             values,
                             errors,
                             touched,
-
                             handleChange,
                             handleBlur,
                             handleSubmit,
@@ -507,12 +544,20 @@ export default function Profile(props) {
                               />
                               <div class="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
-                                  <label
-                                    for="fullname"
-                                    class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
-                                  >
-                                    Họ và Tên
-                                  </label>
+                                  <div className="flex ">
+                                    <label
+                                      for="fullname"
+                                      class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
+                                    >
+                                      Họ và Tên
+                                    </label>
+                                    <div className="mx-[10%] text-[#ff7010] ">
+                                   
+                                      {errors.fullname &&
+                                        touched.fullname &&
+                                        errors.fullname}
+                                    </div>
+                                  </div>
                                   <input
                                     disabled={Btndisable} // false
                                     type="text"
@@ -535,7 +580,7 @@ export default function Profile(props) {
                                     Nơi sinh
                                   </label>
                                   <input
-                                    disabled={Btndisable} // false
+                                    disabled={Btndisable}
                                     id="address"
                                     name="address"
                                     class="p-3 rounded border-collapse outline-[#5c7383] w-full outline  focus:outline-[#ff7010] focus:ring-[#ff7010] bg-[#17384e] hover:outline-2 hover:outline-[#ff7010]"
@@ -572,12 +617,15 @@ export default function Profile(props) {
                                   </select>
                                 </div>
                                 <div>
-                                  <label
+                                 <div className="flex">
+                                 <label
                                     for="dob"
                                     class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300"
                                   >
-                                    Ngày tháng năm sinh
+                                    <p>Ngày tháng năm sinh</p>
                                   </label>
+                                  <div className="mx-[10%] text-[#ff7010] ">{errors.dob && touched.dob && errors.dob}</div>
+                                 </div>
                                   <input
                                     disabled={Btndisable} // false
                                     type="datetime-local"
@@ -591,6 +639,11 @@ export default function Profile(props) {
                                       new Date(values.dob)
                                     ).format("YYYY-MM-DDTHH:mm")}
                                     required
+
+                                    // không cho chọn ngày trước ngày hiện tại
+                                    max={dayjs(new Date()).format(
+                                      "YYYY-MM-DDTHH:mm"
+                                    )}
                                   />
                                 </div>
                               </div>
@@ -652,15 +705,14 @@ export default function Profile(props) {
                                   onClick={() => {
                                     if (btnSubmit == true) {
                                       setBtnSubmit(false);
-                                     
-                                      
+                                      setBtndisable(true);
                                     } else {
                                       setBtnSubmit(true);
                                       setBtndisable(false);
                                     }
                                   }}
                                 >
-                                  {btnSubmit == true ? "Lưu" : "Cập nhật" }
+                                  {btnSubmit == true ? "Lưu" : "Cập nhật"}
                                 </button>
                               </div>
                             </form>
@@ -691,7 +743,7 @@ export default function Profile(props) {
                   <h1 className="text-center mb-6 text-slate-700 font-bold text-3xl pb-5 border-b-4 border-b-slate-700 flex flex-row">
                     <p className="w-[100%] ">
                       <span className="pr-[20%] pl-[24%] text-[#ff7010]">
-                        Danh sách các hồ sơ khác
+                        Danh sách các hồ sơ phụ
                       </span>
                       <Image
                         src={addIcon}
@@ -749,12 +801,7 @@ export default function Profile(props) {
                                       width={20}
                                       height={20}
                                       alt=""
-                              
-
-
-                                      onClick={() =>
-                                        setopenDelete(true)
-                                      }
+                                      onClick={() => setopenDelete(true)}
                                     />
                                     <Dialog
                                       open={openDelete}
@@ -771,7 +818,6 @@ export default function Profile(props) {
                                         </DialogContentText>
                                       </DialogContent>
                                       <DialogActions>
-
                                         <Button
                                           onClick={handleCloseDelete}
                                           color="primary"
@@ -780,9 +826,7 @@ export default function Profile(props) {
                                         </Button>
                                         <Button
                                           onClick={() => {
-                                            handleDeleteSupProfile(
-                                              item.id
-                                            );
+                                            handleDeleteSupProfile(item.id);
                                             handleCloseDelete();
                                           }}
                                           color="primary"
@@ -792,7 +836,6 @@ export default function Profile(props) {
                                         </Button>
                                       </DialogActions>
                                     </Dialog>
-
                                   </div>
                                   <div>
                                     <Image

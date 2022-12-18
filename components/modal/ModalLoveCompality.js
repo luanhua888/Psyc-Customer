@@ -42,7 +42,7 @@ const ModalLoveCompality = forwardRef((love, ref) => {
       >
         <div className="flex flex-row justify-center">
           <span className=" text-white  text-3xl flex flex-row justify-center mb-2 border-b-2 border-[#ff7010] ">
-            Tương Thích Với Hộ Sơ Phụ
+            Tương Thích Với Hồ Sơ Phụ
           </span>
         </div>
         <div className="flex flex-col justify-between items-center text-xl px-[10%]">

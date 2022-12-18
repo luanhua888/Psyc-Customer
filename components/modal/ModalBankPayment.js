@@ -82,7 +82,7 @@ const ModalBankPayment = forwardRef((amount, ref) => {
   }, [time]);
 
   return (
-    <div className=" absolute top-0">
+    <div className=" absolute top-0 z-50">
       <Modal
         classes="overflow-hidden absolute px-2 py-2 h-50 max-w-[600px] rounded bg-white"
         isOpen={isOpen}
