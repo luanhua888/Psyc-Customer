@@ -26,8 +26,13 @@ import ModalLoveCompality from "../../components/modal/ModalLoveCompality";
 import Skeleton from "@mui/material/Skeleton";
 import ModalStarCus from "../../components/modal/ModalStarCus";
 import ModalResultSurvey from "../../components/modal/ModalResultSurvey";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 export async function getServerSideProps(context) {
   const { req, res } = context;
@@ -134,7 +139,6 @@ export default function Profile(props) {
   }, []);
 
   const handleDeleteSupProfile = async (id) => {
-
     if (localStorage.getItem("jwttoken")) {
       const data = await profileService.deleteSupProfile(id);
 
@@ -148,8 +152,6 @@ export default function Profile(props) {
   const handleCloseDelete = async (id) => {
     setopenDelete(false);
   };
-
-
 
   const getSupProfile = async () => {
     if (localStorage.getItem("jwttoken")) {
@@ -487,9 +489,14 @@ export default function Profile(props) {
                             const getAge = (dateString) => {
                               var today = new Date();
                               var birthDate = new Date(dateString);
-                              var age = today.getFullYear() - birthDate.getFullYear();
+                              var age =
+                                today.getFullYear() - birthDate.getFullYear();
                               var m = today.getMonth() - birthDate.getMonth();
-                              if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                              if (
+                                m < 0 ||
+                                (m === 0 &&
+                                  today.getDate() < birthDate.getDate())
+                              ) {
                                 age--;
                               }
                               return age;
@@ -499,6 +506,24 @@ export default function Profile(props) {
                               errors.dob = "Bạn phải trên 18 tuổi";
                             }
 
+                            // regex họ tên không chứa số
+                            if (
+                              // không bắt đầu bằng số
+
+                              // không chứa ký tự đặc biệt
+                              /^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/.test(
+                                values.fullname
+                              ) ||
+                              // không chứa các ký tự ! @ # $ % ^ & * ( ) _ + = { } [ ] : ; " ' < > , . ? / \ | ~ ` - 0-9
+                              /[\!@#$%\^&\*\(\)_\+\=\{\}\[\]\:\;\"\'\<\>\,\.\?\/\\\|\~\`\-\d]/.test(
+                                values.fullname
+                              )
+
+                             
+                            ) {
+                              errors.fullname =
+                                "Họ tên không chứa số và ký tự đặc biệt";
+                            }
 
                             return errors;
                           }}
@@ -531,7 +556,7 @@ export default function Profile(props) {
                                     for="fullname"
                                     class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300 gap-2 flex"
                                   >
-                                   <p>Họ và tên</p> <p>{errors.fullname}</p>
+                                    <p>Họ và tên</p> <p>{errors.fullname}</p>
                                   </label>
                                   <input
                                     disabled={Btndisable} // false
@@ -596,7 +621,8 @@ export default function Profile(props) {
                                     for="dob"
                                     class="block mb-2 text-sm font-medium text-[#ff7010] dark:text-gray-300 flex gap-2"
                                   >
-                                    <p>Ngày tháng năm sinh</p> <p>{errors.dob}</p>
+                                    <p>Ngày tháng năm sinh</p>{" "}
+                                    <p>{errors.dob}</p>
                                   </label>
                                   <input
                                     disabled={Btndisable} // false
@@ -673,14 +699,13 @@ export default function Profile(props) {
                                     if (btnSubmit == true) {
                                       setBtnSubmit(false);
                                       setBtndisable(true);
-                                      
                                     } else {
                                       setBtnSubmit(true);
                                       setBtndisable(false);
                                     }
                                   }}
                                 >
-                                  {btnSubmit == true ? "Lưu" : "Cập nhật" }
+                                  {btnSubmit == true ? "Lưu" : "Cập nhật"}
                                 </button>
                               </div>
                             </form>
@@ -736,7 +761,7 @@ export default function Profile(props) {
                     <Table.HeadCell>Kinh độ</Table.HeadCell> */}
                         <Table.HeadCell>Giới Tính</Table.HeadCell>
                         <Table.HeadCell>Nơi Sinh</Table.HeadCell>
-                        <Table.HeadCell>Thao tác</Table.HeadCell>
+                        <Table.HeadCell>Xóa | Kết hợp </Table.HeadCell>
                       </Table.Head>
                       {supProfile.length > 0 ? (
                         <Table.Body className=" ">
@@ -758,10 +783,15 @@ export default function Profile(props) {
                               </Table.Cell>
                               {/* <Table.Cell>{item.latitude}</Table.Cell>
                         <Table.Cell>{item.longitude}</Table.Cell> */}
-                              <Table.Cell>{item.birthPlace}</Table.Cell>
+                              <Table.Cell>
+                                {/* nếu địa chỉ dài hơn 30 kí tự thì các kí tự còn lại hiển thị dấu ... */}
+                                {item.birthPlace.length > 40
+                                  ? item.birthPlace.slice(0, 40) + "..."
+                                  : item.birthPlace}
+                              </Table.Cell>
 
                               <Table.Cell>
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-3 ml-4">
                                   <div>
                                     <Image
                                       className="cursor-pointer"
@@ -769,12 +799,7 @@ export default function Profile(props) {
                                       width={20}
                                       height={20}
                                       alt=""
-                              
-
-
-                                      onClick={() =>
-                                        setopenDelete(true)
-                                      }
+                                      onClick={() => setopenDelete(true)}
                                     />
                                     <Dialog
                                       open={openDelete}
@@ -791,7 +816,6 @@ export default function Profile(props) {
                                         </DialogContentText>
                                       </DialogContent>
                                       <DialogActions>
-
                                         <Button
                                           onClick={handleCloseDelete}
                                           color="primary"
@@ -800,9 +824,7 @@ export default function Profile(props) {
                                         </Button>
                                         <Button
                                           onClick={() => {
-                                            handleDeleteSupProfile(
-                                              item.id
-                                            );
+                                            handleDeleteSupProfile(item.id);
                                             handleCloseDelete();
                                           }}
                                           color="primary"
@@ -812,9 +834,8 @@ export default function Profile(props) {
                                         </Button>
                                       </DialogActions>
                                     </Dialog>
-
                                   </div>
-                                  <div>
+                                  {/* <div>
                                     <Image
                                       className="cursor-pointer"
                                       src={editIcon}
@@ -827,7 +848,7 @@ export default function Profile(props) {
                                         )
                                       }
                                     />
-                                  </div>
+                                  </div> */}
                                   {/* <div>
                                     <Image
                                       className="cursor-pointer"

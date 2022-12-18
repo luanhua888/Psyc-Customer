@@ -28,7 +28,7 @@ const ModalStarMap = forwardRef((id, ref) => {
   }));
 
   return (
-    <div className="absolute top-0">
+    <div className="absolute top-0 z-50">
       <Modal
         classes="overflow-hidden max-w-full max-h-full w-[50%]  h-auto p-4 bg-white rounded-lg  items-center justify-center bg-[#17384e]"
         isOpen={isOpen}
