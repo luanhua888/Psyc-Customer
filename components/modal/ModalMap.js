@@ -15,7 +15,7 @@ const ModalMap = forwardRef((props, ref) => {
   const { onChangeLocation } = props;
   const { onChangeLocationAddress } = props;
 
-  const DefaultLocation = { lat: 10.8, lng: 106.8 };
+  const DefaultLocation = { lat: 10.841147556424625, lng: 106.8098727580314 };
   const DefaultZoom = 10;
 
   const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
