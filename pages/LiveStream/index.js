@@ -101,13 +101,13 @@ export default function LiveStream_r() {
       document.getElementById("leave-btn").style.display = onload;
 
       rtc.client.on("user-published", async (user, mediaType) => {
-        if (rtc.client._users.length > 2) {
-          rtc.client.leave();
-          stream__container.html(
-            '<div class="roomMessage"><p class="full">Please Wait Room is Full</p></div>'
-          );
-          return;
-        }
+        // if (rtc.client._users.length > 2) {
+        //   rtc.client.leave();
+        //   stream__container.html(
+        //     '<div class="roomMessage"><p class="full">Please Wait Room is Full</p></div>'
+        //   );
+        //   return;
+        // }
 
         await rtc.client.subscribe(user, mediaType);
         if (mediaType === "video") {
@@ -118,6 +118,7 @@ export default function LiveStream_r() {
           const remoteAudioTrack = user.audioTrack;
           remoteAudioTrack.play();
         }
+        
       });
     });
   }
