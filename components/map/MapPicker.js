@@ -118,7 +118,7 @@ const MapPicker = ({
         const Google = window.google;
         const validLocation = isValidLocation(defaultLocation)
             ? defaultLocation
-            : { lat: 10.844714400335658, lng: 106.77110633438444 };
+            : { lat: 10.8411629513043, lng: 106.80987275803136};
         map.current = new Google.maps.Map(
             document.getElementById(MAP_VIEW_ID),
             {
